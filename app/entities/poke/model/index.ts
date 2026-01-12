@@ -1,3 +1,12 @@
+export interface Poke {
+  id?: number;
+  dexNumber: number;
+  pokeKey: string;
+  sprite?: string;
+  name: string;
+  form?: string | null;
+}
+
 export const getPokeSpriteSrc = (sprite: string) => {
   const src = `https://raw.githubusercontent.com/jomoo02/poke_sprites/refs/heads/main/home/${sprite}.png`;
 

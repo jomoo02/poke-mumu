@@ -73,6 +73,26 @@
   --color-ring: var(--ring);
   --font-suit: var(--font-suit);
   --font-suite: var(--font-suite);
+
+  --color-normal: #949495;
+  --color-fire: #e56c3e;
+  --color-water: #5185c5;
+  --color-grass: #66a945;
+  --color-electric: #ebce3d;
+  --color-ice: #6dc8eb;
+  --color-fighting: #e09c40;
+  --color-poison: #735198;
+  --color-ground: #9c7743;
+  --color-flying: #a2c3e7;
+  --color-psychic: #dd6b7b;
+  --color-bug: #9fa244;
+  --color-rock: #bfb889;
+  --color-ghost: #684870;
+  --color-dragon: #535ca8;
+  --color-dark: #4c4948;
+  --color-steel: #69a9c7;
+  --color-fairy: #dab4d4;
+  --color-unknown: #a21caf;
 }
 
 @media (prefers-color-scheme: dark) {
