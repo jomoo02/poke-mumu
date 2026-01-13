@@ -93,6 +93,26 @@
   --color-steel: #69a9c7;
   --color-fairy: #dab4d4;
   --color-unknown: #a21caf;
+
+  --color-border-normal: #7e7e7f;
+  --color-border-fire: #c35c35;
+  --color-border-water: #4571a7;
+  --color-border-grass: #57903b;
+  --color-border-electric: #c8af34;
+  --color-border-ice: #5daac8;
+  --color-border-fighting: #be8536;
+  --color-border-poison: #624581;
+  --color-border-ground: #856539;
+  --color-border-flying: #8aa6c4;
+  --color-border-psychic: #bc5b69;
+  --color-border-bug: #878a3a;
+  --color-border-rock: #a29c74;
+  --color-border-ghost: #583d5f;
+  --color-border-dragon: #474e8f;
+  --color-border-dark: #413e3d;
+  --color-border-steel: #5990a9;
+  --color-border-fairy: #b999b4;
+  --color-border-unknown: #a21caf;
 }
 
 @media (prefers-color-scheme: dark) {

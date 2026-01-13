@@ -69,25 +69,25 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   };
 
   const shadowVariants: Record<string, string> = {
-    normal: 'shadow-normal/50',
-    fire: 'shadow-fire/50',
-    water: 'shadow-water/50',
-    grass: 'shadow-grass/50',
-    electric: 'shadow-electric/50',
-    ice: 'shadow-ice/50',
-    fighting: 'shadow-fighting/50',
-    poison: 'shadow-poison/50',
-    ground: 'shadow-ground/50',
-    flying: 'shadow-flying/50',
-    psychic: 'shadow-psychic/50',
-    bug: 'shadow-bug/50',
-    rock: 'shadow-rock/50',
-    ghost: 'shadow-ghost/50',
-    dragon: 'shadow-dragon/50',
-    dark: 'shadow-dark/50',
-    steel: 'shadow-steel/50',
-    fairy: 'shadow-fairy/50',
-    unknown: 'shadow-unknown/50',
+    normal: 'shadow-normal/30',
+    fire: 'shadow-fire/30',
+    water: 'shadow-water/30',
+    grass: 'shadow-grass/30',
+    electric: 'shadow-electric/30',
+    ice: 'shadow-ice/30',
+    fighting: 'shadow-fighting/30',
+    poison: 'shadow-poison/30',
+    ground: 'shadow-ground/30',
+    flying: 'shadow-flying/30',
+    psychic: 'shadow-psychic/30',
+    bug: 'shadow-bug/30',
+    rock: 'shadow-rock/30',
+    ghost: 'shadow-ghost/30',
+    dragon: 'shadow-dragon/30',
+    dark: 'shadow-dark/30',
+    steel: 'shadow-steel/30',
+    fairy: 'shadow-fairy/30',
+    unknown: 'shadow-unknown/30',
   };
 
   const borderColorVariatns: Record<string, string> = {
@@ -121,7 +121,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'h-7 w-15 px-px font-bold text-sm flex items-center justify-center rounded-md border text-white shrink-0 shadow-sm',
+        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-md border text-white shrink-0 text-shadow-lg',
         bg,
         borderColor,
         shadowColor,

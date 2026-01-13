@@ -12,3 +12,5 @@ export type SearchParams = {
   type?: string;
   direction?: string;
 };
+
+export { useSortPokedex, type SortKey, type Direction } from './useSortPokedex';

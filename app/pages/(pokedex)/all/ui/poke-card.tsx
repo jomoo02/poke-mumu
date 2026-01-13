@@ -40,23 +40,23 @@ export default function PokeCard({ poke }: PokeCardProps) {
   ];
 
   return (
-    <div className="border border-border rounded-2xl shadow-sm shadow-border flex flex-col p-6 gap-2">
+    <div className="border border-border rounded-2xl shadow-sm shadow-card flex flex-col p-6 gap-2 bg-card backdrop-blur-md">
       <Link
         href={href}
-        className="bg-accent/40 flex flex-col items-center rounded-2xl shadow-sm shadow-accent/40"
+        className="flex flex-col items-center rounded-2xl  border-border bg-accent/30 hover:bg-accent active:bg-accent shadow-accent/50 shadow-sm  "
         aria-label={`${name} 상세 페이지로 이동`}
       >
-        <div className="flex justify-center w-full p-4 ">
+        <div className="flex justify-center w-full p-4 z-10 ">
           <PokeSprite poke={poke} className="size-19" />
         </div>
         <div className="pb-4">
-          <div className="text-muted-foreground font-medium">
+          <div className="font-medium text-muted-foreground">
             No.{dexNumber}
           </div>
           <div className="text-foreground min-w-0 truncate font-medium text-lg">
             {name}
           </div>
-          <div className="text-muted-foreground text-sm truncate min-w-0 min-h-5">
+          <div className="text-muted-foreground text-sm truncate min-w-0 min-h-5 font-medium">
             {form}
           </div>
         </div>
