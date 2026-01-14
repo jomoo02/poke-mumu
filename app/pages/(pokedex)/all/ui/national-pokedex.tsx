@@ -1,12 +1,35 @@
 'use client';
 
+import { memo } from 'react';
+
 import { cn } from '@/app/shared/lib/cn';
+import { Type } from '@/app/entities/type/model';
 
 import { type NationalPokeView, useSortPokedex } from '../model';
 import PokeCard from './poke-card';
 import SortGroup from './sort-group';
-import { Type } from '@/app/entities/type/model';
 import TypeFilter from './type-filter';
+
+const Pokedex = memo(function Pokedex({
+  pokes,
+}: {
+  pokes: NationalPokeView[];
+}) {
+  return (
+    <div
+      className={cn(
+        'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-opacity',
+        'group-has-data-[state=pending]:opacity-40 group-has-data-[state=pending]:pointer-events-none',
+        'max-w-7xl p-6 w-full mx-auto',
+        // isStale ? 'opacity-40' : '',
+      )}
+    >
+      {pokes.map((poke) => (
+        <PokeCard key={poke.id} poke={poke} />
+      ))}
+    </div>
+  );
+});
 
 export default function NationalDex({
   pokes,
@@ -22,10 +45,17 @@ export default function NationalDex({
     filterType,
     direction,
     sortKey,
-  } = useSortPokedex(pokes, types);
+    isStale,
+  } = useSortPokedex(pokes);
+
   return (
     <div>
-      <div className="flex justify-center">
+      <div
+        className={cn(
+          isStale ? ' opacity-50 ' : '',
+          'flex justify-center transition duration-300',
+        )}
+      >
         <TypeFilter
           types={types}
           onChangeType={handleChangeFilterType}
@@ -33,21 +63,23 @@ export default function NationalDex({
         />
       </div>
 
-      <SortGroup
-        onClickSortButton={handleChangeSortKey}
-        direction={direction}
-        selectedSortKey={sortKey}
-      />
+      <div
+        className={cn(isStale ? ' opacity-50 ' : '', 'transition duration-300')}
+      >
+        <SortGroup
+          onClickSortButton={handleChangeSortKey}
+          direction={direction}
+          selectedSortKey={sortKey}
+        />
+      </div>
+
       <div
         className={cn(
-          'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-opacity',
-          'group-has-data-[state=pending]:opacity-40 group-has-data-[state=pending]:pointer-events-none',
-          'max-w-7xl p-6 w-full mx-auto',
+          isStale ? ' opacity-50 transition duration-300' : '',
+          'transition duration-300',
         )}
       >
-        {sortedPokes.map((poke) => (
-          <PokeCard key={poke.id} poke={poke} />
-        ))}
+        <Pokedex pokes={sortedPokes} />
       </div>
     </div>
   );

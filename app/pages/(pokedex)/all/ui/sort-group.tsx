@@ -1,10 +1,11 @@
 'use client';
 
-import { ArrowUp, ArrowDown, ArrowDownUp } from 'lucide-react';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 import Button from '@/app/shared/ui/button';
-import { type SortKey, type Direction } from '../model';
 import { cn } from '@/app/shared/lib/cn';
+
+import { type SortKey, type Direction } from '../model';
 
 interface SortGroupProps {
   onClickSortButton: (v: string) => void;
@@ -64,8 +65,10 @@ export default function SortGroup({
           key={item.sortKey}
           onClick={() => onClickSortButton(item.sortKey)}
           className={cn(
-            'py-2 px-3 border border-border text-base rounded-lg bg-card',
-            item.sortKey === selectedSortKey && 'border-primary bg-primary/10',
+            'py-2 px-3 border border-border rounded-lg bg-card text-sm',
+            item.sortKey === selectedSortKey
+              ? 'border-primary bg-primary/10'
+              : 'hover:bg-accent',
           )}
         >
           {item.content}
@@ -78,7 +81,7 @@ export default function SortGroup({
               )}
             </>
           ) : (
-            <ArrowDownUp className="size-4" />
+            <div className="size-4" />
           )}
         </Button>
       ))}

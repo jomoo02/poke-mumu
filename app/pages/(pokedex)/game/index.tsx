@@ -1,6 +1,5 @@
 import Link from 'next/link';
 
-import Card from './ui/card';
 import {
   generation1,
   generation2,
@@ -11,8 +10,9 @@ import {
   generation7,
   generation8,
   generation9,
-} from './config';
+} from '../pokedex/config';
 
+import Card from '../pokedex/ui/card';
 const regionalDex = [
   { gen: '1세대', genDexs: generation1 },
   { gen: '2세대', genDexs: generation2 },
@@ -24,25 +24,10 @@ const regionalDex = [
   { gen: '8세대', genDexs: generation8 },
   { gen: '9세대', genDexs: generation9 },
 ];
-
-export default function PokedexPageUI() {
+export default function PokedexGamePageUI() {
   return (
-    <div className="flex flex-col max-w-7xl w-full mx-auto p-6">
-      <h1
-        className="text-4xl font-semibold tracking-tight scroll-m-24"
-        id="dex"
-      >
-        도감
-      </h1>
-      <p className="py-10 text-muted-foreground">{`${'전국도감 및 세대·버전별 지역도감 목록'}`}</p>
-      <h2 className="text-3xl font-semibold mb-6">전국도감</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Card title="전국도감" href="/pokedex/all" subTitle="National Pokédex">
-          모든 포켓몬 정보
-        </Card>
-      </div>
-      <div className="w-full bg-border h-px my-8 sm:my-10" />
-      <h2 className="text-3xl font-semibold mb-6">지역도감</h2>
+    <div className="max-w-7xl mx-auto w-full p-6">
+      <h1>게임별 도감</h1>
       <div className="flex flex-col">
         {regionalDex.map(({ gen, genDexs }) => (
           <div key={gen} className="flex flex-col">

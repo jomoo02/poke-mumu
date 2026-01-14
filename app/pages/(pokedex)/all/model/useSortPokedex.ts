@@ -1,5 +1,5 @@
-import { type Type } from '@/app/entities/type/model';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useDeferredValue } from 'react';
+
 import { NationalPokeView } from '.';
 
 const SORT_KEY_LIST = [
@@ -43,29 +43,38 @@ const comparators: Record<
   speed: (a, b) => a.speed - b.speed,
 };
 
-export function useSortPokedex(pokes: NationalPokeView[], types: Type[]) {
+export function useSortPokedex(pokes: NationalPokeView[]) {
   const [sortKey, setSortKey] = useState<SortKey>('dexNumber');
   const [filterType, setFilterType] = useState<string>('all');
   const [direction, setDirection] = useState<Direction>('asc');
 
+  const deferredSortKey = useDeferredValue(sortKey);
+  const deferredDirection = useDeferredValue(direction);
+  const deferredFilterType = useDeferredValue(filterType);
+
+  const isStale =
+    sortKey !== deferredSortKey ||
+    direction !== deferredDirection ||
+    filterType !== deferredFilterType;
+
   const filteredPokes = useMemo(() => {
-    if (filterType === 'all') {
+    if (deferredFilterType === 'all') {
       return [...pokes];
     }
     return [...pokes].filter(
       (poke) =>
-        poke.type1?.identifier === filterType ||
-        poke.type2?.identifier === filterType,
+        poke.type1?.identifier === deferredFilterType ||
+        poke.type2?.identifier === deferredFilterType,
     );
-  }, [pokes, filterType]);
+  }, [pokes, deferredFilterType]);
 
   const sortedPokes = useMemo(() => {
-    const cmp = comparators[sortKey];
+    const cmp = comparators[deferredSortKey];
     if (!cmp) {
       return [...filteredPokes];
     }
 
-    const factor = direction === 'asc' ? 1 : -1;
+    const factor = deferredDirection === 'asc' ? 1 : -1;
 
     return [...filteredPokes].sort((a, b) => {
       const res = factor * cmp(a, b);
@@ -74,13 +83,13 @@ export function useSortPokedex(pokes: NationalPokeView[], types: Type[]) {
         return res;
       }
 
-      if (sortKey !== 'dexNumber') {
+      if (deferredSortKey !== 'dexNumber') {
         return a.dexNumber - b.dexNumber;
       }
 
       return (a.id ?? -1) - (b.id ?? -1);
     });
-  }, [direction, filteredPokes, sortKey]);
+  }, [deferredDirection, filteredPokes, deferredSortKey]);
 
   const handleChangeFilterType = (target: string) => {
     setFilterType(target);
@@ -105,5 +114,6 @@ export function useSortPokedex(pokes: NationalPokeView[], types: Type[]) {
     filterType,
     direction,
     sortKey,
+    isStale,
   };
 }

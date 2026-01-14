@@ -1,8 +1,7 @@
 import { createClient } from '@/app/shared/lib/supabase/client';
 import { Tables } from '@/types_db';
 
-import { type SearchParams, type NationalPokeView } from '../model';
-import { validateSearchParams } from './validate';
+import { type NationalPokeView } from '../model';
 
 type NationalPokeDto = Tables<'national_pokedex_with_stat'>;
 
@@ -36,25 +35,16 @@ const adaptNationPokeView = (dto: NationalPokeDto): NationalPokeView => {
   };
 };
 
-export const getNationalPokedex = async (searchParams: SearchParams) => {
+export const getNationalPokedex = async () => {
   'use cache';
 
   const supabase = createClient();
 
-  const { sortColumn, direction, type } = validateSearchParams(searchParams);
-
-  let query = supabase
+  const { data, error } = await supabase
     .from('national_pokedex_with_stat')
     .select('*')
     .order('dex_number', { ascending: true })
     .order('id', { ascending: true });
-
-  if (type !== 'all') {
-    query = query.or(`type1_identifier.eq.${type},type2_identifier.eq.${type}`);
-  }
-
-  query = query.order(sortColumn, { ascending: direction === 'asc' });
-  const { data, error } = await query;
 
   if (error) {
     console.error('Supabase error:', error);

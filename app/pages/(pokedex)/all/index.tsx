@@ -5,7 +5,7 @@ import NationalDex from './ui/national-pokedex';
 
 export default async function PokedexAllPageUI() {
   const [nationPokedex, allType] = await Promise.all([
-    getNationalPokedex({}),
+    getNationalPokedex(),
     getAllType(),
   ]);
 

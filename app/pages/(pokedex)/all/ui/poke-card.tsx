@@ -1,9 +1,8 @@
 import Link from 'next/link';
 
-import { cn } from '@/app/shared/lib/cn';
 import { PokeSprite } from '@/app/entities/poke/ui';
 import { formatNumber } from '@/app/shared/lib/format';
-import { TypeIcon, TypeBadge } from '@/app/entities/type/ui';
+import { TypeBadge } from '@/app/entities/type/ui';
 
 import { type NationalPokeView } from '../model';
 
@@ -24,11 +23,13 @@ export default function PokeCard({ poke }: PokeCardProps) {
     speed,
     type1,
     type2,
+    pokeKey,
+    dexNumber,
   } = poke;
 
-  const dexNumber = formatNumber(poke.dexNumber);
+  const formattedDexNumber = formatNumber(dexNumber);
 
-  const href = `/pokedex/${poke.dexNumber}/${poke.pokeKey}`;
+  const href = `/pokedex/${dexNumber}/${pokeKey}`;
 
   const baseStats = [
     { value: hp, content: 'HP' },
@@ -43,7 +44,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
     <div className="border border-border rounded-2xl shadow-sm shadow-card flex flex-col p-6 gap-2 bg-card backdrop-blur-md">
       <Link
         href={href}
-        className="flex flex-col items-center rounded-2xl  border-border bg-accent/30 hover:bg-accent active:bg-accent shadow-accent/50 shadow-sm  "
+        className="flex flex-col items-center rounded-2xl border  border-border bg-muted/40 hover:bg-accent active:bg-accent shadow-muted/70 shadow-sm  "
         aria-label={`${name} 상세 페이지로 이동`}
       >
         <div className="flex justify-center w-full p-4 z-10 ">
@@ -51,7 +52,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
         </div>
         <div className="pb-4">
           <div className="font-medium text-muted-foreground">
-            No.{dexNumber}
+            No.{formattedDexNumber}
           </div>
           <div className="text-foreground min-w-0 truncate font-medium text-lg">
             {name}
@@ -61,7 +62,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
           </div>
         </div>
       </Link>
-      <div className="flex justify-between flex-col items-center"></div>
+
       <div className="grid grid-cols-2 w-full gap-2">
         {type1 && (
           <TypeBadge type={type1} className="w-full max-w-40 mx-auto" />
@@ -70,20 +71,19 @@ export default function PokeCard({ poke }: PokeCardProps) {
           <TypeBadge type={type2} className="w-full max-w-40 mx-auto" />
         )}
       </div>
-      <div className="flex justify-center py-1">
-        <div className="flex justify-center bg-muted px-2 rounded-lg py-1 gap-3 border-border border text-sm">
+      <div className="flex justify-center pt-1">
+        <div className="flex justify-center  px-2 py-0.5 rounded-lg gap-3 bg-muted border-border border">
           <div className="text-muted-foreground text-right">총합</div>
-          <div className="text-center font-medium">{total}</div>
+          <div className="text-center">{total}</div>
         </div>
       </div>
-
       <div className="grid grid-cols-2 relative z-0 gap-y-2">
         {baseStats.map((stat) => (
           <div key={stat.content} className="grid grid-cols-2">
-            <div className="text-muted-foreground   text-right">
+            <div className=" text-muted-foreground text-right">
               {stat.content}
             </div>
-            <div className="text-center  ">{stat.value}</div>
+            <div className="text-center ">{stat.value}</div>
           </div>
         ))}
       </div>
