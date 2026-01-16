@@ -59,7 +59,7 @@ export default function SortGroup({
     },
   ];
   return (
-    <div className="mx-auto max-w-7xl p-6 gap-2 flex flex-wrap">
+    <div className="mx-auto max-w-7xl p-6 px-4 sm:px-6 gap-2 flex flex-wrap">
       {sortItems.map((item) => (
         <Button
           key={item.sortKey}

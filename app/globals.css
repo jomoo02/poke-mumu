@@ -1,5 +1,12 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:is(.dark *));
+.recharts-wrapper *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 :root {
   --radius: 0.5rem;
   --background: oklch(1 0 180);

@@ -27,7 +27,7 @@ const regionalDex = [
 
 export default function PokedexPageUI() {
   return (
-    <div className="flex flex-col max-w-7xl w-full mx-auto p-6">
+    <div className="flex flex-col max-w-7xl w-full mx-auto  p-6 px-4 sm:px-6">
       <h1
         className="text-4xl font-semibold tracking-tight scroll-m-24"
         id="dex"

@@ -1461,7 +1461,7 @@ export type Database = {
           special_attack: number;
           special_defense: number;
           speed: number;
-          total: number | null;
+          total: number;
         };
         Insert: {
           attack: number;
@@ -1473,7 +1473,7 @@ export type Database = {
           special_attack: number;
           special_defense: number;
           speed: number;
-          total?: number | null;
+          total?: number;
         };
         Update: {
           attack?: number;
@@ -1485,7 +1485,7 @@ export type Database = {
           special_attack?: number;
           special_defense?: number;
           speed?: number;
-          total?: number | null;
+          total?: number;
         };
         Relationships: [
           {

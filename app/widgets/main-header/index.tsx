@@ -5,7 +5,7 @@ import NavLink from './nav-link';
 export default function MainHeader() {
   return (
     <header className="sticky top-0 z-50 w-full">
-      <div className="px-6 max-w-7xl mx-auto w-full mt-6  ">
+      <div className="px-4 sm:px-6 max-w-7xl mx-auto w-full mt-6  ">
         <div className="flex items-center h-16 justify-between bg-card/50 shadow-sm shadow-card rounded-2xl border border-border px-6 backdrop-blur-md">
           <Link
             href="/"
