@@ -3,7 +3,7 @@ import { formatNumber } from '@/app/shared/lib/format';
 import { TypeBadge } from '@/app/entities/type/ui';
 
 import InfoCard from '../info-card';
-import { DexInfoView } from '../../model';
+import { type DexInfoView } from '../../model';
 
 interface DexInfoProps {
   dexInfo: DexInfoView;

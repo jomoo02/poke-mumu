@@ -21,7 +21,6 @@ const Pokedex = memo(function Pokedex({
         'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 transition-opacity',
         'group-has-data-[state=pending]:opacity-40 group-has-data-[state=pending]:pointer-events-none',
         'max-w-7xl p-6 px-4 sm:px-6 w-full mx-auto',
-        // isStale ? 'opacity-40' : '',
       )}
     >
       {pokes.map((poke) => (

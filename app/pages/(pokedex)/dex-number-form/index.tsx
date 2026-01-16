@@ -1,4 +1,5 @@
 import { getPokeData } from './api';
+import Abilities from './ui/abilities';
 import BaseStats from './ui/base-stats';
 import DexInfo from './ui/dex-info';
 import MinMaxStats from './ui/min-max-stats';
@@ -12,7 +13,9 @@ interface PokedexDexNumberFormPageUIProps {
 export default async function PokedexDexNumberFormPageUI({
   pokeKey,
 }: PokedexDexNumberFormPageUIProps) {
-  const { dexInfo, training, breeding, stats } = await getPokeData(pokeKey);
+  const { dexInfo, training, breeding, stats, abilities } = await getPokeData(
+    pokeKey,
+  );
 
   return (
     <div className="flex flex-col w-full mx-auto max-w-7xl p-6 px-4 sm:px-6">
@@ -33,6 +36,9 @@ export default async function PokedexDexNumberFormPageUI({
           <section className="grid lg:grid-cols-2 gap-6">
             {stats && <BaseStats stats={stats} />}
             {stats && <MinMaxStats stats={stats} />}
+          </section>
+          <section>
+            <Abilities abilities={abilities} />
           </section>
         </div>
       </div>

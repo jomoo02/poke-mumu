@@ -1,5 +1,6 @@
 import { Mars, Venus } from 'lucide-react';
-import { BreedingView } from '../../model/rest-info';
+
+import { type BreedingView } from '../../model/rest-info';
 import InfoCard from '../info-card';
 
 interface BreedingProps {

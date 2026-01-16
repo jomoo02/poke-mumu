@@ -1,4 +1,4 @@
-import { TrainingView } from '../../model/rest-info';
+import { type TrainingView } from '../../model/rest-info';
 import InfoCard from '../info-card';
 
 interface TrainingProps {

@@ -6,7 +6,8 @@ import {
   TableRow,
 } from '@/app/shared/ui/table';
 
-import { StatView } from '../../model';
+import { type StatView } from '../../model';
+
 interface BarProps {
   value: number;
   color?: string;

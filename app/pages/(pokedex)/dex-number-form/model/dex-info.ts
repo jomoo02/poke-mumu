@@ -1,5 +1,4 @@
 import { type Type } from '@/app/entities/type/model';
-import { formatNumber } from '@/app/shared/lib/format';
 import { Tables } from '@/types_db';
 
 export type DexInfoEntity = Omit<Tables<'pokedex_info'>, 'poke_id' | 'id'>;

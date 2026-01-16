@@ -1,9 +1,11 @@
 import { createClient } from '@/app/shared/lib/supabase/client';
+
 import {
   adpatDexInfoView,
   adaptBreeidngView,
   adaptTrainingView,
   adaptBaseStatsView,
+  adaptAbilitiyView,
 } from '../model';
 
 export const getPokeData = async (pokeKey: string) => {
@@ -118,7 +120,9 @@ export const getPokeData = async (pokeKey: string) => {
     effortValues,
     breeding,
     stats,
+    abilities,
   } = data;
+
   const types = [type1, type2].filter((d) => !!d);
 
   const dexInfoDto = {
@@ -139,5 +143,6 @@ export const getPokeData = async (pokeKey: string) => {
     breeding: adaptBreeidngView(breeding),
     training: adaptTrainingView(detail, effortValues),
     stats: adaptBaseStatsView(stats),
+    abilities: adaptAbilitiyView(abilities),
   };
 };
