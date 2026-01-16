@@ -12,11 +12,11 @@ interface TypeIconProps {
 }
 
 export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
-  if (type.identifier === 'unknwon') {
+  if (type.identifier === 'unknown') {
     return (
       <div
         className={cn(
-          'size-8 bg-emerald-800 text-white font-semibold rounded-lg flex items-center justify-center',
+          'size-8 bg-emerald-800 text-white font-semibold rounded-md flex items-center justify-center',
           className,
         )}
       >
@@ -26,7 +26,7 @@ export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
   }
   return (
     <div className={cn('flex flex-col items-center relative  ', className)}>
-      <div className="overflow-hidden rounded-sm">
+      <div className="overflow-hidden rounded-md">
         <Image
           src={`/type-icon/${type.identifier}.png`}
           width={size}

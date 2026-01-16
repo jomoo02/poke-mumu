@@ -27,7 +27,7 @@ interface CardProps {
 function Container({ title, children }: CardProps) {
   return (
     <div className="py-6 border border-border rounded-2xl shadow-sm shadow-border bg-card">
-      <h3 className="text-xl font-semibold px-6">{title}</h3>
+      <h3 className="text-2xl font-semibold px-6">{title}</h3>
       <div className="grid gap-4 p-6 pb-0 pt-4">{children}</div>
     </div>
   );

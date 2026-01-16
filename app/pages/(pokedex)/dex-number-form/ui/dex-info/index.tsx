@@ -24,12 +24,14 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
     nameEn,
     nameJa,
   } = dexInfo;
+
   const poke = { id, pokeKey, form, name, sprite, dexNumber };
+
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
     <div className="flex flex-col w-full gap-6">
-      <div className="aspect-square sm:aspect-4/2 lg:aspect-square rounded-2xl bg-muted/70 p-6 flex justify-center items-center ">
+      <div className="aspect-square sm:aspect-4/2 lg:aspect-square rounded-2xl border shadow-sm shadow-muted border-border bg-muted/70 p-6 flex justify-center items-center ">
         <div className="rounded-xl h-full w-full max-w-68 max-h-68 relative mx-auto">
           <PokeArtwork
             className="object-contain w-full h-full"
@@ -38,7 +40,7 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
           />
         </div>
       </div>
-      <InfoCard.Container title="정보">
+      <InfoCard.Container title="도감">
         <InfoCard.Item subject="도감 번호">{formattedDexNumber}</InfoCard.Item>
         <InfoCard.Item subject="이름">{name}</InfoCard.Item>
         <InfoCard.Item subject="타입">
@@ -57,7 +59,7 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
         <InfoCard.Item subject="몸무게">{weight}</InfoCard.Item>
         <InfoCard.Item subject="키">{height}</InfoCard.Item>
       </InfoCard.Container>
-      <InfoCard.Container title="다국어 이름">
+      <InfoCard.Container title="다른 이름">
         <InfoCard.Item subject="영문명">{nameEn}</InfoCard.Item>
         <InfoCard.Item subject="일본명">{nameJa}</InfoCard.Item>
       </InfoCard.Container>

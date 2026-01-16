@@ -33,7 +33,7 @@ export default function BaseStats({ stats }: BaseStatsProps) {
 
   return (
     <div className="border border-border rounded-2xl shadow-sm shadow-border py-6 w-full bg-card">
-      <h3 className="text-xl font-semibold mb-4 w-full px-6">종족값</h3>
+      <h3 className="text-2xl font-semibold mb-4 w-full px-6">종족값</h3>
       <div className="px-6 mb-1">
         <div className="w-full grid grid-cols-2 bg-muted p-1 rounded-lg gap-1 h-11">
           <Button

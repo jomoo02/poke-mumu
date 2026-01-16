@@ -5,6 +5,7 @@ import DexInfo from './ui/dex-info';
 import MinMaxStats from './ui/min-max-stats';
 import Breeding from './ui/resf-info/breeding';
 import Training from './ui/resf-info/training';
+import TypeDefenses from './ui/type-defense';
 
 interface PokedexDexNumberFormPageUIProps {
   pokeKey: string;
@@ -13,9 +14,8 @@ interface PokedexDexNumberFormPageUIProps {
 export default async function PokedexDexNumberFormPageUI({
   pokeKey,
 }: PokedexDexNumberFormPageUIProps) {
-  const { dexInfo, training, breeding, stats, abilities } = await getPokeData(
-    pokeKey,
-  );
+  const { dexInfo, training, breeding, stats, abilities, typeDefense, types } =
+    await getPokeData(pokeKey);
 
   return (
     <div className="flex flex-col w-full mx-auto max-w-7xl p-6 px-4 sm:px-6">
@@ -39,6 +39,9 @@ export default async function PokedexDexNumberFormPageUI({
           </section>
           <section>
             <Abilities abilities={abilities} />
+          </section>
+          <section>
+            <TypeDefenses typeDefenses={typeDefense} types={types} />
           </section>
         </div>
       </div>

@@ -11,3 +11,5 @@ export {
 export { useMinMaxStats } from './min-max-stats';
 
 export { type AbilitiyView, adaptAbilitiyView } from './ability';
+
+export { type TypeDefenseView } from './type-defense';

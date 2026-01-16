@@ -5,12 +5,10 @@ interface AbilityProps {
 }
 
 export default function Ability({ ability }: AbilityProps) {
-  const label = ability.slot === 3 ? '숨겨진 특성' : `특성 ${ability.slot}`;
   const hidden = '숨겨진 특성';
+
   return (
-    // <div className="flex flex-col border border-border rounded-2xl p-4 bg-card">
     <div className="flex flex-col gap-2">
-      {/* // <div className="flex flex-col"> */}
       <div className="font-medium text-foreground text-lg">
         {ability.name}
         {ability.slot === 3 && (
@@ -19,7 +17,6 @@ export default function Ability({ ability }: AbilityProps) {
           </span>
         )}
       </div>
-
       <p className="break-keep text-muted-foreground">{ability.flavorText}</p>
     </div>
   );

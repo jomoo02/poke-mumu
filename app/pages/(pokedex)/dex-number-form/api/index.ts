@@ -1,5 +1,6 @@
 import { createClient } from '@/app/shared/lib/supabase/client';
 
+import { getTypeDefenses } from './type-defense';
 import {
   adpatDexInfoView,
   adaptBreeidngView,
@@ -138,7 +139,11 @@ export const getPokeData = async (pokeKey: string) => {
     pokeKey,
   };
 
+  const typeDefense = await getTypeDefenses(types.map((type) => type.id));
+
   return {
+    types,
+    typeDefense,
     dexInfo: adpatDexInfoView(dexInfoDto),
     breeding: adaptBreeidngView(breeding),
     training: adaptTrainingView(detail, effortValues),
