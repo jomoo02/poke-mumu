@@ -9,10 +9,8 @@ interface ItemProps {
 function Item({ subject, children, className }: ItemProps) {
   return (
     <div className={cn('grid grid-cols-3', className)}>
-      <div className="flex items-center text-muted-foreground font-medium">
-        {subject}
-      </div>
-      <div className="flex-1 flex text-pretty font-medium break-keep col-span-2">
+      <div className="flex items-center text-muted-foreground">{subject}</div>
+      <div className="flex-1 flex text-pretty  break-keep col-span-2">
         {children}
       </div>
     </div>

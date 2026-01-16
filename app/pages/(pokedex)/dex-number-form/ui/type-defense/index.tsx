@@ -99,7 +99,7 @@ export default function TypeDefenses({
       <h2 className="text-2xl font-semibold mb-4 ">방어 상성</h2>
       <div className="flex flex-col  gap-6">
         <div className="w-full">
-          <div className=" text-muted-foreground text-center pb-1 text-xs">
+          <div className=" text-muted-foreground text-center pb-1 text-xs font-medium">
             기준 타입
           </div>
           <div className="flex gap-2 w-full  text-muted-foreground justify-center">
@@ -151,10 +151,10 @@ export default function TypeDefenses({
           <Table className="">
             <TableHeader>
               <TableRow>
-                <TableHead className="text-center  font-normal text-sm">
+                <TableHead className="text-center  text-sm font-medium  text-muted-foreground">
                   배율
                 </TableHead>
-                <TableHead className="   px-2 sm:px-4 font-normal text-sm">
+                <TableHead className="   px-2 sm:px-4 font-medium text-sm  text-muted-foreground">
                   <div className="gap-4 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6   h-full ">
                     <div className="text-center flex items-center w-full justify-center">
                       타입
