@@ -52,9 +52,10 @@ export default function NationalDex({
       <div
         className={cn(
           isStale ? ' opacity-50 ' : '',
-          'flex justify-center transition duration-300',
+          'transition duration-300 max-w-7xl w-full mx-auto px-4 sm:px-6 py-2',
         )}
       >
+        <div className="text-sm font-medium py-1">타입</div>
         <TypeFilter
           types={types}
           onChangeType={handleChangeFilterType}
@@ -63,8 +64,12 @@ export default function NationalDex({
       </div>
 
       <div
-        className={cn(isStale ? ' opacity-50 ' : '', 'transition duration-300')}
+        className={cn(
+          isStale ? ' opacity-50 ' : '',
+          'transition duration-300 max-w-7xl w-full mx-auto px-4 sm:px-6 py-2',
+        )}
       >
+        <div className="text-sm font-medium py-1">정렬</div>
         <SortGroup
           onClickSortButton={handleChangeSortKey}
           direction={direction}

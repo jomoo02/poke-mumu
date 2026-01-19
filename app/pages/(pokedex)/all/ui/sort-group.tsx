@@ -13,53 +13,54 @@ interface SortGroupProps {
   selectedSortKey: SortKey;
 }
 
+const sortItems: { sortKey: SortKey; content: string }[] = [
+  {
+    sortKey: 'dexNumber',
+    content: '도감번호',
+  },
+
+  {
+    sortKey: 'name',
+    content: '이름',
+  },
+  {
+    sortKey: 'total',
+    content: '총합',
+  },
+  {
+    sortKey: 'hp',
+    content: 'HP',
+  },
+  {
+    sortKey: 'attack',
+    content: '공격',
+  },
+  {
+    sortKey: 'defense',
+    content: '방어',
+  },
+
+  {
+    sortKey: 'specialAttack',
+    content: '특수공격',
+  },
+  {
+    sortKey: 'specialDefense',
+    content: '특수방어',
+  },
+  {
+    sortKey: 'speed',
+    content: '스피드',
+  },
+];
+
 export default function SortGroup({
   onClickSortButton,
   direction,
   selectedSortKey,
 }: SortGroupProps) {
-  const sortItems: { sortKey: SortKey; content: string }[] = [
-    {
-      sortKey: 'dexNumber',
-      content: '도감번호',
-    },
-
-    {
-      sortKey: 'name',
-      content: '이름',
-    },
-    {
-      sortKey: 'total',
-      content: '총합',
-    },
-    {
-      sortKey: 'hp',
-      content: 'HP',
-    },
-    {
-      sortKey: 'attack',
-      content: '공격',
-    },
-    {
-      sortKey: 'defense',
-      content: '방어',
-    },
-
-    {
-      sortKey: 'specialAttack',
-      content: '특수공격',
-    },
-    {
-      sortKey: 'specialDefense',
-      content: '특수방어',
-    },
-    {
-      sortKey: 'speed',
-      content: '스피드',
-    },
-  ];
   return (
-    <div className="mx-auto max-w-7xl p-6 px-4 sm:px-6 gap-2 flex flex-wrap">
+    <div className="gap-2 flex flex-wrap">
       {sortItems.map((item) => (
         <Button
           key={item.sortKey}
