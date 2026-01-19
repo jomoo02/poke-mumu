@@ -1,5 +1,4 @@
 import { Type } from '@/app/entities/type/model';
-import { cn } from '@/app/shared/lib/cn';
 import {
   Select,
   SelectContent,
