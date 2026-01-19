@@ -20,3 +20,16 @@ export {
   type EvolutionTreeView,
   getMaxDepth,
 } from './evolution-tree';
+
+export {
+  type RestMethod,
+  type MoveMethod,
+  type PokeMoves,
+  type PokeMovesView,
+  type MachineType,
+  type MoveView,
+  adaptMoveView,
+  adaptPokeMovesView,
+  useMoveData,
+  usePokeMoves,
+} from './moves';

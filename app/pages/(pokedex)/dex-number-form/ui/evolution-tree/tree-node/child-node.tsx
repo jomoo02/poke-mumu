@@ -32,7 +32,7 @@ export default function ChildNode({
         <ChainPoke poke={poke} />
       </div>
       {next.length > 0 && (
-        <div className="w-full flex flex-row  gap-4">
+        <div className="w-full flex flex-row lg:flex-col gap-4">
           {next.map((chainNode) => (
             <LeafNode key={chainNode.id} node={chainNode} />
           ))}

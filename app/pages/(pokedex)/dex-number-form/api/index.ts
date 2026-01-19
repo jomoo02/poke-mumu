@@ -7,6 +7,7 @@ import {
   adaptTrainingView,
   adaptBaseStatsView,
   adaptAbilitiyView,
+  adaptPokeMovesView,
 } from '../model';
 
 export const getPokeData = async (pokeKey: string) => {
@@ -122,6 +123,7 @@ export const getPokeData = async (pokeKey: string) => {
     breeding,
     stats,
     abilities,
+    pokeMoves,
   } = data;
 
   const types = [type1, type2].filter((d) => !!d);
@@ -150,5 +152,6 @@ export const getPokeData = async (pokeKey: string) => {
     training: adaptTrainingView(detail, effortValues),
     stats: adaptBaseStatsView(stats),
     abilities: adaptAbilitiyView(abilities),
+    moves: adaptPokeMovesView(pokeMoves),
   };
 };

@@ -4,6 +4,7 @@ import BaseStats from './ui/base-stats';
 import DexInfo from './ui/dex-info';
 import EvolutionTree from './ui/evolution-tree';
 import MinMaxStats from './ui/min-max-stats';
+import Moves from './ui/moves';
 import Breeding from './ui/resf-info/breeding';
 import Training from './ui/resf-info/training';
 import TypeDefenses from './ui/type-defense';
@@ -24,6 +25,7 @@ export default async function PokedexDexNumberFormPageUI({
     typeDefense,
     types,
     evolutionId,
+    moves,
   } = await getPokeData(pokeKey);
 
   return (
@@ -54,6 +56,9 @@ export default async function PokedexDexNumberFormPageUI({
           </section>
           <section>
             <EvolutionTree id={evolutionId} />
+          </section>
+          <section>
+            <Moves moves={moves} />
           </section>
         </div>
       </div>

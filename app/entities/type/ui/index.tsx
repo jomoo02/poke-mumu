@@ -16,7 +16,7 @@ export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
     return (
       <div
         className={cn(
-          'size-8 bg-emerald-800 text-white font-semibold rounded-md flex items-center justify-center',
+          'size-8 bg-emerald-800 text-white font-semibold rounded-sm flex items-center justify-center',
           className,
         )}
       >
@@ -26,7 +26,7 @@ export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
   }
   return (
     <div className={cn('flex flex-col items-center relative  ', className)}>
-      <div className="overflow-hidden rounded-md">
+      <div className="overflow-hidden rounded-sm">
         <Image
           src={`/type-icon/${type.identifier}.png`}
           width={size}
@@ -121,7 +121,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-md border text-white shrink-0 text-shadow-lg',
+        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-sm border text-white shrink-0 text-shadow-lg',
         bg,
         borderColor,
         shadowColor,

@@ -17,7 +17,7 @@ export default function ChainPoke({ poke }: ChainPokeProps) {
   const fomattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="flex flex-col h-full  bg-background">
+    <div className="flex flex-col h-full justify-center  bg-background">
       <Link
         href={href}
         className="hover:bg-accent rounded-xl border border-border shadow-sm outline-ring shadow-border"
