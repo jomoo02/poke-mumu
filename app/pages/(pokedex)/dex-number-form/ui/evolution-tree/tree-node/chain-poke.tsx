@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { PokeSprite } from '@/app/entities/poke/ui';
 import { formatNumber } from '@/app/shared/lib/format';
 
-import { type ChainNodeView } from '../model';
+import { type ChainNodeView } from '../../../model';
 
 interface ChainPokeProps {
   poke: ChainNodeView;

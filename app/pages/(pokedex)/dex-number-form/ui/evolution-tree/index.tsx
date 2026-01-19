@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 
 import { cn } from '@/app/shared/lib/cn';
 
-import { getEvolutionTree } from './api';
-import { getMaxDepth } from './model';
-import RootNode from './ui/root-node';
+import { getEvolutionTree } from '../../api/evolution-tree';
+import { getMaxDepth } from '../../model';
+import RootNode from './tree-node/root-node';
 
 interface EvolutionTreeProps {
   id: number | null;

@@ -1,6 +1,7 @@
 import dbConnect from '@/app/shared/lib/mongoose';
 
-import { EvolutionTreeModel, type EvolutionTreeView } from '../model';
+import { EvolutionTreeModel } from './model';
+import { type EvolutionTreeView } from '../../model';
 
 export async function getEvolutionTree(evolutionId: number | null) {
   if (!evolutionId) {

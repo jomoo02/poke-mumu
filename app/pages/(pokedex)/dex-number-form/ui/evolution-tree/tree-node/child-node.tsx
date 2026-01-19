@@ -1,9 +1,9 @@
 import { cn } from '@/app/shared/lib/cn';
 
-import { type EvolutionNode } from '../model';
+import { type EvolutionNode } from '../../../model';
 import ChainPoke from './chain-poke';
 import LeafNode from './leaf-node';
-import Details from './details';
+import Details from '../details';
 
 interface ChildNodeProps {
   className?: string;

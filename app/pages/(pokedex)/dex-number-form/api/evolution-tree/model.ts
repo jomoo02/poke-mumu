@@ -42,34 +42,6 @@ const rootSchema = new mongoose.Schema(
   { _id: false },
 );
 
-export type ChainNodeView = {
-  id: number;
-  dexNumber: number;
-  form: string | null;
-  sprite: string;
-  name: string;
-  pokeKey: string;
-};
-
-export type ConditionView = {
-  key: string;
-  value: string | number | boolean;
-};
-
-export type EvolutionNode = ChainNodeView & {
-  details: {
-    trigger: string;
-    display: string;
-    conditions: ConditionView[];
-  }[];
-  next: EvolutionNode[];
-};
-
-export type EvolutionTreeView = {
-  id: number;
-  roots: EvolutionNode[];
-};
-
 rootSchema.add({
   next: [rootSchema],
 });

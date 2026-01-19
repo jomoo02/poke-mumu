@@ -1,8 +1,3 @@
-import {
-  type EvolutionTreeView,
-  type EvolutionNode,
-} from './evolution-tree.model';
-
 export type ChainNodeView = {
   id: number;
   dexNumber: number;
@@ -12,11 +7,24 @@ export type ChainNodeView = {
   pokeKey: string;
 };
 
-export {
-  EvolutionTreeModel,
-  type EvolutionNode,
-  type EvolutionTreeView,
-} from './evolution-tree.model';
+export type ConditionView = {
+  key: string;
+  value: string | number | boolean;
+};
+
+export type EvolutionNode = ChainNodeView & {
+  details: {
+    trigger: string;
+    display: string;
+    conditions: ConditionView[];
+  }[];
+  next: EvolutionNode[];
+};
+
+export type EvolutionTreeView = {
+  id: number;
+  roots: EvolutionNode[];
+};
 
 export const getMaxDepth = (tree: EvolutionTreeView): number => {
   function dfs(node: EvolutionNode, depth: number): number {

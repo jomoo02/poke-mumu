@@ -1,6 +1,6 @@
 import { cn } from '@/app/shared/lib/cn';
 
-import { type EvolutionNode } from '../model';
+import { type EvolutionNode } from '../../../model';
 import ChildNode from './child-node';
 import ChainPoke from './chain-poke';
 
