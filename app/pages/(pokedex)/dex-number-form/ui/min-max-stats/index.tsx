@@ -38,7 +38,7 @@ export default function MinMaxStats({ stats }: MinMaxStatsProps) {
           >{`Lv.${lv}`}</Button>
         ))}
       </div>
-      <div className="px-1 h-84 border-border rounded-xl w-full flex items-center justify-center">
+      <div className="px-1 h-84 border-border rounded-xl w-full flex items-center justify-center max-w-xl mx-auto">
         <Table>
           <TableBody>
             {statsMinMax.map((stat) => (

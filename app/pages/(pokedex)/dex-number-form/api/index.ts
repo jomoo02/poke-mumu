@@ -144,6 +144,7 @@ export const getPokeData = async (pokeKey: string) => {
   return {
     types,
     typeDefense,
+    evolutionId: data.evolutionId,
     dexInfo: adpatDexInfoView(dexInfoDto),
     breeding: adaptBreeidngView(breeding),
     training: adaptTrainingView(detail, effortValues),

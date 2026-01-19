@@ -14,7 +14,7 @@ export default function NavLink({ href, children }: NavLinkProps) {
     <Link
       href={href}
       className={cn(
-        'font-semibold hover:bg-accent/50 px-4 h-10 inline-flex items-center rounded-lg',
+        'font-semibold hover:bg-accent px-4 h-10 inline-flex items-center rounded-lg',
       )}
     >
       {children}
