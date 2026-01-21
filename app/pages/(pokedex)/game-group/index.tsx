@@ -17,10 +17,10 @@ export default async function PokedexGameGroupPageUI({
 
   return (
     <div>
-      <h1 className="scroll-m-20 text-3xl font-semibold text-foreground max-w-7xl mx-auto w-full p-6">
+      <h1 className="scroll-m-20 text-3xl font-semibold text-foreground max-w-7xl mx-auto w-full py-6 px-4 sm:px-6">
         {gameGroupKo} 도감
       </h1>
-      <div className="text-muted-foreground my-6 whitespace-pre-line break-keep text-pretty max-w-7xl mx-auto w-full px-6">
+      <div className="text-muted-foreground my-6 whitespace-pre-line break-keep text-pretty max-w-7xl mx-auto w-full px-4 sm:px-6">
         {description}
       </div>
       {dexRegion.length > 1 ? (

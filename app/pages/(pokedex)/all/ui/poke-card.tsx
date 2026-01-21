@@ -42,6 +42,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
   // ];
 
   const statKeys = getStatKeys().filter((statKey) => statKey !== 'total');
+
   const baseStats = {
     hp,
     attack,
@@ -61,7 +62,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
   // ];
 
   return (
-    <div className="border border-border rounded-2xl shadow-sm shadow-card flex flex-col p-6 gap-2 backdrop-blur-md bg-card text-card-foreground">
+    <div className="border border-border rounded-2xl shadow-sm shadow-card flex flex-col p-6 gap-2.5 sm:gap-2 backdrop-blur-md bg-card text-card-foreground">
       <Link
         href={href}
         className="flex flex-col items-center rounded-2xl border  border-border bg-muted/40 hover:bg-accent active:bg-accent shadow-muted/70 shadow-sm  "
@@ -97,7 +98,7 @@ export default function PokeCard({ poke }: PokeCardProps) {
           <div className="text-center">{total}</div>
         </div>
       </div>
-      <div className="grid grid-cols-2 relative z-0 gap-2">
+      <div className="grid grid-cols-2 relative z-0 gap-2.5 sm:gap-2">
         {statKeys.map((statKey) => (
           <div key={statKey} className="grid grid-cols-2">
             <div className=" text-muted-foreground text-right">

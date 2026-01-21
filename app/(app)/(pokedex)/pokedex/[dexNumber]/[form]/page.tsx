@@ -6,8 +6,8 @@ export default async function PokedexDexNumberFormPage({
 }: PageProps<'/pokedex/[dexNumber]/[form]'>) {
   return (
     <Suspense>
-      {params.then(({ form }) => (
-        <PokedexDexNumberFormPageUI pokeKey={form} />
+      {params.then(({ form, dexNumber }) => (
+        <PokedexDexNumberFormPageUI pokeKey={form} dexNumber={dexNumber} />
       ))}
     </Suspense>
   );

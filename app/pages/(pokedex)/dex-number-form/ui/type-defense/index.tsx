@@ -12,7 +12,6 @@ import { TypeIcon } from '@/app/entities/type/ui';
 import { Type } from '@/app/entities/type/model';
 
 import { type TypeDefenseView } from '../../model';
-import { Fragment } from 'react/jsx-runtime';
 
 interface TypeDefensesProps {
   typeDefenses: TypeDefenseView[];
@@ -151,10 +150,10 @@ export default function TypeDefenses({
           <Table className="">
             <TableHeader>
               <TableRow>
-                <TableHead className="text-center  text-sm font-medium  text-muted-foreground">
+                <TableHead className="text-center  text-sm font-medium  ">
                   배율
                 </TableHead>
-                <TableHead className="   px-2 sm:px-4 font-medium text-sm  text-muted-foreground">
+                <TableHead className="   px-2 sm:px-4 font-medium text-sm ">
                   <div className="gap-4 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6   h-full ">
                     <div className="text-center flex items-center w-full justify-center">
                       타입

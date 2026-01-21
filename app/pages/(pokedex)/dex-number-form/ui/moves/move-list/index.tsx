@@ -23,7 +23,7 @@ export default function MoveList({
       {restMoves.map(({ method, moves }) => (
         <Fragment key={method}>
           {levelUpMoves.length > 0 && (
-            <div className="w-full h-px bg-border my-6" />
+            <div className="w-full h-px bg-border my-4" />
           )}
           <Rest moves={moves} method={method} />
         </Fragment>
@@ -33,7 +33,7 @@ export default function MoveList({
         <Fragment key={machineType}>
           {(restMoves.length > 0 ||
             (restMoves.length === 0 && levelUpMoves.length > 0)) && (
-            <div className="w-full h-px bg-border my-6" />
+            <div className="w-full h-px bg-border my-4" />
           )}
           <Machine moves={moves} machineType={machineType} />
         </Fragment>

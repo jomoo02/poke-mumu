@@ -15,8 +15,7 @@ export default function RegionalPoke({
   poke,
   dexNumberMaxLength,
 }: RegionalPokeProps) {
-  const { name, type1, type2, dexNumber, form, regionalDexNumber, pokeKey } =
-    poke;
+  const { name, type1, type2, dexNumber, regionalDexNumber, pokeKey } = poke;
   const formattedRegionDexNumber = formatNumber(
     regionalDexNumber,
     dexNumberMaxLength,
@@ -24,28 +23,23 @@ export default function RegionalPoke({
   const href = `/pokedex/${dexNumber}/${pokeKey}`;
 
   return (
-    <div className="flex flex-col gap-2 bg-card">
+    <div className="flex flex-col gap-2">
       <Link
         href={href}
-        className="flex flex-col items-center rounded-2xl border border-border  hover:bg-accent active:bg-accent shadow-border/50  shadow-sm "
+        className="flex flex-col items-center rounded-2xl hover:bg-accent active:bg-accent bg-card"
         aria-label={`${name} 상세 페이지로 이동`}
       >
         <div className="flex justify-center w-full p-4 z-10 ">
-          <PokeSprite poke={poke} className="size-19" />
+          <PokeSprite poke={poke} className="size-18" />
         </div>
         <div className="pb-4">
-          <div className="font-medium text-muted-foreground">
-            No.{formattedRegionDexNumber}
-          </div>
+          <div className="">No.{formattedRegionDexNumber}</div>
           <div className="text-foreground min-w-0 truncate font-medium text-lg">
             {name}
           </div>
-          <div className="text-muted-foreground text-sm truncate min-w-0 min-h-5 font-medium">
-            {form}
-          </div>
         </div>
       </Link>
-      <div className="grid grid-cols-2 w-full gap-2">
+      <div className="grid grid-cols-2 w-full gap-1.5 sm:gap-2">
         {type1 && (
           <TypeBadge type={type1} className="w-full max-w-40 mx-auto" />
         )}

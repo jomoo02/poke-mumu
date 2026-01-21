@@ -36,16 +36,16 @@ export default function DexRegionList({ dexRegions }: DexRegionListProps) {
   };
 
   return (
-    <div className="grid gap-4">
-      {dexRegions.map((dex) => (
-        <div key={dex.id}>
+    <div className="grid py-4">
+      {dexRegions.map((dex, index) => (
+        <div key={dex.id} className="">
           <div className="max-w-7xl mx-auto w-full px-6">
+            {index > 0 && <div className="w-full h-px bg-border my-2"></div>}
             <button
               onClick={() => handleToggle(dex.id)}
-              className="text-2xl w-full border  font-semibold  border-border rounded-xl p-5 flex justify-between items-center shadow-sm shadow-border"
+              className="text-2xl w-full font-semibold  rounded-xl px-4 py-6 flex justify-between items-center hover:bg-accent active:bg-accent "
             >
-              <div> {dex.regionKo} 도감</div>
-
+              <div>{dex.regionKo} 도감</div>
               <ChevronDown
                 className={cn(
                   'size-8 transform duration-400',

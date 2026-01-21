@@ -12,14 +12,12 @@ export default function Moves({ moves }: MovesProps) {
   const {
     pokeMoves,
     selectedVersionGroupId,
-
     setSelectedVersionGroupId,
-
     grouped,
   } = usePokeMoves(moves);
 
   return (
-    <div className="py-6 px-4 sm:px-6 shadow-sm shadow-border rounded-2xl border border-border bg-card flex flex-col gap-2">
+    <div className="p-6 shadow-sm shadow-border rounded-2xl border border-border bg-card flex flex-col gap-2">
       <h3 className="text-2xl font-semibold mb-4 w-full">기술</h3>
       <div className="flex justify-end py-4">
         <div className=" max-w-64 w-full">

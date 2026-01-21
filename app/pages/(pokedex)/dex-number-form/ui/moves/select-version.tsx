@@ -32,7 +32,10 @@ export default function SelectVersion({
       <SelectTrigger className="max-w-80 w-full py-4.5 rounded-lg ">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-card border-border rounded-xl">
+      <SelectContent
+        className="bg-card border-border rounded-xl max-h-82"
+        position="popper"
+      >
         {grouped.map((group) => (
           <SelectGroup key={group.gen}>
             <SelectLabel className="py-2">{group.gen}</SelectLabel>

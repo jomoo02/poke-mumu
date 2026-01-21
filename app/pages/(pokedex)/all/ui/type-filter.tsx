@@ -28,7 +28,10 @@ export default function TypeFilter({
       <SelectTrigger className="max-w-36 w-full py-4.5 rounded-lg">
         <SelectValue />
       </SelectTrigger>
-      <SelectContent className="bg-card border-border rounded-xl">
+      <SelectContent
+        className="bg-card border-border rounded-xl max-h-84"
+        position="popper"
+      >
         {typesWithAll.map((type) => (
           <SelectItem
             key={type.identifier}

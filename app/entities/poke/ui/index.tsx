@@ -18,7 +18,7 @@ export function PokeSprite({
   const { sprite } = poke;
 
   if (!sprite) {
-    return <div className="size-14 bg-muted" />;
+    return <div className={cn('w-14 h-14 bg-muted', className)} />;
   }
 
   const src = getPokeSpriteSrc(sprite);
