@@ -115,37 +115,6 @@ export default function TypeDefenses({
             ))}
           </div>
         </div>
-        {/* <div className="gap-4 grid bg-muted p-6 rounded-2xl">
-          {data.map(({ types, label }) => (
-            <div key={label}>
-              <h4 className="text-xl mb-4">{label}</h4>
-              <div className="rounded-lg bg-card p-6 flex flex-col gap-4">
-                {types.map(({ attacker, effectiveness }, index) => (
-                  <Fragment key={effectiveness}>
-                    {index > 0 && <div className="h-px my-4 bg-border" />}
-                    <div className="flex items-center gap-4">
-                      <div className="w-24 text-center">x{effectiveness}</div>
-                      <div className="gap-4 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6 flex-1">
-                        {attacker.map((type) => (
-                          <div
-                            key={type.identifier}
-                            className="flex flex-col gap-1 items-center"
-                          >
-                            <TypeIcon type={type} className="size-7" />
-                            <div className="text-sm text-center text-muted-foreground font-medium">
-                              {type.name}
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </Fragment>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
         <div className="flex-1 max-w-4xl w-full mx-auto">
           <Table className="">
             <TableHeader>

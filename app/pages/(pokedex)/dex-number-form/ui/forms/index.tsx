@@ -1,57 +1,81 @@
 'use client';
 
-import { useState } from 'react';
-import type { Poke } from '@/app/entities/poke/model';
-import { SelectTrigger } from '@radix-ui/react-select';
+import { Fragment } from 'react';
+import { useRouter } from 'next/navigation';
+import { Check, ChevronsUpDown } from 'lucide-react';
+
+import {
+  SelectTrigger,
+  SelectItem,
+  SelectItemIndicator,
+} from '@radix-ui/react-select';
+
+import { Select, SelectContent, SelectSeparator } from '@/app/shared/ui/select';
+import { type Poke } from '@/app/entities/poke/model';
+
 import FormPoke from './form-poke';
-import { Select, SelectContent } from '@/app/shared/ui/select';
-import { ChevronsUpDown } from 'lucide-react';
+import FormSelectItem from './form-select-item';
 
 interface FormsProps {
   pokes: Poke[];
   initialPoke: string;
+  dexNumber: number | string;
 }
 
-export default function Forms({ pokes, initialPoke }: FormsProps) {
-  const [selectedFormIndex, setSelectedFormIndex] = useState(() =>
-    pokes.findIndex(({ pokeKey }) => pokeKey === initialPoke),
-  );
-  const selectedPoke = pokes[selectedFormIndex];
-  console.log(pokes);
+export default function Forms({ pokes, initialPoke, dexNumber }: FormsProps) {
+  const selectedPoke = pokes.find((poke) => poke.pokeKey === initialPoke);
+
+  const router = useRouter();
+
+  if (!selectedPoke) {
+    return (
+      <div className="w-full flex items-center px-6 py-4 border border-border rounded-2xl shadow-sm shadow-border bg-muted h-24.5" />
+    );
+  }
+
+  if (pokes.length === 1) {
+    return (
+      <div className="w-full flex items-center px-6 py-4 border border-border rounded-2xl shadow-sm shadow-border">
+        <FormPoke poke={selectedPoke} />
+      </div>
+    );
+  }
+
   return (
-    <Select>
-      <SelectTrigger asChild>
-        <button className="w-full flex items-center px-6 py-4 border border-border rounded-2xl">
-          <FormPoke key={1} poke={selectedPoke} />
-          <ChevronsUpDown className="size-5 text-muted-foreground" />
+    <Select
+      value={initialPoke}
+      onValueChange={(next) => {
+        router.push(`/pokedex/${dexNumber}/${next}`);
+      }}
+    >
+      <SelectTrigger asChild className=" bg-transparent outline-none">
+        <button className="w-full flex items-center px-6 py-4 border border-border rounded-2xl hover:bg-accent active:bg-accent shadow-sm shadow-border gap-2">
+          <FormPoke poke={selectedPoke} />
+          <ChevronsUpDown className="size-5.5 text-muted-foreground" />
         </button>
       </SelectTrigger>
-      <SelectContent className="rounded-2xl" position="popper">
-        <div className="w-full px-6 py-2 grid gap-4 ">
-          {pokes.map((poke) => (
-            <FormPoke poke={poke} key={poke.pokeKey} />
+      <SelectContent
+        className="rounded-2xl shadow-sm shadow-border"
+        position="popper"
+      >
+        <div className="w-full p-2 grid">
+          {pokes.map((poke, index) => (
+            <Fragment key={poke.pokeKey}>
+              {index > 0 && <SelectSeparator className="mx-1" />}
+              <SelectItem
+                key={poke.pokeKey}
+                value={poke.pokeKey}
+                className=" px-4 active:bg-accent outline-hidden flex rounded-xl select-none relative cursor-default focus:bg-accent w-full justify-between items-center"
+              >
+                <FormSelectItem poke={poke} key={poke.pokeKey} />
+                <SelectItemIndicator>
+                  <Check className="size-4" />
+                </SelectItemIndicator>
+              </SelectItem>
+            </Fragment>
           ))}
         </div>
       </SelectContent>
     </Select>
-    // <Popover>
-    //   <PopoverTrigger className="w-full bg-accent" asChild>
-    //     <button
-    //       className="border border-border rounded-2xl px-6 py-4 relative"
-    //       id="text2"
-    //     >
-    //       {' '}
-    //       <FormPoke poke={selectedPoke} />
-    //     </button>
-    //   </PopoverTrigger>
-    //   <PopoverContent align="start">
-    //     <div className="w-full">
-    //       {' '}
-    //       {pokes.map((poke) => (
-    //         <FormPoke poke={poke} key={poke.pokeKey} />
-    //       ))}
-    //     </div>
-    //   </PopoverContent>
-    // </Popover>
   );
 }

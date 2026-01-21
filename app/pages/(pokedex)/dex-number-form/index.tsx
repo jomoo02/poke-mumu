@@ -44,7 +44,11 @@ export default async function PokedexDexNumberFormPageUI({
         <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 w-full">
           {forms && (
             <section>
-              <Forms pokes={forms} initialPoke={pokeKey} />
+              <Forms
+                pokes={forms}
+                initialPoke={pokeKey}
+                dexNumber={dexNumber}
+              />
             </section>
           )}
 
