@@ -9,17 +9,22 @@ import {
 import { cn } from '@/app/shared/lib/cn';
 import useTable from '@/app/shared/model/useTable';
 
-import { type MoveView } from '../../../model';
-import { levelUpColumn, basicColumns } from './table-columns';
+import { type MoveMethod, type MoveView } from '../../../model';
+import { getTableColumns } from '../move-table';
 
 interface LevelUpProps {
   moves: MoveView[];
+  versionGroupId: number;
 }
 
-export default function LevelUp({ moves }: LevelUpProps) {
+const METHOD: MoveMethod = 'level_up';
+
+export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
+  const columns = getTableColumns(METHOD, versionGroupId);
+
   const table = useTable({
     data: moves,
-    columns: [levelUpColumn, ...basicColumns],
+    columns: columns,
     sorting: { id: 'level', isDesc: false },
   });
 

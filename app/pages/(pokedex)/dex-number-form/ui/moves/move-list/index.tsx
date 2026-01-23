@@ -14,18 +14,24 @@ export default function MoveList({
   versionGroupId,
   pokeMoves,
 }: PokeMovesProps) {
+  const versionGroupIdNumber = Number(versionGroupId);
+
   const { error, isLoading, levelUpMoves, restMoves, machineMoves } =
-    useMoveData(pokeMoves, Number(versionGroupId));
+    useMoveData(pokeMoves, versionGroupIdNumber);
 
   return (
     <div className={cn(isLoading ? 'opacity-70 ' : '', 'flex flex-col gap-4')}>
-      <LevelUp moves={levelUpMoves} key={versionGroupId} />
+      <LevelUp
+        moves={levelUpMoves}
+        key={versionGroupId}
+        versionGroupId={versionGroupIdNumber}
+      />
       {restMoves.map(({ method, moves }) => (
         <Fragment key={method}>
           {levelUpMoves.length > 0 && (
             <div className="w-full h-px bg-border my-4" />
           )}
-          <Rest moves={moves} method={method} />
+          <Rest moves={moves} method={method} key={versionGroupId} />
         </Fragment>
       ))}
 
@@ -35,7 +41,12 @@ export default function MoveList({
             (restMoves.length === 0 && levelUpMoves.length > 0)) && (
             <div className="w-full h-px bg-border my-4" />
           )}
-          <Machine moves={moves} machineType={machineType} />
+          <Machine
+            moves={moves}
+            machineType={machineType}
+            key={versionGroupId}
+            versionGroupId={versionGroupIdNumber}
+          />
         </Fragment>
       ))}
     </div>

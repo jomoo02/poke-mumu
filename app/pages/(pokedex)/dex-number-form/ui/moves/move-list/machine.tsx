@@ -9,13 +9,20 @@ import {
 import { cn } from '@/app/shared/lib/cn';
 import useTable from '@/app/shared/model/useTable';
 
-import { type MachineType, type MoveView } from '../../../model';
-import { machineColumn, basicColumns } from './table-columns';
+import {
+  type MachineType,
+  type MoveView,
+  type MoveMethod,
+} from '../../../model';
+import { getTableColumns } from '../move-table';
 
 interface MachineProps {
   machineType: MachineType;
   moves: MoveView[];
+  versionGroupId: number;
 }
+
+const METHOD: MoveMethod = 'machine';
 
 const titleMap: Record<string, string> = {
   TM: '기술머신 TM으로 배우는 기술',
@@ -23,13 +30,21 @@ const titleMap: Record<string, string> = {
   TR: '기술머신 TR로 배우는 기술',
 };
 
-export default function Machine({ moves, machineType }: MachineProps) {
+export default function Machine({
+  moves,
+  machineType,
+  versionGroupId,
+}: MachineProps) {
+  const columns = getTableColumns(METHOD, versionGroupId);
+
   const table = useTable({
     data: moves,
-    columns: [machineColumn, ...basicColumns],
+    columns,
     sorting: { id: 'machine', isDesc: false },
   });
+
   const title = titleMap[machineType] || '기술';
+
   return (
     <div>
       <h4 className="text-xl font-semibold mb-4">{title}</h4>

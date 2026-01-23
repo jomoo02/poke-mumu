@@ -7,7 +7,7 @@ export interface Move {
   machine_number: number | null;
   machine_type: string | null;
   move_id: number;
-  move_number: number;
+  move_number?: number;
   name_en: string;
   name_ja: string;
   name_ko: string;

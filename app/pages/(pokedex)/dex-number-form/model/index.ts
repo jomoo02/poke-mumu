@@ -28,8 +28,10 @@ export {
   type PokeMovesView,
   type MachineType,
   type MoveView,
+  type LegendsZaMove,
   adaptMoveView,
   adaptPokeMovesView,
   useMoveData,
   usePokeMoves,
+  adaptZaMoveView,
 } from './moves';

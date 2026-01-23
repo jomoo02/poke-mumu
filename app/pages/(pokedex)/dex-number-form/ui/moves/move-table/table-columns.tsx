@@ -353,7 +353,6 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
     id: 'cooldown',
     header: ({ column }) => (
       <div className="w-full h-full flex justify-end items-center">
-        {' '}
         <Button
           className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
           onClick={column.toggleSorting}

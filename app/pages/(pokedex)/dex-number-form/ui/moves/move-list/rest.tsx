@@ -16,6 +16,7 @@ interface RestProps {
   method: RestMethod;
   moves: MoveView[];
 }
+
 const methodTitleMap: Record<RestMethod, string> = {
   evolution: '진화 시 배우는 기술',
   form: '폼체인지로 배우는 기술',
@@ -24,6 +25,7 @@ const methodTitleMap: Record<RestMethod, string> = {
   reminder: '떠올리기로 배우는 기술',
   pre: '이전 진화에서 얻을 수 있는 기술',
 };
+
 export default function Rest({ moves, method }: RestProps) {
   const table = useTable({
     data: moves,

@@ -1,6 +1,8 @@
-import { Json } from '@/types_db';
+import { Tables, Json } from '@/types_db';
 import { type Type } from '@/app/entities/type/model';
 import { type Move } from '@/app/entities/move/model';
+
+export type LegendsZaMove = Tables<'version_move_legends_za'>;
 
 export type RestMethod =
   | 'egg'
@@ -43,12 +45,13 @@ export interface MoveView {
   description: string;
   machineNumber: number | null;
   machineType: string | null;
-  moveNumber: number;
+  moveNumber?: number;
   name: string;
   power: number | null;
   pp: number | null;
   type: Type;
   level?: number;
+  cooldown?: number | null;
 }
 
 export const adaptMoveView = (move: Move, type: Type): MoveView => {
@@ -79,6 +82,36 @@ export const adaptMoveView = (move: Move, type: Type): MoveView => {
     damageClass: damage_class,
     moveId: move_id,
     moveNumber: move_number,
+  };
+};
+
+export const adaptZaMoveView = (move: LegendsZaMove, type: Type): MoveView => {
+  const {
+    id,
+    move_id,
+    damage_class,
+    description,
+    machine_number,
+    machine_type,
+    name_ko,
+    power,
+    cooldown,
+    pp,
+  } = move;
+
+  return {
+    id,
+    accuracy: 0,
+    power,
+    pp,
+    cooldown,
+    type,
+    description: description || 'description',
+    machineNumber: machine_number,
+    machineType: machine_type,
+    name: name_ko!,
+    damageClass: damage_class!,
+    moveId: move_id,
   };
 };
 

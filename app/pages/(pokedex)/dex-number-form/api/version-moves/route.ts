@@ -5,15 +5,19 @@ import { getAllType } from '@/app/entities/type/api';
 
 import { adaptMoveView, MoveView } from '../../model';
 
+import { resolveVersionSource } from './utils';
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const versionGroupId = searchParams.get('versionGroupId');
+  const versionGroupId = Number(searchParams.get('versionGroupId') || 21);
+
+  const { table, adapter } = resolveVersionSource(versionGroupId);
 
   const supabase = createClient();
 
   try {
     const { data, error } = await supabase
-      .from('version_move')
+      .from(table)
       .select('*')
       .eq('version_group_id', Number(versionGroupId));
 
@@ -33,11 +37,11 @@ export async function GET(request: Request) {
     const typeMap = new Map(typeAll.map((t) => [t.identifier, t]));
 
     const payload: [number, MoveView][] = data.map((d) => {
-      const foundTypeDto = typeMap.get(d.type) || {
+      const foundTypeDto = typeMap.get(d.type!) || {
         identifier: 'unknwon',
         name: '???',
       };
-      return [d.move_id, adaptMoveView(d, foundTypeDto)];
+      return [d.move_id, adapter(d, foundTypeDto)];
     });
 
     return NextResponse.json(payload, { status: 200 });
