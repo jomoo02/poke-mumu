@@ -30,8 +30,8 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="flex flex-col w-full gap-6">
-      <div className="aspect-square sm:aspect-4/2 lg:aspect-square rounded-2xl border shadow-sm shadow-muted border-border bg-muted/70 p-6 flex justify-center items-center ">
+    <div className="flex flex-col w-full gap-6 ">
+      <div className="aspect-square sm:aspect-4/2 lg:aspect-square rounded-2xl border shadow-sm shadow-muted border-border bg-muted/70 p-6 flex justify-center items-center overflow-hidden">
         <div className="rounded-xl h-full w-full max-w-68 max-h-68 relative mx-auto">
           <PokeArtwork
             className="object-contain w-full h-full"

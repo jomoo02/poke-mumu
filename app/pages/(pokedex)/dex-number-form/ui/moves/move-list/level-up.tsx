@@ -29,11 +29,11 @@ export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
   });
 
   return (
-    <div>
+    <div className=" ">
       <h4 className="text-xl font-semibold mb-4">레벨 업으로 익히는 기술</h4>
       <Table>
         <TableHeader>
-          <TableRow>
+          <TableRow className="">
             {table.getVisibleColumns().map((header) => (
               <TableHead
                 key={header.id}
