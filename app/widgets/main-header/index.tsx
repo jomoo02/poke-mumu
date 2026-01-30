@@ -1,6 +1,8 @@
 import Link from 'next/link';
 
-import NavLink from './nav-link';
+import NavLink from './ui/nav-link';
+import SearchPoke from '@/app/features/search-poke';
+import { Suspense } from 'react';
 
 export default function MainHeader() {
   return (
@@ -16,6 +18,15 @@ export default function MainHeader() {
           <nav>
             <NavLink href="/pokedex">도감</NavLink>
           </nav>
+          {/* <Link href="/search">
+            {' '}
+            <SearchIcon className="size-5" />
+          </Link> */}
+
+          <Suspense>
+            {' '}
+            <SearchPoke />
+          </Suspense>
         </div>
       </div>
     </header>

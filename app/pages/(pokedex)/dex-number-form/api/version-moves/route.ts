@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/app/shared/lib/supabase/client';
 import { getAllType } from '@/app/entities/type/api';
 
-import { adaptMoveView, MoveView } from '../../model';
+import { MoveView } from '../../model';
 
 import { resolveVersionSource } from './utils';
 

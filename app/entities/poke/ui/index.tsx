@@ -60,8 +60,8 @@ export function PokeArtwork({
       <Image
         placeholder="blur"
         blurDataURL="/pokeball.svg"
-        src={src}
-        // src="/pokeball.svg"
+        // src={src}
+        src="/pokeball.svg"
         alt={alt}
         fill
         style={{

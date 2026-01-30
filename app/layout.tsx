@@ -4,8 +4,6 @@ import localFont from 'next/font/local';
 
 import './globals.css';
 
-import { SWRProvider } from './providers/swr';
-
 const suit = localFont({
   src: '../public/fonts/SUIT-Variable.woff2',
   display: 'swap',

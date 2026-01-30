@@ -55,7 +55,7 @@ export default function Forms({ pokes, initialPoke, dexNumber }: FormsProps) {
         </button>
       </SelectTrigger>
       <SelectContent
-        className="rounded-2xl shadow-sm shadow-border"
+        className="rounded-2xl shadow-sm shadow-border z-10 bg-card"
         position="popper"
       >
         <div className="w-full p-2 grid">
