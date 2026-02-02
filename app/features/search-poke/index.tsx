@@ -37,7 +37,7 @@ function SearchDialog() {
           </DialogDescription>
         </DialogHeader>
         <div
-          className="flex flex-col h-[80vh] sm:h-120 overflow-hidden"
+          className="flex flex-col h-[60vh] sm:h-120 overflow-hidden"
           onKeyDown={onKeyDown}
         >
           <Input />

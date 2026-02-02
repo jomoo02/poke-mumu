@@ -121,7 +121,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-md border text-white shrink-0 text-shadow-lg',
+        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-sm border text-white shrink-0 text-shadow-lg',
         bg,
         borderColor,
         shadowColor,
