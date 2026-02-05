@@ -1,11 +1,11 @@
 import { getPokeData } from './api';
 import { getDexNumberForms } from './api/form';
 import Abilities from './ui/abilities';
-import BaseStats from './ui/base-stats copy';
+import BaseStats from './ui/base-stats';
 import DexInfo from './ui/dex-info';
 import EvolutionTree from './ui/evolution-tree';
 import Forms from './ui/forms';
-import MinMaxStats from './ui/min-max-stats copy';
+import MinMaxStats from './ui/min-max-stats';
 import Moves from './ui/moves';
 import Breeding from './ui/resf-info/breeding';
 import Training from './ui/resf-info/training';
@@ -38,50 +38,38 @@ export default async function PokedexDexNumberFormV2PageUI({
   } = data;
 
   return (
-    <div className="flex flex-col w-full mx-auto max-w-7xl 2xl:max-w-360 p-6 px-4 sm:px-6">
+    <div className="flex flex-col w-full">
       {/* <div className="grid lg:grid-cols-3 gap-6"> */}
-      <section className="mb-6">
-        <DexInfo dexInfo={dexInfo} />
-      </section>
-      <div className="flex flex-col lg:flex-row  gap-8">
-        <div className="flex-1 flex flex-col gap-8">
-          <section>
-            <Abilities abilities={abilities} />
+      <div className="border-b from-muted/70 to-muted/20 from-20% bg-linear-to-r via-muted/50 ">
+        <div className="mx-auto max-w-7xl 2xl:max-w-360 grid lg:grid-cols-3  p-6 px-4 sm:px-6 w-full gap-6 ">
+          <section className="lg:col-span-2">
+            <DexInfo dexInfo={dexInfo} />
           </section>
-          <div className="w-full h-px  bg-border my-8" />
-          <section>
-            <h2 className="text-3xl font-semibold mb-6 w-full">스탯</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              {stats && <BaseStats stats={stats} />}
-              {stats && <MinMaxStats stats={stats} />}
-            </div>
-          </section>
-          <div className="w-full h-px  bg-border my-8" />
-          <section>
-            <TypeDefenses typeDefenses={typeDefense} types={types} />
-          </section>
-        </div>
-
-        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 w-full">
-          <section>
+          <section className="">
             <Breeding breeding={breeding} />
-          </section>
-          <section>
+            <div className="w-full h-px bg-border my-3" />
             <Training training={training} />
           </section>
         </div>
       </div>
-      <div className="w-full h-px  bg-border my-8" />
-      <section>
-        <EvolutionTree id={evolutionId} />
-      </section>
-      <div className="w-full h-px  bg-border my-8" />
-      <section>
-        <Moves moves={moves} />
-      </section>
+      <div className=" mx-auto max-w-7xl 2xl:max-w-400 p-6 px-4 sm:px-6 w-full">
+        <section className="gap-8 2xl:gap-32 grid lg:grid-cols-2">
+          <div className="overflow-hidden">
+            {' '}
+            {stats && <BaseStats stats={stats} />}
+          </div>
+
+          <section>
+            <TypeDefenses typeDefenses={typeDefense} types={types} />
+          </section>
+        </section>
+        <section>
+          <Abilities abilities={abilities} />
+        </section>
+      </div>
 
       {/* <div className="flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 w-full">
+        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 2xl:max-w-98 w-full">
           {forms && (
             <section>
               <Forms
@@ -91,12 +79,18 @@ export default async function PokedexDexNumberFormV2PageUI({
               />
             </section>
           )}
-
         </div>
         <div className="flex flex-col gap-6 lg:col-span-2 lg:flex-1 h-full">
+          <section className="grid lg:grid-cols-2 gap-8">
+            {stats && <MinMaxStats stats={stats} />}
+          </section>
 
-
-
+          <section>
+            <EvolutionTree id={evolutionId} />
+          </section>
+          <section>
+            <Moves moves={moves} />
+          </section>
         </div>
       </div> */}
     </div>

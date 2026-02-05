@@ -38,10 +38,10 @@ export default async function PokedexDexNumberFormPageUI({
   } = data;
 
   return (
-    <div className="flex flex-col w-full mx-auto max-w-7xl p-6 px-4 sm:px-6">
+    <div className="flex flex-col w-full mx-auto max-w-7xl 2xl:max-w-[90rem] p-6 px-4 sm:px-6">
       {/* <div className="grid lg:grid-cols-3 gap-6"> */}
       <div className="flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 w-full">
+        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 2xl:max-w-102 w-full">
           {forms && (
             <section>
               <Forms

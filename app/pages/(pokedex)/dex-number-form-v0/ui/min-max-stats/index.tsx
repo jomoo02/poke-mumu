@@ -23,7 +23,7 @@ export default function MinMaxStats({ stats }: MinMaxStatsProps) {
 
   return (
     <div className="border border-border rounded-2xl shadow-sm shadow-border p-6 w-full bg-card">
-      <div className="w-full mb-4 text-lg font-semibold">레벨별 스탯</div>
+      <div className="w-full mb-4 text-2xl font-semibold">레벨별 스탯</div>
       <div className="w-full grid grid-cols-2  bg-muted p-1 rounded-lg gap-1 h-11 mb-1">
         {levels.map((lv) => (
           <Button

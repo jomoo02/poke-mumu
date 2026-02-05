@@ -1,25 +1,16 @@
 'use client';
 
-import { useState } from 'react';
-
 import {
   Table,
   TableBody,
   TableCell,
   TableFooter,
-  TableHead,
-  TableHeader,
   TableRow,
 } from '@/app/shared/ui/table';
-import {
-  calculateMaxStatValue,
-  calculateMinStatValue,
-} from '@/app/entities/stats/lib';
 import Button from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 import { type StatView, useMinMaxStats } from '../../model';
-import { ChevronDown } from 'lucide-react';
 
 interface MinMaxStatsProps {
   stats: StatView[];
@@ -27,72 +18,44 @@ interface MinMaxStatsProps {
 
 export default function MinMaxStats({ stats }: MinMaxStatsProps) {
   const baseStats = stats.filter((stat) => stat.stat !== 'total');
-  const [isVisible, setIsVisible] = useState(false);
 
   const { level, setLevel, statsMinMax, levels } = useMinMaxStats(baseStats);
 
-  const data = baseStats.map(({ stat, value, label }) => {
-    const max50 = calculateMaxStatValue(stat, value, 50);
-    const min50 = calculateMinStatValue(stat, value, 50);
-    const max100 = calculateMaxStatValue(stat, value, 100);
-    const min100 = calculateMinStatValue(stat, value, 100);
-    return {
-      max50,
-      min50,
-      max100,
-      min100,
-      label,
-      stat,
-    };
-  });
-
   return (
-    <div className="w-full bg-card border py-4 px-6 rounded-2xl">
-      <Button
-        onClick={() => setIsVisible((prev) => !prev)}
-        className="flex justify-between w-full items-center group"
-      >
-        <div className="w-full text-lg font-medium text-left group-hover:underline">
-          레벨별 스탯
-        </div>
-        <ChevronDown
-          className={cn(
-            'size-6 transition-transform transform duration-400 will-change-transform',
-            isVisible ? ' rotate-180' : '',
-          )}
-        />
-      </Button>
-
-      {isVisible && (
-        <div className="p-4">
-          <Table className="">
-            <TableHeader>
-              <TableRow className="hover:bg-muted/50">
-                <TableHead className="sm:w-36" />
-                <TableHead className="text-center">Lv.50</TableHead>
-                <TableHead className="text-center">Lv.100</TableHead>
-                {/* <TableHead className="text-right">min</TableHead>
-                <TableHead className="text-right">max</TableHead> */}
+    <div className="border border-border rounded-2xl shadow-sm shadow-border p-6 w-full bg-card">
+      <div className="w-full mb-4 text-2xl font-semibold">레벨별 스탯</div>
+      <div className="w-full grid grid-cols-2  bg-muted p-1 rounded-lg gap-1 h-11 mb-1">
+        {levels.map((lv) => (
+          <Button
+            key={lv}
+            className={cn(
+              ' w-full py-1.5 font-medium text-sm rounded-lg',
+              level === lv
+                ? 'bg-background text-foreground shadow-sm'
+                : 'text-muted-foreground hover:text-foreground',
+            )}
+            onClick={() => setLevel(lv)}
+          >{`Lv.${lv}`}</Button>
+        ))}
+      </div>
+      <div className="px-1 h-84 border-border rounded-xl w-full flex items-center justify-center max-w-xl mx-auto">
+        <Table>
+          <TableBody>
+            {statsMinMax.map((stat) => (
+              <TableRow key={stat.stat} className="border-0">
+                <TableCell className="text-right py-3 pl-2 border-b border-border">
+                  {stat.label}
+                </TableCell>
+                <TableCell className="w-full border-b border-border">
+                  <div className="grid grid-cols-2">
+                    <div className="text-center">{stat.min}</div>
+                    <div className="text-center">{stat.max}</div>
+                  </div>
+                </TableCell>
               </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data.map((stat) => (
-                <TableRow key={stat.stat} className="hover:bg-muted/50">
-                  <TableCell className="text-right ">{stat.label}</TableCell>
-                  <TableCell className=" text-center">
-                    {`${stat.min50} - ${stat.max50}`}
-                    {/* <div className="flex gap-2 justify-center">
-            
-                    </div> */}
-                  </TableCell>
-
-                  <TableCell className=" text-center">
-                    {`${stat.min100} - ${stat.max100}`}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-            {/* <TableFooter className="border-border border-0 bg-transparent">
+            ))}
+          </TableBody>
+          <TableFooter className="border-border border-0 bg-transparent">
             <TableRow>
               <TableCell />
 
@@ -103,10 +66,9 @@ export default function MinMaxStats({ stats }: MinMaxStatsProps) {
                 </div>
               </TableCell>
             </TableRow>
-          </TableFooter> */}
-          </Table>
-        </div>
-      )}
+          </TableFooter>
+        </Table>
+      </div>
     </div>
   );
 }

@@ -6,7 +6,7 @@ import {
   TableRow,
 } from '@/app/shared/ui/table';
 
-import { type StatView } from '../../model';
+import { useMinMaxStats, type StatView } from '../../model';
 
 interface BarProps {
   value: number;
@@ -48,39 +48,46 @@ interface BarChartProps {
 }
 
 export default function BarChart({ baseStats, total }: BarChartProps) {
+  const { statsMinMaxAll } = useMinMaxStats(baseStats);
   return (
-    <div className="w-full max-w-xl mx-auto">
-      <Table className="overflow-hidden border-separate border-spacing-0">
-        <TableBody>
-          {baseStats.map((stat) => (
-            <TableRow
-              key={stat.stat}
-              className="border-border hover:bg-transparent"
-            >
-              <TableCell className="text-right py-3 pl-2 border-b border-border">
-                {stat.label}
-              </TableCell>
-              <TableCell className="text-center py-3 border-b border-border">
-                {stat.value}
-              </TableCell>
-              <TableCell className="py-3 pr-2 border-b border-border w-full">
-                <Bar value={stat.value} />
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-        <TableFooter className="border-border border-0 bg-transparent">
-          <TableRow className="hover:bg-transparent">
-            <TableCell className="text-right py-3 pl-2">
-              {total?.label || '총합'}
+    <Table className="max-w-3xl">
+      <TableBody>
+        {statsMinMaxAll.map((stat) => (
+          <TableRow
+            key={stat.stat}
+            className="border-border hover:bg-transparent"
+          >
+            <TableCell className="text-right py-3 pl-2 border-b border-border">
+              {stat.label}
             </TableCell>
-            <TableCell className="text-center py-3 ">
-              {total?.value || 0}
+            <TableCell className="text-center py-3 border-b border-border">
+              {stat.value}
             </TableCell>
-            <TableCell />
+            <TableCell className="py-3 pr-2 border-b border-border w-full min-w-40">
+              <Bar value={stat.value} />
+            </TableCell>
+            <TableCell>
+              {stat.min50}-{stat.max50}
+            </TableCell>
+            <TableCell>
+              {stat.min100}-{stat.max100}
+            </TableCell>
           </TableRow>
-        </TableFooter>
-      </Table>
-    </div>
+        ))}
+      </TableBody>
+      <TableFooter className=" bg-transparent">
+        <TableRow className="hover:bg-transparent">
+          <TableCell className="text-right py-3 pl-2">
+            {total?.label || '총합'}
+          </TableCell>
+          <TableCell className="text-center py-3 ">
+            {total?.value || 0}
+          </TableCell>
+          <TableCell />
+          <TableCell>Lv.50</TableCell>
+          <TableCell>Lv.100</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
   );
 }

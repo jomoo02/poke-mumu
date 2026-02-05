@@ -8,7 +8,7 @@ interface ItemProps {
 
 function Item({ subject, children, className }: ItemProps) {
   return (
-    <div className={cn('grid grid-cols-3 gap-2', className)}>
+    <div className={cn('grid grid-cols-3', className)}>
       <div className="flex items-center text-muted-foreground">{subject}</div>
       <div className="flex-1 flex text-pretty  break-keep col-span-2">
         {children}
@@ -24,7 +24,7 @@ interface CardProps {
 
 function Container({ title, children }: CardProps) {
   return (
-    <div className="py-6 border border-border rounded-2xl shadow-sm shadow-border bg-card">
+    <div className="bg-card py-6 rounded-xl shadow-sm">
       <h3 className="text-xl font-semibold px-6">{title}</h3>
       <div className="grid gap-4 p-6 pb-0 pt-4">{children}</div>
     </div>

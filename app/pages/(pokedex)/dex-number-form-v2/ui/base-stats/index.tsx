@@ -32,13 +32,14 @@ export default function BaseStats({ stats }: BaseStatsProps) {
     }));
 
   return (
-    <div className="py-6 w-full bg-card">
-      <h3 className="text-lg font-medium mb-2 w-full">종족값</h3>
-      {/* <div className="mb-1 flex">
-        <div className="flex bg-muted p-1 rounded-lg gap-1 h-11">
+    <div className="w-full">
+      <h3 className="text-3xl font-semibold mb-4 w-full px-6">스탯</h3>
+      <BarChart baseStats={baseStats} total={totalStat} />
+      {/* <div className="px-6 mb-1">
+        <div className="w-full grid grid-cols-2 bg-muted p-1 rounded-lg gap-1 h-11">
           <Button
             className={cn(
-              'w-20 py-1.5 font-medium text-sm rounded-lg',
+              'w-full py-1.5 font-medium text-sm rounded-lg',
               isBarChart
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground',
@@ -49,7 +50,7 @@ export default function BaseStats({ stats }: BaseStatsProps) {
           </Button>
           <Button
             className={cn(
-              'w-20 py-1.5 font-medium text-sm rounded-lg',
+              'w-full py-1.5 font-medium text-sm rounded-lg',
               !isBarChart
                 ? 'bg-background text-foreground shadow-sm'
                 : 'text-muted-foreground hover:text-foreground',
@@ -60,31 +61,7 @@ export default function BaseStats({ stats }: BaseStatsProps) {
           </Button>
         </div>
       </div> */}
-      <div className="grid sm:grid-cols-2 gap-6">
-        <div className=" p-6 border rounded-2xl">
-          <div className="flex justify-center mb-4">
-            <span className="text-xs py-1 px-2 rounded-sm mx-1 text-muted-foreground font-medium bg-muted">
-              막대그래프
-            </span>
-          </div>
-
-          <BarChart baseStats={baseStats} total={totalStat} />
-        </div>
-        <div className=" p-6 border rounded-2xl">
-          <div className="flex justify-center">
-            <span className="text-xs py-1 px-2 rounded-sm mx-1 text-muted-foreground font-medium bg-muted ">
-              레이더차트
-            </span>
-          </div>
-
-          <div className="w-full flex justify-center flex-col items-center focus:outline-none">
-            <RaderChart data={raderChartData} />
-            <div className="text-sm font-medium">총합 : {totalStat?.value}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* <div className="h-90 p-6 flex w-full items-center border border-border rounded-2xl">
+      {/* <div className="px-6 h-84 justify-center flex flex-col w-full items-center  border-border rounded-xl">
         {isBarChart ? (
           <BarChart baseStats={baseStats} total={totalStat} />
         ) : (

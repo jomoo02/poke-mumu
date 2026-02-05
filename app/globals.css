@@ -98,13 +98,13 @@
   --color-normal: #949495;
   --color-fire: #e56c3e;
   --color-water: #5185c5;
-  --color-grass: #66a945;
-  --color-electric: #ebce3d;
-  --color-ice: #6dc8eb;
+  --color-grass: #3fa129;
+  --color-electric: #fac000;
+  --color-ice: #3dcef3;
   --color-fighting: #e09c40;
   --color-poison: #735198;
   --color-ground: #9c7743;
-  --color-flying: #a2c3e7;
+  --color-flying: #81b9ef;
   --color-psychic: #dd6b7b;
   --color-bug: #9fa244;
   --color-rock: #bfb889;
@@ -112,7 +112,7 @@
   --color-dragon: #535ca8;
   --color-dark: #4c4948;
   --color-steel: #69a9c7;
-  --color-fairy: #dab4d4;
+  --color-fairy: #ef70ef;
   --color-unknown: #a21caf;
 
   --color-border-normal: #7e7e7f;
