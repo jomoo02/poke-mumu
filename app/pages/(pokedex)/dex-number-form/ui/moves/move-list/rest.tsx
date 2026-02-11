@@ -11,9 +11,11 @@ import useTable from '@/app/shared/model/useTable';
 
 import { type RestMethod, type MoveView } from '../../../model';
 import { basicColumns } from './table-columns';
+import { getTableColumns } from '../move-table';
 
 interface RestProps {
   method: RestMethod;
+  versionGroupId: string;
   moves: MoveView[];
 }
 
@@ -26,10 +28,11 @@ const methodTitleMap: Record<RestMethod, string> = {
   pre: '이전 진화에서 얻을 수 있는 기술',
 };
 
-export default function Rest({ moves, method }: RestProps) {
+export default function Rest({ moves, method, versionGroupId }: RestProps) {
+  const columns = getTableColumns(method, Number(versionGroupId));
   const table = useTable({
     data: moves,
-    columns: [...basicColumns],
+    columns: [...columns],
     sorting: { id: 'name', isDesc: false },
   });
 

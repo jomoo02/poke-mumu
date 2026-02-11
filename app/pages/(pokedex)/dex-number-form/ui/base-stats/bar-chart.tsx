@@ -3,6 +3,8 @@ import {
   TableBody,
   TableCell,
   TableFooter,
+  TableHead,
+  TableHeader,
   TableRow,
 } from '@/app/shared/ui/table';
 
@@ -33,10 +35,10 @@ function Bar({ value, color }: BarProps) {
   const barColor = color ?? ranges.find((r) => value >= r.min)!.color;
 
   return (
-    <svg width="100%" height="16">
+    <svg width="100%" height="14">
       <g className="bars">
-        <rect fill="#f2f3f4" width="100%" height="15" rx="5" />
-        <rect fill={barColor} width={width} height="15" rx={5} />
+        <rect fill="#f2f3f4" width="100%" height="14" rx="5" />
+        <rect fill={barColor} width={width} height="14" rx={5} />
       </g>
     </svg>
   );
@@ -44,42 +46,26 @@ function Bar({ value, color }: BarProps) {
 
 interface BarChartProps {
   baseStats: StatView[];
-  total?: StatView;
 }
 
-export default function BarChart({ baseStats, total }: BarChartProps) {
+export default function BarChart({ baseStats }: BarChartProps) {
   return (
-    <div className="w-full overflow-hidden max-w-xl mx-auto h-full">
-      <Table className="overflow-hidden border-separate border-spacing-0">
+    <div className="w-full overflow-hidden  h-full">
+      <Table className="overflow-hidden">
+        <TableHeader>
+          <TableRow />
+        </TableHeader>
         <TableBody>
           {baseStats.map((stat) => (
-            <TableRow
-              key={stat.stat}
-              className="border-border hover:bg-transparent"
-            >
-              <TableCell className="text-right py-3 pl-2 border-b border-border">
-                {stat.label}
-              </TableCell>
-              <TableCell className="text-center py-3 border-b border-border">
-                {stat.value}
-              </TableCell>
-              <TableCell className="py-3 pr-2 border-b border-border w-full">
+            <TableRow key={stat.stat} className="border-b">
+              <TableCell className="text-left">{stat.label}</TableCell>
+              <TableCell className="text-center ">{stat.value}</TableCell>
+              <TableCell className="">
                 <Bar value={stat.value} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter className="border-border border-0 bg-transparent">
-          <TableRow className="hover:bg-transparent">
-            <TableCell className="text-right py-3 pl-2">
-              {total?.label || '총합'}
-            </TableCell>
-            <TableCell className="text-center py-3 ">
-              {total?.value || 0}
-            </TableCell>
-            <TableCell />
-          </TableRow>
-        </TableFooter>
       </Table>
     </div>
   );

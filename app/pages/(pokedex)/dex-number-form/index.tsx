@@ -10,6 +10,9 @@ import Moves from './ui/moves';
 import Breeding from './ui/resf-info/breeding';
 import Training from './ui/resf-info/training';
 import TypeDefenses from './ui/type-defense';
+import FormPoke from './ui/form-poke';
+import Toc from './ui/toc';
+import SectionTitle from './ui/section-title';
 
 interface PokedexDexNumberFormPageUIProps {
   dexNumber: string;
@@ -35,50 +38,52 @@ export default async function PokedexDexNumberFormPageUI({
     types,
     evolutionId,
     moves,
+    rankRatio,
+    poke,
   } = data;
 
   return (
-    <div className="flex flex-col w-full mx-auto max-w-7xl 2xl:max-w-[90rem] p-6 px-4 sm:px-6">
-      {/* <div className="grid lg:grid-cols-3 gap-6"> */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        <div className="flex flex-col gap-6 lg:max-w-74 xl:max-w-90 2xl:max-w-102 w-full">
-          {forms && (
-            <section>
-              <Forms
-                pokes={forms}
-                initialPoke={pokeKey}
-                dexNumber={dexNumber}
-              />
-            </section>
-          )}
-
+    <div className="flex flex-col gap-6 w-full mx-auto max-w-7xl px-6 md:px-8">
+      <section className="w-full">
+        <DexInfo dexInfo={dexInfo} />
+      </section>
+      <div className="w-full h-px border my-4" />
+      <div className="flex gap-6 w-full relative">
+        <div className="flex flex-col gap-6 flex-1">
           <section>
-            <DexInfo dexInfo={dexInfo} />
-          </section>
-          <section>
-            <Breeding breeding={breeding} />
-          </section>
-          <section>
-            <Training training={training} />
-          </section>
-        </div>
-        <div className="flex flex-col gap-6 lg:col-span-2 lg:flex-1 h-full">
-          <section className="grid lg:grid-cols-2 gap-6">
-            {stats && <BaseStats stats={stats} />}
-            {stats && <MinMaxStats stats={stats} />}
-          </section>
-          <section>
+            <SectionTitle id="abilities" isFirst>
+              특성
+            </SectionTitle>
             <Abilities abilities={abilities} />
           </section>
+          <section className="">
+            <SectionTitle id="base-stats">스탯</SectionTitle>
+            <BaseStats stats={stats} rankRatio={rankRatio} />
+          </section>
           <section>
+            <SectionTitle id="type-defense">방어 상성</SectionTitle>
             <TypeDefenses typeDefenses={typeDefense} types={types} />
           </section>
           <section>
+            <SectionTitle id="evolution">진화</SectionTitle>
             <EvolutionTree id={evolutionId} />
           </section>
           <section>
+            <SectionTitle id="move">기술</SectionTitle>
             <Moves moves={moves} />
           </section>
+        </div>
+        <div className="hidden xl:block w-64 max-h-92 sticky top-20">
+          <div className="flex flex-col gap-4">
+            {forms && (
+              <section>
+                <FormPoke poke={poke} />
+              </section>
+            )}
+            <section className="px-4">
+              <Toc />
+            </section>
+          </div>
         </div>
       </div>
     </div>

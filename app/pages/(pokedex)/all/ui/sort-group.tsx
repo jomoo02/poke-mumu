@@ -2,7 +2,7 @@
 
 import { ArrowUp, ArrowDown } from 'lucide-react';
 
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 import { type SortKey, type Direction } from '../model';
@@ -63,6 +63,7 @@ export default function SortGroup({
     <div className="gap-2 flex flex-wrap">
       {sortItems.map((item) => (
         <Button
+          variant="ghost"
           key={item.sortKey}
           onClick={() => onClickSortButton(item.sortKey)}
           className={cn(

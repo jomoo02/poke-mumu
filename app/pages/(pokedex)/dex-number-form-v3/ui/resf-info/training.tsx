@@ -10,7 +10,7 @@ export default function Training({ training }: TrainingProps) {
 
   return (
     <div>
-      <div className="text-3xl font-bold pb-4">훈련</div>
+      <div className="text-3xl font-semibold pb-4">훈련</div>
       <div className="w-full h-1 bg-border rounded-lg mb-6 " />
       <InfoCard.Container title="훈련">
         <InfoCard.Item subject="포획률">{captureRate}</InfoCard.Item>

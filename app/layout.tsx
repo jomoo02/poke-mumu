@@ -4,11 +4,41 @@ import localFont from 'next/font/local';
 
 import './globals.css';
 
+import { TooltipProvider } from './shared/ui/tooltip';
+
 const suit = localFont({
   src: '../public/fonts/SUIT-Variable.woff2',
   display: 'swap',
   variable: '--font-suit',
   weight: '100 900',
+});
+
+const suite = localFont({
+  src: '../public/fonts/SUITE-Variable.woff2',
+  display: 'swap',
+  variable: '--font-suite',
+  weight: '100 900',
+});
+
+const eliceDxNeolit = localFont({
+  variable: '--font-elice',
+  src: [
+    {
+      path: '../public/fonts/EliceDXNeolli-Bold.ttf',
+      weight: '900',
+      style: 'bold',
+    },
+    {
+      path: '../public/fonts/EliceDXNeolli-Light.ttf',
+      weight: '100',
+      style: 'light',
+    },
+    {
+      path: '../public/fonts/EliceDXNeolli-Medium.ttf',
+      weight: '400',
+      style: 'medium',
+    },
+  ],
 });
 
 const geistSans = Geist({
@@ -32,11 +62,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${suit.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html
+      lang="en"
+      className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
+    >
+      <body className={`antialiased`}>
+        <TooltipProvider>{children}</TooltipProvider>
       </body>
     </html>
   );

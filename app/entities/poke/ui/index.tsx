@@ -57,11 +57,12 @@ export function PokeArtwork({
 
   return (
     <div className={cn('w-80 h-80 relative', className)}>
+      {/* <div className="absolute inset-0 blur-3xl opacity-20 rounded-full scale-75 bg-grass" /> */}
       <Image
         placeholder="blur"
         blurDataURL="/pokeball.svg"
-        src={src}
-        // src="/pokeball.svg"
+        // src={src}
+        src="/pokeball.svg"
         alt={alt}
         fill
         style={{

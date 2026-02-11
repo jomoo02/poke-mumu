@@ -2,7 +2,7 @@ import { SearchIcon, XIcon } from 'lucide-react';
 
 import { useSearchContext } from '../provider/search.context';
 
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 
 export default function Input() {
   const { inputRef, handleInputValueChange, closeSearch, inputValue } =
@@ -23,7 +23,13 @@ export default function Input() {
           className="flex-1 px-2 py-1 h-8 focus:outline-none text-slate-800 placeholder:text-muted-foreground placeholder:font-suit"
         />
 
-        <Button type="button" aria-label="Close" onClick={closeSearch}>
+        <Button
+          variant="ghost"
+          type="button"
+          aria-label="Close"
+          size="icon"
+          onClick={closeSearch}
+        >
           <XIcon className="size-5" />
         </Button>
       </div>

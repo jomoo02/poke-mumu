@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 import { type StatView, getRaderChartOrder } from '../../model';

@@ -7,7 +7,7 @@ import {
   TableFooter,
   TableRow,
 } from '@/app/shared/ui/table';
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 import { type StatView, useMinMaxStats } from '../../model';

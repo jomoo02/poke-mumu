@@ -1946,9 +1946,35 @@ export type Database = {
           },
         ]
       }
+      poke_total_rank: {
+        Row: {
+          id: number | null
+          rank_ratio: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
-      [_ in never]: never
+      get_poke_rank: {
+        Args: { target_id: number }
+        Returns: {
+          rank_ratio: number
+        }[]
+      }
+      get_poke_rank_by_key: {
+        Args: { target_key: string }
+        Returns: {
+          top_percent: number
+        }[]
+      }
+      get_poke_with_rank: {
+        Args: { target_key: string }
+        Returns: {
+          id: number
+          rank_ratio: number
+          total: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

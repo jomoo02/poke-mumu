@@ -31,8 +31,8 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
 
   return (
     <div className="grid md:grid-cols-2 gap-6 sm:gap-16 ">
-      <div className="rounded-2xl aspect-square sm:aspect-3/2 lg:aspect-5/4 p-8 bg-muted/50 flex justify-center items-center overflow-hidden">
-        <div className="rounded-2xl h-full w-full max-w-100 max-h-100 relative mx-auto">
+      <div className="rounded-4xl aspect-square sm:aspect-3/2 lg:aspect-5/4 p-8 bg-muted/50 flex justify-center items-center overflow-hidden">
+        <div className="h-full w-full max-w-100 max-h-100 relative mx-auto">
           <PokeArtwork
             className="object-contain w-full h-full"
             poke={poke}

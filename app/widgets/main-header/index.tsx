@@ -1,33 +1,37 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
+import { Button } from '@/app/shared/ui/button';
+import { useSidebar } from '@/app/shared/ui/sidebar';
 import NavLink from './ui/nav-link';
 import SearchPoke from '@/app/features/search-poke';
 import { Suspense } from 'react';
+import { MenuIcon, SidebarIcon } from 'lucide-react';
 
 export default function MainHeader() {
+  const { toggleSidebar } = useSidebar();
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="px-4 sm:px-6 max-w-7xl mx-auto w-full mt-4 sm:mt-6">
-        <div className="flex items-center h-16 justify-between bg-card/50 shadow-sm shadow-card rounded-2xl border border-border px-6 backdrop-blur-md">
-          <Link
-            href="/"
-            className="flex items-center text-xl font-extrabold text-foreground"
-          >
-            포케무무
-          </Link>
-          <nav>
-            <NavLink href="/pokedex">도감</NavLink>
-          </nav>
-          {/* <Link href="/search">
-            {' '}
-            <SearchIcon className="size-5" />
-          </Link> */}
-
-          <Suspense>
-            {' '}
-            <SearchPoke />
-          </Suspense>
-        </div>
+    <header className="sticky top-0 z-50 px-4 sm:px-6 w-full border-b bg-background">
+      <div className="flex h-(--header-height) items-center justify-between backdrop-blur-md">
+        <Button
+          onClick={toggleSidebar}
+          className="h-8 w-8"
+          variant="ghost"
+          size="icon"
+        >
+          <MenuIcon />
+          {/* <SidebarIcon /> */}
+        </Button>
+        {/* <Link
+          href="/"
+          className="flex items-center text-xl font-extrabold text-foreground"
+        >
+          포케무무
+        </Link> */}
+        <Suspense>
+          <SearchPoke />
+        </Suspense>
+        <div />
       </div>
     </header>
   );

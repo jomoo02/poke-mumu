@@ -1,6 +1,6 @@
 import { type ColumnDef } from '@/app/shared/model/useTable';
 import { type MoveView } from '../../../model';
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 import { ArrowUp } from 'lucide-react';
 import { cn } from '@/app/shared/lib/cn';
 import { TypeIcon } from '@/app/entities/type/ui';

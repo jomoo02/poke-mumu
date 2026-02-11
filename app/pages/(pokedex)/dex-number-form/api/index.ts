@@ -107,6 +107,11 @@ export const getPokeData = async (pokeKey: string) => {
     throw new Error('Error not exist pokedetail');
   }
 
+  const { data: rank } = await supabase.rpc('get_poke_rank_by_key', {
+    target_key: pokeKey,
+  });
+
+  console.log(rank);
   const {
     dexNumber,
     id,
@@ -141,17 +146,27 @@ export const getPokeData = async (pokeKey: string) => {
     pokeKey,
   };
 
+  const poke = {
+    dexNumber,
+    name,
+    form,
+    sprite,
+    pokeKey,
+  };
   const typeDefense = await getTypeDefenses(types.map((type) => type.id));
 
   return {
     types,
     typeDefense,
     evolutionId: data.evolutionId,
+
     dexInfo: adpatDexInfoView(dexInfoDto),
     breeding: adaptBreeidngView(breeding),
     training: adaptTrainingView(detail, effortValues),
     stats: adaptBaseStatsView(stats),
     abilities: adaptAbilitiyView(abilities),
     moves: adaptPokeMovesView(pokeMoves),
+    rankRatio: rank ? rank[0].top_percent : 0,
+    poke,
   };
 };

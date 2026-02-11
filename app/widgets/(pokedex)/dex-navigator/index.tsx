@@ -17,7 +17,7 @@ export default async function DexNavigator({ dexNumber }: DexNavigatorProps) {
   const { prev, next } = pokes;
 
   return (
-    <nav className="max-w-7xl w-full mx-auto px-4 sm:px-6 flex justify-between py-4 overflow-hidden">
+    <nav className="max-w-7xl w-full mx-auto px-4 sm:px-6 md:px-8 flex justify-between py-4 overflow-hidden">
       <div className="flex">
         {prev && <NavButton {...prev} direction="prev" />}
       </div>

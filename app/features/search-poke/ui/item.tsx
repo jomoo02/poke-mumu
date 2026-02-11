@@ -7,7 +7,7 @@ import { formatNumber } from '@/app/shared/lib/format';
 import { cn } from '@/app/shared/lib/cn';
 import { useSearchContext } from '../provider/search.context';
 import { SearchPoke } from '../model';
-import Button from '@/app/shared/ui/button';
+import { Button } from '@/app/shared/ui/button';
 
 interface ItemProps {
   item: SearchPoke;
@@ -28,9 +28,10 @@ export default function Item({ item, isActive }: ItemProps) {
     //   className={cn('flex py-2 px-4 rounded-xl gap-4', isActive && 'bg-accent')}
     // >
     <Button
+      variant="ghost"
       onClick={() => selectPoke(item)}
       className={cn(
-        'flex py-2 px-4 rounded-xl gap-4 w-full ',
+        'flex py-2 px-4 rounded-xl gap-4 w-full h-full ',
         isActive && 'bg-accent',
       )}
     >
