@@ -7,12 +7,14 @@ import {
   TableHeader,
   TableCell,
   TableHead,
+  TableFooter,
 } from '@/app/shared/ui/table';
 import { TypeBadge, TypeIcon } from '@/app/entities/type/ui';
 import { Type } from '@/app/entities/type/model';
 
 import { type TypeDefenseView } from '../../model';
 import { Fragment } from 'react/jsx-runtime';
+import { cn } from '@/app/shared/lib/cn';
 
 interface TypeDefensesProps {
   typeDefenses: TypeDefenseView[];
@@ -88,169 +90,93 @@ export default function TypeDefenses({
   );
 
   const data = [
-    { types: weak, label: '약점' },
-    { types: resistant, label: '내성' },
-    { types: immune, label: '무시' },
-    { types: normal, label: '보통' },
+    {
+      types: weak,
+      label: '약점',
+      bgColor: 'bg-red-500/15',
+      textColor: 'text-red-600',
+    },
+    {
+      types: resistant,
+      label: '내성',
+      bgColor: 'bg-green-500/15',
+      textColor: 'text-green-700',
+    },
+    {
+      types: immune,
+      label: '무효',
+      bgColor: 'bg-zinc-500/15',
+      textColor: 'text-zinc-600',
+    },
   ].filter(({ types }) => types.length > 0);
 
   return (
-    <div className="flex flex-col  gap-6 ">
-      <div className="grid grid-cols-3 sm:grid-cols-6 lg:grid-cols-9 gap-6">
+    <div className="flex flex-col overflow-hidden  ">
+      <div className="grid grid-cols-3 sm:grid-cols-6 xl:grid-cols-9 gap-4 bg-muted/70 p-4 border rounded-2xl">
         {typeDefenses.map((type) => (
           <div
             key={type.attacker.identifier}
-            className="flex flex-col items-center justify-center"
+            className="flex flex-col items-center justify-center bg-card p-4 rounded-xl shadow-sm"
           >
             <TypeIcon type={type.attacker} className="size-7.5" />
-            <div className="h-8 text-sm font-medium flex items-center">
+            <div className="text-sm flex items-center pt-2">
               x{type.effectiveness}
             </div>
           </div>
         ))}
       </div>
-      <div className="flex">
-        <div className="flex items-start min-w-24">
-          {' '}
-          <div className="py-1.5 px-3 bg-red-500/15 text-red-600 text-sm rounded-lg flex truncate">
-            약점
-          </div>
-        </div>
 
-        <div className="flex gap-6 flex-wrap">
-          {weak.map((w) => (
-            <Fragment key={w.effectiveness}>
-              {w.attacker.map((t) => (
-                <div
-                  key={t.identifier}
-                  className="flex gap-1.5 items-center px-3 py-1.5 bg-red-500/15 text-sm rounded-lg"
-                >
-                  <span className="font-medium">{t.name}</span>
-                  <span className="text-red-600 font-medium ">
-                    x{w.effectiveness}
-                  </span>
-                </div>
-              ))}
-            </Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="flex">
-        <div className="flex items-start min-w-24">
-          <div className="py-1.5 px-3 bg-green-500/15 text-green-700 text-sm rounded-lg truncate">
-            내성
-          </div>
-        </div>
-
-        <div className="flex gap-6 flex-wrap">
-          {resistant.map((w) => (
-            <Fragment key={w.effectiveness}>
-              {w.attacker.map((t) => (
-                <div
-                  key={t.identifier}
-                  className="flex gap-1.5 items-center bg-green-500/15 text-sm px-3 py-1.5 rounded-lg"
-                >
-                  <span className="font-medium">{t.name}</span>
-                  <span className="  text-green-700 font-medium  ">
-                    x{w.effectiveness}
-                  </span>
-                </div>
-              ))}
-            </Fragment>
-          ))}
-        </div>
-      </div>
-      <div className="flex">
-        <div className="flex items-start min-w-24">
-          <div className="py-1.5 px-3 bg-zinc-500/15 text-zinc-700 text-sm rounded-lg truncate">
-            무효
-          </div>
-        </div>
-
-        <div className="flex gap-6 flex-wrap">
-          {immune.map((w) => (
-            <Fragment key={w.effectiveness}>
-              {w.attacker.map((t) => (
-                <div
-                  key={t.identifier}
-                  className="flex gap-1.5 items-center bg-zinc-500/15 text-sm px-3 py-1.5 rounded-lg"
-                >
-                  <span className="font-medium">{t.name}</span>
-                  <span className="  text-zinc-700 font-medium  ">
-                    x{w.effectiveness}
-                  </span>
-                </div>
-              ))}
-            </Fragment>
-          ))}
-        </div>
-      </div>
-      {/* <div className="w-full">
-        <div className=" text-muted-foreground text-center pb-1 text-xs font-medium">
-          기준 타입
-        </div>
-        <div className="flex gap-2 w-full  text-muted-foreground justify-center">
-          {types.map((type) => (
-            <div
-              key={type.identifier}
-              className="flex flex-col gap-1 items-center"
-            >
-              <TypeIcon type={type} className="size-7" />
-              <div className="text-sm text-center text-muted-foreground font-medium">
-                {type.name}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div className="flex-1 max-w-4xl w-full mx-auto">
-        <Table className="">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-center  text-sm font-medium  ">
-                배율
-              </TableHead>
-              <TableHead className="   px-2 sm:px-4 font-medium text-sm ">
-                <div className="gap-4 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6   h-full ">
-                  <div className="text-center flex items-center w-full justify-center">
-                    타입
-                  </div>
-                </div>
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {effectivenessTypeDefenses.map(
-              ({ effective, types, effectivenessText }) => (
-                <TableRow
-                  key={effective}
-                  className="border-border hover:bg-transparent"
-                >
-                  <TableCell className="px-2 sm:px-4 sm:w-20 text-center">
-                    x {effective}
-                    <div className="text-muted-foreground  text-sm font-medium">
-                      {effectivenessText}
+      <div className="py-6">
+        <div className=" overflow-hidden">
+          <Table>
+            {/* <TableHeader>
+              <TableRow>
+                <TableCell />
+                <TableCell />
+              </TableRow>
+            </TableHeader> */}
+            <TableBody>
+              {data.map(({ types, label, bgColor, textColor }) => (
+                <TableRow key={label}>
+                  <TableCell className="">
+                    <span className={cn('text-sm font-medium', textColor)}>
+                      {label}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex gap-2 flex-wrap">
+                      {types.map((w) => (
+                        <Fragment key={w.effectiveness}>
+                          {w.attacker.map((t) => (
+                            <div
+                              key={t.identifier}
+                              className={cn(
+                                'flex gap-1 items-center px-2 py-1 rounded-md text-sm font-medium',
+                                bgColor,
+                              )}
+                            >
+                              <span className="">{t.name}</span>
+                              <span className={cn('', textColor)}>
+                                x{w.effectiveness}
+                              </span>
+                            </div>
+                          ))}
+                        </Fragment>
+                      ))}
                     </div>
                   </TableCell>
-                  <TableCell className="px-2 sm:px-4 gap-4 grid grid-cols-3 sm:grid-cols-4 xl:grid-cols-6  py-4">
-                    {types.map((type) => (
-                      <div
-                        key={type.attacker.name}
-                        className="flex flex-col gap-1 items-center"
-                      >
-                        <TypeIcon type={type.attacker} className="size-7" />
-                        <div className="text-sm text-center text-muted-foreground font-medium">
-                          {type.attacker.name}
-                        </div>
-                      </div>
-                    ))}
-                  </TableCell>
                 </TableRow>
-              ),
-            )}
-          </TableBody>
-        </Table>
-      </div> */}
+              ))}
+            </TableBody>
+            {/* <TableFooter>
+              <TableRow>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            </TableFooter> */}
+          </Table>
+        </div>
+      </div>
     </div>
   );
 }

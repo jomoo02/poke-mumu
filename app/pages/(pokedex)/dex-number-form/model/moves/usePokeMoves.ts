@@ -136,7 +136,7 @@ export function usePokeMoves(pokeMoves: PokeMovesView[]) {
     ({ versionGroupId }) => String(versionGroupId) === selection.versionGroupId,
   )?.versionGroupKo;
 
-  console.log(versionGroups);
+  // console.log(versionGroups);
   return {
     // gens,
     // versionGroups,

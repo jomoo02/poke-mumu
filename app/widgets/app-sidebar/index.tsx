@@ -52,6 +52,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
   return (
     <Sidebar
+      className=""
       // className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
       {...props}
     >
@@ -70,18 +71,22 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>도감</SidebarGroupLabel>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="h-10"
-              isActive={pathname === '/pokedex/all'}
-            >
-              <Link href="/pokedex/all">전국도감</Link>
-            </SidebarMenuButton>
-            <SidebarMenuButton asChild className="h-10">
-              <Link href="/pokedex">지역도감</Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                className="h-10"
+                isActive={pathname === '/pokedex/all'}
+              >
+                <Link href="/pokedex/all">전국도감</Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton asChild className="h-10">
+                <Link href="/pokedex">지역도감</Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
           {/* <SidebarGroupContent>
             <SidebarMenu>
               {data.map((item, index) => (

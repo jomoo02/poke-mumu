@@ -14,7 +14,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="flex h-full gap-2 hover:bg-accent px-2 justify-between "
+        className="flex gap-2 hover:bg-accent p-2 justify-between "
         onClick={column.toggleSorting}
       >
         <span>기술</span>
@@ -156,32 +156,32 @@ export const basicColumns: ColumnDef<MoveView>[] = [
     sortable: true,
     sortFn: (a, b) => (a.accuracy ?? -1) - (b.accuracy ?? -1),
   },
-  {
-    id: 'pp',
-    header: ({ column }) => (
-      <div className="w-full h-full flex justify-end items-center">
-        <Button
-          variant="ghost"
-          className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
-          onClick={column.toggleSorting}
-        >
-          <span>PP</span>
-          <span className="size-3.5">
-            <ArrowUp
-              data-state={column.getSortedDirection() ?? 'hidden'}
-              className={cn(
-                'size-3.5 ',
-                'data-[state=hidden]:hidden data-[state=desc]:rotate-180 transition-transform transform duration-400 will-change-transform',
-              )}
-            />
-          </span>
-        </Button>
-      </div>
-    ),
-    cell: ({ row }) => <div className="text-right pr-2">{row.pp || '-'}</div>,
-    sortable: true,
-    sortFn: (a, b) => (a.pp ?? -1) - (b.pp ?? -1),
-  },
+  // {
+  //   id: 'pp',
+  //   header: ({ column }) => (
+  //     <div className="w-full h-full flex justify-end items-center">
+  //       <Button
+  //         variant="ghost"
+  //         className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
+  //         onClick={column.toggleSorting}
+  //       >
+  //         <span>PP</span>
+  //         <span className="size-3.5">
+  //           <ArrowUp
+  //             data-state={column.getSortedDirection() ?? 'hidden'}
+  //             className={cn(
+  //               'size-3.5 ',
+  //               'data-[state=hidden]:hidden data-[state=desc]:rotate-180 transition-transform transform duration-400 will-change-transform',
+  //             )}
+  //           />
+  //         </span>
+  //       </Button>
+  //     </div>
+  //   ),
+  //   cell: ({ row }) => <div className="text-right pr-2">{row.pp || '-'}</div>,
+  //   sortable: true,
+  //   sortFn: (a, b) => (a.pp ?? -1) - (b.pp ?? -1),
+  // },
   // {
   //   id: 'info',
   //   header: () => <div />,

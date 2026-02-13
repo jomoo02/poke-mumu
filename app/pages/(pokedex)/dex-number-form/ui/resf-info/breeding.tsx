@@ -1,3 +1,5 @@
+'use client';
+
 import { Mars, Venus } from 'lucide-react';
 
 import { type BreedingView } from '../../model/rest-info';

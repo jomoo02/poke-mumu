@@ -29,18 +29,19 @@ export default function SelectGroup({
   });
 
   return (
-    <div className="flex flex-col gap-6 pb-12">
-      <div>
+    <div className="flex flex-col gap-6 pb-12 ">
+      <div className="">
         <div className="mb-2">세대</div>
-        <div className="flex overflow-auto">
-          <div className="flex bg-muted p-1 rounded-lg shadow-sm shadow-muted gap-1">
+        <div className=" flex overflow-hidden">
+          <div className="flex bg-muted p-1 rounded-lg shadow-sm shadow-muted gap-1 overflow-auto">
             {grouped.map(({ gen }) => (
               <Button
                 key={gen}
+                role="tab"
                 variant="ghost"
                 onClick={() => setCurSelectedGen(gen)}
                 className={cn(
-                  'py-1.5 px-4',
+                  'py-1.5 px-4 flex',
                   curSelectedGen === gen ? 'bg-card' : 'text-muted-foreground',
                 )}
               >

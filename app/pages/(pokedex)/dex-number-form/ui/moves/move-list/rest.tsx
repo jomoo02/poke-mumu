@@ -10,7 +10,6 @@ import { cn } from '@/app/shared/lib/cn';
 import useTable from '@/app/shared/model/useTable';
 
 import { type RestMethod, type MoveView } from '../../../model';
-import { basicColumns } from './table-columns';
 import { getTableColumns } from '../move-table';
 
 interface RestProps {
@@ -30,6 +29,7 @@ const methodTitleMap: Record<RestMethod, string> = {
 
 export default function Rest({ moves, method, versionGroupId }: RestProps) {
   const columns = getTableColumns(method, Number(versionGroupId));
+
   const table = useTable({
     data: moves,
     columns: [...columns],
@@ -40,37 +40,33 @@ export default function Rest({ moves, method, versionGroupId }: RestProps) {
   return (
     <div>
       <h4 className="text-xl font-semibold mb-2">{title}</h4>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {table.getVisibleColumns().map((header) => (
-              <TableHead
-                key={header.id}
-                className={cn(
-                  'py-1 h-12 text-sm border-border px-2',
-                  'first:pl-0  last:pr-0',
-                )}
-              >
-                {header.render()}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {table.rows.map((row) => (
-            <TableRow key={row.id} className={cn('border-border')}>
-              {table.getVisibleColumns().map((col) => (
-                <TableCell
-                  key={col.id}
-                  className={cn('first:pl-2 last:pr-2', ' py-3 text-sm')}
+      <div className="border overflow-hidden rounded-lg">
+        <Table className="bg-card">
+          <TableHeader>
+            <TableRow>
+              {table.getVisibleColumns().map((header) => (
+                <TableHead
+                  key={header.id}
+                  className={cn('text-sm border-border px-2')}
                 >
-                  {col.cell({ row })}
-                </TableCell>
+                  {header.render()}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {table.rows.map((row) => (
+              <TableRow key={row.id} className={cn('border-border')}>
+                {table.getVisibleColumns().map((col) => (
+                  <TableCell key={col.id} className={cn('text-sm')}>
+                    {col.cell({ row })}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

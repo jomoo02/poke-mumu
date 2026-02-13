@@ -15,8 +15,8 @@ export default function SectionTitle({
     <h3
       id={id}
       className={cn(
-        'text-2xl font-semibold scroll-mt-24 mb-4',
-        isFirst ? '' : ' border-t mt-12 pt-10',
+        'text-3xl font-semibold scroll-mt-24 mb-6',
+        isFirst ? '' : ' mt-12 pt-8',
       )}
     >
       {children}

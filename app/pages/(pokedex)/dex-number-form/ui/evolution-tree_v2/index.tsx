@@ -21,7 +21,7 @@ export default async function EvolutionTree({ id }: EvolutionTreeProps) {
 
   return (
     <div className="">
-      <div className="flex flex-col gap-4 py-2 w-full h-full">
+      <div className="flex flex-col gap-4 w-full h-full">
         {evolutionTree.roots.map((node, idx) => (
           <Fragment key={`${node.id}-${idx}`}>
             {idx > 0 && <div className="w-full h-px bg-border my-2" />}

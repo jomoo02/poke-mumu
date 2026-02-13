@@ -13,14 +13,14 @@ export default function RootNode({ node, maxDepth }: RootNodeProps) {
   const { next, ...poke } = node;
 
   return (
-    <div className="flex flex-col xl:flex-row ">
-      <div className={cn('flex flex-col items-center')}>
+    <div className="flex flex-col lg:flex-row ">
+      <div className={cn('flex flex-col  items-center')}>
         <ChainPoke poke={poke} />
       </div>
       <div
         className={cn(
           'w-full grid  gap-4 ',
-          next.length > 1 ? 'grid-cols-2 xl:grid-cols-1' : '',
+          next.length > 1 ? 'grid-cols-2 lg:grid-cols-1' : '',
         )}
       >
         {next.map((chainNode) => (
@@ -29,7 +29,7 @@ export default function RootNode({ node, maxDepth }: RootNodeProps) {
             node={chainNode}
             maxDepth={maxDepth}
             className={cn(
-              next.length == 3 ? 'last:col-span-2 xl:last:col-span-1 ' : '',
+              next.length == 3 ? 'last:col-span-2 lg:last:col-span-1 ' : '',
             )}
           />
         ))}

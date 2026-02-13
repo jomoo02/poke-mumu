@@ -48,41 +48,37 @@ export default function Machine({
   return (
     <div>
       <h4 className="text-xl font-semibold mb-4">{title}</h4>
-      <Table>
-        <TableHeader>
-          <TableRow>
-            {table.getVisibleColumns().map((header) => (
-              <TableHead
-                key={header.id}
-                className={cn(
-                  'py-1 h-12 text-sm border-border px-2',
-                  'first:pl-0  last:pr-0',
-                )}
-              >
-                {header.id === 'machine' ? (
-                  <>{header.render(machineType)}</>
-                ) : (
-                  <> {header.render()}</>
-                )}
-              </TableHead>
-            ))}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {table.rows.map((row) => (
-            <TableRow key={row.id} className={cn('border-border')}>
-              {table.getVisibleColumns().map((col) => (
-                <TableCell
-                  key={col.id}
-                  className={cn('first:pl-2 last:pr-2', ' py-3 text-sm')}
+      <div className="border rounded-lg overflow-hidden">
+        <Table className="bg-card">
+          <TableHeader>
+            <TableRow>
+              {table.getVisibleColumns().map((header) => (
+                <TableHead
+                  key={header.id}
+                  className={cn(' text-sm border-border px-2')}
                 >
-                  {col.cell({ row })}
-                </TableCell>
+                  {header.id === 'machine' ? (
+                    <>{header.render(machineType)}</>
+                  ) : (
+                    <> {header.render()}</>
+                  )}
+                </TableHead>
               ))}
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {table.rows.map((row) => (
+              <TableRow key={row.id} className={cn('border-border')}>
+                {table.getVisibleColumns().map((col) => (
+                  <TableCell key={col.id} className={cn('text-sm')}>
+                    {col.cell({ row })}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
     </div>
   );
 }

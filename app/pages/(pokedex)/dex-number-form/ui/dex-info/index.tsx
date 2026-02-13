@@ -38,8 +38,9 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
   const mainType = types[0];
 
   return (
-    <div className="grid lg:grid-cols-2 gap-6">
-      <div className="h-full w-full relative mx-auto max-w-88 max-h-88 aspect-square">
+    // <div className="grid lg:grid-cols-2 gap-6 bg-card p-6">
+    <div className="h-full w-full flex items-center justify-center">
+      <div className="h-full w-full relative mx-auto max-w-100 max-h-100 aspect-square">
         <MainSprite
           className="object-contain w-full h-full"
           poke={dexInfo}
@@ -47,42 +48,43 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
           priority
         />
       </div>
-
-      <div className="flex flex-col h-full gap-6">
-        <div className="flex flex-col gap-1">
-          <div className="text-2xl font-medium text-muted-foreground">
-            {formattedDexNumber}
-          </div>
-          <div className="text-4xl font-semibold text-foreground">{name}</div>
-          <div className="text-xl text-foreground">{form}</div>
-          <div className="flex gap-2 mt-4">
-            {types.map((type) => (
-              <TypeBadge
-                key={type.identifier}
-                type={type}
-                className="h-8.5 w-30 sm:w-40"
-              />
-            ))}
-          </div>
-        </div>
-        <div className="flex-1 flex items-end w-full">
-          <div className="grid grid-cols-2 w-full gap-6">
-            <InfoItem
-              label="분류"
-              className="col-span-2"
-              icon={<BookIcon className="size-4.5" />}
-            >
-              {genera}
-            </InfoItem>
-            <InfoItem label="몸무게" icon={<WeightIcon className="size-4.5" />}>
-              {weight}
-            </InfoItem>
-            <InfoItem label="키" icon={<RulerIcon className="size-4.5" />}>
-              {height}
-            </InfoItem>
-          </div>
-        </div>
-      </div>
     </div>
+
+    //   <div className="flex flex-col h-full gap-6">
+    //     <div className="flex flex-col gap-1">
+    //       <div className="text-2xl font-medium text-muted-foreground">
+    //         {formattedDexNumber}
+    //       </div>
+    //       <div className="text-4xl font-semibold text-foreground">{name}</div>
+    //       <div className="text-xl text-foreground">{form}</div>
+    //       <div className="flex gap-2 mt-4">
+    //         {types.map((type) => (
+    //           <TypeBadge
+    //             key={type.identifier}
+    //             type={type}
+    //             className="h-8.5 w-30 sm:w-40"
+    //           />
+    //         ))}
+    //       </div>
+    //     </div>
+    //     <div className="flex-1 flex items-end w-full">
+    //       <div className="grid grid-cols-2 w-full gap-6">
+    //         <InfoItem
+    //           label="분류"
+    //           className="col-span-2"
+    //           icon={<BookIcon className="size-4.5" />}
+    //         >
+    //           {genera}
+    //         </InfoItem>
+    //         <InfoItem label="몸무게" icon={<WeightIcon className="size-4.5" />}>
+    //           {weight}
+    //         </InfoItem>
+    //         <InfoItem label="키" icon={<RulerIcon className="size-4.5" />}>
+    //           {height}
+    //         </InfoItem>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
   );
 }

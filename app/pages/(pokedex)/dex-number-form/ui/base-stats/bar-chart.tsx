@@ -50,22 +50,26 @@ interface BarChartProps {
 
 export default function BarChart({ baseStats }: BarChartProps) {
   return (
-    <div className="w-full overflow-hidden  h-full">
+    <div className="w-full overflow-hidden">
       <Table className="overflow-hidden">
-        <TableHeader>
-          <TableRow />
-        </TableHeader>
         <TableBody>
           {baseStats.map((stat) => (
-            <TableRow key={stat.stat} className="border-b">
+            <TableRow key={stat.stat} className=" bg-card">
               <TableCell className="text-left">{stat.label}</TableCell>
               <TableCell className="text-center ">{stat.value}</TableCell>
-              <TableCell className="">
+              <TableCell className="w-full">
                 <Bar value={stat.value} />
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
+        <TableFooter>
+          <TableRow>
+            <TableCell>총합</TableCell>
+            <TableCell>500</TableCell>
+            <TableCell />
+          </TableRow>
+        </TableFooter>
       </Table>
     </div>
   );

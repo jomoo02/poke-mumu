@@ -14,28 +14,24 @@ export default function ChainPoke({ poke }: ChainPokeProps) {
 
   // const src = '/pokeball.svg';
   const href = `/pokedex/${dexNumber}/${pokeKey}`;
-  const fomattedDexNumber = `No.${formatNumber(dexNumber)}`;
+  const fomattedDexNumber = `#${formatNumber(dexNumber)}`;
 
   return (
     <div className="flex flex-col h-full justify-center  bg-background">
       <Link
         href={href}
-        className="hover:bg-accent rounded-2xl border outline-ring"
+        className="hover:bg-accent rounded-xl outline-ring shadow-border"
       >
-        <div className="p-4">
-          <PokeArtwork
-            poke={poke}
-            className="size-30 sm:size-36 xl:size-38 2xl:size-40"
-            priority
-          />
+        <div className="flex justify-center items-center size-24 bg-muted/50 rounded-xl p-3 shadow-sm">
+          <PokeSprite poke={poke} className="size-20" priority />
         </div>
       </Link>
-      <div className="font-medium text-muted-foreground pt-2 pl-1">
+      <div className="font-medium text-muted-foreground pt-1 text-sm">
         {fomattedDexNumber}
       </div>
       <Link
         href={href}
-        className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground pl-1"
+        className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground"
       >
         {name}
       </Link>

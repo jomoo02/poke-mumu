@@ -1,4 +1,6 @@
+'use client';
 import { cn } from '@/app/shared/lib/cn';
+import { useState } from 'react';
 
 interface ItemProps {
   subject: string;
@@ -8,11 +10,16 @@ interface ItemProps {
 
 function Item({ subject, children, className }: ItemProps) {
   return (
-    <div className={cn('grid grid-cols-3', className)}>
-      <div className="flex items-center text-muted-foreground">{subject}</div>
-      <div className="flex-1 flex text-pretty  break-keep col-span-2">
-        {children}
+    <div
+      className={cn(
+        'flex justify-between py-2 last:border-b-0 border-b',
+        className,
+      )}
+    >
+      <div className="flex items-center text-muted-foreground font-medium">
+        {subject}
       </div>
+      <div className=" flex text-pretty  break-keep">{children}</div>
     </div>
   );
 }
@@ -23,10 +30,11 @@ interface CardProps {
 }
 
 function Container({ title, children }: CardProps) {
+  const [isVisible, setIsVisible] = useState(true);
   return (
-    <div className="py-6 border border-border rounded-2xl shadow-sm shadow-border bg-card">
-      <h3 className="text-2xl font-semibold px-6">{title}</h3>
-      <div className="grid gap-4 p-6 pb-0 pt-4">{children}</div>
+    <div className="">
+      <h3 className="font-medium">{title}</h3>
+      {isVisible && <div className="flex flex-col">{children}</div>}
     </div>
   );
 }

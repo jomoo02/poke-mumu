@@ -1,3 +1,5 @@
+'use client';
+
 import { type TrainingView } from '../../model/rest-info';
 import InfoCard from '../info-card';
 

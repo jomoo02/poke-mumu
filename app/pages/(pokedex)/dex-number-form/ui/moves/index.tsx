@@ -20,8 +20,8 @@ export default function Moves({ moves }: MovesProps) {
   } = usePokeMoves(moves);
 
   return (
-    <div className="">
-      <h3 className="text-3xl font-bold pb-4 w-full">기술</h3>
+    <div className=" ">
+      {/* <h3 className="text-3xl font-bold pb-4 w-full">기술</h3> */}
 
       <SelectGroup
         grouped={grouped}
