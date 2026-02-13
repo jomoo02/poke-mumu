@@ -15,6 +15,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarMenuSub,
+  useSidebar,
 } from '@/app/shared/ui/sidebar';
 import Link from 'next/link';
 import {
@@ -50,6 +51,7 @@ const data2 = [
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
   return (
     <Sidebar
       className=""
@@ -77,12 +79,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 asChild
                 className="h-10"
                 isActive={pathname === '/pokedex/all'}
+                onClick={() => setOpenMobile(false)}
               >
                 <Link href="/pokedex/all">전국도감</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
             <SidebarMenuItem>
-              <SidebarMenuButton asChild className="h-10">
+              <SidebarMenuButton
+                asChild
+                className="h-10"
+                onClick={() => setOpenMobile(false)}
+              >
                 <Link href="/pokedex">지역도감</Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
