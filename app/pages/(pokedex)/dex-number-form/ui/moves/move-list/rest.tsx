@@ -38,7 +38,7 @@ export default function Rest({ moves, method, versionGroupId }: RestProps) {
 
   const title = methodTitleMap[method] || '기술';
   return (
-    <div>
+    <div className=" overflow-auto">
       <h4 className="text-xl font-semibold mb-2">{title}</h4>
       <div className="border overflow-hidden rounded-lg">
         <Table className="bg-card">

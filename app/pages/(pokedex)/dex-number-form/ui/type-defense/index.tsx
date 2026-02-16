@@ -112,11 +112,11 @@ export default function TypeDefenses({
 
   return (
     <div className="flex flex-col overflow-hidden  ">
-      <div className="grid grid-cols-3 sm:grid-cols-6 xl:grid-cols-9 gap-4 bg-muted/70 p-4 border rounded-2xl">
+      <div className="grid grid-cols-3 sm:grid-cols-6 xl:grid-cols-9 gap-4 bg-muted/70 border rounded-2xl p-4">
         {typeDefenses.map((type) => (
           <div
             key={type.attacker.identifier}
-            className="flex flex-col items-center justify-center bg-card p-4 rounded-xl shadow-sm"
+            className="flex flex-col items-center justify-center bg-card p-4 rounded-xl border"
           >
             <TypeIcon type={type.attacker} className="size-7.5" />
             <div className="text-sm flex items-center pt-2">
@@ -139,7 +139,7 @@ export default function TypeDefenses({
               {data.map(({ types, label, bgColor, textColor }) => (
                 <TableRow key={label}>
                   <TableCell className="">
-                    <span className={cn('text-sm font-medium', textColor)}>
+                    <span className={cn('text-sm sm:text-base ', textColor)}>
                       {label}
                     </span>
                   </TableCell>
@@ -151,7 +151,7 @@ export default function TypeDefenses({
                             <div
                               key={t.identifier}
                               className={cn(
-                                'flex gap-1 items-center px-2 py-1 rounded-md text-sm font-medium',
+                                'flex gap-1 items-center px-2 py-1 rounded-md text-sm sm:text-base ',
                                 bgColor,
                               )}
                             >

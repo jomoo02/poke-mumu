@@ -54,8 +54,8 @@ export default function BarChart({ baseStats }: BarChartProps) {
       <Table className="overflow-hidden">
         <TableBody>
           {baseStats.map((stat) => (
-            <TableRow key={stat.stat} className=" bg-card">
-              <TableCell className="text-left">{stat.label}</TableCell>
+            <TableRow key={stat.stat} className=" bg-card border-b-0">
+              <TableCell className="text-left pl-0">{stat.label}</TableCell>
               <TableCell className="text-center ">{stat.value}</TableCell>
               <TableCell className="w-full">
                 <Bar value={stat.value} />
@@ -63,13 +63,13 @@ export default function BarChart({ baseStats }: BarChartProps) {
             </TableRow>
           ))}
         </TableBody>
-        <TableFooter>
+        {/* <TableFooter>
           <TableRow>
             <TableCell>총합</TableCell>
             <TableCell>500</TableCell>
             <TableCell />
           </TableRow>
-        </TableFooter>
+        </TableFooter> */}
       </Table>
     </div>
   );

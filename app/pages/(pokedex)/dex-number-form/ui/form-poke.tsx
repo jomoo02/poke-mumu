@@ -11,11 +11,11 @@ export default function FormPoke({ poke }: FormPokeProps) {
   const formattedNumber = `#${formatNumber(dexNumber)}`;
 
   return (
-    <div className="flex w-full overflow-hidden font-suit gap-4  p-2 border rounded-xl h-20">
-      <div className="rounded-lg bg-muted/90 aspect-square flex items-center justify-center">
+    <div className="flex flex-col w-full overflow-hidden font-suit gap-4  p-4 border rounded-xl aspect-square">
+      <div className="rounded-lg bg-muted/90 flex-1 flex items-center justify-center">
         <PokeSprite poke={poke} />
       </div>
-      <div className="flex flex-col w-full flex-1 overflow-hidden">
+      <div className="flex flex-col w-full overflow-hidden">
         <div className="w-full truncate text-sm text-left text-muted-foreground font-medium">
           {formattedNumber}
         </div>

@@ -45,36 +45,26 @@ export default async function PokedexDexNumberFormPageUI({
   } = data;
 
   return (
-    <div className="flex flex-col gap-6 w-full mx-auto px-4 sm:px-6 md:px-8 lg:px-12 relative">
-      {/* <section>
-        <div className=" flex overflow-hidden">
-          <Toc />
-        </div>
-      </section> */}
-      <div className="flex lg:justify-center">
-        <DexInfoV3 dexInfo={dexInfo} />
-      </div>
-      <section className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          {' '}
+    <div className="flex">
+      <div className="flex flex-col w-full mx-auto px-4 sm:px-6 xl:px-0 relative max-w-7xl">
+        <div>
           <DexInfo dexInfo={dexInfo} />
         </div>
+        <div className="w-full h-px bg-border my-6" />
+        <section className="grid lg:grid-cols-2 gap-6">
+          <div className="border rounded-2xl p-6">
+            <Breeding breeding={breeding} />
+          </div>
 
-        <div className="flex flex-col gap-4">
-          <DexInfoV2 dexInfo={dexInfo} />
+          <div className="border  rounded-2xl p-6">
+            <Training training={training} />
+          </div>
           {/* <div className="w-full h-px bg-border" /> */}
-          <Breeding breeding={breeding} />
-          {/* <div className="w-full h-px bg-border" /> */}
-          <Training training={training} />
-        </div>
-      </section>
-
-      <div className="grid lg:grid-cols-2 gap-10">
+        </section>
         <section className="">
           <SectionTitle id="abilities">특성</SectionTitle>
-          {/* <div className="border p-6 rounded-2xl bg-card"> */}
+
           <Abilities abilities={abilities} />
-          {/* </div> */}
         </section>
         <section className="">
           <SectionTitle id="base-stats">스탯</SectionTitle>
@@ -82,36 +72,26 @@ export default async function PokedexDexNumberFormPageUI({
             <BaseStats stats={stats} rankRatio={rankRatio} />
           </div>
         </section>
-      </div>
 
-      <section className="l">
-        <SectionTitle id="type-defense">방어 상성</SectionTitle>
-        <TypeDefenses typeDefenses={typeDefense} types={types} />
-      </section>
-      <section className="">
-        <SectionTitle id="evolution">진화</SectionTitle>
-        {/* <div className="p-6 bg-card border rounded-2xl shadow-sm"> */}
-        <div>
-          <EvolutionTree id={evolutionId} />
-        </div>
-      </section>
-      <section className="">
-        <SectionTitle id="move">기술</SectionTitle>
-        <Moves moves={moves} />
-      </section>
-
-      {/* <div className="hidden xl:block w-64 max-h-92 sticky top-20">
-          <div className="flex flex-col gap-4">
-            {forms && (
-              <section>
-                <FormPoke poke={poke} />
-              </section>
-            )}
-            <section className="px-4 ">
-              <Toc />
-            </section>
+        <section className="l">
+          <SectionTitle id="type-defense">방어 상성</SectionTitle>
+          <TypeDefenses typeDefenses={typeDefense} types={types} />
+        </section>
+        <section className="">
+          <SectionTitle id="evolution">진화</SectionTitle>
+          {/* <div className="p-6 bg-card border rounded-2xl shadow-sm"> */}
+          <div>
+            <EvolutionTree id={evolutionId} />
           </div>
-        </div> */}
+        </section>
+        <section className="">
+          <SectionTitle id="move">기술</SectionTitle>
+          <Moves moves={moves} />
+        </section>
+      </div>
+      <div className="hidden xl:block sticky top-32 max-h-[calc(100svh-8rem)] z-10 w-64">
+        <Toc />
+      </div>
     </div>
   );
 }

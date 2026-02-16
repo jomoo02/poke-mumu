@@ -1,3 +1,4 @@
+import { Fragment } from 'react/jsx-runtime';
 import { AbilitiyView } from '../../model';
 import Ability from './ability';
 
@@ -28,9 +29,12 @@ export default function Abilities({ abilities }: AbilitiesProps) {
     //     </div>
     //   </div>
     // </div>
-    <div className="grid xl:w-[90%]">
-      {abilities.map((ability) => (
-        <Ability key={ability.name} ability={ability} />
+    <div className="grid md:grid-cols-3 gap-4">
+      {abilities.map((ability, index) => (
+        <Fragment key={ability.name}>
+          {/* {index > 0 && <div className="w-full h-px bg-border my-4" />} */}
+          <Ability key={ability.name} ability={ability} />
+        </Fragment>
       ))}
     </div>
   );

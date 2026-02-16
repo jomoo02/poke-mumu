@@ -5,7 +5,7 @@ import Machine from './machine';
 import Rest from './rest';
 import { Fragment } from 'react/jsx-runtime';
 
-import { useSidebar } from '@/app/shared/ui/sidebar';
+// import { useSidebar } from '@/app/shared/ui/sidebar';
 
 interface PokeMovesProps {
   versionGroupId: string;
@@ -21,28 +21,40 @@ export default function MoveList({
   const { error, isLoading, levelUpMoves, restMoves, machineMoves } =
     useMoveData(pokeMoves, versionGroupIdNumber);
 
-  const { open } = useSidebar();
+  // const { open } = useSidebar();
 
   return (
     <div
       className={cn(
         isLoading ? 'opacity-70 ' : '',
-        'grid gap-10 xl:grid-cols-2',
+        'flex flex-col gap-8',
         // open ? 'xl:grid-cols-2' : 'xl:grid-cols-2',
         // 'grid gap-16 2xl:grid-cols-2',
       )}
     >
-      <div
-        className={cn(
-          'flex flex-col gap-10 overflow-hidden w-full max-w-xl xl:max-w-none  mx-auto 2xl:mx-0',
-        )}
-      >
+      <div className=" ">
+        <div className="h-14 top-14 sticky z-20 bg-card">sdsd</div>
+
         <LevelUp
           moves={levelUpMoves}
           key={versionGroupId}
           versionGroupId={versionGroupIdNumber}
         />
-        {restMoves.map(({ method, moves }) => (
+      </div>
+      <div className="h-200"></div>
+
+      <div
+        className={cn(
+          'flex flex-col gap-10 overflow-hidden w-full max-w-2xl   mx-auto 2xl:mx-0 h-full',
+        )}
+      >
+        {/* <LevelUp
+          moves={levelUpMoves}
+          key={versionGroupId}
+          versionGroupId={versionGroupIdNumber}
+        /> */}
+
+        {/* {restMoves.map(({ method, moves }) => (
           <Fragment key={method}>
             <Rest
               moves={moves}
@@ -51,12 +63,12 @@ export default function MoveList({
               versionGroupId={versionGroupId}
             />
           </Fragment>
-        ))}
+        ))} */}
       </div>
 
-      <div
+      {/* <div
         className={cn(
-          'flex flex-col gap-10 overflow-hidden w-full max-w-xl xl:max-w-none  mx-auto 2xl:mx-0',
+          'flex flex-col gap-10 overflow-hidden w-full max-w-2xl mx-auto 2xl:mx-0',
         )}
       >
         {machineMoves.map(({ moves, machineType }) => (
@@ -69,7 +81,7 @@ export default function MoveList({
             />
           </Fragment>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

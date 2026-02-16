@@ -31,6 +31,7 @@ export default function TotalDonut({
           strokeWidth={stroke}
           strokeDasharray={circumference}
           strokeDashoffset={offset}
+          strokeLinecap="round"
           className="stroke-primary/70 fill-none transition-all duration-500"
         />
       </svg>

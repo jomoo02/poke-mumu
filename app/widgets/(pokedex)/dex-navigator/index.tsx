@@ -17,13 +17,13 @@ export default async function DexNavigator({ dexNumber }: DexNavigatorProps) {
   const { prev, next } = pokes;
 
   return (
-    <nav className="max-w-7xl w-full mx-auto px-4 sm:px-6 md:px-8 flex justify-between py-4 overflow-hidden">
-      <div className="flex">
+    <nav className="max-w-7xl w-full mx-auto px-4 sm:px-6 md:px-8 flex justify-between py-4 ">
+      {/* <div className="flex">
         {prev && <NavButton {...prev} direction="prev" />}
       </div>
       <div className="flex flex-1 justify-end">
         {next && <NavButton {...next} direction="next" />}
-      </div>
+      </div> */}
     </nav>
   );
 }

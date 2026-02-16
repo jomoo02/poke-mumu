@@ -1,4 +1,5 @@
 import DexNavigator from '@/app/widgets/(pokedex)/dex-navigator';
+import PokedexDexNumberSidebar from '@/app/widgets/(pokedex)/dex-number-sidebar';
 import { Suspense } from 'react';
 
 interface PokedexDexNumberLayoutProps {
@@ -12,11 +13,11 @@ export default async function PokedexDexNumberLayout({
 }: PokedexDexNumberLayoutProps) {
   const dexNumber = params.then((p) => ({ dexNumber: p.dexNumber }));
   return (
-    <>
+    <div className="w-full flex flex-col lg:flex-row my-8">
       <Suspense>
-        <DexNavigator dexNumber={dexNumber} />
+        <PokedexDexNumberSidebar dexNumber={dexNumber} />
       </Suspense>
-      {children}
-    </>
+      <div className="flex-1 shrink-0">{children}</div>
+    </div>
   );
 }

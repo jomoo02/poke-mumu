@@ -30,26 +30,53 @@ export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
 
   return (
     <div className=" ">
-      <h4 className="text-xl font-semibold mb-4">레벨 업으로 익히는 기술</h4>
-      <div className="border rounded-lg overflow-hidden">
-        <Table className="bg-card">
+      {/* <h4 className="text-xl font-semibold mb-4 ">레벨 업으로 익히는 기술</h4> */}
+      {/* <div className="w-max">
+        <div className="sticky top-30 z-20 w-max">
+          <div className="flex  min-w-max">
+            {table.getVisibleColumns().map((header) => (
+              <div
+                key={header.id}
+                className={cn('text-sm border-border px-2 ')}
+              >
+                {header.render()}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className=" flex flex-col ">
+          {table.rows.map((row) => (
+            <div
+              key={row.id}
+              className={cn('border-border inline-flex min-w-max')}
+            >
+              {table.getVisibleColumns().map((col) => (
+                <div key={col.id} className="text-sm w-20">
+                  {col.cell({ row })}
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div> */}
+
+      <div className="border rounded-lg overflow-hidden max-w-xl">
+        <Table className="">
           <TableHeader>
             <TableRow className="">
               {table.getVisibleColumns().map((header) => (
-                <TableHead
-                  key={header.id}
-                  className={cn('text-sm border-border px-2 ')}
-                >
+                <TableHead key={header.id} className={cn('text-sm px-2')}>
                   {header.render()}
                 </TableHead>
               ))}
             </TableRow>
           </TableHeader>
-          <TableBody>
+          <TableBody className="">
             {table.rows.map((row) => (
-              <TableRow key={row.id} className={cn('border-border')}>
+              <TableRow key={row.id}>
                 {table.getVisibleColumns().map((col) => (
-                  <TableCell key={col.id} className="text-sm">
+                  <TableCell key={col.id} className="text-sm px-2">
                     {col.cell({ row })}
                   </TableCell>
                 ))}
