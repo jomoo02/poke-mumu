@@ -111,12 +111,13 @@ export default function TypeDefenses({
   ].filter(({ types }) => types.length > 0);
 
   return (
-    <div className="flex flex-col overflow-hidden  ">
-      <div className="grid grid-cols-3 sm:grid-cols-6 xl:grid-cols-9 gap-4 bg-muted/70 border rounded-2xl p-4">
+    <div className="flex flex-col overflow-hidden bg-card">
+      <div className="text-2xl font-semibold mb-6">방어 상성</div>
+      <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 p-4 gap-4 bg-muted rounded-xl ">
         {typeDefenses.map((type) => (
           <div
             key={type.attacker.identifier}
-            className="flex flex-col items-center justify-center bg-card p-4 rounded-xl border"
+            className="flex flex-col items-center justify-center bg-card border  p-4 rounded-xl "
           >
             <TypeIcon type={type.attacker} className="size-7.5" />
             <div className="text-sm flex items-center pt-2">
@@ -126,7 +127,7 @@ export default function TypeDefenses({
         ))}
       </div>
 
-      <div className="py-6">
+      <div className="mt-4">
         <div className=" overflow-hidden">
           <Table>
             {/* <TableHeader>

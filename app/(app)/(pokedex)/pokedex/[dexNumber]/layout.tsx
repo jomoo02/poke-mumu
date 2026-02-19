@@ -14,9 +14,9 @@ export default async function PokedexDexNumberLayout({
   const dexNumber = params.then((p) => ({ dexNumber: p.dexNumber }));
   return (
     <div className="w-full flex flex-col lg:flex-row my-8">
-      <Suspense>
+      {/* <Suspense>
         <PokedexDexNumberSidebar dexNumber={dexNumber} />
-      </Suspense>
+      </Suspense> */}
       <div className="flex-1 shrink-0">{children}</div>
     </div>
   );

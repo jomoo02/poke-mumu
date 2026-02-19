@@ -8,7 +8,7 @@ export default function Ability({ ability }: AbilityProps) {
   const hidden = '숨겨진 특성';
 
   return (
-    <div className="p-6 border rounded-2xl shadow-sm">
+    <div className="p-6 bg-muted/70 rounded-xl ">
       <span className="font-medium text-foreground text-xl">
         {ability.name}
         {ability.slot === 3 && (
@@ -17,7 +17,7 @@ export default function Ability({ ability }: AbilityProps) {
           </span>
         )}
       </span>
-      <p className="break-keep text-pretty text-muted-foreground pt-1">
+      <p className="break-keep text-pretty text-foreground/80 pt-1">
         {ability.flavorText}
       </p>
     </div>

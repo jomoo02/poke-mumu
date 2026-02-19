@@ -45,53 +45,57 @@ export default async function PokedexDexNumberFormPageUI({
   } = data;
 
   return (
-    <div className="flex">
-      <div className="flex flex-col w-full mx-auto px-4 sm:px-6 xl:px-0 relative max-w-7xl">
-        <div>
+    <div className="flex flex-col w-full">
+      <div className="bg-muted/30 py-4">
+        <div className="flex flex-col w-full mx-auto px-4 sm:px-6 lg:px-8 relative max-w-7xl">
           <DexInfo dexInfo={dexInfo} />
         </div>
-        <div className="w-full h-px bg-border my-6" />
-        <section className="grid lg:grid-cols-2 gap-6">
-          <div className="border rounded-2xl p-6">
-            <Breeding breeding={breeding} />
-          </div>
+      </div>
 
-          <div className="border  rounded-2xl p-6">
-            <Training training={training} />
-          </div>
-          {/* <div className="w-full h-px bg-border" /> */}
-        </section>
-        <section className="">
-          <SectionTitle id="abilities">특성</SectionTitle>
-
-          <Abilities abilities={abilities} />
-        </section>
-        <section className="">
-          <SectionTitle id="base-stats">스탯</SectionTitle>
+      <div className=" px-4 sm:px-6 lg:px-8 relative  w-full py-6">
+        <div className="flex flex-col max-w-6xl mx-auto gap-6">
           <div className="">
+            <h3 id="rest" className="text-2xl font-semibold mb-6">
+              기타
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="">
+                <Breeding breeding={breeding} />
+              </div>
+              <div className="">
+                <Training training={training} />
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 className="text-3xl font-semibold mb-6">스탯</h3>
             <BaseStats stats={stats} rankRatio={rankRatio} />
           </div>
-        </section>
+          <section>
+            <Abilities abilities={abilities} />
+          </section>
+          <div className="grid gap-6 "></div>
 
-        <section className="l">
-          <SectionTitle id="type-defense">방어 상성</SectionTitle>
-          <TypeDefenses typeDefenses={typeDefense} types={types} />
-        </section>
-        <section className="">
-          <SectionTitle id="evolution">진화</SectionTitle>
-          {/* <div className="p-6 bg-card border rounded-2xl shadow-sm"> */}
-          <div>
-            <EvolutionTree id={evolutionId} />
-          </div>
-        </section>
-        <section className="">
-          <SectionTitle id="move">기술</SectionTitle>
-          <Moves moves={moves} />
-        </section>
+          <section className="col-span-2">
+            {/* <SectionTitle id="type-defense">방어 상성</SectionTitle> */}
+            <TypeDefenses typeDefenses={typeDefense} types={types} />
+          </section>
+          <section className="col-span-2">
+            {/* <SectionTitle id="evolution">진화</SectionTitle> */}
+            <div>
+              <EvolutionTree id={evolutionId} />
+            </div>
+          </section>
+          <section className="col-span-2">
+            {/* <SectionTitle id="move">기술</SectionTitle> */}
+            <Moves moves={moves} />
+          </section>
+        </div>
       </div>
-      <div className="hidden xl:block sticky top-32 max-h-[calc(100svh-8rem)] z-10 w-64">
+
+      {/* <div className="hidden xl:block sticky top-32 max-h-[calc(100svh-8rem)] z-10 w-60">
         <Toc />
-      </div>
+      </div> */}
     </div>
   );
 }

@@ -30,7 +30,7 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 sm:gap-16 py-6 px-4">
+    <div className="grid md:grid-cols-2 gap-6 sm:gap-16 py-6 px-4 ">
       <div className="h-full w-full  relative mx-auto  max-w-100 max-h-100 aspect-square">
         <PokeArtwork
           className="object-contain w-full h-full"

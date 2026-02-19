@@ -1,3 +1,5 @@
+'use client';
+
 import {
   Table,
   TableBody,
@@ -9,6 +11,8 @@ import {
 } from '@/app/shared/ui/table';
 
 import { type StatView } from '../../model';
+import { useMinMaxStats } from '../../model';
+import { Fragment } from 'react/jsx-runtime';
 
 interface BarProps {
   value: number;
@@ -37,7 +41,13 @@ function Bar({ value, color }: BarProps) {
   return (
     <svg width="100%" height="14">
       <g className="bars">
-        <rect fill="#f2f3f4" width="100%" height="14" rx="5" />
+        {/* <rect
+          // fill="#f2f3f4"
+          width="100%"
+          height="14"
+          rx="5"
+          className="fill-background"
+        /> */}
         <rect fill={barColor} width={width} height="14" rx={5} />
       </g>
     </svg>
@@ -49,27 +59,45 @@ interface BarChartProps {
 }
 
 export default function BarChart({ baseStats }: BarChartProps) {
+  const { statsMinMax } = useMinMaxStats(baseStats);
   return (
-    <div className="w-full overflow-hidden">
-      <Table className="overflow-hidden">
+    <div className="w-full rounded-xl  bg-card ">
+      <Table className="">
         <TableBody>
-          {baseStats.map((stat) => (
-            <TableRow key={stat.stat} className=" bg-card border-b-0">
-              <TableCell className="text-left pl-0">{stat.label}</TableCell>
-              <TableCell className="text-center ">{stat.value}</TableCell>
-              <TableCell className="w-full">
-                <Bar value={stat.value} />
-              </TableCell>
-            </TableRow>
+          {statsMinMax.map((stat) => (
+            <Fragment key={stat.stat}>
+              <TableRow
+                key={stat.stat}
+                className=" border-b bg-transparent  hover:bg-muted/50"
+              >
+                <TableCell className="text-left">{stat.label}</TableCell>
+                <TableCell className="text-right">{stat.value}</TableCell>
+                <TableCell className="w-full">
+                  <Bar value={stat.value} />
+                </TableCell>
+                <TableCell className="text-right hidden sm:table-cell">
+                  {stat.min100}
+                </TableCell>
+                <TableCell className="text-right hidden sm:table-cell">
+                  {stat.max100}
+                </TableCell>
+              </TableRow>
+            </Fragment>
           ))}
         </TableBody>
-        {/* <TableFooter>
-          <TableRow>
+        <TableFooter className="">
+          <TableRow className="">
             <TableCell>총합</TableCell>
             <TableCell>500</TableCell>
             <TableCell />
+            <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
+              Min
+            </TableCell>
+            <TableCell className="text-right text-muted-foreground hidden sm:table-cell">
+              Max
+            </TableCell>
           </TableRow>
-        </TableFooter> */}
+        </TableFooter>
       </Table>
     </div>
   );

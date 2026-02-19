@@ -27,34 +27,23 @@ export default function MoveList({
     <div
       className={cn(
         isLoading ? 'opacity-70 ' : '',
-        'flex flex-col gap-8',
+        'grid gap-8 xl:grid-cols-2',
         // open ? 'xl:grid-cols-2' : 'xl:grid-cols-2',
         // 'grid gap-16 2xl:grid-cols-2',
       )}
     >
-      <div className=" ">
-        <div className="h-14 top-14 sticky z-20 bg-card">sdsd</div>
-
-        <LevelUp
-          moves={levelUpMoves}
-          key={versionGroupId}
-          versionGroupId={versionGroupIdNumber}
-        />
-      </div>
-      <div className="h-200"></div>
-
       <div
         className={cn(
           'flex flex-col gap-10 overflow-hidden w-full max-w-2xl   mx-auto 2xl:mx-0 h-full',
         )}
       >
-        {/* <LevelUp
+        <LevelUp
           moves={levelUpMoves}
           key={versionGroupId}
           versionGroupId={versionGroupIdNumber}
-        /> */}
+        />
 
-        {/* {restMoves.map(({ method, moves }) => (
+        {restMoves.map(({ method, moves }) => (
           <Fragment key={method}>
             <Rest
               moves={moves}
@@ -63,10 +52,10 @@ export default function MoveList({
               versionGroupId={versionGroupId}
             />
           </Fragment>
-        ))} */}
+        ))}
       </div>
 
-      {/* <div
+      <div
         className={cn(
           'flex flex-col gap-10 overflow-hidden w-full max-w-2xl mx-auto 2xl:mx-0',
         )}
@@ -81,7 +70,7 @@ export default function MoveList({
             />
           </Fragment>
         ))}
-      </div> */}
+      </div>
     </div>
   );
 }

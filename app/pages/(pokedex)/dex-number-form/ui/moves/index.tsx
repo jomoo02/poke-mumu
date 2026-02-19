@@ -20,9 +20,11 @@ export default function Moves({ moves }: MovesProps) {
   } = usePokeMoves(moves);
 
   return (
-    <div className=" ">
+    <div className=" rounded-2xl bg-card">
       {/* <h3 className="text-3xl font-bold pb-4 w-full">기술</h3> */}
-
+      <h3 id="evolution" className="text-2xl font-semibold mb-6">
+        진화
+      </h3>
       <SelectGroup
         grouped={grouped}
         selectedGen={selectedGen}
