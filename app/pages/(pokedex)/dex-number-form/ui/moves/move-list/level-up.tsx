@@ -30,7 +30,7 @@ export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
 
   return (
     <div className=" ">
-      {/* <h4 className="text-xl font-semibold mb-4 ">레벨 업으로 익히는 기술</h4> */}
+      <h4 className="text-xl font-semibold mb-4 ">레벨 업으로 익히는 기술</h4>
       {/* <div className="w-max">
         <div className="sticky top-30 z-20 w-max">
           <div className="flex  min-w-max">

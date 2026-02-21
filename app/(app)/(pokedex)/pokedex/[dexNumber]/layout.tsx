@@ -13,10 +13,10 @@ export default async function PokedexDexNumberLayout({
 }: PokedexDexNumberLayoutProps) {
   const dexNumber = params.then((p) => ({ dexNumber: p.dexNumber }));
   return (
-    <div className="w-full flex flex-col lg:flex-row my-8">
-      {/* <Suspense>
+    <div className="w-full flex flex-col my-8">
+      <Suspense>
         <PokedexDexNumberSidebar dexNumber={dexNumber} />
-      </Suspense> */}
+      </Suspense>
       <div className="flex-1 shrink-0">{children}</div>
     </div>
   );

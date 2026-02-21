@@ -111,7 +111,6 @@ export const getPokeData = async (pokeKey: string) => {
     target_key: pokeKey,
   });
 
-  console.log(rank);
   const {
     dexNumber,
     id,
@@ -146,6 +145,11 @@ export const getPokeData = async (pokeKey: string) => {
     pokeKey,
   };
 
+  const names = [
+    { label: '영문명', name: nameEn },
+    { label: '일본명', name: nameJa },
+  ];
+
   const poke = {
     dexNumber,
     name,
@@ -168,5 +172,6 @@ export const getPokeData = async (pokeKey: string) => {
     moves: adaptPokeMovesView(pokeMoves),
     rankRatio: rank ? rank[0].top_percent : 0,
     poke,
+    names,
   };
 };

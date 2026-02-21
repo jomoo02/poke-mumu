@@ -51,16 +51,16 @@ function MobileNavItem({
   return (
     <Link
       href={href}
-      className="flex gap-2.5 items-center active:bg-accent hover:bg-accent rounded-lg py-1 px-2.5"
+      className="flex gap-4 items-center active:bg-accent hover:bg-accent rounded-xl py-2 px-4"
     >
       {direction === 'prev' && (
         <ArrowLeftIcon className="size-4 text-muted-foreground" />
       )}
       <div className={cn('flex flex-col')}>
-        <span className="text-muted-foreground text-sm">
+        <span className="text-muted-foreground text-sm font-medium">
           {formattedDexNumber}
         </span>
-        <span>{name}</span>
+        <span className="font-medium">{name}</span>
       </div>
       {direction === 'next' && (
         <ArrowRightIcon className="size-4 text-muted-foreground" />

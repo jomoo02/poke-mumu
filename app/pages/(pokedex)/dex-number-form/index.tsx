@@ -8,13 +8,13 @@ import Forms from './ui/forms';
 import MinMaxStats from './ui/min-max-stats';
 import Moves from './ui/moves';
 import Breeding from './ui/resf-info/breeding';
-import Training from './ui/resf-info/training';
+
 import TypeDefenses from './ui/type-defense';
 import FormPoke from './ui/form-poke';
 import Toc from './ui/toc';
 import SectionTitle from './ui/section-title';
-import DexInfoV2 from './ui/dex-info-v2';
-import DexInfoV3 from './ui/dex-info-v3';
+
+import RestInfo from './ui/resf-info';
 
 interface PokedexDexNumberFormPageUIProps {
   dexNumber: string;
@@ -42,14 +42,13 @@ export default async function PokedexDexNumberFormPageUI({
     moves,
     rankRatio,
     poke,
+    names,
   } = data;
 
   return (
     <div className="flex flex-col w-full">
-      <div className="bg-muted/30 py-4">
-        <div className="flex flex-col w-full mx-auto px-4 sm:px-6 lg:px-8 relative max-w-7xl">
-          <DexInfo dexInfo={dexInfo} />
-        </div>
+      <div className="flex flex-col w-full mx-auto px-4 sm:px-6 lg:px-8 relative max-w-7xl py-4">
+        <DexInfo dexInfo={dexInfo} />
       </div>
 
       <div className=" px-4 sm:px-6 lg:px-8 relative  w-full py-6">
@@ -58,14 +57,7 @@ export default async function PokedexDexNumberFormPageUI({
             <h3 id="rest" className="text-2xl font-semibold mb-6">
               기타
             </h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="">
-                <Breeding breeding={breeding} />
-              </div>
-              <div className="">
-                <Training training={training} />
-              </div>
-            </div>
+            <RestInfo names={names} training={training} breeding={breeding} />
           </div>
           <div>
             <h3 className="text-3xl font-semibold mb-6">스탯</h3>

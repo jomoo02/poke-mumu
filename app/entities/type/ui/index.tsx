@@ -38,6 +38,38 @@ export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
   );
 }
 
+export function TypeIconV2({ type, className, size = 32 }: TypeIconProps) {
+  if (type.identifier === 'unknown') {
+    return (
+      <div
+        className={cn(
+          'size-8 bg-emerald-800 text-white font-semibold rounded-sm flex items-center justify-center',
+          className,
+        )}
+      >
+        ?
+      </div>
+    );
+  }
+  return (
+    <div className=" text-[#F2F2F2] font-extrabold flex text-sm rounded-sm overflow-hidden items-center h-7 relative">
+      <div className={cn('flex flex-col items-center ', className)}>
+        {/* <div className="overflow-hidden rounde"> */}
+        <Image
+          src={`/type-icon/${type.identifier}.png`}
+          width={size}
+          height={size}
+          alt={type.identifier}
+        />
+        {/* </div> */}
+      </div>
+      <div className="w-17 text-center bg-[#404259]/95 h-full flex items-center justify-center">
+        {type.name}
+      </div>
+    </div>
+  );
+}
+
 interface TypeBadgeProps {
   type: Type;
   size?: number;
@@ -121,7 +153,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'h-7.5 w-15 px-px font-bold text-sm flex items-center justify-center rounded-sm border text-white shrink-0 text-shadow-lg',
+        'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shrink-0 text-shadow-lg',
         bg,
         borderColor,
         shadowColor,

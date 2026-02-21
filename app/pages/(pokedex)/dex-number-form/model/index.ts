@@ -1,6 +1,11 @@
 export { type DexInfoView, adpatDexInfoView } from './dex-info';
 
-export { adaptBreeidngView, adaptTrainingView } from './rest-info';
+export {
+  adaptBreeidngView,
+  adaptTrainingView,
+  type BreedingView,
+  type TrainingView,
+} from './rest-info';
 
 export {
   adaptBaseStatsView,

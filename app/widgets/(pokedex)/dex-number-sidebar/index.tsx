@@ -17,25 +17,9 @@ export default async function PokedexDexNumberSidebar({
   const { pokes, prev, next } = data;
 
   return (
-    <>
-      <div className="hidden lg:block w-64 max-h-[calc(100svh-8rem)] sticky top-32 overflow-auto bg-sidebar">
-        <div className="px-6">
-          <ul className="flex flex-col gap-0.5 list-none">
-            {pokes.map((poke) => (
-              <NavItem
-                key={poke.id}
-                poke={poke}
-                targetDexNumber={targetDexNumber}
-              />
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div className="lg:hidden flex justify-between px-4 sm:px-6">
-        <div>{prev && <MobileNavItem poke={prev} direction="prev" />}</div>
-        <div>{next && <MobileNavItem poke={next} direction="next" />}</div>
-      </div>
-    </>
+    <div className="flex justify-between px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+      <div>{prev && <MobileNavItem poke={prev} direction="prev" />}</div>
+      <div>{next && <MobileNavItem poke={next} direction="next" />}</div>
+    </div>
   );
 }

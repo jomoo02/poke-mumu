@@ -11,9 +11,9 @@ interface ItemProps {
 
 function Item({ subject, children, className }: ItemProps) {
   return (
-    <div className="flex justify-between p-4 odd:bg-muted/70">
-      <div>{subject}</div>
-      <div>{children}</div>
+    <div className="flex gap-6 px-4 py-2 border-t">
+      <div className="w-24 sm:w-36">{subject}</div>
+      <div className="flex-1">{children}</div>
     </div>
   );
   // return (
@@ -36,6 +36,7 @@ interface CardProps {
 function Container({ title, children }: CardProps) {
   return (
     <div className="">
+      <div className="font-medium bg-muted/70 px-4 py-2">{title}</div>
       <div>{children}</div>
     </div>
     // <div className="">

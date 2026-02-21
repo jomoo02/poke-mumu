@@ -5,19 +5,11 @@ interface AbilityProps {
 }
 
 export default function Ability({ ability }: AbilityProps) {
-  const hidden = '숨겨진 특성';
-
   return (
-    <div className="p-6 bg-muted/70 rounded-xl ">
-      <span className="font-medium text-foreground text-xl">
-        {ability.name}
-        {ability.slot === 3 && (
-          <span className="text-xs py-1 px-2 rounded-md mx-1.5 font-medium bg-muted border">
-            {hidden}
-          </span>
-        )}
-      </span>
-      <p className="break-keep text-pretty text-foreground/80 pt-1">
+    <div className="px-4 py-3 border-t">
+      <div className="font-medium text-foreground text-xl">{ability.name}</div>
+
+      <p className="break-keep text-pretty text-muted-foreground pt-1">
         {ability.flavorText}
       </p>
     </div>

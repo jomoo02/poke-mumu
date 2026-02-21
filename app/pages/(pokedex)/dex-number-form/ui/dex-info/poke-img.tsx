@@ -1,8 +1,10 @@
 import { getPokeArtworkSrc } from '@/app/entities/poke/model';
-import { DexInfoView } from '../../model';
+
 import { cn } from '@/app/shared/lib/cn';
 import Image from 'next/image';
 import { Type } from '@/app/entities/type/model';
+
+import { DexInfoView } from '../../model';
 
 interface PokeSpriteProps {
   poke: DexInfoView;
@@ -10,7 +12,7 @@ interface PokeSpriteProps {
   priority?: boolean;
   type?: Type;
 }
-export default function MainSprite({
+export default function PokeImg({
   poke,
   className,
   type,
