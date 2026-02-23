@@ -20,7 +20,10 @@ const REST_METHODS: RestMethod[] = [
 
 const MACHINE_TYPE: MachineType[] = ['TM', 'TR', 'HM'];
 
-export function useMoveData(moves: PokeMoves, versionGroupId: number) {
+export function useMoveData(
+  moves: PokeMoves | undefined,
+  versionGroupId: number,
+) {
   const { data, error, isLoading } = useSWR(`${versionGroupId}`, fetcher, {
     keepPreviousData: true,
   });
@@ -33,7 +36,7 @@ export function useMoveData(moves: PokeMoves, versionGroupId: number) {
     restMoves: [],
   };
 
-  if (!data) {
+  if (!data || !moves) {
     return emptyResult;
   }
 

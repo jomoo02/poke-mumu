@@ -46,16 +46,19 @@ export default function Machine({
   const title = titleMap[machineType] || '기술';
 
   return (
-    <div className="max-w-xl">
+    <div className="max-w-2xl">
       <h4 className="text-xl font-semibold mb-4">{title}</h4>
-      <div className="border rounded-lg overflow-hidden">
+      <div className="border rounded-md overflow-hidden">
         <Table className="bg-card">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/50">
               {table.getVisibleColumns().map((header) => (
                 <TableHead
                   key={header.id}
-                  className={cn(' text-sm border-border px-2')}
+                  className={cn(
+                    ' text-sm border-border px-2',
+                    // header.id === 'name' ? 'w-full' : '',
+                  )}
                 >
                   {header.id === 'machine' ? (
                     <>{header.render(machineType)}</>

@@ -62,15 +62,20 @@ export default function BarChart({ baseStats }: BarChartProps) {
   const { statsMinMax } = useMinMaxStats(baseStats);
   return (
     <div className="w-full rounded-xl  bg-card ">
-      <Table className="">
+      <Table className="border-separate border-spacing-0">
         <TableHeader>
-          <TableRow className="bg-muted/70">
-            <TableHead className="w-[15%] text-right">종족값</TableHead>
-            <TableHead colSpan={2} />
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell">
+          <TableRow className="">
+            <TableHead className="w-[15%] text-right rounded-l-lg bg-muted/70 text-muted-foreground ">
+              종족값
+            </TableHead>
+            <TableHead
+              colSpan={2}
+              className="bg-muted/70 rounded-r-lg sm:rounded-r-none"
+            />
+            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70">
               Min
             </TableHead>
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell">
+            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70 rounded-r-lg">
               Max
             </TableHead>
           </TableRow>
@@ -82,19 +87,19 @@ export default function BarChart({ baseStats }: BarChartProps) {
                 key={stat.stat}
                 className=" border-b bg-transparent  hover:bg-muted/50"
               >
-                <TableCell className="text-right w-[15%]">
+                <TableCell className="text-right w-[15%] border-b">
                   {stat.label}
                 </TableCell>
-                <TableCell className="text-center w-[10%]">
+                <TableCell className="text-center w-[10%] border-b">
                   {stat.value}
                 </TableCell>
-                <TableCell className="w-[70%] sm:w-[55%]">
+                <TableCell className="w-[70%] sm:w-[55%] border-b">
                   <Bar value={stat.value} />
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%]">
+                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
                   {stat.min100}
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%]">
+                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
                   {stat.max100}
                 </TableCell>
               </TableRow>

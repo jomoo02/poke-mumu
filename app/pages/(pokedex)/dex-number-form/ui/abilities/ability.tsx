@@ -6,7 +6,7 @@ interface AbilityProps {
 
 export default function Ability({ ability }: AbilityProps) {
   return (
-    <div className="px-4 py-3 border-t">
+    <div className="px-4 py-3 border-b last:border-b-0">
       <div className="font-medium text-foreground text-xl">{ability.name}</div>
 
       <p className="break-keep text-pretty text-muted-foreground pt-1">

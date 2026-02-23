@@ -53,33 +53,30 @@ export default async function PokedexDexNumberFormPageUI({
 
       <div className=" px-4 sm:px-6 lg:px-8 relative  w-full py-6">
         <div className="flex flex-col max-w-6xl mx-auto gap-6">
-          <div className="">
-            <h3 id="rest" className="text-2xl font-semibold mb-6">
-              기타
-            </h3>
-            <RestInfo names={names} training={training} breeding={breeding} />
-          </div>
-          <div>
-            <h3 className="text-3xl font-semibold mb-6">스탯</h3>
-            <BaseStats stats={stats} rankRatio={rankRatio} />
-          </div>
           <section>
+            <SectionTitle id="rest-info">기타</SectionTitle>
+            <RestInfo names={names} training={training} breeding={breeding} />
+          </section>
+          <section>
+            <SectionTitle id="base-stats">스탯</SectionTitle>
+            <BaseStats stats={stats} rankRatio={rankRatio} />
+          </section>
+          <section>
+            <SectionTitle id="ability">특성</SectionTitle>
             <Abilities abilities={abilities} />
           </section>
-          <div className="grid gap-6 "></div>
 
-          <section className="col-span-2">
-            {/* <SectionTitle id="type-defense">방어 상성</SectionTitle> */}
+          <section>
+            <SectionTitle id="type-defense">방어 상성</SectionTitle>
             <TypeDefenses typeDefenses={typeDefense} types={types} />
           </section>
-          <section className="col-span-2">
-            {/* <SectionTitle id="evolution">진화</SectionTitle> */}
-            <div>
-              <EvolutionTree id={evolutionId} />
-            </div>
+          <section>
+            <SectionTitle id="evolution">진화</SectionTitle>
+
+            <EvolutionTree id={evolutionId} />
           </section>
-          <section className="col-span-2">
-            {/* <SectionTitle id="move">기술</SectionTitle> */}
+          <section>
+            <SectionTitle id="move">기술</SectionTitle>
             <Moves moves={moves} />
           </section>
         </div>

@@ -14,7 +14,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="flex gap-2 hover:bg-accent p-2 justify-between "
+        className="flex  hover:bg-accent gap-1 "
         onClick={column.toggleSorting}
       >
         <span>기술</span>
@@ -40,7 +40,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex  px-2 gap-2  h-full hover:bg-accent active:bg-accent"
+          className="flex  hover:bg-accent gap-1 "
           onClick={column.toggleSorting}
         >
           <span>타입</span>
@@ -72,7 +72,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex h-full hover:bg-accent px-2  gap-2 active:bg-accent "
+          className="flex  hover:bg-accent gap-1 "
           onClick={column.toggleSorting}
         >
           <span>분류</span>
@@ -103,7 +103,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="flex justify-end items-center w-full h-full">
         <Button
           variant="ghost"
-          className="flex justify-between gap-2 h-full hover:bg-accent px-2 active:bg-accent"
+          className="flex  hover:bg-accent gap-1 "
           onClick={column.toggleSorting}
         >
           <span>위력</span>
@@ -132,7 +132,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
         {' '}
         <Button
           variant="ghost"
-          className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
+          className="flex  hover:bg-accent gap-1 "
           onClick={column.toggleSorting}
         >
           <span>명중률</span>
@@ -199,7 +199,7 @@ export const levelUpColumn: ColumnDef<MoveView> = {
   header: ({ column }) => (
     <Button
       variant="ghost"
-      className="flex h-full gap-2 hover:bg-accent px-2 active:bg-accent"
+      className="flex  hover:bg-accent gap-1"
       onClick={column.toggleSorting}
     >
       <span>Lv.</span>
@@ -214,7 +214,7 @@ export const levelUpColumn: ColumnDef<MoveView> = {
       </span>
     </Button>
   ),
-  cell: ({ row }) => <div className="text-left">{row.level}</div>,
+  cell: ({ row }) => <div className="">{row.level}</div>,
   sortable: true,
   sortFn: (a, b) => (a.level ?? -1) - (b.level ?? -1),
 };
@@ -224,10 +224,10 @@ export const machineColumn: ColumnDef<MoveView> = {
   header: ({ column, content }) => (
     <Button
       variant="ghost"
-      className="flex justify-between gap-2 h-full hover:bg-accent px-2 active:bg-accent"
+      className="flex  hover:bg-accent gap-1"
       onClick={column.toggleSorting}
     >
-      <span>{content}</span>
+      <span>머신</span>
       <span className="size-3.5">
         <ArrowUp
           data-state={column.getSortedDirection() ?? 'hidden'}
@@ -239,7 +239,12 @@ export const machineColumn: ColumnDef<MoveView> = {
       </span>
     </Button>
   ),
-  cell: ({ row }) => <div>{row.machineNumber}</div>,
+  cell: ({ row }) => (
+    <div>
+      {row.machineType}
+      {row.machineNumber}
+    </div>
+  ),
   sortable: true,
   sortFn: (a, b) => (a.machineNumber ?? -1) - (b.machineNumber ?? -1),
 };
@@ -250,7 +255,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="flex h-full gap-2 hover:bg-accent px-2 justify-between "
+        className="flex  hover:bg-accent gap-1"
         onClick={column.toggleSorting}
       >
         <span>기술</span>
@@ -276,7 +281,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex  px-2 gap-2  h-full hover:bg-accent active:bg-accent"
+          className="flex  hover:bg-accent gap-1"
           onClick={column.toggleSorting}
         >
           <span>타입</span>
@@ -308,7 +313,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex h-full hover:bg-accent px-2  gap-2 active:bg-accent "
+          className="flex  hover:bg-accent gap-1"
           onClick={column.toggleSorting}
         >
           <span>분류</span>
@@ -339,7 +344,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
       <div className="flex justify-end items-center w-full h-full">
         <Button
           variant="ghost"
-          className="flex justify-between gap-2 h-full hover:bg-accent px-2 active:bg-accent"
+          className="flex  hover:bg-accent gap-1"
           onClick={column.toggleSorting}
         >
           <span>위력</span>
@@ -367,7 +372,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
       <div className="w-full h-full flex justify-end items-center">
         <Button
           variant="ghost"
-          className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
+          className="flex  hover:bg-accent gap-1"
           onClick={column.toggleSorting}
         >
           <span>재사용 시간</span>
@@ -384,9 +389,7 @@ export const legendsZaBasicColumns: ColumnDef<MoveView>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="text-right pr-2">
-        {row.cooldown ? `${row.cooldown}` : '-'}
-      </div>
+      <div className="text-right">{row.cooldown ? `${row.cooldown}` : '-'}</div>
     ),
     sortable: true,
     sortFn: (a, b) => (a.cooldown ?? -1) - (b.cooldown ?? -1),

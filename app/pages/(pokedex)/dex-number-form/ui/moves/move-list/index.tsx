@@ -9,7 +9,7 @@ import { Fragment } from 'react/jsx-runtime';
 
 interface PokeMovesProps {
   versionGroupId: string;
-  pokeMoves: PokeMoves;
+  pokeMoves: PokeMoves | undefined;
 }
 
 export default function MoveList({
@@ -27,14 +27,14 @@ export default function MoveList({
     <div
       className={cn(
         isLoading ? 'opacity-70 ' : '',
-        'grid gap-8 xl:grid-cols-2',
+        'grid xl:grid-cols-2 gap-8',
         // open ? 'xl:grid-cols-2' : 'xl:grid-cols-2',
         // 'grid gap-16 2xl:grid-cols-2',
       )}
     >
       <div
         className={cn(
-          'flex flex-col gap-10 overflow-hidden w-full max-w-2xl   mx-auto 2xl:mx-0 h-full',
+          'flex flex-col gap-8 overflow-hidden w-full max-w-2xl  mx-auto 2xl:mx-0 h-full',
         )}
       >
         <LevelUp

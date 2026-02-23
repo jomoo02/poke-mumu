@@ -23,19 +23,21 @@ export default function RestInfo({ names, breeding, training }: RestInfoProps) {
   const { growthRate, baseFriendShip, captureRate, effortValues } = training;
 
   return (
-    <div className="grid md:grid-cols-2 gap-6">
-      <div className="flex flex-col gap-6">
+    <div className="grid md:grid-cols-2 gap-8">
+      <div className="flex flex-col gap-8">
         <Card>
           <CardHeader>{namesTitle}</CardHeader>
-          {names.map(({ label, name }) => (
-            <RestInfoItem key={label} label={label}>
-              {name}
-            </RestInfoItem>
-          ))}
+          <div>
+            {names.map(({ label, name }) => (
+              <RestInfoItem key={label} label={label}>
+                {name}
+              </RestInfoItem>
+            ))}
+          </div>
         </Card>
         <Breeding breeding={breeding} />
       </div>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-8">
         <Card>
           <CardHeader>{trainingTitle}</CardHeader>
           <RestInfoItem label="포획률">{captureRate}</RestInfoItem>

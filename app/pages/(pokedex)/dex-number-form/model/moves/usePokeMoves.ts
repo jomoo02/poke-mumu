@@ -151,5 +151,6 @@ export function usePokeMoves(pokeMoves: PokeMovesView[]) {
     grouped,
     // items,
     // handleItemClick,
+    gens,
   };
 }

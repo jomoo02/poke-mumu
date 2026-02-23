@@ -150,7 +150,6 @@ export default function TypeDefenses({
 
   return (
     <div className="flex flex-col overflow-hidden bg-card">
-      <div className="text-2xl font-semibold mb-6">방어 상성</div>
       {/* <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 p-4 gap-4 bg-muted rounded-xl ">
         {typeDefenses.map((type) => (
           <div
@@ -214,21 +213,34 @@ export default function TypeDefenses({
         </div> */}
 
         <div>
-          <Table>
-            <TableHeader className="bg-muted/70">
+          <Table className="border-separate border-spacing-0">
+            <TableHeader>
               <TableRow>
-                <TableHead colSpan={2} className="">
+                <TableHead
+                  colSpan={2}
+                  className="bg-muted/70 rounded-md text-muted-foreground"
+                >
                   약점
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {dataWeak2.map((weak) => (
+              {dataWeak2.map((weak, idx) => (
                 <TableRow key={weak.label}>
-                  <TableCell className={cn(weak.textColor, 'font-medium w-18')}>
+                  <TableCell
+                    className={cn(
+                      weak.textColor,
+                      'font-medium w-18',
+                      idx === dataWeak2.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.label}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    className={cn(
+                      idx === dataWeak2.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.types.length === 0 ? (
                       <div className="w-full h-full">-</div>
                     ) : (
@@ -249,21 +261,34 @@ export default function TypeDefenses({
           </Table>
         </div>
         <div>
-          <Table>
-            <TableHeader className="bg-muted/70">
+          <Table className="border-separate border-spacing-0">
+            <TableHeader>
               <TableRow>
-                <TableHead colSpan={2} className="">
+                <TableHead
+                  colSpan={2}
+                  className="bg-muted/70 rounded-md text-muted-foreground"
+                >
                   내성
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {dataResistant2.map((weak) => (
+              {dataResistant2.map((weak, idx) => (
                 <TableRow key={weak.label}>
-                  <TableCell className={cn(weak.textColor, 'font-medium w-18')}>
+                  <TableCell
+                    className={cn(
+                      weak.textColor,
+                      'font-medium w-18',
+                      idx === dataResistant2.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.label}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    className={cn(
+                      idx === dataResistant2.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.types.length === 0 ? (
                       <div className="w-full h-full">-</div>
                     ) : (
@@ -284,21 +309,34 @@ export default function TypeDefenses({
           </Table>
         </div>
         <div>
-          <Table>
-            <TableHeader className="bg-muted/70">
+          <Table className="border-separate border-spacing-0">
+            <TableHeader className="">
               <TableRow>
-                <TableHead colSpan={2} className="">
+                <TableHead
+                  colSpan={2}
+                  className="bg-muted/70 rounded-md text-muted-foreground"
+                >
                   무효
                 </TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
-              {dataImmune.map((weak) => (
+              {dataImmune.map((weak, idx) => (
                 <TableRow key={weak.label}>
-                  <TableCell className={cn(weak.textColor, 'font-medium w-18')}>
+                  <TableCell
+                    className={cn(
+                      weak.textColor,
+                      'font-medium w-18',
+                      idx === dataImmune.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.label}
                   </TableCell>
-                  <TableCell>
+                  <TableCell
+                    className={cn(
+                      idx === dataImmune.length - 1 ? '' : 'border-b',
+                    )}
+                  >
                     {weak.types.length === 0 ? (
                       <div className="w-full h-full">-</div>
                     ) : (

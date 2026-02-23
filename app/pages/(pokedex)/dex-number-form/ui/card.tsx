@@ -1,7 +1,9 @@
+import { Tally1Icon, SectionIcon } from 'lucide-react';
+
 import { cn } from '@/app/shared/lib/cn';
 
 function Card({ children }: { children: React.ReactNode }) {
-  return <div>{children}</div>;
+  return <div className="group ">{children}</div>;
 }
 
 function CardHeader({
@@ -12,14 +14,15 @@ function CardHeader({
   className?: string;
 }) {
   return (
-    <div
+    <h3
       className={cn(
-        'py-2 px-4 font-medium bg-muted/70 rounded-t-md text-muted-foreground',
+        ' flex items-center bg-muted/70 rounded-md py-2 px-4 text-muted-foreground font-semibold',
+        // 'flex items-center py-2 text-muted-foreground font-bold text-lg',
         className,
       )}
     >
       {children}
-    </div>
+    </h3>
   );
 }
 
@@ -30,7 +33,11 @@ function CardItem({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('px-4 py-2 border-t', className)}>{children}</div>;
+  return (
+    <div className={cn('py-2 px-4  border-b last:border-b-0', className)}>
+      {children}
+    </div>
+  );
 }
 
 export { Card, CardHeader, CardItem };
