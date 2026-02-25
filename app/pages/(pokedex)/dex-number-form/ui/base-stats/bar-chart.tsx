@@ -65,7 +65,7 @@ export default function BarChart({ baseStats }: BarChartProps) {
       <Table className="border-separate border-spacing-0">
         <TableHeader>
           <TableRow className="">
-            <TableHead className="w-[15%] text-right rounded-l-lg bg-muted/70 text-muted-foreground ">
+            <TableHead className="w-[15%]   bg-muted/70 border-l-4">
               종족값
             </TableHead>
             <TableHead

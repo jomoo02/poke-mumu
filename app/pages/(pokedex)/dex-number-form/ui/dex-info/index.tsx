@@ -16,7 +16,7 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="grid md:grid-cols-2 gap-6 sm:gap-16 py-6 px-4 ">
+    <div className="grid md:grid-cols-2 gap-6 sm:gap-16 py-6 ">
       <div className="h-full w-full  relative mx-auto  max-w-100 max-h-100 aspect-square">
         <PokeImg
           className="object-contain w-full h-full"
@@ -49,29 +49,31 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
           비가 내린 다음 날은 등의 꽃향기가 강해진다. 향기에 이끌려 포켓몬이
           모여든다.
         </div>
-        <div className="grid md:grid-cols-2 items-end gap-6">
-          <div className="col-span-2">
-            <div className="flex items-center gap-1">
+        <div className="flex w-full gap-2 sm:gap-4">
+          <div className="flex-1/4">
+            <div className="flex items-center gap-1 justify-center">
               <BookIcon className="size-4.5 text-muted-foreground" />
               <div className="text-muted-foreground font-medium">분류</div>
             </div>
 
-            <div className="sm:text-lg font-medium">{genera}</div>
+            <div className="sm:text-lg font-medium text-center">{genera}</div>
           </div>
-          <div>
-            <div className="flex items-center gap-1">
+          <div className="bg-border w-px self-stretch" />
+          <div className="flex-1/4">
+            <div className="flex items-center gap-1 justify-center">
               <WeightIcon className="size-4.5 text-muted-foreground" />
               <div className="text-muted-foreground font-medium">몸무게</div>
             </div>
-            <div className="sm:text-lg font-medium">{weight}</div>
+            <div className="sm:text-lg font-medium text-center">{weight}</div>
           </div>
-          <div>
-            <div className="flex items-center gap-1">
+          <div className="bg-border w-px self-stretch " />
+          <div className="flex-1/4">
+            <div className="flex items-center gap-1 justify-center">
               <RulerIcon className="size-4.5 text-muted-foreground" />
               <div className="text-muted-foreground font-medium">키</div>
             </div>
 
-            <div className="sm:text-lg font-medium">{height}</div>
+            <div className="sm:text-lg font-medium text-center">{height}</div>
           </div>
         </div>
       </div>

@@ -51,8 +51,8 @@ export default async function PokedexDexNumberFormPageUI({
         <DexInfo dexInfo={dexInfo} />
       </div>
 
-      <div className=" px-4 sm:px-6 lg:px-8 relative  w-full py-6">
-        <div className="flex flex-col max-w-6xl mx-auto gap-6">
+      <div className=" relative  w-full  ">
+        <div className="flex flex-col max-w-7xl mx-auto gap-6 bg-card py-6 px-4 sm:px-6 lg:px-8">
           <section>
             <SectionTitle id="rest-info">기타</SectionTitle>
             <RestInfo names={names} training={training} breeding={breeding} />
@@ -65,7 +65,6 @@ export default async function PokedexDexNumberFormPageUI({
             <SectionTitle id="ability">특성</SectionTitle>
             <Abilities abilities={abilities} />
           </section>
-
           <section>
             <SectionTitle id="type-defense">방어 상성</SectionTitle>
             <TypeDefenses typeDefenses={typeDefense} types={types} />

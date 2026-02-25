@@ -4,6 +4,7 @@ import PokedexDexNumberFormPageV3UI from '@/app/pages/(pokedex)/dex-number-form-
 import PokedexDexNumberFormPageV4UI from '@/app/pages/(pokedex)/dex-number-form-v4';
 import PokedexDexNumberFormV0PageUI from '@/app/pages/(pokedex)/dex-number-form-v0';
 import PokedexDexNumberFormPageV5UI from '@/app/pages/(pokedex)/dex-number-form-v5';
+
 import { Suspense } from 'react';
 
 export default async function PokedexDexNumberFormPage({

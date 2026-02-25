@@ -16,8 +16,8 @@ function CardHeader({
   return (
     <h3
       className={cn(
-        ' flex items-center bg-muted/70 rounded-md py-2 px-4 text-muted-foreground font-semibold',
-        // 'flex items-center py-2 text-muted-foreground font-bold text-lg',
+        // ' flex items-center bg-muted/70 rounded-md py-2 px-4 font-medium ',
+        'flex items-center py-2 font-medium border-l-4 bg-muted/50 px-4',
         className,
       )}
     >
