@@ -9,18 +9,21 @@ export interface Stats {
 }
 
 export const STAT_CONFIG = {
+  total: { label: '총합' },
   hp: { label: 'HP' },
   attack: { label: '공격' },
   defense: { label: '방어' },
   specialAttack: { label: '특수공격' },
   specialDefense: { label: '특수방어' },
   speed: { label: '스피드' },
-  total: { label: '총합' },
 } as const;
 
 export type StatKey = keyof typeof STAT_CONFIG;
 
 export const getStatKeys = () => Object.keys(STAT_CONFIG) as StatKey[];
+
+export const getStatLabels = () =>
+  Object.values(STAT_CONFIG).map(({ label }) => label);
 
 export const getStatLabel = (stat: StatKey) => STAT_CONFIG[stat].label;
 

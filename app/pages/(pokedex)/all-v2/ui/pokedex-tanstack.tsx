@@ -1,4 +1,10 @@
-import { useVirtualizer, useWindowVirtualizer } from '@tanstack/react-virtual';
+import {
+  elementScroll,
+  useVirtualizer,
+  useWindowVirtualizer,
+  VirtualizerOptions,
+  windowScroll,
+} from '@tanstack/react-virtual';
 import { NationalPokeView } from '../model';
 import { formatNumber } from '@/app/shared/lib/format';
 import { getStatKeys } from '@/app/entities/stats/model';
@@ -8,6 +14,7 @@ import { TypeBadge } from '@/app/entities/type/ui';
 import {
   RefObject,
   useCallback,
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -45,8 +52,8 @@ function Poke({ poke }: { poke: NationalPokeView }) {
     speed,
   };
   return (
-    <div className="flex h-full w-full max-w-7xl mx-auto">
-      <div className="h-full w-44 min-w-44 px-4 flex items-center border-b">
+    <div className="h-full w-full px-16 mx-auto grid grid-cols-[200px_auto_100px_auto_auto_auto_auto_auto_auto_auto]">
+      <div className="h-full  px-4 flex items-center border-b">
         <div className="flex items-center h-full gap-4">
           <PokeSprite poke={poke} className="size-14" />
           {formattedDexNumber}
@@ -62,21 +69,21 @@ function Poke({ poke }: { poke: NationalPokeView }) {
             {name}
           </div>
         </Link>
-        <div className="text-muted-foreground text-sm truncate min-w-0 min-h-5 font-medium">
+        <div className="text-muted-foreground text-sm truncate font-medium">
           {form}
         </div>
       </div>
-      <div className="flex flex-col justify-center w-32 min-w-32 px-4 items-center gap-1 border-b">
+      <div className="grid  px-4 w-25 items-center gap-1 border-b">
         {type1 && <TypeBadge type={type1} className="w-full max-w-17 " />}
         {type2 && <TypeBadge type={type2} className="w-full max-w-17 " />}
       </div>
-      <div className="flex items-center w-28 min-w-28 justify-center border-b">
+      <div className="flex items-center px-4  justify-center border-b">
         {total}
       </div>
       {statKeys.map((statKey) => (
         <div
           key={statKey}
-          className="flex items-center w-28 min-w-28 justify-center border-b"
+          className="flex items-center px-4 justify-center border-b"
         >
           {baseStats[statKey]}
         </div>
@@ -136,7 +143,7 @@ export default function PokedexTanstack({
 }) {
   const parentRef = useRef<HTMLDivElement | null>(null);
   const [scrollMargin, setScrollMargin] = useState(0);
-
+  const scrollingRef = useRef<number>(0);
   // 추가
   useLayoutEffect(() => {
     if (parentRef.current) {
@@ -144,13 +151,28 @@ export default function PokedexTanstack({
     }
   }, [ref]);
 
+  const scrollToFn: VirtualizerOptions<Window, HTMLDivElement>['scrollToFn'] =
+    useCallback((offset, canSmooth, instance) => {
+      const run = () => {
+        windowScroll(0, canSmooth, instance);
+      };
+
+      requestAnimationFrame(run);
+    }, []);
+
   const rowVirtualizer = useWindowVirtualizer({
     count: pokes.length,
     estimateSize: () => 72,
     overscan: 10,
     // getScrollElement: () => parentRef.current,
     scrollMargin: scrollMargin,
+    scrollToFn,
   });
+
+  useEffect(() => {
+    rowVirtualizer.scrollToIndex(0);
+    console.log(pokes);
+  }, [pokes]);
 
   const virtualRows = rowVirtualizer.getVirtualItems();
 
@@ -163,7 +185,7 @@ export default function PokedexTanstack({
           position: 'relative',
         }}
       >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => (
+        {virtualRows.map((virtualRow) => (
           <div
             key={virtualRow.index}
             style={{

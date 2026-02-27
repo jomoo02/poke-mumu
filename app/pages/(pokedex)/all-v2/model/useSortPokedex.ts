@@ -1,4 +1,10 @@
-import { useMemo, useState, useDeferredValue } from 'react';
+import {
+  useMemo,
+  useState,
+  useDeferredValue,
+  useEffect,
+  useLayoutEffect,
+} from 'react';
 
 import { NationalPokeView } from '.';
 
@@ -47,6 +53,8 @@ export function useSortPokedex(pokes: NationalPokeView[]) {
   const [sortKey, setSortKey] = useState<SortKey>('dexNumber');
   const [filterType, setFilterType] = useState<string>('all');
   const [direction, setDirection] = useState<Direction>('asc');
+
+  const [inputValue, setInputValue] = useState('');
 
   const deferredSortKey = useDeferredValue(sortKey);
   const deferredDirection = useDeferredValue(direction);
@@ -107,6 +115,15 @@ export function useSortPokedex(pokes: NationalPokeView[]) {
     );
   };
 
+  // input
+  // const inputValueFilterdPokes = useMemo(() => {
+  //   return sortedPokes.filter(({ name }) => name.includes(inputValue));
+  // }, [inputValue, sortedPokes]);
+
+  // useLayoutEffect(() => {
+  //   setInputValue('');
+  // }, [deferredFilterType]);
+
   return {
     handleChangeFilterType,
     handleChangeSortKey,
@@ -115,5 +132,8 @@ export function useSortPokedex(pokes: NationalPokeView[]) {
     direction,
     sortKey,
     isStale,
+    // inputValueFilterdPokes,
+    inputValue,
+    setInputValue,
   };
 }

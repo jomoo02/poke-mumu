@@ -1,7 +1,7 @@
 import { getAllType } from '@/app/entities/type/api';
 
 import { getNationalPokedex } from './api';
-import NationalDex from './ui/national-pokedex';
+import PokedexTable from './ui/pokedex-table';
 
 export default async function PokedexAllPageV2UI() {
   const [nationPokedex, allType] = await Promise.all([
@@ -11,7 +11,7 @@ export default async function PokedexAllPageV2UI() {
 
   return (
     <div>
-      <NationalDex pokes={nationPokedex} types={allType} />
+      <PokedexTable pokes={nationPokedex} types={allType} />
     </div>
   );
 }
