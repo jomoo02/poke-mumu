@@ -24,25 +24,30 @@ export default function TypeFilter({
   ];
 
   return (
-    <Select value={selectedType} onValueChange={onChangeType}>
-      <SelectTrigger className="max-w-36 w-full py-4.5 rounded-lg">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent
-        className="bg-card border-border rounded-xl max-h-84"
-        position="popper"
-      >
-        {typesWithAll.map((type) => (
-          <SelectItem
-            key={type.identifier}
-            value={type.identifier}
-            className="py-2 rounded-lg"
+    <div className="flex gap-2 items-center">
+      <div className="text-sm font-medium">타입</div>
+      <div>
+        <Select value={selectedType} onValueChange={onChangeType}>
+          <SelectTrigger className="w-26 sm:w-32 rounded-lg">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent
+            className="bg-card border-border rounded-xl max-h-84"
+            position="popper"
           >
-            {type.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+            {typesWithAll.map((type) => (
+              <SelectItem
+                key={type.identifier}
+                value={type.identifier}
+                className="py-2 rounded-lg"
+              >
+                {type.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
   );
 
   // return (

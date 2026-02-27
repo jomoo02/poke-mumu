@@ -1,10 +1,4 @@
-import {
-  useMemo,
-  useState,
-  useDeferredValue,
-  useEffect,
-  useLayoutEffect,
-} from 'react';
+import { useMemo, useState, useDeferredValue, useLayoutEffect } from 'react';
 
 import { NationalPokeView } from '.';
 
@@ -116,13 +110,13 @@ export function useSortPokedex(pokes: NationalPokeView[]) {
   };
 
   // input
-  // const inputValueFilterdPokes = useMemo(() => {
-  //   return sortedPokes.filter(({ name }) => name.includes(inputValue));
-  // }, [inputValue, sortedPokes]);
+  const inputValueFilterdPokes = useMemo(() => {
+    return sortedPokes.filter(({ name }) => name.includes(inputValue));
+  }, [inputValue, sortedPokes]);
 
-  // useLayoutEffect(() => {
-  //   setInputValue('');
-  // }, [deferredFilterType]);
+  useLayoutEffect(() => {
+    setInputValue('');
+  }, [deferredFilterType]);
 
   return {
     handleChangeFilterType,
@@ -132,7 +126,7 @@ export function useSortPokedex(pokes: NationalPokeView[]) {
     direction,
     sortKey,
     isStale,
-    // inputValueFilterdPokes,
+    inputValueFilterdPokes,
     inputValue,
     setInputValue,
   };

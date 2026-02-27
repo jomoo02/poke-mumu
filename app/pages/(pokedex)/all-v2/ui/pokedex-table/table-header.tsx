@@ -6,9 +6,10 @@ import { RefObject } from 'react';
 
 interface TableHeaderProps {
   ref: RefObject<HTMLDivElement | null>;
+  onClick: (target: string) => void;
 }
 
-export default function TableHeader({ ref }: TableHeaderProps) {
+export default function TableHeader({ ref, onClick }: TableHeaderProps) {
   // const statsLabels = getStatLabels();
 
   const statsLabels = [
@@ -22,25 +23,29 @@ export default function TableHeader({ ref }: TableHeaderProps) {
   ];
 
   return (
-    <div ref={ref} className="sticky overflow-hidden top-28 z-10">
-      <div className="flex w-max lg:w-full px-4 xl:px-16 relative h-11">
-        <div className="w-20 min-w-20 md:w-26 md:min-w-26 sticky left-0 bg-card border-b" />
+    <div ref={ref} className="sticky overflow-hidden top-32 z-20  ">
+      <div className="flex w-max lg:w-full relative h-11">
+        <div className="w-20 min-w-20 md:w-26 md:min-w-26 sticky shadow-sm left-0 bg-card border-b" />
 
-        <div className="w-26 min-w-26  md:w-34 md:min-w-34 px-2 bg-card border-b h-full flex items-center">
-          <Button variant={'ghost'} size={'lg'}>
+        <div className="w-26 min-w-26  md:w-32 md:min-w-32 px-2 bg-card border-b h-full flex items-center">
+          <Button
+            variant={'ghost'}
+            size={'lg'}
+            onClick={() => onClick('dexNumber')}
+          >
             도감번호
             <ArrowDownUpIcon className="size-4 text-m" />
           </Button>
         </div>
         {/* <div> */}
-        <div className="min-w-34 md:min-w-44 lg:min-w-52 w-full px-2  bg-card border-b h-full flex items-center">
-          <Button variant={'ghost'} size={'lg'}>
+        <div className="min-w-34 md:min-w-44 w-full px-2  bg-card border-b h-full flex items-center">
+          <Button variant={'ghost'} size={'lg'} onClick={() => onClick('name')}>
             이름
             <ArrowDownUpIcon className="size-4 text-m" />
           </Button>
         </div>
         {/* <div className="text-sm inline-flex items-center justify-center font-medium"> */}
-        <div className="px-4 w-25 min-w-25 xl:w-32 xl:min-w-32 2xl:w-44 2xl:min-w-44 text-sm font-medium justify-center  bg-card border-b h-full flex items-center">
+        <div className="w-25 min-w-25 xl:w-30 xl:min-w-30 text-sm font-medium px-4 bg-card border-b h-full flex items-center">
           타입
         </div>
         {statsLabels.map((label) => (
@@ -49,7 +54,7 @@ export default function TableHeader({ ref }: TableHeaderProps) {
             className={cn(
               'px-2',
               label.length > 2 ? 'w-30 min-w-30' : 'w-26 min-w-26  ',
-              '2xl:w-48 2xl:min-w-48',
+              // '2xl:w-48 2xl:min-w-48',
               ' bg-card border-b h-full flex justify-end items-center',
             )}
           >
