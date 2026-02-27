@@ -7,8 +7,8 @@ import TableHeader from './table-header';
 import TypeFilter from '../type-filter';
 import { cn } from '@/app/shared/lib/cn';
 import { Type } from '@/app/entities/type/model';
-import PokedexTanstack from '../pokedex-tanstack';
-import { Input } from '@/app/shared/ui/input';
+// import PokedexTanstack from '../pokedex-tanstack';
+// import { Input } from '@/app/shared/ui/input';
 import NameInput from './name-input';
 
 interface PokedexTableProps {
