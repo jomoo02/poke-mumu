@@ -1,7 +1,5 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-
 import { type Type } from '@/app/entities/type/model';
 
 import { type NationalPokeView } from '../model';

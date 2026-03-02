@@ -62,10 +62,6 @@ export default function usePokedex(pokes: NationalPokeView[]) {
     );
   };
 
-  useLayoutEffect(() => {
-    setInputValue('');
-  }, [filterType]);
-
   return {
     pokes: searchedPokes,
     setSortKey: handleChangeSortKey,
