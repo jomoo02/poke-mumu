@@ -27,7 +27,7 @@ export default function PokedexTableHeader({
       <div className="flex w-max lg:w-full relative h-12">
         <div
           className={cn(
-            'w-20 min-w-20 md:w-26 md:min-w-26 sticky left-0 bg-card border-b z-70',
+            'w-20 min-w-20 md:w-26 md:min-w-26 sticky left-0 bg-card border-b z-10',
             isScrolledX ? 'shadow-sm' : '',
           )}
         />
