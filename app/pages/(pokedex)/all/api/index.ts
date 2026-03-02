@@ -52,8 +52,10 @@ export const getNationalPokedex = async () => {
       `Failed to fetch pokedex for national pokedex: ${error.message}`,
     );
   }
+
   if (!data) {
     return [];
   }
+
   return data.map(adaptNationPokeView);
 };

@@ -1,72 +1,34 @@
-import {
-  useWindowVirtualizer,
-  VirtualizerOptions,
-  windowScroll,
-} from '@tanstack/react-virtual';
-import { NationalPokeView } from '../../model';
+import { useWindowVirtualizer } from '@tanstack/react-virtual';
+import { RefObject, useLayoutEffect, useState } from 'react';
 
-import {
-  RefObject,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { type NationalPokeView } from '../../model';
+import PokedexTableRow from './pokedex-table-row';
 
-import Poke from './poke';
-
-export default function TableBody({
+export default function PokedexTableBody({
   pokes,
   ref,
   onScroll,
-  filters,
+  isScrolledX,
 }: {
   pokes: NationalPokeView[];
   ref: RefObject<HTMLDivElement | null>;
   onScroll: () => void;
-  filters: string;
+  isScrolledX: boolean;
 }) {
   const [scrollMargin, setScrollMargin] = useState(0);
-  // 추가
+
   useLayoutEffect(() => {
     if (ref.current) {
       setScrollMargin(ref.current?.offsetTop ?? 0);
     }
   }, [ref]);
 
-  // const scrollToFn: VirtualizerOptions<Window, HTMLDivElement>['scrollToFn'] =
-  //   useCallback((offset, canSmooth, instance) => {
-  //     const run = () => {
-  //       windowScroll(0, canSmooth, instance);
-  //     };
-
-  //     requestAnimationFrame(run);
-  //   }, []);
-
   const rowVirtualizer = useWindowVirtualizer({
     count: pokes.length,
     estimateSize: () => 72,
     overscan: 10,
     scrollMargin: scrollMargin,
-
-    // scrollToFn,
   });
-
-  const prevFiltersRef = useRef(filters);
-
-  useEffect(() => {
-    const prev = prevFiltersRef.current;
-
-    const isChanged = prev !== filters;
-    // const isChanged = prev.type !== filters.type || prev.name !== filters.name;
-
-    if (isChanged) {
-      window.scrollTo({ top: 0 });
-    }
-
-    prevFiltersRef.current = filters;
-  }, [filters]);
 
   const virtualRows = rowVirtualizer.getVirtualItems();
 
@@ -93,7 +55,10 @@ export default function TableBody({
               height: `${virtualRow.size}px`,
             }}
           >
-            <Poke poke={pokes[virtualRow.index]} />
+            <PokedexTableRow
+              poke={pokes[virtualRow.index]}
+              isScrolledX={isScrolledX}
+            />
           </div>
         ))}
       </div>

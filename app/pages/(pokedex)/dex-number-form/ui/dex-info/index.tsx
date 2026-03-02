@@ -52,28 +52,40 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
         <div className="flex w-full gap-2 sm:gap-4">
           <div className="flex-1/4">
             <div className="flex items-center gap-1 justify-center">
-              <BookIcon className="size-4.5 text-muted-foreground" />
-              <div className="text-muted-foreground font-medium">분류</div>
+              <BookIcon className="size-4 sm:size-4.5 text-muted-foreground" />
+              <div className="text-sm sm:text-base text-muted-foreground font-medium">
+                분류
+              </div>
             </div>
 
-            <div className="sm:text-lg font-medium text-center">{genera}</div>
+            <div className="text-sm sm:text-base md:text-lg font-medium text-center break-keep pt-2 ">
+              {genera}
+            </div>
           </div>
           <div className="bg-border w-px self-stretch" />
           <div className="flex-1/4">
-            <div className="flex items-center gap-1 justify-center">
-              <WeightIcon className="size-4.5 text-muted-foreground" />
-              <div className="text-muted-foreground font-medium">몸무게</div>
+            <div className="flex items-center justify-center">
+              <WeightIcon className="size-4 sm:size-4.5 text-muted-foreground" />
+              <div className="text-muted-foreground font-medium text-sm sm:text-base">
+                몸무게
+              </div>
             </div>
-            <div className="sm:text-lg font-medium text-center">{weight}</div>
+            <div className="text-sm sm:text-base md:text-lg font-medium text-center pt-2 ">
+              {weight}
+            </div>
           </div>
           <div className="bg-border w-px self-stretch " />
           <div className="flex-1/4">
             <div className="flex items-center gap-1 justify-center">
-              <RulerIcon className="size-4.5 text-muted-foreground" />
-              <div className="text-muted-foreground font-medium">키</div>
+              <RulerIcon className="size-4 sm:size-4.5 text-muted-foreground" />
+              <div className="text-muted-foreground font-medium text-sm sm:text-base">
+                키
+              </div>
             </div>
 
-            <div className="sm:text-lg font-medium text-center">{height}</div>
+            <div className="text-sm sm:text-base md:text-lg font-medium text-center pt-2">
+              {height}
+            </div>
           </div>
         </div>
       </div>

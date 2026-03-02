@@ -7,10 +7,4 @@ export interface NationalPokeView extends Poke, Stats {
   type2: Type | null;
 }
 
-export type SearchParams = {
-  sortKey?: string;
-  type?: string;
-  direction?: string;
-};
-
-export { useSortPokedex, type SortKey, type Direction } from './useSortPokedex';
+export { type TableHead, type Direction, type SortKey } from './pokedex-table';

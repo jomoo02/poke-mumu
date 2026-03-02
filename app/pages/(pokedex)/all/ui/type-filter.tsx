@@ -24,45 +24,29 @@ export default function TypeFilter({
   ];
 
   return (
-    <Select value={selectedType} onValueChange={onChangeType}>
-      <SelectTrigger className="max-w-36 w-full py-4.5 rounded-lg">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent
-        className="bg-card border-border rounded-xl max-h-84"
-        position="popper"
-      >
-        {typesWithAll.map((type) => (
-          <SelectItem
-            key={type.identifier}
-            value={type.identifier}
-            className="py-2 rounded-lg"
+    <div className="flex flex-col gap-1">
+      <div className="text-sm font-medium">타입</div>
+      <div>
+        <Select value={selectedType} onValueChange={onChangeType}>
+          <SelectTrigger className="w-30 sm:w-36 rounded-lg">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent
+            className="bg-card border-border rounded-lg max-h-84"
+            position="popper"
           >
-            {type.name}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+            {typesWithAll.map((type) => (
+              <SelectItem
+                key={type.identifier}
+                value={type.identifier}
+                className="py-2 rounded-md"
+              >
+                {type.name}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </div>
   );
-
-  // return (
-  //   <select
-  //     value={selectedType}
-  //     onChange={(e) => onChangeType(e.target.value)}
-  //     className="border rounded-md p-2 flex justify-center border-border bg-white font-medium text-sm custom-select w-40"
-  //   >
-  //     {typesWithAll.map((t) => (
-  //       <option
-  //         value={t.identifier}
-  //         key={t.identifier}
-  //         className={cn(
-  //           'text-sm py-1 hover:bg-accent px-2 rounded-lg font-suit',
-  //           selectedType === t.identifier ? 'bg-primary/10' : '',
-  //         )}
-  //       >
-  //         {t.name}
-  //       </option>
-  //     ))}
-  //   </select>
-  // );
 }

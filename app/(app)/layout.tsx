@@ -1,3 +1,5 @@
+import { SidebarInset, SidebarProvider } from '../shared/ui/sidebar';
+import { AppSidebar } from '../widgets/app-sidebar';
 import MainHeader from '../widgets/main-header';
 
 // import { SidebarInset, SidebarProvider } from '@/app/shared/ui/sidebar';
@@ -11,7 +13,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="relative z-10 flex flex-col bg-background font-suit [--header-height:calc(--spacing(14))]">
       <MainHeader />
-      <main className="flex flex-col flex-1 py-8">{children}</main>
+      <main className="flex flex-col flex-1">{children}</main>
       {/* <SidebarProvider className="flex flex-col">
         <div className="flex flex-1">
           <Suspense>
