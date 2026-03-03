@@ -23,7 +23,8 @@ export default function PokedexTableHeader({
   isScrolledX,
 }: TableHeaderProps) {
   return (
-    <div ref={ref} className="overflow-hidden  scroll-auto">
+    // <div ref={ref} className="overflow-x-auto  scroll-auto">
+    <div ref={ref} className="sticky-header">
       <div className="flex w-max lg:w-full relative h-12">
         <div
           className={cn(
