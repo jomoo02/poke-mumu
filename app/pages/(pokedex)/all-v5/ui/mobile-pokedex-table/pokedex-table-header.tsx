@@ -21,7 +21,7 @@ export default function PokedexTableHeader({
   return (
     <div>
       <div className="flex w-full relative h-12">
-        <div className={cn('w-18 min-w-18   bg-card border-b')} />
+        {/* <div className={cn('w-18 min-w-18   bg-card border-b')} /> */}
         {columns.map(({ id, header, sortable, width, align }) => (
           <div
             key={id}

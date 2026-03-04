@@ -13,11 +13,11 @@ interface PokedexTableRowProps {
 export default function PokedexTableRow({ poke }: PokedexTableRowProps) {
   return (
     <div className="h-full w-full flex  group hover:bg-muted">
-      <div className="bg-card w-18 min-w-18 h-full flex justify-center items-center group-hover:bg-muted border-b">
+      {/* <div className="bg-card w-18 min-w-20 h-full flex justify-center items-center group-hover:bg-muted border-b">
         <Link href={`/pokedex/${poke.dexNumber}/${poke.pokeKey}`}>
           <PokeSprite poke={poke} className="size-12 " />
         </Link>
-      </div>
+      </div> */}
       {columns.map(({ id, cell, width, align }) => (
         <div
           key={id}
