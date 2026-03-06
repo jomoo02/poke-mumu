@@ -10,6 +10,8 @@ import {
   type NationalPokeView,
   type SortKey,
 } from '../../model';
+import PokedexTableHeaderV2 from './pokedex-table-header-v2';
+import TableV2 from './v2';
 
 interface PokedexTableProps {
   pokes: NationalPokeView[];
@@ -35,8 +37,26 @@ export default function PokedexTable({
   totalPokeCount,
 }: PokedexTableProps) {
   return (
-    <>
-      <div className={cn('sticky top-16 bg-card z-20 w-full')}>
+    <div className="w-full">
+      <TableV2
+        pokes={pokes}
+        totalPokeCount={totalPokeCount}
+        bodyRef={bodyRef}
+        headerRef={headerRef}
+        onClickHeader={onClickHeader}
+        sortKey={sortKey}
+        direction={direction}
+        isScrolledX={isScrolledX}
+      />
+      {/* <PokedexTableFooter count={pokes.length} total={totalPokeCount} /> */}
+      {/* <PokedexTableHeaderV2
+        ref={headerRef}
+        onClick={onClickHeader}
+        sortKey={sortKey}
+        direction={direction}
+        isScrolledX={isScrolledX}
+      /> */}
+      {/* <div className={cn('sticky top-16 bg-card z-20 w-full')}>
         <PokedexTableHeader
           ref={headerRef}
           onClick={onClickHeader}
@@ -44,15 +64,15 @@ export default function PokedexTable({
           direction={direction}
           isScrolledX={isScrolledX}
         />
-      </div>
+      </div> */}
 
-      <PokedexTableBody
+      {/* <PokedexTableBody
         pokes={pokes}
         ref={bodyRef}
-        onScroll={onScroll}
+        // onScroll={onScroll}
         isScrolledX={isScrolledX}
       />
-      {/* <PokedexTableFooter count={pokes.length} total={totalPokeCount} /> */}
-    </>
+      <PokedexTableFooter count={pokes.length} total={totalPokeCount} /> */}
+    </div>
   );
 }

@@ -15,44 +15,33 @@ interface PokedexTableProps {
   pokes: NationalPokeView[];
   totalPokeCount: number;
   bodyRef: RefObject<HTMLDivElement | null>;
-  headerRef: RefObject<HTMLDivElement | null>;
   onClickHeader: (target: string) => void;
   onScroll: () => void;
   sortKey: SortKey;
   direction: Direction;
-  isScrolledX: boolean;
 }
 
-export default function PokedexTable({
+export default function MobilePokedexTable({
   pokes,
   bodyRef,
-  headerRef,
   onClickHeader,
   onScroll,
   sortKey,
   direction,
-  isScrolledX,
   totalPokeCount,
 }: PokedexTableProps) {
   return (
     <>
       <div className={cn('sticky top-16 bg-card z-20 w-full')}>
         <PokedexTableHeader
-          ref={headerRef}
           onClick={onClickHeader}
           sortKey={sortKey}
           direction={direction}
-          isScrolledX={isScrolledX}
         />
       </div>
 
-      <PokedexTableBody
-        pokes={pokes}
-        ref={bodyRef}
-        onScroll={onScroll}
-        isScrolledX={isScrolledX}
-      />
-      {/* <PokedexTableFooter count={pokes.length} total={totalPokeCount} /> */}
+      <PokedexTableBody pokes={pokes} ref={bodyRef} onScroll={onScroll} />
+      <PokedexTableFooter count={pokes.length} total={totalPokeCount} />
     </>
   );
 }
