@@ -7,8 +7,7 @@ import TypeFilter from './type-filter';
 import NameInput from './name-input';
 import usePokedex from '../model/usePokedex';
 import ScrollToTopButton from './scroll-to-top-button';
-import PokedexTable from './pokedex-table';
-import useScroll from '../model/useScroll';
+import Pokedex from './pokedex';
 
 interface PokedexTableProps {
   pokes: NationalPokeView[];
@@ -25,14 +24,12 @@ export default function Container({ pokes, types }: PokedexTableProps) {
     sortKey,
     direction,
     setInputValue,
+    isPending,
   } = usePokedex(pokes);
-
-  const { bodyRef, headerRef, handleScroll, isScrolledX } = useScroll();
-
   return (
     <div className="w-full">
       <ScrollToTopButton />
-      <div className="flex gap-4 sm:gap-6 justify-between sm:justify-center mb-2 pb-6 px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 w-full">
+      <div className="flex gap-4 sm:gap-6 justify-between sm:justify-center px-4 sm:px-6 xl:px-16 w-full ">
         <NameInput inputValue={inputValue} onChange={setInputValue} />
         <TypeFilter
           types={types}
@@ -40,17 +37,12 @@ export default function Container({ pokes, types }: PokedexTableProps) {
           selectedType={filterType}
         />
       </div>
-      <div className="px-0 sm:px-6 md:px-8 lg:px-10 xl:px-14 w-full relative">
-        <PokedexTable
+      <div className="my-8 sm:px-6 xl:px-14 w-full relative">
+        <Pokedex
           pokes={sortedPokes}
-          bodyRef={bodyRef}
-          headerRef={headerRef}
           onClickHeader={setSortKey}
-          onScroll={handleScroll}
           sortKey={sortKey}
           direction={direction}
-          isScrolledX={isScrolledX}
-          totalPokeCount={pokes.length}
         />
       </div>
     </div>

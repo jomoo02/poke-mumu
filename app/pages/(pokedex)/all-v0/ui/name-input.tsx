@@ -19,7 +19,7 @@ export default function NameInput({ inputValue, onChange }: NameInputProps) {
           value={inputValue}
           onChange={handleChange}
           placeholder="Search..."
-          className="max-w-40 xs:max-w-48 sm:max-w-60 w-60 rounded-lg"
+          className="max-w-50 sm:max-w-60 w-60 rounded-lg"
         />
       </div>
     </div>

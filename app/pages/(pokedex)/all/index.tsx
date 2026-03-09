@@ -10,7 +10,7 @@ export default async function PokedexAllPageUI() {
   ]);
 
   return (
-    <div className="w-full mx-auto max-w-384 min-h-dvh py-6">
+    <div className="w-full mx-auto max-w-384 min-h-dvh py-8">
       <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6 px-4 sm:px-6 md:px-8 xl:px-16">
         전국도감
       </h1>

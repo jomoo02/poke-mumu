@@ -3,7 +3,7 @@ import { getAllType } from '@/app/entities/type/api';
 import { getNationalPokedex } from './api';
 import Container from './ui/container';
 
-export default async function PokedexAllPageNoVirtualUI() {
+export default async function PokedexAllPageUI() {
   const [nationPokedex, allType] = await Promise.all([
     getNationalPokedex(),
     getAllType(),

@@ -28,11 +28,11 @@ export default function TypeFilter({
       <div className="text-sm font-medium">타입</div>
       <div>
         <Select value={selectedType} onValueChange={onChangeType}>
-          <SelectTrigger className="w-30 sm:w-36 rounded-lg">
+          <SelectTrigger className="w-30 sm:max-w-36 rounded-lg">
             <SelectValue />
           </SelectTrigger>
           <SelectContent
-            className="bg-card border-border rounded-lg max-h-84"
+            className="bg-card border-border rounded-lg max-h-84 transition-none shadow-none"
             position="popper"
           >
             {typesWithAll.map((type) => (

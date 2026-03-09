@@ -34,7 +34,7 @@ export default function ScrollToTopButton() {
       size={'icon-lg'}
       onClick={handleClick}
       className={cn(
-        'hidden sm:flex fixed flex-col bottom-4.5 right-4.5 transition-all duration-300 items-center justify-center',
+        ' fixed flex-col bottom-4.5 right-4.5 transition-all duration-300 items-center justify-center',
         visible
           ? 'opacity-100 translate-x-0 pointer-events-auto'
           : 'opacity-0 translate-x-4 pointer-events-none',
