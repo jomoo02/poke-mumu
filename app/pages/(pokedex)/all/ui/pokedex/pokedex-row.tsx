@@ -11,11 +11,11 @@ const PokedexRow = memo(
     return (
       <TableRow
         key={poke.pokeKey}
-        style={{
-          willChange: 'transform',
-          contain: 'layout paint',
-          transform: 'translateZ(0)',
-        }}
+        // style={{
+        //   willChange: 'transform',
+        //   contain: 'layout paint',
+        //   transform: 'translateZ(0)',
+        // }}
         className="h-20 hover:bg-muted/70"
       >
         {columns.map((col) => (

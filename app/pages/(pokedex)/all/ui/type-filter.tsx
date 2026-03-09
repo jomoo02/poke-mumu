@@ -32,8 +32,9 @@ export default function TypeFilter({
             <SelectValue />
           </SelectTrigger>
           <SelectContent
-            className="bg-card border-border rounded-lg max-h-84 transition-none shadow-none"
+            className="bg-card border-border rounded-lg max-h-84 will-change-auto"
             position="popper"
+            avoidCollisions={false}
           >
             {typesWithAll.map((type) => (
               <SelectItem

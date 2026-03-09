@@ -24,7 +24,6 @@ export default function Container({ pokes, types }: PokedexTableProps) {
     sortKey,
     direction,
     setInputValue,
-    isPending,
   } = usePokedex(pokes);
   return (
     <div className="w-full">
@@ -37,7 +36,10 @@ export default function Container({ pokes, types }: PokedexTableProps) {
           selectedType={filterType}
         />
       </div>
-      <div className="my-8 sm:px-6 xl:px-14 w-full relative">
+      <div
+        className="my-8 sm:px-6 xl:px-14 w-full relative"
+        style={{ contain: 'layout' }}
+      >
         <Pokedex
           pokes={sortedPokes}
           onClickHeader={setSortKey}
