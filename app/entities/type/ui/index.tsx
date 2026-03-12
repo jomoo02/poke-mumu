@@ -9,9 +9,15 @@ interface TypeIconProps {
   size?: number;
   isVisibleContent?: boolean;
   className?: string;
+  rounded?: string;
 }
 
-export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
+export function TypeIcon({
+  type,
+  className,
+  size = 32,
+  rounded,
+}: TypeIconProps) {
   if (type.identifier === 'unknown') {
     return (
       <div
@@ -26,7 +32,7 @@ export function TypeIcon({ type, className, size = 32 }: TypeIconProps) {
   }
   return (
     <div className={cn('flex flex-col items-center relative  ', className)}>
-      <div className="overflow-hidden rounded-sm">
+      <div className={cn('overflow-hidden rounded-sm', rounded)}>
         <Image
           src={`/type-icon/${type.identifier}.png`}
           width={size}

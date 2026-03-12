@@ -136,6 +136,8 @@
   --color-border-steel: #5990a9;
   --color-border-fairy: #b999b4;
   --color-border-unknown: #a21caf;
+  --font-size-md: 0.9375rem; /* 15px */
+  --line-height-md: 1.3125rem; /* 21px */
 }
 
 @theme inline {
@@ -199,6 +201,12 @@
   }
 }
 
+@layer utilities {
+  .text-md {
+    font-size: var(--font-size-md);
+    line-height: var(--line-height-md);
+  }
+}
 /* 변경된 부분만 */
 .sticky-header {
   overflow-x: auto; /* 반드시 auto로 둠(모바일 터치 허용) */

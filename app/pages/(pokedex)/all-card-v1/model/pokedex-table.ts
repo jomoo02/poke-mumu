@@ -39,10 +39,25 @@ const COMPARATORS: Record<
 
 const getComparators = (key: SortKey) => COMPARATORS[key];
 
+const sortOptions: { label: string; id: SortKey }[] = [
+  { id: 'dexNumber', label: '도감번호' },
+  { id: 'name', label: '이름' },
+  { id: 'total', label: '총합' },
+  { id: 'hp', label: 'HP' },
+  { id: 'attack', label: '공격' },
+  { id: 'defense', label: '방어' },
+  { id: 'specialAttack', label: '특수공격' },
+  { id: 'specialDefense', label: '특수방어' },
+  { id: 'speed', label: '스피드' },
+];
+
+const getSortOptions = () => [...sortOptions];
+
 export {
   isSortKey,
   getComparators,
   type SortKey,
   type TableHead,
   type Direction,
+  getSortOptions,
 };
