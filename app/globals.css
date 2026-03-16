@@ -100,21 +100,21 @@
   --color-normal: #949495;
   --color-fire: #e56c3e;
   --color-water: #5185c5;
-  --color-grass: #3fa129;
-  --color-electric: #fac000;
+  --color-grass: #4caf50;
+  --color-electric: #f4d03f;
   --color-ice: #3dcef3;
   --color-fighting: #e09c40;
   --color-poison: #735198;
   --color-ground: #9c7743;
   --color-flying: #81b9ef;
   --color-psychic: #dd6b7b;
-  --color-bug: #9fa244;
-  --color-rock: #bfb889;
+  --color-bug: #8d9e2a;
+  --color-rock: #b8a36e;
   --color-ghost: #684870;
   --color-dragon: #535ca8;
   --color-dark: #4c4948;
   --color-steel: #69a9c7;
-  --color-fairy: #ef70ef;
+  --color-fairy: #e8a0e8;
   --color-unknown: #a21caf;
 
   --color-border-normal: #7e7e7f;
@@ -134,7 +134,7 @@
   --color-border-dragon: #474e8f;
   --color-border-dark: #413e3d;
   --color-border-steel: #5990a9;
-  --color-border-fairy: #b999b4;
+  --color-border-fairy: #d680d6;
   --color-border-unknown: #a21caf;
   --font-size-md: 0.9375rem; /* 15px */
   --line-height-md: 1.3125rem; /* 21px */

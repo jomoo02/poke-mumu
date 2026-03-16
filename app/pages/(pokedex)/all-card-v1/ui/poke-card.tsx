@@ -45,10 +45,13 @@ export default function PokeCard({ poke }: PokeCardProps) {
   return (
     <Link
       href={href}
-      className="border rounded-2xl bg-card overflow-hidden hover:bg-accent/30 h-103"
+      className="border rounded-2xl bg-card overflow-hidden hover:bg-accent/30 shadow-sm"
     >
       <div className="flex items-center p-6 pb-0 gap-4 relative">
-        <PokeSprite poke={poke} className="size-18" />
+        <div className="size-20 flex items-center justify-center">
+          <PokeSprite poke={poke} className="size-18" />
+        </div>
+
         <div className="flex-1 overflow-hidden min-w-0">
           <div className="shrink-0 text-muted-foreground  font-medium tabular-nums">
             {formattedDexNumber}
@@ -59,23 +62,20 @@ export default function PokeCard({ poke }: PokeCardProps) {
           </div>
         </div>
       </div>
-
-      <div className="p-6 flex flex-col">
-        {types.length > 0 && (
-          <div className="flex gap-1.5 pb-2">
-            {types.map((type) => (
-              <TypeBadge
-                key={type.identifier}
-                type={type}
-                className="w-21 h-7.25"
-              />
-            ))}
-          </div>
-        )}
-
-        <div className="flex flex-col">
-          <BarStats stats={stats} />
+      {types.length > 0 && (
+        <div className="grid grid-cols-2 gap-2.5 px-6 pt-4">
+          {types.map((type) => (
+            <TypeBadge
+              key={type.identifier}
+              type={type}
+              className="w-full h-7.5 "
+            />
+          ))}
         </div>
+      )}
+
+      <div className="p-6 pt-4 flex flex-col">
+        <BarStats stats={stats} />
       </div>
     </Link>
   );

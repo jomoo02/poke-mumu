@@ -20,7 +20,7 @@ export default function SelectSortKey({
 
   return (
     <Select value={sortKey} onValueChange={setSortKey}>
-      <SelectTrigger>
+      <SelectTrigger className="w-25">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>

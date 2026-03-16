@@ -4,25 +4,36 @@ import {
   ArrowDownIcon,
   ArrowDownWideNarrowIcon,
   ArrowUpIcon,
-  ArrowUpNarrowWideIcon,
+  ArrowUpWideNarrowIcon,
+  ArrowDownNarrowWideIcon,
 } from 'lucide-react';
 import { cn } from '@/app/shared/lib/cn';
 
 interface ToggleDirectionProps {
   direction: Direction;
-  toggleDirection: () => void;
+  toggleDirection: (direction: Direction) => void;
 }
 export default function ToggleDirection({
   direction,
   toggleDirection,
 }: ToggleDirectionProps) {
+  const handleClick = () => {
+    const nextDirection = direction === 'asc' ? 'desc' : 'asc';
+    toggleDirection(nextDirection);
+  };
   return (
-    <Button variant={'outline'} onClick={toggleDirection} className="h-9">
-      <ArrowUpIcon
-        className={cn('size-4', direction !== 'asc' ? 'rotate-180' : '')}
+    <Button
+      variant={'outline'}
+      onClick={handleClick}
+      size={'icon-lg'}
+      className="size-10"
+    >
+      <ArrowUpWideNarrowIcon
+        className={cn('size-5', direction === 'asc' ? 'block' : 'hidden')}
       />
-      <span>정렬</span>
-
+      <ArrowDownNarrowWideIcon
+        className={cn('size-5', direction === 'desc' ? 'block' : 'hidden')}
+      />
       {/* {direction === 'asc' ? <ArrowUpIcon /> : <ArrowDownWideNarrowIcon />} */}
     </Button>
   );

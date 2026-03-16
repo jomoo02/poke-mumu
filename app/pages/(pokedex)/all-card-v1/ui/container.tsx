@@ -55,6 +55,14 @@ export default function Container({ pokes, types }: PokedexTableProps) {
         direction={direction}
         toggleDirection={setDirection}
       />
+      <div className="px-4 sm:px-6 xl:px-14 py-4">
+        <TypeFilter
+          allTypes={types}
+          selected={filterTypes}
+          onChange={setFilterTypes}
+        />
+      </div>
+
       {/* <div className="flex gap-4 sm:gap-6 justify-between sm:justify-center px-4 sm:px-6 xl:px-16 w-full ">
         <NameInput inputValue={inputValue} onChange={setInputValue} />
         <TypeFilter

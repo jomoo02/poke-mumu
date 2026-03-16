@@ -107,25 +107,25 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   };
 
   const shadowVariants: Record<string, string> = {
-    normal: 'shadow-normal/30',
-    fire: 'shadow-fire/30',
-    water: 'shadow-water/30',
-    grass: 'shadow-grass/30',
-    electric: 'shadow-electric/30',
-    ice: 'shadow-ice/30',
-    fighting: 'shadow-fighting/30',
-    poison: 'shadow-poison/30',
-    ground: 'shadow-ground/30',
-    flying: 'shadow-flying/30',
-    psychic: 'shadow-psychic/30',
-    bug: 'shadow-bug/30',
-    rock: 'shadow-rock/30',
-    ghost: 'shadow-ghost/30',
-    dragon: 'shadow-dragon/30',
-    dark: 'shadow-dark/30',
-    steel: 'shadow-steel/30',
-    fairy: 'shadow-fairy/30',
-    unknown: 'shadow-unknown/30',
+    normal: 'shadow-normal/50',
+    fire: 'shadow-fire/50',
+    water: 'shadow-water/50',
+    grass: 'shadow-grass/50',
+    electric: 'shadow-electric/50',
+    ice: 'shadow-ice/50',
+    fighting: 'shadow-fighting/50',
+    poison: 'shadow-poison/50',
+    ground: 'shadow-ground/50',
+    flying: 'shadow-flying/50',
+    psychic: 'shadow-psychic/50',
+    bug: 'shadow-bug/50',
+    rock: 'shadow-rock/50',
+    ghost: 'shadow-ghost/50',
+    dragon: 'shadow-dragon/50',
+    dark: 'shadow-dark/50',
+    steel: 'shadow-steel/50',
+    fairy: 'shadow-fairy/50',
+    unknown: 'shadow-unknown/50',
   };
 
   const borderColorVariatns: Record<string, string> = {
@@ -150,19 +150,49 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
     unknown: 'border-unknown',
   };
 
+  const ringVariants: Record<string, string> = {
+    // 어두운 타입 — highlight 약하게
+    dark: 'ring-white/10',
+    ghost: 'ring-white/10',
+    poison: 'ring-white/15',
+    dragon: 'ring-white/15',
+    ground: 'ring-white/15',
+    rock: 'ring-white/15',
+
+    // 중간 타입 — 기본
+    normal: 'ring-white/20',
+    fighting: 'ring-white/20',
+    bug: 'ring-white/20',
+    grass: 'ring-white/20',
+    fire: 'ring-white/20',
+    water: 'ring-white/20',
+    psychic: 'ring-white/20',
+    steel: 'ring-white/20',
+    fairy: 'ring-white/20',
+
+    // 밝은 타입 — highlight 강하게
+    flying: 'ring-white/35',
+    ice: 'ring-white/35',
+    electric: 'ring-white/35',
+
+    unknown: 'ring-white/20',
+  };
   const bg = bgVariants[type.identifier] || bgVariants.unknown;
   const borderColor =
     borderColorVariatns[type.identifier] || borderColorVariatns.unknown;
   const content = type.name;
   const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
-
+  const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
   return (
     <div
       className={cn(
-        'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shrink-0 text-shadow-lg',
+        'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shadow-sm shrink-0 text-shadow-lg',
+
+        'ring-inset ring-1 tracking-wide',
         bg,
         borderColor,
         shadowColor,
+        ringColor,
         className,
       )}
     >

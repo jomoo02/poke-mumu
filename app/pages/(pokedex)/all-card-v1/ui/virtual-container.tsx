@@ -8,7 +8,7 @@ import PokeCard from './poke-card';
 
 // ── 상수 ─────────────────────────────────────────────────────────────────────
 
-const CARD_HEIGHT = 412;
+const CARD_HEIGHT = 449;
 const GAP = 24; // gap-6 = 1.5rem = 24px
 
 const BREAKPOINTS = [
@@ -84,12 +84,12 @@ export default function PokeCardGrid({ pokes }: PokeCardGridProps) {
   const virtualizer = useWindowVirtualizer({
     count: rows.length,
     estimateSize: () => CARD_HEIGHT + GAP,
-    overscan: 5,
+    overscan: 10,
     scrollMargin: scrollMargin,
   });
 
   // 열 수 변경 시 스크롤 위치 초기화
-  const prevCols = useRef(cols);
+  // const prevCols = useRef(cols);
   // useEffect(() => {
   //   if (prevCols.current !== cols) {
   //     window.scrollTo({ top: 0 });
@@ -121,7 +121,6 @@ export default function PokeCardGrid({ pokes }: PokeCardGridProps) {
                 right: 0,
                 height: CARD_HEIGHT,
               }}
-              // 행 내부는 grid로 열 배치
               className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
             >
               {rowPokes.map((poke) => (
