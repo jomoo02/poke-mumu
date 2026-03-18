@@ -7,9 +7,9 @@ import {
 } from 'react';
 
 import { type NationalPokeView } from '.';
-import { type SortKey, type Direction, getComparators } from './pokedex-sort';
+import { type SortKey, type Direction, getComparators } from './pokedex-table';
 
-export default function usePokedex(pokes: NationalPokeView[]) {
+export default function usePokedexV3(pokes: NationalPokeView[]) {
   const [sortKey, setSortKey] = useState<SortKey>('dexNumber');
   const [filterTypes, setFilterTypes] = useState<string[]>([]);
   const [direction, setDirection] = useState<Direction>('asc');
@@ -41,6 +41,7 @@ export default function usePokedex(pokes: NationalPokeView[]) {
     [sortKey],
   );
 
+  // pokes 절대 안 바뀜 → 최초 1번만 실행, 이후 캐시 유지
   const enhancedPokes = useMemo(() => {
     return pokes.map((p) => ({
       ...p,

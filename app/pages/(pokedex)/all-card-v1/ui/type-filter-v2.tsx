@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
-import { XIcon } from 'lucide-react';
+import { X, ListFilterIcon } from 'lucide-react';
 import { Type } from '@/app/entities/type/model';
 import { Button } from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 const MAX_SELECTION = 2;
 
-interface TypeFilterProps {
+interface TypeFilterV2Props {
   allTypes: Type[];
   selected: string[];
   onChange: (types: string[]) => void;
@@ -16,13 +16,13 @@ interface TypeFilterProps {
   totalCount: number;
 }
 
-export default function TypeFilter({
+export default function TypeFilterV2({
   allTypes,
   selected,
   onChange,
   count,
   totalCount,
-}: TypeFilterProps) {
+}: TypeFilterV2Props) {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
@@ -82,7 +82,7 @@ export default function TypeFilter({
             style={{ backgroundColor: `var(--color-${identifier})` }}
           >
             {name}
-            <XIcon className="size-3" />
+            <X className="size-3" />
           </button>
         ))}
 

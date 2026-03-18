@@ -12,6 +12,12 @@ import Pokedex from './pokedex';
 import PokeCard from './poke-card';
 import PokedexFilter from './pokedex-filter';
 import PokeCardGrid from './virtual-container';
+import SelectSortKey from './select-sortkey';
+import ToggleDirection from './toggle-direction';
+import SelectSortKeyV2 from './select-sortkey-v2';
+import usePokedexV3 from '../model/usePokedexV3';
+import PokedexFilterInput from './pokedex-filter-input';
+import TypeFilterV2 from './type-filter-v2';
 
 interface PokedexTableProps {
   pokes: NationalPokeView[];
@@ -30,21 +36,34 @@ export default function Container({ pokes, types }: PokedexTableProps) {
   //   setInputValue,
   //   toggleDirection,
   // } = usePokedex(pokes);
+  // const {
+  //   pokes: sortedPokes,
+  //   setSortKey,
+  //   filterTypes,
+  //   setFilterTypes,
+  //   inputValue,
+  //   sortKey,
+  //   direction,
+  //   setInputValue,
+  //   setDirection,
+  // } = usePokedexV2(pokes);
+
   const {
     pokes: sortedPokes,
-    setSortKey,
+    toggleSortKey,
     filterTypes,
     setFilterTypes,
     inputValue,
     sortKey,
     direction,
     setInputValue,
-    setDirection,
-  } = usePokedexV2(pokes);
+
+    // setFilterTypes,
+  } = usePokedexV3(pokes);
   return (
     <div className="w-full">
       <ScrollToTopButton />
-      <PokedexFilter
+      {/* <PokedexFilter
         allTypes={types}
         setFilterTypes={setFilterTypes}
         filterTypes={filterTypes}
@@ -54,12 +73,57 @@ export default function Container({ pokes, types }: PokedexTableProps) {
         setSortKey={setSortKey}
         direction={direction}
         toggleDirection={setDirection}
-      />
-      <div className="px-4 sm:px-6 xl:px-14 py-4">
-        <TypeFilter
-          allTypes={types}
-          selected={filterTypes}
-          onChange={setFilterTypes}
+      /> */}
+      {/* <TypeFilter
+        allTypes={types}
+        selected={filterTypes}
+        onChange={setFilterTypes}
+      >
+        <div className="px-4 sm:px-6 xl:px-14 py-4 grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-x-4 gap-y-2 sm:items-center">
+          <TypeFilter.Trigger />
+          <TypeFilter.Panel className="sm:col-span-2" />
+          <div className="flex gap-2 items-center justify-between sm:row-start-1 sm:col-start-2">
+            <div className="text-sm text-muted-foreground">
+              {`${sortedPokes.length}마리 포켓몬`}
+            </div>
+            <div className="flex gap-2 items-center">
+              <SelectSortKey sortKey={sortKey} setSortKey={setSortKey} />
+              <ToggleDirection
+                direction={direction}
+                toggleDirection={setDirection}
+              />
+            </div>
+          </div>
+        </div>
+      </TypeFilter> */}
+      <div className="px-4 sm:px-6 xl:px-14 py-4 flex flex-col gap-4">
+        <PokedexFilterInput
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+        />
+        <div>
+          <TypeFilterV2
+            allTypes={types}
+            selected={filterTypes}
+            onChange={setFilterTypes}
+            count={sortedPokes.length}
+            totalCount={pokes.length}
+          />
+
+          {/* <TypeFilter
+            allTypes={types}
+            selected={filterTypes}
+            onChange={setFilterTypes}
+          >
+            <TypeFilter.Trigger />
+            <TypeFilter.Panel className="sm:col-span-2" />
+          </TypeFilter> */}
+        </div>
+
+        <SelectSortKeyV2
+          sortKey={sortKey}
+          setSortKey={toggleSortKey}
+          direction={direction}
         />
       </div>
 

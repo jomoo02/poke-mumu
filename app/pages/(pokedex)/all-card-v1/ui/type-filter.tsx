@@ -1,37 +1,74 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
-import { ChevronDown, X, ListFilterIcon } from 'lucide-react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  useContext,
+  createContext,
+  type ReactNode,
+} from 'react';
+import { X, ListFilterIcon } from 'lucide-react';
 import { Type } from '@/app/entities/type/model';
 import { Button } from '@/app/shared/ui/button';
 import { cn } from '@/app/shared/lib/cn';
 
 const MAX_SELECTION = 2;
 
+/* ── Context ── */
+
+interface TypeFilterContextValue {
+  filteredAllTypes: Type[];
+  selected: string[];
+  selectedTypes: Type[];
+  isMaxed: boolean;
+  hasSelection: boolean;
+  open: boolean;
+  toggleOpen: () => void;
+  handleToggle: (identifier: string) => void;
+  handleRemove: (identifier: string) => void;
+  handleReset: () => void;
+  contentRef: React.RefObject<HTMLDivElement | null>;
+  height: number;
+}
+
+const TypeFilterContext = createContext<TypeFilterContextValue | null>(null);
+
+function useTypeFilterContext() {
+  const ctx = useContext(TypeFilterContext);
+  if (!ctx) throw new Error('TypeFilter 컴포넌트 안에서 사용해주세요');
+  return ctx;
+}
+
+/* ── Root ── */
+
 interface TypeFilterProps {
   allTypes: Type[];
   selected: string[];
   onChange: (types: string[]) => void;
+  children: ReactNode;
 }
 
-export default function TypeFilter({
+function TypeFilterRoot({
   allTypes,
   selected,
   onChange,
+  children,
 }: TypeFilterProps) {
   const [open, setOpen] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const [height, setHeight] = useState(0);
-  const isMaxed = selected.length >= MAX_SELECTION;
-  const hasSelection = selected.length > 0;
 
   const filteredAllTypes = allTypes.filter(
     ({ identifier }) => identifier !== 'unknown',
   );
 
+  const selectedTypes = filteredAllTypes.filter((t) =>
+    selected.includes(t.identifier),
+  );
+
   useEffect(() => {
     if (!contentRef.current) return;
-
     const observer = new ResizeObserver(([entry]) => {
       setHeight(entry.contentRect.height);
     });
@@ -42,192 +79,147 @@ export default function TypeFilter({
   const handleToggle = (identifier: string) => {
     if (selected.includes(identifier)) {
       onChange(selected.filter((t) => t !== identifier));
-    } else if (!isMaxed) {
+    } else if (selected.length < MAX_SELECTION) {
       onChange([...selected, identifier]);
     }
   };
 
-  const handleReset = () => {
-    onChange([]);
+  const handleRemove = (identifier: string) => {
+    onChange(selected.filter((t) => t !== identifier));
   };
 
-  const selectedTypes = filteredAllTypes.filter((t) =>
-    selected.includes(t.identifier),
-  );
+  const handleReset = () => onChange([]);
 
   return (
-    <div className="sm:contents">
-      {/* 모바일: 접기/펼치기 트리거 */}
-      <div className="flex gap-2 items-center">
-        <div>
-          <Button
-            variant={'outline'}
-            onClick={() => setOpen((v) => !v)}
-            className="flex flex-1 items-center justify-between h-10 px-4 text-sm"
-          >
-            <ListFilterIcon className="size-4" />
-            <span>타입</span>
-            <div className="w-px h-full bg-border mx-2" />
-            <div className="">
-              {' '}
-              {selectedTypes.length > 0 ? (
-                <div className="flex gap-1.5">
-                  {selectedTypes.map(({ identifier, name }) => (
-                    <span
-                      key={identifier}
-                      className="rounded-md px-2 py-0.5 text-sm font-semibold text-white"
-                      style={{
-                        backgroundColor: `var(--color-${identifier})`,
-                      }}
-                    >
-                      {name}
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <span className="">모든 타입</span>{' '}
-                </>
-              )}
-            </div>
-          </Button>
-        </div>
+    <TypeFilterContext.Provider
+      value={{
+        filteredAllTypes,
+        selected,
+        selectedTypes,
+        isMaxed: selected.length >= MAX_SELECTION,
+        hasSelection: selected.length > 0,
+        open,
+        toggleOpen: () => setOpen((v) => !v),
+        handleToggle,
+        handleRemove,
+        handleReset,
+        contentRef,
+        height,
+      }}
+    >
+      {children}
+    </TypeFilterContext.Provider>
+  );
+}
 
-        {hasSelection && <ResetButton onClick={handleReset} />}
-      </div>
-      {/* <div className="flex gap-2 ">
-        <div>
-          <Button
-            variant={'ghost'}
-            onClick={() => setOpen((v) => !v)}
-            className="flex flex-1 items-center justify-between h-10 px-4 text-sm"
-          >
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground">타입: </span>
-              {selectedTypes.length > 0 ? (
-                <div className="flex gap-1.5">
-                  {selectedTypes.map(({ identifier, name }) => (
-                    <span
-                      key={identifier}
-                      className="rounded-md px-2 py-0.5 text-sm font-semibold text-white"
-                      style={{
-                        backgroundColor: `var(--color-${identifier})`,
-                      }}
-                    >
-                      {name}
-                    </span>
-                  ))}
-                </div>
-              ) : (
-                <>
-                  <span className="text-muted-foreground">모든 타입</span>{' '}
-                  <ChevronDown
-                    className="size-4 text-muted-foreground transition-transform duration-200"
-                    style={{ transform: open ? 'rotate(180deg)' : undefined }}
-                  />
-                </>
-              )}
-            </div>
-          </Button>
-        </div>
+/* ── Trigger ── */
 
-        {hasSelection && (
-          <Button
-            variant="outline"
-            onClick={handleReset}
-            className="h-10 px-2.5 text-muted-foreground"
-            aria-label="타입 필터 초기화"
-          >
-            <X className="size-4" />
-          </Button>
-        )}
-      </div> */}
+function Trigger() {
+  const {
+    open,
+    toggleOpen,
+    selectedTypes,
+    hasSelection,
+    handleRemove,
+    handleReset,
+  } = useTypeFilterContext();
 
-      {/* 모바일: 애니메이션 패널 */}
-      <div
-        className="overflow-hidden transition-[height] duration-200 ease-out "
-        style={{ height: open ? height : 0 }}
-      >
-        <div ref={contentRef}>
-          <div className="flex flex-wrap gap-2 pt-2">
-            <BadgeList
-              allTypes={filteredAllTypes}
-              selected={selected}
-              isMaxed={isMaxed}
-              onToggle={handleToggle}
-            />
-            {/* {hasSelection && <ResetButton onClick={handleReset} />} */}
-          </div>
-        </div>
-      </div>
+  return (
+    <div className="flex items-center gap-2">
+      <Button variant="outline" onClick={toggleOpen} size={'lg'}>
+        <ListFilterIcon className="size-4" />
+        <span>타입</span>
+      </Button>
 
-      {/* 데스크톱: 항상 노출 */}
-      {/* <div className="hidden sm:block">
-        <div className="flex flex-wrap gap-2">
-          <BadgeList
-            allTypes={filteredAllTypes}
-            selected={selected}
-            isMaxed={isMaxed}
-            onToggle={handleToggle}
-          />
-          {hasSelection && <ResetButton onClick={handleReset} />}
-        </div>
-      </div> */}
+      {selectedTypes.map(({ identifier, name }) => (
+        <button
+          key={identifier}
+          type="button"
+          onClick={() => handleRemove(identifier)}
+          className="flex shrink-0 items-center gap-1 rounded-md px-2.5 py-1 text-sm font-semibold text-white transition-opacity hover:opacity-80"
+          style={{ backgroundColor: `var(--color-${identifier})` }}
+        >
+          {name}
+          <X className="size-3" />
+        </button>
+      ))}
+
+      {hasSelection && (
+        <button
+          type="button"
+          onClick={handleReset}
+          className="shrink-0 text-sm text-muted-foreground hover:text-foreground"
+        >
+          초기화
+        </button>
+      )}
     </div>
   );
 }
 
-function ResetButton({ onClick }: { onClick: () => void }) {
+/* ── Panel ── */
+
+function Panel({ className }: { className?: string }) {
+  const {
+    open,
+    height,
+    contentRef,
+    filteredAllTypes,
+    selected,
+    isMaxed,
+    handleToggle,
+  } = useTypeFilterContext();
+
   return (
-    <Button
-      variant="ghost"
-      onClick={onClick}
-      className="text-muted-foreground h-10"
+    <div
+      className={cn(
+        'overflow-hidden transition-[height] duration-200 ease-out',
+        className,
+      )}
+      style={{ height: open ? height : 0 }}
     >
-      <X className="size-3.5" />
-      초기화
-    </Button>
+      <div ref={contentRef}>
+        <div className="flex flex-wrap gap-2 pt-1">
+          {filteredAllTypes.map(({ identifier, name }) => {
+            const isSelected = selected.includes(identifier);
+            const isDisabled = !isSelected && isMaxed;
+
+            return (
+              <Button
+                key={identifier}
+                variant="outline"
+                disabled={isDisabled}
+                onClick={() => handleToggle(identifier)}
+                className={cn(
+                  'px-3 transition-none',
+                  isDisabled && 'cursor-not-allowed opacity-30',
+                  isSelected && 'font-semibold',
+                )}
+                style={
+                  isSelected
+                    ? {
+                        backgroundColor: `var(--color-${identifier})`,
+                        borderColor: `var(--color-border-${identifier})`,
+                        color: '#fff',
+                      }
+                    : {}
+                }
+              >
+                {name}
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }
 
-function BadgeList({
-  allTypes,
-  selected,
-  isMaxed,
-  onToggle,
-}: {
-  allTypes: Type[];
-  selected: string[];
-  isMaxed: boolean;
-  onToggle: (id: string) => void;
-}) {
-  return allTypes.map(({ identifier, name }) => {
-    const isSelected = selected.includes(identifier);
-    const isDisabled = !isSelected && isMaxed;
+/* ── Export ── */
 
-    return (
-      <Button
-        key={identifier}
-        variant={'outline'}
-        disabled={isDisabled}
-        onClick={() => onToggle(identifier)}
-        className={cn(
-          'px-3 transition-none',
-          isDisabled && 'cursor-not-allowed opacity-30',
-          isSelected ? 'font-semibold' : '',
-        )}
-        style={
-          isSelected
-            ? {
-                backgroundColor: `var(--color-${identifier})`,
-                borderColor: `var(--color-border-${identifier})`,
-                color: '#fff',
-              }
-            : {}
-        }
-      >
-        {name}
-      </Button>
-    );
-  });
-}
+const TypeFilter = Object.assign(TypeFilterRoot, {
+  Trigger,
+  Panel,
+});
+
+export default TypeFilter;

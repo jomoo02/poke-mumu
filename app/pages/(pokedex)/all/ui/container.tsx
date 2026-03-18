@@ -1,52 +1,55 @@
 'use client';
 
+import InputFilter from './input-filter';
 import { type Type } from '@/app/entities/type/model';
-
 import { type NationalPokeView } from '../model';
-import TypeFilter from './type-filter';
-import NameInput from './name-input';
 import usePokedex from '../model/usePokedex';
-import ScrollToTopButton from './scroll-to-top-button';
-import Pokedex from './pokedex';
+import PokeCardList from './poke-card-list';
+import TypeFilter from './type-filter';
+import SortButtonList from './sort-button-list';
 
-interface PokedexTableProps {
+interface ContainerProps {
   pokes: NationalPokeView[];
   types: Type[];
 }
-
-export default function Container({ pokes, types }: PokedexTableProps) {
+export default function Container({ pokes, types }: ContainerProps) {
   const {
     pokes: sortedPokes,
-    setSortKey,
-    filterType,
-    setFilterType,
+    toggleSortKey,
+    filterTypes,
+    setFilterTypes,
     inputValue,
     sortKey,
     direction,
     setInputValue,
   } = usePokedex(pokes);
+
   return (
-    <div className="w-full">
-      <ScrollToTopButton />
-      <div className="flex gap-4 sm:gap-6 justify-between sm:justify-center px-4 sm:px-6 xl:px-16 w-full ">
-        <NameInput inputValue={inputValue} onChange={setInputValue} />
+    <div className="flex flex-col gap-4">
+      <section>
+        <InputFilter inputValue={inputValue} onChange={setInputValue} />
+      </section>
+
+      <section>
         <TypeFilter
-          types={types}
-          onChangeType={setFilterType}
-          selectedType={filterType}
+          allTypes={types}
+          selected={filterTypes}
+          onChange={setFilterTypes}
+          count={sortedPokes.length}
+          totalCount={pokes.length}
         />
-      </div>
-      <div
-        className="my-8 sm:px-6 xl:px-14 w-full relative"
-        style={{ contain: 'layout' }}
-      >
-        <Pokedex
-          pokes={sortedPokes}
-          onClickHeader={setSortKey}
+      </section>
+      <section>
+        <SortButtonList
           sortKey={sortKey}
+          setSortKey={toggleSortKey}
           direction={direction}
         />
-      </div>
+      </section>
+
+      <section>
+        <PokeCardList pokes={sortedPokes} />
+      </section>
     </div>
   );
 }

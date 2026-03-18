@@ -7,4 +7,9 @@ export interface NationalPokeView extends Poke, Stats {
   type2: Type | null;
 }
 
-export { type TableHead, type Direction, type SortKey } from './pokedex-table';
+export {
+  type TableHead,
+  type Direction,
+  type SortKey,
+  getSortOptions,
+} from './pokedex-sort';

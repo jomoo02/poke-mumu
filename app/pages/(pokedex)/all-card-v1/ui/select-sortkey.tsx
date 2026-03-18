@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/app/shared/ui/select';
-import { SortKey, getSortOptions } from '../../model';
+import { SortKey, getSortOptions } from '../model';
 
 interface SelectSortkeyProps {
   sortKey: SortKey;
@@ -20,7 +20,7 @@ export default function SelectSortKey({
 
   return (
     <Select value={sortKey} onValueChange={setSortKey}>
-      <SelectTrigger className="w-25 border-none shadow-none hover:bg-accent active:bg-accent">
+      <SelectTrigger className="w-25">
         <SelectValue />
       </SelectTrigger>
       <SelectContent position="popper">

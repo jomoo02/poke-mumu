@@ -8,7 +8,7 @@ import PokeCard from './poke-card';
 
 // ── 상수 ─────────────────────────────────────────────────────────────────────
 
-const CARD_HEIGHT = 449;
+const CARD_HEIGHT = 439;
 const GAP = 24; // gap-6 = 1.5rem = 24px
 
 const BREAKPOINTS = [

@@ -50,11 +50,11 @@ export default function PokedexFilter({
             setInputValue={setInputValue}
           />
 
-          <SelectSortKey sortKey={sortKey} setSortKey={setSortKey} />
+          {/* <SelectSortKey sortKey={sortKey} setSortKey={setSortKey} />
           <ToggleDirection
             direction={direction}
             toggleDirection={toggleDirection}
-          />
+          /> */}
 
           {/* <PokedexFilterDialog
             filterTypes={filterTypes}

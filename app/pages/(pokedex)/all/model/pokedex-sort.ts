@@ -28,7 +28,7 @@ const COMPARATORS: Record<
 > = {
   dexNumber: (a, b) => a.dexNumber - b.dexNumber,
   name: (a, b) => String(a.name).localeCompare(String(b.name)),
-  total: (a, b) => a.total - b.total,
+  total: (a, b) => (a.total ?? 0) - (b.total ?? 0),
   hp: (a, b) => a.hp - b.hp,
   attack: (a, b) => a.attack - b.attack,
   defense: (a, b) => a.defense - b.defense,
@@ -39,10 +39,25 @@ const COMPARATORS: Record<
 
 const getComparators = (key: SortKey) => COMPARATORS[key];
 
+const sortOptions: { label: string; id: SortKey }[] = [
+  { id: 'dexNumber', label: '도감번호' },
+  { id: 'name', label: '이름' },
+  { id: 'total', label: '총합' },
+  { id: 'hp', label: 'HP' },
+  { id: 'attack', label: '공격' },
+  { id: 'defense', label: '방어' },
+  { id: 'specialAttack', label: '특수공격' },
+  { id: 'specialDefense', label: '특수방어' },
+  { id: 'speed', label: '스피드' },
+];
+
+const getSortOptions = () => [...sortOptions];
+
 export {
   isSortKey,
   getComparators,
   type SortKey,
   type TableHead,
   type Direction,
+  getSortOptions,
 };

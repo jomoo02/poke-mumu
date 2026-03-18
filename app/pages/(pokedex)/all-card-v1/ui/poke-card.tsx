@@ -47,17 +47,17 @@ export default function PokeCard({ poke }: PokeCardProps) {
       href={href}
       className="border rounded-2xl bg-card overflow-hidden hover:bg-accent/30 shadow-sm"
     >
-      <div className="flex items-center p-6 pb-0 gap-4 relative">
-        <div className="size-20 flex items-center justify-center">
+      <div className="flex p-6 pb-0 gap-4 relative">
+        <div className="px-2 flex items-center justify-center">
           <PokeSprite poke={poke} className="size-18" />
         </div>
 
-        <div className="flex-1 overflow-hidden min-w-0">
-          <div className="shrink-0 text-muted-foreground  font-medium tabular-nums">
+        <div className="flex-1 overflow-hidden min-w-0 h-full">
+          <div className="shrink-0 text-muted-foreground font-semibold tabular-nums">
             {formattedDexNumber}
           </div>
-          <div className="text-lg font-semibold min-w-0 truncate">{name}</div>
-          <div className="text-sm h-5 text-muted-foreground font-medium min-w-0 truncate">
+          <div className="text-lg font-medium min-w-0 truncate">{name}</div>
+          <div className=" h-5 text-sm text-muted-foreground font-medium min-w-0 truncate">
             {form}
           </div>
         </div>
@@ -68,13 +68,13 @@ export default function PokeCard({ poke }: PokeCardProps) {
             <TypeBadge
               key={type.identifier}
               type={type}
-              className="w-full h-7.5 "
+              className="w-full h-8 "
             />
           ))}
         </div>
       )}
 
-      <div className="p-6 pt-4 flex flex-col">
+      <div className="p-6 pt-3 flex flex-col">
         <BarStats stats={stats} />
       </div>
     </Link>

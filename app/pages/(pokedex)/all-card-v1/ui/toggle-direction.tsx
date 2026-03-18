@@ -1,5 +1,5 @@
 import { Button } from '@/app/shared/ui/button';
-import { type Direction } from '../../model';
+import { type Direction } from '../model';
 import {
   ArrowDownIcon,
   ArrowDownWideNarrowIcon,
