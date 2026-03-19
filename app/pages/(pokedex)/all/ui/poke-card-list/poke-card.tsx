@@ -47,44 +47,42 @@ export default function PokeCard({ poke }: PokeCardProps) {
   return (
     <Link
       href={href}
-      className="border rounded-2xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm"
+      className="border rounded-3xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm @container"
     >
-      <div className="flex p-6 pb-0 gap-4 relative">
-        <div className="px-2 flex items-center justify-center">
+      <div className="flex pt-6 px-6  pb-4 gap-4">
+        <div className="flex items-center justify-center h-26 w-19 @[300px]:w-22 ">
           <PokeSprite poke={poke} className="size-18" />
         </div>
-
         <div className="flex-1 overflow-hidden min-w-0 h-full">
-          <div className="shrink-0 text-muted-foreground font-semibold tabular-nums">
+          <div className="shrink-0 text-muted-foreground font-semibold tabular-nums ">
             {formattedDexNumber}
           </div>
-          <div className="text-lg font-medium min-w-0 truncate">{name}</div>
-          <div className="h-5 text-sm text-muted-foreground font-medium min-w-0 truncate">
+          <div className="text-lg font-semibold min-w-0 truncate">{name}</div>
+          <div className="h-5 text-sm text-muted-foreground font-semibold min-w-0 truncate">
             {form}
           </div>
+          <div className="flex gap-1 pt-1">
+            {types.map((type) => (
+              <TypeBadge
+                key={type.identifier}
+                type={type}
+                className="w-15 h-7 text-sm"
+              />
+            ))}
+          </div>
         </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2.5 py-4 px-6">
-        {types.map((type) => (
-          <TypeBadge
-            key={type.identifier}
-            type={type}
-            className="w-full h-8 "
-          />
-        ))}
       </div>
 
       <div className="p-6 pt-0 flex flex-col">
         {stats.map((stat) => (
           <StatRow key={stat.label} label={stat.label} value={stat.value} />
         ))}
-        <div className="bg-border w-full h-px my-1.5"></div>
-        <div className="flex gap-2 pt-1.5">
-          <div className="shrink-0 text-base font-medium text-muted-foreground w-16">
+        <div className="bg-border w-full h-px my-1"></div>
+        <div className="flex gap-2 pt-1">
+          <div className="shrink-0 text-base font-medium text-muted-foreground w-16 ">
             총합
           </div>
-          <div className="shrink-0 font-semibold tabular-nums text-center text-base w-14 ">
+          <div className="shrink-0 font-semibold tabular-nums text-center text-base w-13 ">
             {total}
           </div>
         </div>
@@ -100,11 +98,11 @@ interface StatRowProps {
 
 function StatRow({ label, value }: StatRowProps) {
   return (
-    <div className="flex gap-2 py-1.5 items-center first:pt-0">
-      <div className="w-16 shrink-0 text-base font-medium text-muted-foreground">
+    <div className="flex gap-2 py-1 text-base items-center first:pt-0">
+      <div className="w-16 shrink-0  font-medium text-muted-foreground ">
         {label}
       </div>
-      <div className="w-14 shrink-0 font-medium text-center text-base tabular-nums">
+      <div className="w-13 shrink-0 font-medium text-center  tabular-nums">
         {value}
       </div>
 

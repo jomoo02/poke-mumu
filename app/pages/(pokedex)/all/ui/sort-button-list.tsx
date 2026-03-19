@@ -24,7 +24,7 @@ export default function SortButtonList({
   const sortOptions = getSortOptions();
 
   return (
-    <div className="flex overflow-x-auto gap-2.5">
+    <div className="flex overflow-x-auto gap-2 py-1">
       {sortOptions.map((item) => {
         const isActive = item.id === sortKey;
 
