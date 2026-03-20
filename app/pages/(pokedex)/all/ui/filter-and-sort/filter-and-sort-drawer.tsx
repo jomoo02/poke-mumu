@@ -86,12 +86,9 @@ export default function FilterAndSortDrawer({
               필터 & 정렬
             </DialogPrimitive.Title>
             <div className="flex items-center gap-2">
-              <Button onClick={onResetConditions} variant={'ghost'}>
-                초기화
-              </Button>
               <DialogPrimitive.Close asChild>
-                <Button variant="ghost" size="icon-sm">
-                  <XIcon className="size-4" />
+                <Button variant="ghost" size="icon-lg">
+                  <XIcon className="size-6.5 text-muted-foreground" />
                   <span className="sr-only">닫기</span>
                 </Button>
               </DialogPrimitive.Close>
@@ -122,10 +119,17 @@ export default function FilterAndSortDrawer({
             )}
           </div>
 
-          <div className="border-t px-6 py-4">
+          <div className="border-t px-6 py-4 flex gap-2">
+            <Button
+              onClick={onResetConditions}
+              className="h-13 w-24 text-base text-muted-foreground"
+              variant={'outline'}
+            >
+              초기화
+            </Button>
             <Button
               onClick={() => onOpenChange(false)}
-              className="bg-foreground font-semibold text-base w-full h-12"
+              className="bg-foreground font-semibold text-base flex-1 h-13"
             >
               {`${filteredCount.toLocaleString()} 마리의 포켓몬`}
             </Button>
