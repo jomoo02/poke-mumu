@@ -5,13 +5,13 @@ import { type NationalPokeView } from '.';
 const SORT_KEY_LIST = [
   'dexNumber',
   'name',
+  'total',
   'hp',
   'attack',
   'defense',
   'specialAttack',
   'specialDefense',
   'speed',
-  'total',
 ] as const;
 
 type SortKey = (typeof SORT_KEY_LIST)[number];
@@ -46,13 +46,13 @@ const getComparator = (key: SortKey) => COMPARATORS[key];
 const SORT_KEY_LABELS: Record<SortKey, string> = {
   dexNumber: '도감번호',
   name: '이름',
+  total: '총합',
   hp: 'HP',
   attack: '공격',
   defense: '방어',
   specialAttack: '특수공격',
   specialDefense: '특수방어',
   speed: '스피드',
-  total: '총합',
 };
 
 // 도감번호/이름은 순서/반대 순서, 스탯은 높은 순/낮은 순
@@ -80,6 +80,8 @@ const SORT_OPTIONS: SortOptionItem[] = SORT_KEY_LIST.flatMap((key) => {
   ] satisfies SortOptionItem[];
 });
 
+const getSortOptions = () => [...SORT_OPTIONS];
+
 const DEFAULT_SORT: SortOption = { key: 'dexNumber', direction: 'asc' };
 
 /* ── 유틸 ── */
@@ -101,7 +103,7 @@ export {
   getComparator,
   getSortLabel,
   isDefaultSort,
-  SORT_OPTIONS,
+  getSortOptions,
   SORT_KEY_LABELS,
   DEFAULT_SORT,
   type SortKey,

@@ -2,38 +2,26 @@
 
 import InputFilter from './input-filter';
 import { type Type } from '@/app/entities/type/model';
-import { isDefaultSort, type NationalPokeView } from '../model';
+import { type NationalPokeView } from '../model';
 
 import PokeCardList from './poke-card-list';
 
 import ScrollToTopButton from './scroll-to-top-button';
-import FilterDrawer from './filter-drawer';
-
-import { useState } from 'react';
-import { RotateCwIcon, SlidersHorizontalIcon } from 'lucide-react';
-import { Button } from '@/app/shared/ui/button';
-import usePokedexV3 from '../model/usePokedexV3';
-import SortPill from './sort-pill';
-import TypePillList from './type-pill-list';
+// import FilterDrawer from './filter-drawer';
+// import { useState } from 'react';
+// import { RotateCwIcon, SlidersHorizontalIcon } from 'lucide-react';
+// import { Button } from '@/app/shared/ui/button';
+// import usePokedexV3 from '../model/usePokedexV3';
+// import SortPill from './sort-pill';
+// import TypePillList from './type-pill-list';
+import useController from '../model/useController';
+import FilterAndSort from './filter-and-sort';
 
 interface ContainerProps {
   pokes: NationalPokeView[];
   types: Type[];
 }
 export default function Container({ pokes, types }: ContainerProps) {
-  // const {
-  //   pokes: sortedPokes,
-  //   toggleSortKey,
-  //   filterTypes,
-  //   setFilterTypes,
-  //   inputValue,
-  //   sortKey,
-  //   direction,
-  //   setInputValue,
-  // } = usePokedex(pokes);
-
-  const [drawerOpen, setDrawerOpen] = useState(false);
-
   // const {
   //   sortKey,
   //   direction,
@@ -43,22 +31,23 @@ export default function Container({ pokes, types }: ContainerProps) {
   //   pokes: sortedPokes,
   //   inputValue,
   //   setInputValue,
+  //   sort,
   //   getFilteredCount,
-  // } = usePokedexV2(pokes);
+  // } = usePokedexV3(pokes);
+
   const {
-    sortKey,
-    direction,
-    setSort,
-    filterTypes,
-    setFilterTypes,
-    pokes: sortedPokes,
+    sortedPokes,
     inputValue,
     setInputValue,
     sort,
-    getFilteredCount,
-  } = usePokedexV3(pokes);
-
-  const isRoateView = filterTypes.length > 0 || !isDefaultSort(sort);
+    changeSort,
+    resetSort,
+    filterTypes,
+    toggleFilterType,
+    resetConditions,
+    // removeFilterType,
+    // getFilteredCount,
+  } = useController(pokes);
 
   return (
     <div className="flex flex-col">
@@ -66,7 +55,18 @@ export default function Container({ pokes, types }: ContainerProps) {
       <section>
         <InputFilter inputValue={inputValue} onChange={setInputValue} />
       </section>
-      <div className="flex items-center gap-4 py-4">
+      <FilterAndSort
+        allTypes={types}
+        filterTypes={filterTypes}
+        onToggleType={toggleFilterType}
+        sortOption={sort}
+        resetSortOption={resetSort}
+        onSortOptionChange={changeSort}
+        onResetConditions={resetConditions}
+        totalCount={pokes.length}
+        filteredCount={sortedPokes.length}
+      />
+      {/* <div className="flex items-center gap-4 py-4">
         {isRoateView && (
           <Button className="size-10" variant={'outline'}>
             <RotateCwIcon className="size-4" />
@@ -74,15 +74,8 @@ export default function Container({ pokes, types }: ContainerProps) {
         )}
 
         <div className="flex flex-wrap gap-1">
-          <TypePillList
-            types={filterTypes}
-            onRemove={(type) =>
-              setFilterTypes(
-                filterTypes.filter((t) => t.identifier !== type.identifier),
-              )
-            }
-          />
-          <SortPill sort={sort} onReset={setSort} />
+          <TypePillList types={filterTypes} onRemove={removeFilterType} />
+          <SortPill sort={sort} onReset={resetSort} />
         </div>
 
         <span className="ml-auto text-sm text-muted-foreground text-pretty text-center">
@@ -109,13 +102,13 @@ export default function Container({ pokes, types }: ContainerProps) {
         onOpenChange={setDrawerOpen}
         allTypes={types}
         selectedTypes={filterTypes}
-        onTypesChange={setFilterTypes}
-        // sortKey={sortKey}
-        // totalCount={pokes.length}
-        // direction={direction}
+
+        onResetConditions={resetConditions}
         filteredCount={sortedPokes.length}
-        onSortChange={setSort}
-      />
+        onSortChange={changeSort}
+        onToggleType={toggleFilterType}
+
+      /> */}
       <section>
         <PokeCardList pokes={sortedPokes} />
       </section>

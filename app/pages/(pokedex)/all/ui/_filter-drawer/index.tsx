@@ -33,10 +33,11 @@ interface FilterDrawerProps {
   onOpenChange: (open: boolean) => void;
   allTypes: Type[];
   selectedTypes: Type[];
-  onTypesChange: (types: Type[]) => void;
+  onToggleType: (type: Type) => void;
   sort: SortOption;
   onSortChange: (sort: SortOption) => void;
   filteredCount: number;
+  onResetConditions: () => void;
 }
 
 export default function FilterDrawer({
@@ -44,10 +45,11 @@ export default function FilterDrawer({
   onOpenChange,
   allTypes,
   selectedTypes,
-  onTypesChange,
+  onToggleType,
   sort,
   onSortChange,
   filteredCount,
+  onResetConditions,
 }: FilterDrawerProps) {
   const [activeTab, setActiveTab] = useState<Tab>('type');
   const isDesktop = useMediaQuery('(min-width: 768px)');
@@ -58,19 +60,8 @@ export default function FilterDrawer({
 
   const isMaxed = selectedTypes.length >= MAX_SELECTION;
 
-  const handleTypeToggle = (type: Type) => {
-    if (selectedTypes.find((t) => t.identifier === type.identifier)) {
-      onTypesChange(
-        selectedTypes.filter((t) => t.identifier !== type.identifier),
-      );
-    } else if (!isMaxed) {
-      onTypesChange([...selectedTypes, type]);
-    }
-  };
-
   const handleResetAll = () => {
-    onTypesChange([]);
-    onSortChange(DEFAULT_SORT);
+    onResetConditions();
   };
 
   return (
@@ -124,7 +115,7 @@ export default function FilterDrawer({
                 allTypes={filteredAllTypes}
                 selected={selectedTypes}
                 isMaxed={isMaxed}
-                onToggle={handleTypeToggle}
+                onToggle={onToggleType}
               />
             ) : (
               <SortContent sort={sort} onSortChange={onSortChange} />

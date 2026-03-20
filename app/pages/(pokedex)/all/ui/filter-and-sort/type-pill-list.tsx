@@ -1,6 +1,6 @@
 import { XIcon } from 'lucide-react';
-import { type Type } from '@/app/entities/type/model';
 
+import { type Type } from '@/app/entities/type/model';
 import { Button } from '@/app/shared/ui/button';
 
 interface TypePillListProps {
