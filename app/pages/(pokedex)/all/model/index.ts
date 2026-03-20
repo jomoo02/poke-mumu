@@ -8,8 +8,10 @@ export interface NationalPokeView extends Poke, Stats {
 }
 
 export {
-  type TableHead,
   type Direction,
   type SortKey,
-  getSortOptions,
+  type SortOption,
+  DEFAULT_SORT,
+  isDefaultSort,
+  getSortLabel,
 } from './pokedex-sort';

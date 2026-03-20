@@ -1,5 +1,7 @@
 import { type NationalPokeView } from '.';
 
+/* ── 타입 ── */
+
 const SORT_KEY_LIST = [
   'dexNumber',
   'name',
@@ -13,14 +15,14 @@ const SORT_KEY_LIST = [
 ] as const;
 
 type SortKey = (typeof SORT_KEY_LIST)[number];
-
-type TableHead = SortKey | 'type' | 'pokeImage';
-
 type Direction = 'asc' | 'desc';
+type SortOption = { key: SortKey; direction: Direction };
 
 const isSortKey = (value: string): value is SortKey => {
   return (SORT_KEY_LIST as readonly string[]).includes(value);
 };
+
+/* ── 비교 함수 ── */
 
 const COMPARATORS: Record<
   SortKey,
@@ -28,36 +30,82 @@ const COMPARATORS: Record<
 > = {
   dexNumber: (a, b) => a.dexNumber - b.dexNumber,
   name: (a, b) => String(a.name).localeCompare(String(b.name)),
-  total: (a, b) => (a.total ?? 0) - (b.total ?? 0),
   hp: (a, b) => a.hp - b.hp,
   attack: (a, b) => a.attack - b.attack,
   defense: (a, b) => a.defense - b.defense,
   specialAttack: (a, b) => a.specialAttack - b.specialAttack,
   specialDefense: (a, b) => a.specialDefense - b.specialDefense,
   speed: (a, b) => a.speed - b.speed,
+  total: (a, b) => (a.total ?? 0) - (b.total ?? 0),
 };
 
-const getComparators = (key: SortKey) => COMPARATORS[key];
+const getComparator = (key: SortKey) => COMPARATORS[key];
 
-const sortOptions: { label: string; id: SortKey }[] = [
-  { id: 'dexNumber', label: '도감번호' },
-  { id: 'name', label: '이름' },
-  { id: 'total', label: '총합' },
-  { id: 'hp', label: 'HP' },
-  { id: 'attack', label: '공격' },
-  { id: 'defense', label: '방어' },
-  { id: 'specialAttack', label: '특수공격' },
-  { id: 'specialDefense', label: '특수방어' },
-  { id: 'speed', label: '스피드' },
-];
+/* ── 정렬 옵션 (UI용) ── */
 
-const getSortOptions = () => [...sortOptions];
+const SORT_KEY_LABELS: Record<SortKey, string> = {
+  dexNumber: '도감번호',
+  name: '이름',
+  hp: 'HP',
+  attack: '공격',
+  defense: '방어',
+  specialAttack: '특수공격',
+  specialDefense: '특수방어',
+  speed: '스피드',
+  total: '총합',
+};
+
+// 도감번호/이름은 순서/반대 순서, 스탯은 높은 순/낮은 순
+const ORDINAL_KEYS: Set<SortKey> = new Set(['dexNumber', 'name']);
+
+type SortOptionItem = SortOption & { label: string; value: string };
+
+const SORT_OPTIONS: SortOptionItem[] = SORT_KEY_LIST.flatMap((key) => {
+  const name = SORT_KEY_LABELS[key];
+  const isOrdinal = ORDINAL_KEYS.has(key);
+
+  return [
+    {
+      key,
+      direction: isOrdinal ? 'asc' : 'desc',
+      label: isOrdinal ? `${name} 순서` : `${name} 높은 순`,
+      value: `${key}-${isOrdinal ? 'asc' : 'desc'}`,
+    },
+    {
+      key,
+      direction: isOrdinal ? 'desc' : 'asc',
+      label: isOrdinal ? `${name} 반대 순서` : `${name} 낮은 순`,
+      value: `${key}-${isOrdinal ? 'desc' : 'asc'}`,
+    },
+  ] satisfies SortOptionItem[];
+});
+
+const DEFAULT_SORT: SortOption = { key: 'dexNumber', direction: 'asc' };
+
+/* ── 유틸 ── */
+
+const getSortLabel = (sort: SortOption): string => {
+  const found = SORT_OPTIONS.find(
+    (o) => o.key === sort.key && o.direction === sort.direction,
+  );
+  return found?.label ?? '';
+};
+
+const isDefaultSort = (sort: SortOption): boolean =>
+  sort.key === DEFAULT_SORT.key && sort.direction === DEFAULT_SORT.direction;
+
+/* ── Export ── */
 
 export {
   isSortKey,
-  getComparators,
+  getComparator,
+  getSortLabel,
+  isDefaultSort,
+  SORT_OPTIONS,
+  SORT_KEY_LABELS,
+  DEFAULT_SORT,
   type SortKey,
-  type TableHead,
   type Direction,
-  getSortOptions,
+  type SortOption,
+  type SortOptionItem,
 };
