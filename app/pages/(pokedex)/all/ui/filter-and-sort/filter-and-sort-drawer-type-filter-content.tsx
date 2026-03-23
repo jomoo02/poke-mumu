@@ -29,7 +29,7 @@ export default function TypeFilterContent({
             disabled={isDisabled}
             onClick={() => onToggle(type)}
             className={cn(
-              'h-10 transition-none',
+              'h-11 transition-none text-base',
               'disabled:cursor-not-allowed disabled:opacity-30',
               'data-active:bg-foreground data-active:hover:bg-foreground data-active:font-semibold data-active:text-background data-active:hover:text-background',
             )}

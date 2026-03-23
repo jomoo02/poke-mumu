@@ -1,6 +1,7 @@
 import { useLayoutEffect, useState } from 'react';
 
-const CARD_HEIGHT = 393;
+// const CARD_HEIGHT = 393;
+const CARD_HEIGHT = 420;
 const GAP = 24; // gap-6 = 1.5rem = 24px
 
 const BREAKPOINTS = [

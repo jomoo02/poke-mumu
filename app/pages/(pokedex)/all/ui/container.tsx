@@ -16,6 +16,7 @@ import ScrollToTopButton from './scroll-to-top-button';
 // import TypePillList from './type-pill-list';
 import useController from '../model/useController';
 import FilterAndSort from './filter-and-sort';
+import PokeCardV2 from './poke-card-list/poke-card-v2';
 
 interface ContainerProps {
   pokes: NationalPokeView[];
@@ -110,6 +111,13 @@ export default function Container({ pokes, types }: ContainerProps) {
 
       /> */}
       <section>
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {' '}
+          {sortedPokes.slice(0, 20).map((poke) => (
+            <PokeCardV2 key={poke.pokeKey} poke={poke} />
+          ))}
+        </div> */}
+
         <PokeCardList pokes={sortedPokes} />
       </section>
     </div>
