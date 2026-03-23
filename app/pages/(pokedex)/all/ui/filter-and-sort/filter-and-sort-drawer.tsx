@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 import { XIcon } from 'lucide-react';
 
@@ -13,27 +13,9 @@ import { type SortOption } from '../../model';
 import FilterAndSortDrawerTabs from './filter-and-sort-drawer-tabs';
 import TypeFilterContent from './filter-and-sort-drawer-type-filter-content';
 import SortContent from './filter-and-sort-drawer-sort-content';
+import { TABS, useMediaQuery, type Tab } from './config';
 
 const MAX_SELECTION = 2;
-
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = useState(false);
-  useEffect(() => {
-    const mql = window.matchMedia(query);
-    setMatches(mql.matches);
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches);
-    mql.addEventListener('change', handler);
-    return () => mql.removeEventListener('change', handler);
-  }, [query]);
-  return matches;
-}
-
-type Tab = 'type' | 'sort';
-
-const TABS: { id: Tab; label: string }[] = [
-  { id: 'type', label: '타입 필터' },
-  { id: 'sort', label: '정렬 기준' },
-];
 
 interface FilterDrawerProps {
   open: boolean;
@@ -59,6 +41,7 @@ export default function FilterAndSortDrawer({
   onResetConditions,
 }: FilterDrawerProps) {
   const [activeTab, setActiveTab] = useState<Tab>('type');
+
   const isDesktop = useMediaQuery('(min-width: 768px)');
 
   const filteredAllTypes = allTypes.filter(
@@ -118,18 +101,18 @@ export default function FilterAndSortDrawer({
               />
             )}
           </div>
-
           <div className="border-t px-6 py-4 flex gap-2">
             <Button
               onClick={onResetConditions}
-              className="h-13 w-24 text-base text-muted-foreground"
+              className="h-12.5 w-24 text-base text-muted-foreground"
               variant={'outline'}
             >
               초기화
             </Button>
             <Button
               onClick={() => onOpenChange(false)}
-              className="bg-foreground font-semibold text-base flex-1 h-13"
+              // variant={'default'}
+              className="bg-foreground font-semibold text-base flex-1 h-12.5"
             >
               {`${filteredCount.toLocaleString()} 마리의 포켓몬`}
             </Button>

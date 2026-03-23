@@ -29,6 +29,15 @@ export default function InputFilter({
     });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Escape') {
+      setLocalInput('');
+      startTransition(() => {
+        onChange('');
+      });
+    }
+  };
+
   const handleClickButton = () => {
     onChange('');
   };
@@ -39,6 +48,7 @@ export default function InputFilter({
       <Input
         type="text"
         value={localInput}
+        onKeyDown={handleKeyDown}
         onChange={handleChangeInput}
         placeholder={placeholder}
         className="w-full px-11 h-10 rounded-lg"
@@ -48,9 +58,9 @@ export default function InputFilter({
           onClick={handleClickButton}
           variant={'ghost'}
           size={'icon'}
-          className="absolute right-3 top-1/2 -translate-y-1/2 px-0 hover:bg-transparent"
+          className="absolute right-3 top-1/2 -translate-y-1/2 px-0 hover:bg-transparent group"
         >
-          <XIcon className="size-4.5  text-muted-foreground" />
+          <XIcon className="size-4.5 text-muted-foreground group-hover:text-foreground" />
         </Button>
       )}
     </div>

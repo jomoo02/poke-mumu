@@ -7,35 +7,16 @@ import { type NationalPokeView } from '../model';
 import PokeCardList from './poke-card-list';
 
 import ScrollToTopButton from './scroll-to-top-button';
-// import FilterDrawer from './filter-drawer';
-// import { useState } from 'react';
-// import { RotateCwIcon, SlidersHorizontalIcon } from 'lucide-react';
-// import { Button } from '@/app/shared/ui/button';
-// import usePokedexV3 from '../model/usePokedexV3';
-// import SortPill from './sort-pill';
-// import TypePillList from './type-pill-list';
 import useController from '../model/useController';
 import FilterAndSort from './filter-and-sort';
-import PokeCardV2 from './poke-card-list/poke-card-v2';
+
+// import PokeCard from './poke-card-list/poke-card';
 
 interface ContainerProps {
   pokes: NationalPokeView[];
   types: Type[];
 }
 export default function Container({ pokes, types }: ContainerProps) {
-  // const {
-  //   sortKey,
-  //   direction,
-  //   setSort,
-  //   filterTypes,
-  //   setFilterTypes,
-  //   pokes: sortedPokes,
-  //   inputValue,
-  //   setInputValue,
-  //   sort,
-  //   getFilteredCount,
-  // } = usePokedexV3(pokes);
-
   const {
     sortedPokes,
     inputValue,
@@ -46,8 +27,6 @@ export default function Container({ pokes, types }: ContainerProps) {
     filterTypes,
     toggleFilterType,
     resetConditions,
-    // removeFilterType,
-    // getFilteredCount,
   } = useController(pokes);
 
   return (
@@ -67,54 +46,11 @@ export default function Container({ pokes, types }: ContainerProps) {
         totalCount={pokes.length}
         filteredCount={sortedPokes.length}
       />
-      {/* <div className="flex items-center gap-4 py-4">
-        {isRoateView && (
-          <Button className="size-10" variant={'outline'}>
-            <RotateCwIcon className="size-4" />
-          </Button>
-        )}
-
-        <div className="flex flex-wrap gap-1">
-          <TypePillList types={filterTypes} onRemove={removeFilterType} />
-          <SortPill sort={sort} onReset={resetSort} />
-        </div>
-
-        <span className="ml-auto text-sm text-muted-foreground text-pretty text-center">
-          {sortedPokes.length === pokes.length ? (
-            <>{`${pokes.length} Pokémon`}</>
-          ) : (
-            <> {`${sortedPokes.length} of ${pokes.length} Pokémon`}</>
-          )}
-        </span>
-        <div className="w-px h-7 bg-border" />
-        <Button
-          variant="outline"
-          className="size-10 sm:w-auto sm:h-10 sm:px-3"
-          onClick={() => setDrawerOpen(true)}
-        >
-          <span className="hidden sm:inline">필터 & 정렬</span>
-
-          <SlidersHorizontalIcon className="size-4" />
-        </Button>
-      </div>
-      <FilterDrawer
-        open={drawerOpen}
-        sort={sort}
-        onOpenChange={setDrawerOpen}
-        allTypes={types}
-        selectedTypes={filterTypes}
-
-        onResetConditions={resetConditions}
-        filteredCount={sortedPokes.length}
-        onSortChange={changeSort}
-        onToggleType={toggleFilterType}
-
-      /> */}
       <section>
         {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {' '}
           {sortedPokes.slice(0, 20).map((poke) => (
-            <PokeCardV2 key={poke.pokeKey} poke={poke} />
+            <PokeCard key={poke.pokeKey} poke={poke} />
           ))}
         </div> */}
 

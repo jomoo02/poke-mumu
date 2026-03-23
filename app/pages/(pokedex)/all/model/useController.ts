@@ -1,14 +1,16 @@
 import { useCallback } from 'react';
 
+import { Type } from '@/app/entities/type/model';
+
 import { type NationalPokeView } from '.';
 import useInputName from './useInputName';
 import usePokedex from './usePokedex';
 import useSort from './useSort';
 import useFilterTypes from './useFilterTypes';
-import { Type } from '@/app/entities/type/model';
 
 export default function useController(pokes: NationalPokeView[]) {
   const { inputValue, setInputValue, normalizedSearch } = useInputName();
+
   const {
     filterTypes,
     addFilterType,

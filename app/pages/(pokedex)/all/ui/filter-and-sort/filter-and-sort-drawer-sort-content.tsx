@@ -30,10 +30,10 @@ export default function SortContent({ sort, onSortChange }: SortContentProps) {
               onChange={() => onSortChange(option)}
               className={cn(
                 'border border-border relative appearance-none rounded-full size-5 group-hover:bg-accent checked:after:scale-100',
-                'after:absolute after:size-2.75 after:rounded-full after:bg-foreground after:inset-0 after:m-auto after:scale-0 ',
+                'after:absolute after:size-2.75 after:rounded-full after:bg-foreground after:inset-0 after:m-auto after:scale-0',
               )}
             />
-            <span className="">{option.label}</span>
+            <span>{option.label}</span>
           </label>
         );
       })}

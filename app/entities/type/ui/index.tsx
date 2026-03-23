@@ -187,7 +187,6 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
     <div
       className={cn(
         'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shadow-sm shrink-0 text-shadow-lg',
-
         'ring-inset ring-1 tracking-wide',
         bg,
         borderColor,

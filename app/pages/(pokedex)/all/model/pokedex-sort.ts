@@ -1,7 +1,5 @@
 import { type NationalPokeView } from '.';
 
-/* ── 타입 ── */
-
 const SORT_KEY_LIST = [
   'dexNumber',
   'name',
@@ -15,14 +13,14 @@ const SORT_KEY_LIST = [
 ] as const;
 
 type SortKey = (typeof SORT_KEY_LIST)[number];
+
 type Direction = 'asc' | 'desc';
+
 type SortOption = { key: SortKey; direction: Direction };
 
 const isSortKey = (value: string): value is SortKey => {
   return (SORT_KEY_LIST as readonly string[]).includes(value);
 };
-
-/* ── 비교 함수 ── */
 
 const COMPARATORS: Record<
   SortKey,
@@ -41,8 +39,6 @@ const COMPARATORS: Record<
 
 const getComparator = (key: SortKey) => COMPARATORS[key];
 
-/* ── 정렬 옵션 (UI용) ── */
-
 const SORT_KEY_LABELS: Record<SortKey, string> = {
   dexNumber: '도감번호',
   name: '이름',
@@ -55,7 +51,6 @@ const SORT_KEY_LABELS: Record<SortKey, string> = {
   speed: '스피드',
 };
 
-// 도감번호/이름은 순서/반대 순서, 스탯은 높은 순/낮은 순
 const ORDINAL_KEYS: Set<SortKey> = new Set(['dexNumber', 'name']);
 
 type SortOptionItem = SortOption & { label: string; value: string };
@@ -84,19 +79,16 @@ const getSortOptions = () => [...SORT_OPTIONS];
 
 const DEFAULT_SORT: SortOption = { key: 'dexNumber', direction: 'asc' };
 
-/* ── 유틸 ── */
-
 const getSortLabel = (sort: SortOption): string => {
   const found = SORT_OPTIONS.find(
     (o) => o.key === sort.key && o.direction === sort.direction,
   );
+
   return found?.label ?? '';
 };
 
 const isDefaultSort = (sort: SortOption): boolean =>
   sort.key === DEFAULT_SORT.key && sort.direction === DEFAULT_SORT.direction;
-
-/* ── Export ── */
 
 export {
   isSortKey,
@@ -104,7 +96,6 @@ export {
   getSortLabel,
   isDefaultSort,
   getSortOptions,
-  SORT_KEY_LABELS,
   DEFAULT_SORT,
   type SortKey,
   type Direction,

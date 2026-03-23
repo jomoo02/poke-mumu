@@ -55,14 +55,12 @@ export default function FilterAndSort({
             <RotateCwIcon className="size-4" />
           </Button>
         )}
-
         <div className="flex flex-wrap gap-1">
           <TypePillList types={filterTypes} onRemove={onToggleType} />
           {!isDefaultSortOption && (
             <SortPill sort={sortOption} onReset={resetSortOption} />
           )}
         </div>
-
         <span className="ml-auto text-sm text-muted-foreground text-pretty text-center">
           {content}
         </span>
@@ -73,11 +71,9 @@ export default function FilterAndSort({
           onClick={() => setDrawerOpen(true)}
         >
           <span className="hidden sm:inline">필터 & 정렬</span>
-
           <SlidersHorizontalIcon className="size-4" />
         </Button>
       </div>
-
       <FilterAndSortDrawer
         open={drawerOpen}
         onOpenChange={setDrawerOpen}

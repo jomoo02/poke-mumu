@@ -1,4 +1,4 @@
-import { ChevronUpIcon } from 'lucide-react';
+import { ArrowUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { cn } from '@/app/shared/lib/cn';
@@ -38,10 +38,10 @@ export default function ScrollToTopButton() {
         visible
           ? 'opacity-100 translate-x-0 pointer-events-auto'
           : 'opacity-0 translate-x-4 pointer-events-none',
-        'hover:bg-foreground/70 z-20  size-10 rounded-full bg-foreground',
+        'hover:bg-foreground/70 z-20 size-10 rounded-full bg-foreground',
       )}
     >
-      <ChevronUpIcon strokeWidth="2.5" className="size-5.5  text-white" />
+      <ArrowUpIcon className="size-5.5 text-white" />
     </Button>
   );
 }
