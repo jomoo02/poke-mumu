@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import PokedexDexNumberLayoutUI from '@/app/widgets/(pokedex)/dex-number-layout';
 
 interface PokedexDexNumberLayoutProps {
-  params: Promise<{ dexNumber: string }>;
+  params: Promise<{ dexNumber: string; form: string }>;
   children: React.ReactNode;
 }
 
@@ -14,12 +14,12 @@ export default async function PokedexDexNumberLayout({
   children,
 }: PokedexDexNumberLayoutProps) {
   const dexNumber = params.then((p) => ({ dexNumber: p.dexNumber }));
-  return <>{children}</>;
-  // <div className="w-full flex flex-col my-8">
-  //   <Suspense>
-
-  //     <PokedexDexNumberSidebar dexNumber={dexNumber} />
-  //   </Suspense>
-  //   <div className="flex-1 shrink-0">{children}</div>
-  // </div>
+  return (
+    <Suspense>
+      <PokedexDexNumberLayoutUI params={params}>
+        {children}
+      </PokedexDexNumberLayoutUI>
+      {/* <PokedexDexNumberSidebar dexNumber={dexNumber} /> */}
+    </Suspense>
+  );
 }
