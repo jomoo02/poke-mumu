@@ -148,70 +148,90 @@ export default function TypeDefenses({
     },
   ];
 
+  const datas = [
+    {
+      label: '약점',
+      items: [
+        {
+          multiple: `x${toMultiplier(4)}`,
+          types: groupByEffectivenessV2(typeDefenses, 4),
+        },
+        {
+          multiple: `x${toMultiplier(2)}`,
+          types: groupByEffectivenessV2(typeDefenses, 2),
+        },
+      ],
+      color: 'bg-red-50 text-red-700 dark:bg-red-950 dark:text-red-300',
+    },
+    {
+      label: '내성',
+      items: [
+        {
+          multiple: `x${toMultiplier(0.5)}`,
+          types: groupByEffectivenessV2(typeDefenses, 0.5),
+        },
+        {
+          multiple: `x${toMultiplier(0.25)}`,
+          types: groupByEffectivenessV2(typeDefenses, 0.25),
+        },
+      ],
+      color: 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-300',
+    },
+    {
+      label: '무효',
+      items: [
+        {
+          multiple: `x${toMultiplier(0)}`,
+          types: groupByEffectivenessV2(typeDefenses, 0),
+        },
+      ],
+      color: 'bg-zinc-100 text-zinc-700 dark:bg-zinc-950 dark:text-zinc-300',
+    },
+  ];
+
   return (
     <div className="flex flex-col overflow-hidden bg-card">
-      {/* <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 p-4 gap-4 bg-muted rounded-xl ">
-        {typeDefenses.map((type) => (
-          <div
-            key={type.attacker.identifier}
-            className="flex flex-col items-center justify-center bg-card border  p-4 rounded-xl "
-          >
-            <TypeIcon type={type.attacker} className="size-7.5" />
-            <div className="text-sm flex items-center pt-2">
-              x{type.effectiveness}
+      <div className="flex flex-col gap-6">
+        {datas.map(({ label, items, color }) => (
+          <div key={label}>
+            <h3 className="text-lg font-semibold mb-2">{label}</h3>
+            <div className="">
+              {items.map(({ multiple, types }) => (
+                <div
+                  key={multiple}
+                  className="flex items-center gap-4 py-2 border-t"
+                >
+                  <div className="w-20 shrink-0">
+                    <div
+                      className={cn(
+                        'px-2.5 py-1 bg-muted rounded-md font-medium text-sm inline-flex',
+                        color,
+                      )}
+                    >
+                      {multiple}
+                    </div>
+                  </div>
+
+                  {types.length === 0 ? (
+                    <div className="w-full h-full">-</div>
+                  ) : (
+                    <div className="flex flex-wrap gap-1.5">
+                      {types.map((type) => (
+                        <TypeIconV2
+                          key={type.identifier}
+                          type={type}
+                          className="size-7.5"
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         ))}
       </div>
-
-      <div className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-9 p-4 gap-4 bg-muted rounded-xl ">
-        {typeDefenses.map((type) => (
-          <div
-            key={type.attacker.identifier}
-            className="flex flex-col items-center justify-center bg-card border  p-4 rounded-xl "
-          >
-            <TypeIconV2 type={type.attacker} className="size-7.5" />
-            <div className="text-sm flex items-center pt-2">
-              x{type.effectiveness}
-            </div>
-          </div>
-        ))}
-      </div> */}
-
-      <div className="grid  gap-6">
-        {/* <div className="md:flex-1/2">
-          {weak.map(({ effectiveness, attacker }) => (
-            <div key={effectiveness} className="flex items-center">
-              <div className="w-20">{effectiveness}</div>
-              <div className="flex gap-2 flex-wrap">
-                {attacker.map((type) => (
-                  <TypeIconV2
-                    className="size-7.5"
-                    type={type}
-                    key={type.identifier}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="md:flex-1/2 flex flex-col gap-4">
-          {resistant.map(({ effectiveness, attacker }) => (
-            <div key={effectiveness} className="flex items-center">
-              <div className="w-20">{effectiveness}</div>
-              <div className="flex gap-2 flex-wrap">
-                {attacker.map((type) => (
-                  <TypeIconV2
-                    className="size-7.5"
-                    type={type}
-                    key={type.identifier}
-                  />
-                ))}
-              </div>
-            </div>
-          ))}
-        </div> */}
-
+      {/* <div className="grid  gap-6">
         <div>
           <Table className="border-separate border-spacing-0">
             <TableHeader>
@@ -356,7 +376,7 @@ export default function TypeDefenses({
             </TableBody>
           </Table>
         </div>
-      </div>
+      </div> */}
 
       {/* <div className="mt-4">
         <div className=" overflow-hidden">

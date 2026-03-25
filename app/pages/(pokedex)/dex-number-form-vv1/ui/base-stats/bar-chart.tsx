@@ -62,20 +62,15 @@ export default function BarChart({ baseStats }: BarChartProps) {
   const { statsMinMax } = useMinMaxStats(baseStats);
   return (
     <div className="w-full rounded-xl  bg-card ">
-      <Table className="border-separate border-spacing-0">
+      <Table className="">
         <TableHeader>
           <TableRow className="">
-            <TableHead className="w-[15%]   bg-muted/70 border-l-4">
-              종족값
-            </TableHead>
-            <TableHead
-              colSpan={2}
-              className="bg-muted/70 rounded-r-lg sm:rounded-r-none"
-            />
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70">
+            <TableHead className="w-[12%] font-semibold">종족값</TableHead>
+            <TableHead colSpan={2} className="" />
+            <TableHead className="text-center font-semibold text-muted-foreground hidden sm:table-cell ">
               Min
             </TableHead>
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70 rounded-r-lg">
+            <TableHead className="text-center font-semibold text-muted-foreground hidden sm:table-cell">
               Max
             </TableHead>
           </TableRow>
@@ -83,32 +78,27 @@ export default function BarChart({ baseStats }: BarChartProps) {
         <TableBody>
           {statsMinMax.map((stat) => (
             <Fragment key={stat.stat}>
-              <TableRow
-                key={stat.stat}
-                className=" border-b bg-transparent  hover:bg-muted/50"
-              >
-                <TableCell className="text-right w-[15%] border-b">
-                  {stat.label}
-                </TableCell>
-                <TableCell className="text-center w-[10%] border-b">
+              <TableRow key={stat.stat} className="  bg-transparent  ">
+                <TableCell className=" w-[12%] ">{stat.label}</TableCell>
+                <TableCell className="text-center w-[10%] ">
                   {stat.value}
                 </TableCell>
-                <TableCell className="w-[70%] sm:w-[55%] border-b">
+                <TableCell className="w-[70%] sm:w-[55%] ">
                   <Bar value={stat.value} />
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
+                <TableCell className="text-center hidden sm:table-cell w-[10%] ">
                   {stat.min100}
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
+                <TableCell className="text-center hidden sm:table-cell w-[10%] ">
                   {stat.max100}
                 </TableCell>
               </TableRow>
             </Fragment>
           ))}
         </TableBody>
-        <TableFooter className="bg-transparent hover:bg-muted/50">
+        <TableFooter className="bg-transparent ">
           <TableRow className="">
-            <TableCell className="text-right">총합</TableCell>
+            <TableCell className="">총합</TableCell>
             <TableCell className="text-center">500</TableCell>
             <TableCell colSpan={3} />
           </TableRow>

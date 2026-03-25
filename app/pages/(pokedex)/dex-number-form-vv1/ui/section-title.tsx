@@ -12,7 +12,7 @@ export default function SectionTitle({
   isFirst,
 }: SectionTitleProps) {
   return (
-    <h3
+    <h2
       id={id}
       className={cn(
         'text-3xl font-bold scroll-mt-24 mb-8 mt-12 pt-8',
@@ -20,6 +20,6 @@ export default function SectionTitle({
       )}
     >
       {children}
-    </h3>
+    </h2>
   );
 }
