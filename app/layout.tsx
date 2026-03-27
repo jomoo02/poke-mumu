@@ -66,7 +66,9 @@ export default function RootLayout({
       lang="en"
       className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
     >
-      <body className={`antialiased`}>{children}</body>
+      <body className={`antialiased`}>
+        <TooltipProvider>{children}</TooltipProvider>
+      </body>
     </html>
   );
 }

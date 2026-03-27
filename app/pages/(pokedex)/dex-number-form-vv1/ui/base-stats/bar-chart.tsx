@@ -61,11 +61,11 @@ interface BarChartProps {
 export default function BarChart({ baseStats }: BarChartProps) {
   const { statsMinMax } = useMinMaxStats(baseStats);
   return (
-    <div className="w-full bg-card overflow-hidden">
+    <div className="w-full border rounded-xl bg-card overflow-hidden">
       <Table className="">
         {/* <TableHeader className="">
           <TableRow className="border-b-0">
-            <TableHead className="w-[12%] text-right ">종족값</TableHead>
+            <TableHead className="w-[14%] ">종족값</TableHead>
             <TableHead colSpan={2} className="" />
             <TableHead className="text-center  hidden sm:table-cell ">
               Min
@@ -75,38 +75,36 @@ export default function BarChart({ baseStats }: BarChartProps) {
             </TableHead>
           </TableRow>
         </TableHeader> */}
-        <TableBody>
+        <TableBody className="">
           {statsMinMax.map((stat) => (
             <Fragment key={stat.stat}>
-              <TableRow key={stat.stat} className="  bg-transparent  ">
-                <TableCell className=" w-[12%] text-right">
-                  {stat.label}
-                </TableCell>
-                <TableCell className="text-center w-[10%] ">
+              <TableRow key={stat.stat} className=" bg-transparent  ">
+                <TableCell className="w-[14%]  ">{stat.label}</TableCell>
+                <TableCell className="text-center w-[14%] ">
                   {stat.value}
                 </TableCell>
-                <TableCell className="w-[70%] sm:w-[55%] ">
+                <TableCell className="w-[72%] sm:w-[48%] ">
                   <Bar value={stat.value} />
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] ">
+                <TableCell className="text-center hidden sm:table-cell w-[12%] ">
                   {stat.min100}
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] ">
+                <TableCell className="text-center hidden sm:table-cell w-[12%] ">
                   {stat.max100}
                 </TableCell>
               </TableRow>
             </Fragment>
           ))}
         </TableBody>
-        <TableFooter className="bg-transparent ">
+        <TableFooter className="bg-transparent">
           <TableRow className="">
-            <TableCell className=" text-right">총합</TableCell>
+            <TableCell className="">총합</TableCell>
             <TableCell className=" text-center">500</TableCell>
             <TableCell colSpan={1} />
-            <TableCell className="text-center  hidden sm:table-cell ">
+            <TableCell className="text-center hidden sm:table-cell ">
               Min
             </TableCell>
-            <TableCell className="text-center  hidden sm:table-cell">
+            <TableCell className="text-center hidden sm:table-cell ">
               Max
             </TableCell>
           </TableRow>

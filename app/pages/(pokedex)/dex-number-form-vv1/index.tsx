@@ -53,7 +53,7 @@ export default async function PokedexDexNumberFormPageUI({
     <Suspense>
       <div
         className={cn(
-          ' mx-auto w-full py-10 relative   max-w-7xl',
+          ' mx-auto w-full py-10 relative   max-w-7xl px-4 sm:px-6',
           'grid grid-cols-1 lg:grid-cols-[368px_1fr]',
         )}
       >
@@ -64,12 +64,12 @@ export default async function PokedexDexNumberFormPageUI({
             </div>
           </div>
         </div> */}
-        <section className="">
+        <section className="max-w-3xl mx-auto w-full">
           <DexInfoV2 dexInfo={dexInfo} />
           <RestInfo names={names} training={training} breeding={breeding} />
         </section>
 
-        <div className=" flex-1 w-full max-w-3xl mx-auto px-4 sm:px-6">
+        <div className=" flex-1 w-full max-w-3xl mx-auto lg:pl-6 pt-6 lg:pt-0">
           {/* <Title poke={dexInfo} /> */}
           <section>
             <SectionTitle id="ability" isFirst>
@@ -78,6 +78,7 @@ export default async function PokedexDexNumberFormPageUI({
             <Abilities abilities={abilities} />
           </section>
           <section>
+            {/* <div className="w-full h-px bg-border" /> */}
             <SectionTitle id="base-stats">스탯</SectionTitle>
             <BaseStats stats={stats} rankRatio={rankRatio} />
           </section>
@@ -86,14 +87,14 @@ export default async function PokedexDexNumberFormPageUI({
             <SectionTitle id="type-defense">방어 상성</SectionTitle>
             <TypeDefenses typeDefenses={typeDefense} />
           </section>
-          {/* <section>
+          <section>
             <SectionTitle id="evolution">진화</SectionTitle>
             <EvolutionTree id={evolutionId} />
           </section>
           <section>
             <SectionTitle id="move">기술</SectionTitle>
             <Moves moves={moves} />
-          </section> */}
+          </section>
         </div>
       </div>
     </Suspense>

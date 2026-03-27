@@ -15,7 +15,7 @@ export default function SectionTitle({
     <h2
       id={id}
       className={cn(
-        'text-2xl font-bold scroll-mt-24 mb-6',
+        'text-2xl font-bold scroll-mt-24 mb-6 ',
         isFirst ? '' : ' mt-12 pt-8',
       )}
     >

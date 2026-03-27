@@ -23,8 +23,7 @@ export default function RestInfo({ names, breeding, training }: RestInfoProps) {
   const { growthRate, baseFriendShip, captureRate, effortValues } = training;
 
   return (
-    <div className="flex flex-col px-6">
-      <div className="bg-border w-full h-px my-3" />
+    <div className="flex flex-col px-6 border rounded-xl p-6 mt-6">
       <Card>
         {/* <CardHeader>{namesTitle}</CardHeader> */}
         <div>
@@ -35,9 +34,9 @@ export default function RestInfo({ names, breeding, training }: RestInfoProps) {
           ))}
         </div>
       </Card>
-      <div className="bg-border w-full h-px my-3" />
+      <div className="bg-border w-full h-px my-2" />
       <Breeding breeding={breeding} />
-      <div className="bg-border w-full h-px my-3" />
+      <div className="bg-border w-full h-px my-2" />
       <Card>
         {/* <CardHeader>{trainingTitle}</CardHeader> */}
         <RestInfoItem label="포획률">{captureRate}</RestInfoItem>

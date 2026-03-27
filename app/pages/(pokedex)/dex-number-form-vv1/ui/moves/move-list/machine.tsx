@@ -46,9 +46,9 @@ export default function Machine({
   const title = titleMap[machineType] || '기술';
 
   return (
-    <div className="max-w-2xl">
+    <div className="">
       <h4 className="text-xl font-semibold mb-4">{title}</h4>
-      <div className="border rounded-md overflow-hidden">
+      <div className="border rounded-lg overflow-hidden">
         <Table className="bg-card">
           <TableHeader>
             <TableRow className="bg-muted/50">

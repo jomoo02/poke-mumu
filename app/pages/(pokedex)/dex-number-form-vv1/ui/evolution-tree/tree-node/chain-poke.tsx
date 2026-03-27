@@ -18,29 +18,27 @@ export default function ChainPoke({ poke }: ChainPokeProps) {
 
   return (
     <div className="flex flex-col h-full justify-center  bg-background">
-      <Link
-        href={href}
-        className="hover:bg-accent rounded-2xl border outline-ring"
-      >
-        <div className="p-4">
-          <PokeArtwork
+      <Link href={href} className="hover:bg-accent rounded-lg outline-ring">
+        <div className="p-2">
+          <PokeSprite
             poke={poke}
-            className="size-30 sm:size-36 xl:size-38 2xl:size-40"
+            className="size-18"
+            // className="size-30 sm:size-36 xl:size-38 2xl:size-40"
             priority
           />
         </div>
       </Link>
-      <div className="font-medium text-muted-foreground pt-2 pl-1">
+      <div className="font-medium text-muted-foreground pt-2  text-sm">
         {fomattedDexNumber}
       </div>
       <Link
         href={href}
-        className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground pl-1"
+        className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground "
       >
         {name}
       </Link>
       {form && (
-        <div className="text-sm text-muted-foreground font-medium truncate pl-1 ">
+        <div className="text-sm text-muted-foreground font-medium truncate  ">
           {form}
         </div>
       )}

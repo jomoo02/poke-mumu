@@ -38,12 +38,12 @@ export default function Rest({ moves, method, versionGroupId }: RestProps) {
 
   const title = methodTitleMap[method] || '기술';
   return (
-    <div className=" overflow-auto max-w-2xl">
+    <div className=" overflow-auto">
       <h4 className="text-xl font-semibold mb-2">{title}</h4>
-      <div className=" border overflow-hidden rounded-md">
+      <div className=" border overflow-hidden rounded-lg">
         <Table className="bg-card">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/50">
               {table.getVisibleColumns().map((header) => (
                 <TableHead
                   key={header.id}

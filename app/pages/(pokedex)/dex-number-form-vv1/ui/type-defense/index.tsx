@@ -1,9 +1,23 @@
 'use client';
 
 import { cn } from '@/app/shared/lib/cn';
-import { TypeIconV2 } from '@/app/entities/type/ui';
+import { TypeBadge, TypeIcon, TypeIconV2 } from '@/app/entities/type/ui';
 
 import { type TypeDefenseView } from '../../model';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/app/shared/ui/table';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/app/shared/ui/tooltip';
+import { Button } from '@/app/shared/ui/button';
 
 interface TypeDefensesProps {
   typeDefenses: TypeDefenseView[];
@@ -69,17 +83,123 @@ export default function TypeDefenses({ typeDefenses }: TypeDefensesProps) {
     },
   ];
 
+  const datas2 = [
+    {
+      multiple: `x${toMultiplier(4)}`,
+      types: groupByEffectivenessV2(typeDefenses, 4),
+    },
+    {
+      multiple: `x${toMultiplier(2)}`,
+      types: groupByEffectivenessV2(typeDefenses, 2),
+    },
+    {
+      multiple: `x${toMultiplier(0.5)}`,
+      types: groupByEffectivenessV2(typeDefenses, 0.5),
+    },
+    {
+      multiple: `x${toMultiplier(0.25)}`,
+      types: groupByEffectivenessV2(typeDefenses, 0.25),
+    },
+    {
+      multiple: `x${toMultiplier(0)}`,
+      types: groupByEffectivenessV2(typeDefenses, 0),
+    },
+  ].filter(({ types }) => types.length > 0);
+
   return (
-    <div className="flex flex-col overflow-hidden bg-card">
-      <div className="flex flex-col">
+    <div className="flex flex-col overflow-hidden">
+      {/* <div className="grid grid-cols-3 sm:grid-cols-6 gap-6 p-1">
+        {typeDefenses.map(({ attacker, effectiveness }) => (
+          <div
+            key={attacker.identifier}
+            className="flex flex-col items-center justify-center"
+          >
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={'outline'}
+                  className="size-8 p-0 overflow-hidden items-center justify-center border-0 rounded-sm"
+                >
+                  <TypeIcon type={attacker} size={32} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{attacker.name}</TooltipContent>
+            </Tooltip>
+            <span className="text-sm font-medium pt-1">x{effectiveness}</span>
+          </div>
+        ))}
+      </div> */}
+
+      {/* <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-[18%] pl-0">배율</TableHead>
+            <TableHead className="w-full ">타입</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {datas2.map(({ multiple, types }) => (
+            <TableRow key={multiple}>
+              <TableCell className="pl-0">{multiple}</TableCell>
+              <TableCell className="py-4">
+                <div className="flex flex-wrap gap-2">
+                  {types.map((type) => (
+                    <TypeIcon
+                      key={type.identifier}
+                      type={type}
+                      className="size-7"
+                    />
+                  ))}
+                </div>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table> */}
+      {/* <div className="flex flex-col">
         {datas.map(({ label, items, color }) => (
           <div key={label} className="mt-4 first:mt-0">
-            <div className="font-semibold text-lg pb-1">{label}</div>
+            <div className="font-medium pb-3">{label}</div>
+            <div className="">
+              {items.map(({ multiple, types }) => (
+                <div key={multiple} className="flex items-center gap-4 py-3 ">
+                  {types.length === 0 ? (
+                    <div className="w-full h-full">-</div>
+                  ) : (
+                    <div className="flex flex-wrap gap-2">
+                      {types.map((type) => (
+                        <div
+                          key={type.identifier}
+                          className="flex items-center gap-2 "
+                        >
+                          {' '}
+                          <TypeBadge
+                            key={type.identifier}
+                            type={type}
+                            className="w-18"
+                          />
+                          <span className="text-xs text-muted-foreground font-medium w-10  bg-muted rounded-full ">
+                            {multiple}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div> */}
+      <div className="flex flex-col">
+        {datas.map(({ label, items, color }) => (
+          <div key={label} className="mt-4 first:mt-0 border rounded-xl">
+            <div className="font-medium py-2 px-4">{label}</div>
             <div className="">
               {items.map(({ multiple, types }) => (
                 <div
                   key={multiple}
-                  className="flex items-center gap-4 py-2 border-t first:border-t-0 "
+                  className="flex items-center gap-4 py-2 border-t px-4"
                 >
                   <div className="w-20 sm:w-28 shrink-0">
                     <div

@@ -14,7 +14,7 @@ export default function Abilities({ abilities }: AbilitiesProps) {
   const hidden = abilities.filter((a) => a.isHidden);
 
   return (
-    <div className="">
+    <div className="grid md:grid-cols-2 gap-6">
       {abilities.map((ability) => (
         <Ability key={ability.name} ability={ability} />
       ))}

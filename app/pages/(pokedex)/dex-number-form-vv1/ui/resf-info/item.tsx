@@ -8,11 +8,9 @@ interface RestInfoItemProps {
 export default function RestInfoItem({ label, children }: RestInfoItemProps) {
   return (
     <CardItem key={label}>
-      <div className="flex">
-        <div className="w-34 font-semibold text-muted-foreground">{label}</div>
-        <div className="flex-1 break-keep text-pretty font-medium">
-          {children}
-        </div>
+      <div className="flex ">
+        <div className="w-34 text-muted-foreground">{label}</div>
+        <div className="flex-1 break-keep text-pretty">{children}</div>
       </div>
     </CardItem>
   );

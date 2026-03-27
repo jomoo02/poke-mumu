@@ -46,17 +46,19 @@ export default function Moves({ moves }: MovesProps) {
         selectedVersionGroup={selectedVersionGroup}
         onValueChange={setSelectedVersionGroupId}
       /> */}
-      <div className="flex gap-8 mb-8">
+      <div className="mb-6 pb-1 overflow-x-auto">
         <SelectGen gen={gen} gens={gens} onChange={setGen} />
+      </div>
+      <div className="pb-1 overflow-x-auto">
         <SelectVersionGroup
           versionGroup={versionGroup}
           versionGroups={versionGroups}
           onChange={setVersionGroup}
         />
       </div>
-      <div className="text-2xl font-semibold mb-8">
+      {/* <div className="text-2xl font-semibold mb-8">
         {selectedVersionGroup?.label}
-      </div>
+      </div> */}
 
       {/* <div className="flex justify-end py-4">
         <div className=" max-w-64 w-full">

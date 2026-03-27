@@ -27,16 +27,12 @@ export default function MoveList({
     <div
       className={cn(
         isLoading ? 'opacity-70 ' : '',
-        'grid gap-8',
+        'grid gap-8 pt-6',
         // open ? 'xl:grid-cols-2' : 'xl:grid-cols-2',
         // 'grid gap-16 2xl:grid-cols-2',
       )}
     >
-      <div
-        className={cn(
-          'flex flex-col gap-8 overflow-hidden w-full max-w-2xl  mx-auto 2xl:mx-0 h-full',
-        )}
-      >
+      <div className={cn('flex flex-col gap-8 overflow-hidden w-full h-full')}>
         <LevelUp
           moves={levelUpMoves}
           key={versionGroupId}
@@ -55,11 +51,7 @@ export default function MoveList({
         ))}
       </div>
 
-      <div
-        className={cn(
-          'flex flex-col gap-10 overflow-hidden w-full max-w-2xl mx-auto 2xl:mx-0',
-        )}
-      >
+      <div className={cn('flex flex-col gap-10 overflow-hidden w-full')}>
         {machineMoves.map(({ moves, machineType }) => (
           <Fragment key={machineType}>
             <Machine
