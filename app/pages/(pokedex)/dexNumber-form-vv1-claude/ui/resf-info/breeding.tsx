@@ -1,6 +1,5 @@
 import { MarsIcon, VenusIcon } from 'lucide-react';
-
-import { type BreedingView } from '../../model/rest-info';
+import { type BreedingView } from '../../../dex-number-form-vv1/model/rest-info';
 import { Card, CardHeader } from '../card';
 import RestInfoItem from './item';
 
@@ -9,16 +8,15 @@ interface BreedingProps {
 }
 
 export default function Breeding({ breeding }: BreedingProps) {
-  const breedingTitle = '유전';
   const { eggGroups, genderRatio, hatchCounter } = breeding;
 
   return (
     <Card>
-      {/* <CardHeader>{breedingTitle}</CardHeader> */}
+      <CardHeader>유전</CardHeader>
       <RestInfoItem label="알그룹">
         {eggGroups.map((group, index) => (
           <span key={group}>
-            {index > 0 && <>{', '}</>}
+            {index > 0 && ', '}
             {group}
           </span>
         ))}
@@ -26,27 +24,29 @@ export default function Breeding({ breeding }: BreedingProps) {
       <RestInfoItem label="부화카운트">
         {hatchCounter}
         {hatchCounter !== '-' && (
-          <span className="ml-1">(약 {Number(hatchCounter) * 264} 걸음)</span>
+          <span className="ml-1 text-muted-foreground">
+            (약 {Number(hatchCounter) * 264} 걸음)
+          </span>
         )}
       </RestInfoItem>
       <RestInfoItem label="성비">
         {genderRatio ? (
-          <div className="flex items-center gap-1 text-base">
+          <div className="flex items-center gap-2">
             {genderRatio.male && (
-              <div className="flex items-center gap-0.5">
-                <MarsIcon className="size-4 text-blue-600" />
-                <span className=" text-blue-600">{genderRatio.male}%</span>
-              </div>
+              <span className="flex items-center gap-0.5 text-blue-500">
+                <MarsIcon className="size-3.5" />
+                {genderRatio.male}%
+              </span>
             )}
             {genderRatio.female && (
-              <div className="flex items-center gap-0.5">
-                <VenusIcon className="size-4 text-pink-600" />
-                <span className="text-pink-600">{genderRatio.female}%</span>
-              </div>
+              <span className="flex items-center gap-0.5 text-pink-500">
+                <VenusIcon className="size-3.5" />
+                {genderRatio.female}%
+              </span>
             )}
           </div>
         ) : (
-          <div className="flex items-center">무성</div>
+          <span>무성</span>
         )}
       </RestInfoItem>
     </Card>

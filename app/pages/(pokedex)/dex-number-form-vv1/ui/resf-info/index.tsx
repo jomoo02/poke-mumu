@@ -23,29 +23,28 @@ export default function RestInfo({ names, breeding, training }: RestInfoProps) {
   const { growthRate, baseFriendShip, captureRate, effortValues } = training;
 
   return (
-    <div className="grid gap-8">
-      <div className="flex flex-col gap-8">
-        <Card>
-          <CardHeader>{namesTitle}</CardHeader>
-          <div>
-            {names.map(({ label, name }) => (
-              <RestInfoItem key={label} label={label}>
-                {name}
-              </RestInfoItem>
-            ))}
-          </div>
-        </Card>
-        <Breeding breeding={breeding} />
-      </div>
-      <div className="flex flex-col gap-8">
-        <Card>
-          <CardHeader>{trainingTitle}</CardHeader>
-          <RestInfoItem label="포획률">{captureRate}</RestInfoItem>
-          <RestInfoItem label="기초 친밀도">{baseFriendShip}</RestInfoItem>
-          <RestInfoItem label="주는 노력치">{effortValues}</RestInfoItem>
-          <RestInfoItem label="필요 경험치">{growthRate}</RestInfoItem>
-        </Card>
-      </div>
+    <div className="flex flex-col px-6">
+      <div className="bg-border w-full h-px my-3" />
+      <Card>
+        {/* <CardHeader>{namesTitle}</CardHeader> */}
+        <div>
+          {names.map(({ label, name }) => (
+            <RestInfoItem key={label} label={label}>
+              {name}
+            </RestInfoItem>
+          ))}
+        </div>
+      </Card>
+      <div className="bg-border w-full h-px my-3" />
+      <Breeding breeding={breeding} />
+      <div className="bg-border w-full h-px my-3" />
+      <Card>
+        {/* <CardHeader>{trainingTitle}</CardHeader> */}
+        <RestInfoItem label="포획률">{captureRate}</RestInfoItem>
+        <RestInfoItem label="기초 친밀도">{baseFriendShip}</RestInfoItem>
+        <RestInfoItem label="주는 노력치">{effortValues}</RestInfoItem>
+        <RestInfoItem label="필요 경험치">{growthRate}</RestInfoItem>
+      </Card>
     </div>
   );
 }

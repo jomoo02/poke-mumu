@@ -217,18 +217,32 @@
 
 .sticky-header::-webkit-scrollbar {
   display: none;
-} /* Chrome/Safari */
-
-/* ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
 }
 
-::-webkit-scrollbar-track {
+/* Chrome/Safari */
+
+.thin-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+/* .thin-scrollbar:hover {
+  scrollbar-color: var(--color-muted-foreground) transparent;
+} */
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+.thin-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+.thin-scrollbar:hover::-webkit-scrollbar-thumb {
   background: var(--color-muted-foreground);
-  border-radius: 999px;
-} */
+}

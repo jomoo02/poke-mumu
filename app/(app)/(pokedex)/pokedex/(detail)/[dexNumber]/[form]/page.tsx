@@ -5,6 +5,7 @@ import PokedexDexNumberFormPageUI from '@/app/pages/(pokedex)/dex-number-form';
 // import PokedexDexNumberFormV0PageUI from '@/app/pages/(pokedex)/dex-number-form-v0';
 // import PokedexDexNumberFormPageV5UI from '@/app/pages/(pokedex)/dex-number-form-v5';
 import PokedexDexNumberFormPageUIVV1 from '@/app/pages/(pokedex)/dex-number-form-vv1';
+import PokedexDexNumberFormPageUIVV1Claude from '@/app/pages/(pokedex)/dexNumber-form-vv1-claude';
 
 import { Suspense } from 'react';
 

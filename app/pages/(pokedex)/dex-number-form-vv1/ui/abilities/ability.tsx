@@ -5,13 +5,24 @@ interface AbilityProps {
 }
 
 export default function Ability({ ability }: AbilityProps) {
+  const { isHidden, flavorText, name } = ability;
   return (
-    <div className="px-4 py-3 border-b last:border-b-0">
-      <div className="font-medium text-foreground text-xl">{ability.name}</div>
-
-      <p className="break-keep text-pretty text-muted-foreground pt-1">
-        {ability.flavorText}
-      </p>
+    <div className="py-2 first:pt-0 last:pb-0">
+      <div className="text-lg font-semibold">
+        {name}
+        {isHidden && (
+          <span className="text-sm bg-muted text-muted-foreground font-medium ml-1.5 px-2 py-0.5 rounded-sm">
+            숨겨진 특성
+          </span>
+        )}
+      </div>
+      <div className="break-keep text-pretty text-muted-foreground">
+        {flavorText}
+      </div>
     </div>
+    // <li className="mt-2 first:mt-0">
+    //   <strong>{ability.name}</strong>
+    //   <span className="break-keep text-pretty">{`: ${ability.flavorText}`}</span>
+    // </li>
   );
 }

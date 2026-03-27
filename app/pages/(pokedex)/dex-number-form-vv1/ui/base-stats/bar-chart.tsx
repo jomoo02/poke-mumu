@@ -61,25 +61,27 @@ interface BarChartProps {
 export default function BarChart({ baseStats }: BarChartProps) {
   const { statsMinMax } = useMinMaxStats(baseStats);
   return (
-    <div className="w-full rounded-xl  bg-card ">
+    <div className="w-full bg-card overflow-hidden">
       <Table className="">
-        <TableHeader>
-          <TableRow className="">
-            <TableHead className="w-[12%] font-semibold">종족값</TableHead>
+        {/* <TableHeader className="">
+          <TableRow className="border-b-0">
+            <TableHead className="w-[12%] text-right ">종족값</TableHead>
             <TableHead colSpan={2} className="" />
-            <TableHead className="text-center font-semibold text-muted-foreground hidden sm:table-cell ">
+            <TableHead className="text-center  hidden sm:table-cell ">
               Min
             </TableHead>
-            <TableHead className="text-center font-semibold text-muted-foreground hidden sm:table-cell">
+            <TableHead className="text-center  hidden sm:table-cell">
               Max
             </TableHead>
           </TableRow>
-        </TableHeader>
+        </TableHeader> */}
         <TableBody>
           {statsMinMax.map((stat) => (
             <Fragment key={stat.stat}>
               <TableRow key={stat.stat} className="  bg-transparent  ">
-                <TableCell className=" w-[12%] ">{stat.label}</TableCell>
+                <TableCell className=" w-[12%] text-right">
+                  {stat.label}
+                </TableCell>
                 <TableCell className="text-center w-[10%] ">
                   {stat.value}
                 </TableCell>
@@ -98,9 +100,15 @@ export default function BarChart({ baseStats }: BarChartProps) {
         </TableBody>
         <TableFooter className="bg-transparent ">
           <TableRow className="">
-            <TableCell className="">총합</TableCell>
-            <TableCell className="text-center">500</TableCell>
-            <TableCell colSpan={3} />
+            <TableCell className=" text-right">총합</TableCell>
+            <TableCell className=" text-center">500</TableCell>
+            <TableCell colSpan={1} />
+            <TableCell className="text-center  hidden sm:table-cell ">
+              Min
+            </TableCell>
+            <TableCell className="text-center  hidden sm:table-cell">
+              Max
+            </TableCell>
           </TableRow>
         </TableFooter>
       </Table>

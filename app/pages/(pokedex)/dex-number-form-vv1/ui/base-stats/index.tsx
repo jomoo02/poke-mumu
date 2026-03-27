@@ -25,15 +25,13 @@ export default function BaseStats({ stats, rankRatio }: BaseStatsProps) {
 
   return (
     <div className="">
-      <div className="flex flex-col gap-6">
-        <BarChart baseStats={baseStats} />
-        <div className="text-muted-foreground rounded-xl hidden sm:block text-divretty break-keep">
-          <p> 오른쪽 범위(Min, Max)는 레벨 100 기준 능력치입니다.</p>
-          <p>
-            Max는 유리한 성격, 노력치 252, 개체값 31 기준이며, Min은 불리한
-            성격, 노력치 0, 개체값 0 기준입니다.
-          </p>
-        </div>
+      <BarChart baseStats={baseStats} />
+      <div className="text-muted-foreground rounded-xl hidden sm:block text-divretty break-keep pt-4">
+        <p>오른쪽 범위(Min, Max)는 레벨 100 기준 능력치입니다.</p>
+        <p>
+          Max는 유리한 성격, 노력치 252, 개체값 31 기준이며, Min은 불리한 성격,
+          노력치 0, 개체값 0 기준입니다.
+        </p>
       </div>
     </div>
   );

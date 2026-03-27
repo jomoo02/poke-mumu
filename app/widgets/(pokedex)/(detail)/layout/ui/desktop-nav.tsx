@@ -52,7 +52,10 @@ export default function DesktopNav({ pokes }: DesktopNavProps) {
   }, [activeIndex, pathname, virtualizer]);
 
   return (
-    <div ref={scrollRef} className="h-full overflow-y-auto px-2 py-4">
+    <div
+      ref={scrollRef}
+      className="h-full overflow-y-auto pl-8 pr-6 py-14 thin-scrollbar"
+    >
       <div
         className="relative w-full  flex flex-col gap-1"
         style={{ height: virtualizer.getTotalSize() }}

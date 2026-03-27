@@ -14,10 +14,10 @@ export default async function PokedexDetailLayoutUI({
   const pokes = await getSpeciesPokes();
 
   return (
-    <div className="w-full flex flex-col lg:flex-row px-4 sm:px-6 lg:gap-10">
-      <div className="sticky top-14 z-10 h-[calc(100vh-56px)] hidden lg:block w-68 pt-10 xl:px-2 ">
+    <div className="w-full flex flex-col lg:flex-row ">
+      {/* <div className="sticky top-14 z-10 h-[calc(100vh-56px)] hidden lg:block w-64  py-px border-r">
         {pokes && <DesktopNav pokes={pokes} />}
-      </div>
+      </div> */}
       <div className="lg:hidden pt-10 px-4 md:px-6 max-w-4xl mx-auto w-full">
         {pokes && <MobileNav pokes={pokes} />}
       </div>
