@@ -6,6 +6,8 @@ import PokedexDexNumberFormPageUI from '@/app/pages/(pokedex)/dex-number-form';
 // import PokedexDexNumberFormPageV5UI from '@/app/pages/(pokedex)/dex-number-form-v5';
 import PokedexDexNumberFormPageUIVV1 from '@/app/pages/(pokedex)/dex-number-form-vv1';
 import PokedexDexNumberFormPageUIVV2 from '@/app/pages/(pokedex)/dex-number-form-vv2';
+import PokedexDexNumberFormPageUIVV3 from '@/app/pages/(pokedex)/dex-number-form-vv3';
+import PokedexDexNumberFormPageUIVV4 from '@/app/pages/(pokedex)/dex-number-form-vv4';
 import PokedexDexNumberFormPageUIVV1Claude from '@/app/pages/(pokedex)/dexNumber-form-vv1-claude';
 
 import { Suspense } from 'react';
@@ -16,7 +18,7 @@ export default async function PokedexDexNumberFormPage({
   return (
     <Suspense>
       {params.then(({ form, dexNumber }) => (
-        <PokedexDexNumberFormPageUIVV2 pokeKey={form} dexNumber={dexNumber} />
+        <PokedexDexNumberFormPageUIVV4 pokeKey={form} dexNumber={dexNumber} />
       ))}
     </Suspense>
   );

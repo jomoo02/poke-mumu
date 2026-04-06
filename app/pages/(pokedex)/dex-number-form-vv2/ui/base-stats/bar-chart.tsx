@@ -62,16 +62,16 @@ interface BarChartProps {
 export default function BarChart({ baseStats, name }: BarChartProps) {
   const { statsMinMax } = useMinMaxStats(baseStats);
   return (
-    <div className="w-full bg-card overflow-hidden border rounded-xl">
+    <div className="w-full bg-card overflow-hidden">
       <Table className="">
-        <TableHeader className="">
-          <TableRow className="">
-            <TableHead colSpan={3}>{`${name}의 종족값`}</TableHead>
-            {/* <TableHead colSpan={2} className="" /> */}
-            <TableHead className="text-center  hidden sm:table-cell ">
+        <TableHeader className="h-12">
+          <TableRow className="border-b-0 ">
+            <TableHead colSpan={1}>{`종족값`}</TableHead>
+            <TableHead colSpan={2} className="py-3" />
+            <TableHead className="text-right  hidden sm:table-cell ">
               Min
             </TableHead>
-            <TableHead className="text-center  hidden sm:table-cell">
+            <TableHead className="text-right  hidden sm:table-cell">
               Max
             </TableHead>
           </TableRow>
@@ -79,27 +79,27 @@ export default function BarChart({ baseStats, name }: BarChartProps) {
         <TableBody className="">
           {statsMinMax.map((stat) => (
             <Fragment key={stat.stat}>
-              <TableRow key={stat.stat} className=" bg-transparent  ">
-                <TableCell className="w-[14%]  ">{stat.label}</TableCell>
-                <TableCell className="text-center w-[14%]  ">
+              <TableRow key={stat.stat} className=" bg-transparent">
+                <TableCell className="w-[12%]  py-3 ">{stat.label}</TableCell>
+                <TableCell className="text-center w-[10%]  ">
                   {stat.value}
                 </TableCell>
-                <TableCell className="w-[72%] sm:w-[42%] ">
+                <TableCell className="w-[76%] sm:w-[52%] ">
                   <Bar value={stat.value} />
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[15%] ">
+                <TableCell className="text-right hidden sm:table-cell w-[12%] ">
                   {stat.min100}
                 </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[15%] ">
+                <TableCell className="text-right hidden sm:table-cell w-[12%] ">
                   {stat.max100}
                 </TableCell>
               </TableRow>
             </Fragment>
           ))}
         </TableBody>
-        <TableFooter className="bg-transparent">
+        <TableFooter className="border-t bg-transparent">
           <TableRow className="">
-            <TableCell className="">총합</TableCell>
+            <TableCell className="py-3">총합</TableCell>
             <TableCell className=" text-center">500</TableCell>
             <TableCell colSpan={3} />
             {/* <TableCell className="text-center hidden sm:table-cell ">

@@ -18,6 +18,9 @@ const calculateHpStatValue = (
   effortValue: number,
   level: number,
 ) => {
+  if (hpBaseStatValue === 1) {
+    return 1;
+  }
   return Math.floor(
     ((hpBaseStatValue * 2 + individualValue + effortValue / 4 + 100) * level) /
       100 +

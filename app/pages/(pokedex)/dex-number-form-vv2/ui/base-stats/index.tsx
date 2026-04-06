@@ -26,7 +26,7 @@ export default function BaseStats({ stats, rankRatio, name }: BaseStatsProps) {
 
   return (
     <div className="">
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className=" gap-6">
         <div className="col-span-2">
           <BarChart baseStats={baseStats} name={name} />
         </div>

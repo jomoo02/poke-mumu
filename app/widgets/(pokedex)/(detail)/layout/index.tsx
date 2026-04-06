@@ -14,7 +14,7 @@ export default async function PokedexDetailLayoutUI({
   const pokes = await getSpeciesPokes();
 
   return (
-    <div className="w-full flex flex-col lg:flex-row ">
+    <div className="w-full flex flex-col lg:flex-row">
       {/* <div className="sticky top-14 z-10 h-[calc(100vh-56px)] hidden lg:block w-64  py-px border-r">
         {pokes && <DesktopNav pokes={pokes} />}
       </div> */}
