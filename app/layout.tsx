@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
-import './globals.css';
-
 import { TooltipProvider } from './shared/ui/tooltip';
+
+import './globals.css';
 
 const suit = localFont({
   src: '../public/fonts/SUIT-Variable.woff2',

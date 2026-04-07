@@ -20,9 +20,15 @@ export default function MainHeader() {
         >
           포케무무
         </Link>
-        <div className="">
-          <NavLink href={`/pokedex`}>도감</NavLink>
+        <div className="flex gap-3">
+          <div className="">
+            <NavLink href={`/pokedex`}>도감</NavLink>
+          </div>
+          <div className="">
+            <NavLink href={`/natures`}>성격</NavLink>
+          </div>
         </div>
+
         <Suspense>
           <SearchPoke />
         </Suspense>
