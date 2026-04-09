@@ -48,6 +48,17 @@ export default function LevelStats({ stats }: MinMaxStatsProps) {
   const handleClick = () => {
     setIsOpen((prev) => !prev);
   };
+  const transposedData = targetStats.map(({ label }, statIndex) => ({
+    label,
+    cells: data.map(({ level, cells }) => ({
+      level,
+      min: cells[statIndex].min,
+      max: cells[statIndex].max,
+    })),
+  }));
+
+  // 헤더용 레벨 목록
+  const levels = data.map(({ level }) => level);
 
   return (
     <div className="border rounded-2xl">
@@ -78,44 +89,33 @@ export default function LevelStats({ stats }: MinMaxStatsProps) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="text- px-3 text-md">레벨</TableHead>
-                  {targetStats.map(({ label }) => (
-                    <TableHead key={label} className="text-center px-3 text-md">
-                      {label}
+                  <TableHead />
+                  {levels.map((level) => (
+                    <TableHead key={level} className="text-center px-3 text-md">
+                      Lv.{level}
                     </TableHead>
                   ))}
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {data.map(({ level, cells }) => (
-                  <TableRow
-                    key={level}
-                    className={cn(
-                      level % 50 === 0 || level === 1
-                        ? 'bg-muted/70'
-                        : 'bg-transparent',
-                    )}
-                  >
-                    <TableCell className="text- p-3 text-md">
-                      Lv.{level}
-                    </TableCell>
-                    <Fragment>
-                      {cells.map(({ min, max, stat }) => (
-                        <TableCell
-                          key={stat}
-                          className="text-center p-3 text-md min-w-26 shrink-0"
-                        >
-                          {min} ~ {max}
-                        </TableCell>
-                      ))}
-                    </Fragment>
+                {transposedData.map(({ label, cells }) => (
+                  <TableRow key={label}>
+                    <TableCell className="py-2.5 px-4">{label}</TableCell>
+                    {cells.map(({ level, min, max }) => (
+                      <TableCell
+                        key={level}
+                        className="text-center py-2.5 px-4 min-w-26 shrink-0"
+                      >
+                        {min} ~ {max}
+                      </TableCell>
+                    ))}
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </div>
           <div className="p-6 pt-0">
-            <p className="text-muted-foreground text-pretty break-keep text-sm">
+            <p className="text-muted-foreground text-pretty break-keep">
               {annotation}
             </p>
           </div>

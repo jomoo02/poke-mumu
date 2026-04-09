@@ -60,7 +60,7 @@ export default function BaseStats({ stats, rankRatio, name }: BaseStatsProps) {
               </Button>
             </div>
           </div> */}
-          <div className=" flex-1">
+          <div className=" flex-1 pt-4">
             <BarChart baseStats={baseStats} name={name} />
           </div>
           {/* 

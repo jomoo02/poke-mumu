@@ -5,6 +5,7 @@ import { Fragment } from 'react/jsx-runtime';
 import { TypeBadge } from '@/app/entities/type/ui';
 
 import { type TypeDefenseView } from '../../model';
+import { Type } from '@/app/entities/type/model';
 
 const toMultiplier = (value: number): string => {
   const map: Record<number, string> = {
@@ -20,10 +21,14 @@ const toMultiplier = (value: number): string => {
 };
 
 interface TypeDefensesProps {
+  types: Type[];
   typeDefenses: TypeDefenseView[];
 }
 
-export default function TypeDefenses({ typeDefenses }: TypeDefensesProps) {
+export default function TypeDefenses({
+  typeDefenses,
+  types,
+}: TypeDefensesProps) {
   const defenseGroups = [
     {
       label: '약점',
@@ -53,7 +58,8 @@ export default function TypeDefenses({ typeDefenses }: TypeDefensesProps) {
     .filter(({ items }) => items.length > 0);
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid sm:grid-cols-2 gap-6">
+      {/* <div className="w-full h-px bg-border" /> */}
       {defenseGroups.map(({ label, items }) => (
         <div key={label} className="border p-6 rounded-2xl flex flex-col gap-3">
           <h3 className="font-semibold text-xl">{label}</h3>
@@ -62,7 +68,7 @@ export default function TypeDefenses({ typeDefenses }: TypeDefensesProps) {
               <Fragment key={multiple}>
                 {index > 0 && <div className="w-full h-px bg-border my-1.5" />}
                 {/* <div className="flex flex-col gap-3"> */}
-                <div className="font-medium">{multiple}</div>
+                <div className="font-semibold">{multiple}</div>
                 <div className="flex flex-wrap gap-3">
                   {types.map((type) => (
                     <TypeBadge

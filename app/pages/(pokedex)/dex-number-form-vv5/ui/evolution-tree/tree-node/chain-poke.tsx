@@ -18,7 +18,10 @@ export default function ChainPoke({ poke }: ChainPokeProps) {
 
   return (
     <div className="flex flex-col h-full justify-center bg-background p-3">
-      <Link href={href} className="hover:bg-accent rounded-xl outline-ring">
+      <Link
+        href={href}
+        className="hover:bg-accent rounded-xl outline-ring bg-muted/50"
+      >
         <div className="p-2">
           <PokeArtwork
             poke={poke}

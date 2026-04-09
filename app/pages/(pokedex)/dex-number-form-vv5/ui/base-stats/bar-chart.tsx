@@ -60,15 +60,17 @@ export default function BarChart({ baseStats, name }: BarChartProps) {
     <div className="w-full  bg-card">
       <Table className="">
         <colgroup>
-          <col className="w-20 sm:w-24" />
-          <col className="w-17 sm:w-22" />
+          <col className="w-20 sm:w-22" />
+          <col className="w-17 sm:w-20" />
           <col className="" />
         </colgroup>
         <TableBody className="">
           {statsMinMax.map((stat) => (
             <Fragment key={stat.stat}>
-              <TableRow key={stat.stat} className="border-b-0 bg-transparent">
-                <TableCell className=" px-3 text-left">{stat.label}</TableCell>
+              <TableRow key={stat.stat} className="border-0 bg-transparent">
+                <TableCell className=" px-3 py-2.5 pl-0 text-left">
+                  {stat.label}
+                </TableCell>
                 <TableCell className="text-center  px-3 ">
                   {stat.value}
                 </TableCell>
@@ -79,9 +81,9 @@ export default function BarChart({ baseStats, name }: BarChartProps) {
             </Fragment>
           ))}
         </TableBody>
-        <TableFooter className="border-t bg-transparent">
+        <TableFooter className="border-t-0 bg-transparent">
           <TableRow className="">
-            <TableCell className=" px-3 text-left">총합</TableCell>
+            <TableCell className=" px-3 py-2.5 pl-0 text-left">총합</TableCell>
             <TableCell className="text-center px-3">300</TableCell>
             <TableCell />
           </TableRow>

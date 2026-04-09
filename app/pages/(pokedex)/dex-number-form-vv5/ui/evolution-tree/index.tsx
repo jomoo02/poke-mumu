@@ -20,7 +20,7 @@ export default async function EvolutionTree({ id }: EvolutionTreeProps) {
   const maxDepth = getMaxDepth(evolutionTree);
 
   return (
-    <div className="border rounded-2xl py-6 lg:px-6">
+    <div className="pt-6">
       <div className="flex flex-col gap-3 w-full h-full">
         {evolutionTree.roots.map((node, idx) => (
           <Fragment key={`${node.id}-${idx}`}>

@@ -36,7 +36,7 @@ export default function Moves({ moves }: MovesProps) {
   } = usePokeMovesV2(moves);
 
   return (
-    <div className=" rounded-2xl bg-card">
+    <div className="pt-6">
       {/* <h3 className="text-3xl font-bold pb-4 w-full">기술</h3> */}
       {/* 
       <SelectGroup

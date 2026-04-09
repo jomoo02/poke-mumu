@@ -31,16 +31,16 @@ export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
 
   return (
     <div className="">
-      <h4 className="text-xl font-semibold mb-4 ">레벨 업으로 익히는 기술</h4>
-      <div className="border rounded-lg overflow-hidden">
+      <h4 className="text-xl font-semibold  ">레벨 업으로 익히는 기술</h4>
+      <div className="overflow-hidden">
         <Table className="">
           <TableHeader>
-            <TableRow className="bg-muted/50">
+            <TableRow className="">
               {table.getVisibleColumns().map((header) => (
                 <TableHead
                   key={header.id}
                   className={cn(
-                    'text-sm px-1',
+                    'text-sm px-2 first:pl-1',
                     // header.id === 'name' ? 'w-full' : '',
                     // header.id === 'level'
                     //   ? 'flex justify-end items-center pl-0'
@@ -57,7 +57,10 @@ export default function LevelUp({ moves, versionGroupId }: LevelUpProps) {
               <Fragment key={row.id}>
                 <TableRow className="">
                   {table.getVisibleColumns().map((col) => (
-                    <TableCell key={col.id} className={cn('text-sm px-3')}>
+                    <TableCell
+                      key={col.id}
+                      className={cn('text-sm px-4 first:pl-2')}
+                    >
                       {col.cell({ row })}
                     </TableCell>
                   ))}

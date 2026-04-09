@@ -25,10 +25,11 @@ function SearchDialog() {
       <DialogTrigger asChild>
         <Button
           variant={'ghost'}
-          className="hover:bg-accent p-2 h-10 aspect-square rounded-lg flex items-center justify-center active:bg-accent border-0"
+          className="size-10"
+          // className="hover:bg-accent p-2 h-10 aspect-square rounded-lg flex items-center justify-center active:bg-accent border-0"
         >
           {/* 'font-medium hover:bg-accent px-4 h-10 inline-flex items-center rounded-lg active:bg-accent focus:outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 transition-all duration-200', */}
-          <SearchIcon className="size-5 text-muted-foreground " />
+          <SearchIcon className="size-5 " />
         </Button>
       </DialogTrigger>
       <DialogContent

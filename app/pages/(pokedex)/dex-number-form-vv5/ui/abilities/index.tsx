@@ -7,7 +7,7 @@ interface AbilitiesProps {
 
 export default function Abilities({ abilities }: AbilitiesProps) {
   return (
-    <div className="grid gap-6">
+    <div className="grid pt-2 divide-y">
       {abilities.map((ability, index) => (
         <Ability key={ability.name} ability={ability} index={index + 1} />
       ))}

@@ -24,7 +24,7 @@ export default function RestInfo({ names, breeding, training }: RestInfoProps) {
   const { growthRate, baseFriendShip, captureRate, effortValues } = training;
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid gap-6  divide-y pt-6">
       <Card>
         <CardTitle title={namesTitle} />
         <CardContent>

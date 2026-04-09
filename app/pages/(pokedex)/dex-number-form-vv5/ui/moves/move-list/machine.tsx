@@ -46,17 +46,17 @@ export default function Machine({
   const title = titleMap[machineType] || '기술';
 
   return (
-    <div className="">
-      <h4 className="text-xl font-semibold mb-4">{title}</h4>
-      <div className="border rounded-lg overflow-hidden">
+    <div className=" overflow-hidden">
+      <h4 className="text-xl font-semibold pb-4">{title}</h4>
+      <div className="overflow-hidden">
         <Table className="bg-card">
           <TableHeader>
-            <TableRow className="bg-muted/50">
+            <TableRow className="">
               {table.getVisibleColumns().map((header) => (
                 <TableHead
                   key={header.id}
                   className={cn(
-                    ' text-sm border-border px-1',
+                    ' text-md border-border px-2',
                     // header.id === 'name' ? 'w-full' : '',
                   )}
                 >
@@ -73,7 +73,10 @@ export default function Machine({
             {table.rows.map((row) => (
               <TableRow key={row.id} className={cn('border-border')}>
                 {table.getVisibleColumns().map((col) => (
-                  <TableCell key={col.id} className={cn('text-sm px-3')}>
+                  <TableCell
+                    key={col.id}
+                    className={cn('text-md font-normal px-4')}
+                  >
                     {col.cell({ row })}
                   </TableCell>
                 ))}

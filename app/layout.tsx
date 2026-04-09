@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import localFont from 'next/font/local';
 
+import { ThemeProvider } from './providers/theme';
 import { TooltipProvider } from './shared/ui/tooltip';
 
 import './globals.css';
@@ -62,13 +63,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
-    >
-      <body className={`antialiased`}>
-        <TooltipProvider>{children}</TooltipProvider>
-      </body>
-    </html>
+    <>
+      <html
+        lang="ko"
+        suppressHydrationWarning
+        className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
+      >
+        <body className={`antialiased`}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TooltipProvider>{children}</TooltipProvider>
+          </ThemeProvider>
+        </body>
+      </html>
+    </>
   );
 }

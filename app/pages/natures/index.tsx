@@ -75,7 +75,7 @@ export default function NaturesPageUI() {
     <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full pt-8 pb-12 min-h-svh flex flex-col gap-6 ">
       <div>
         <h1 className="text-4xl font-bold tracking-tight mt-4">성격</h1>
-        <p className="text-muted-foreground  pt-3 max-w-[80%] text-pretty break-keep">
+        <p className="text-muted-foreground  pt-3 md:max-w-[80%] text-pretty break-keep">
           포켓몬 능력치에 영향을 미치는 요소로, 총 25가지의 성격이 있습니다.
         </p>
       </div>
