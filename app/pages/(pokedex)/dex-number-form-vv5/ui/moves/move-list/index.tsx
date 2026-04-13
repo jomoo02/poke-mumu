@@ -27,7 +27,7 @@ export default function MoveList({
     <div
       className={cn(
         isLoading ? 'opacity-70 ' : '',
-        'grid lg:grid-cols-2 gap-6   pt-6',
+        'grid lg:grid-cols-1 gap-6   pt-6',
         // open ? 'xl:grid-cols-2' : 'xl:grid-cols-2',
         // 'grid gap-16 2xl:grid-cols-2',
       )}

@@ -17,9 +17,9 @@ export default function Details({ details, className }: DetailsProps) {
   }
 
   return (
-    <div className={cn('p-4 flex flex-col h-full', className)}>
+    <div className={cn('p-3 flex flex-col gap-3 h-full', className)}>
       <ArrowIcon />
-      <div className="flex flex-col items-center justify-center text-foreground font-medium px-2 py-2 rounded-lg text-sm my-2 lg:my-0 ">
+      <div className="flex flex-col items-center justify-center text-foreground  rounded-lg text-md">
         {details.map((detail, i) => (
           <div
             key={detail.display}

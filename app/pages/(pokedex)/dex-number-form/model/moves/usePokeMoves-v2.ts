@@ -30,7 +30,7 @@ export default function usePokeMovesV2(pokeMoves: PokeMovesView[]) {
     selectedVersionGroup &&
     versionGroups.some((v) => v.versionGroupId === selectedVersionGroup)
       ? selectedVersionGroup
-      : versionGroups.at(-1)?.versionGroupId;
+      : versionGroups[0].versionGroupId;
 
   //변경
 

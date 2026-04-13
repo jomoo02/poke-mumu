@@ -4,17 +4,15 @@ import Abilities from './ui/abilities';
 import BaseStats from './ui/base-stats';
 import DexInfo from './ui/dex-info';
 import EvolutionTree from './ui/evolution-tree';
-import Forms from './ui/forms';
-import MinMaxStats from './ui/min-max-stats';
 import Moves from './ui/moves';
-import Breeding from './ui/resf-info/breeding';
 
 import TypeDefenses from './ui/type-defense';
-import FormPoke from './ui/form-poke';
-import Toc from './ui/toc';
+
 import SectionTitle from './ui/section-title';
 
 import RestInfo from './ui/resf-info';
+import MinMaxStats from './ui/min-max-stats';
+import LevelStats from './ui/level-stats';
 
 interface PokedexDexNumberFormPageUIProps {
   dexNumber: string;
@@ -45,40 +43,43 @@ export default async function PokedexDexNumberFormPageUI({
     names,
   } = data;
 
+  const nameKo = dexInfo.name;
+
   return (
     <div className="flex flex-col w-full">
-      <div className="flex flex-col w-full mx-auto px-4 sm:px-6 lg:px-8 relative max-w-7xl py-4">
-        <DexInfo dexInfo={dexInfo} />
+      <div className="flex flex-col w-full mx-auto px-4 sm:px-6 relative max-w-7xl gap-6">
+        <div className="grid lg:grid-cols-2 gap-6">
+          <DexInfo dexInfo={dexInfo} />
+
+          <section>
+            <TypeDefenses typeDefenses={typeDefense} types={types} />
+          </section>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-6">
+          <section>
+            <BaseStats stats={stats} name={nameKo} />
+          </section>
+          <section>
+            <Abilities abilities={abilities} name={nameKo} />
+          </section>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-6">
+          <section>
+            <RestInfo names={names} training={training} breeding={breeding} />
+          </section>
+          <section>{stats && <LevelStats stats={stats} />}</section>
+        </div>
+
+        <section>
+          <EvolutionTree id={evolutionId} />
+        </section>
+        <section>
+          <Moves moves={moves} />
+        </section>
       </div>
 
       <div className=" relative  w-full  ">
-        <div className="flex flex-col max-w-7xl mx-auto gap-6 bg-card py-6 px-4 sm:px-6 lg:px-8">
-          <section>
-            <SectionTitle id="rest-info">기타</SectionTitle>
-            <RestInfo names={names} training={training} breeding={breeding} />
-          </section>
-          <section>
-            <SectionTitle id="base-stats">스탯</SectionTitle>
-            <BaseStats stats={stats} rankRatio={rankRatio} />
-          </section>
-          <section>
-            <SectionTitle id="ability">특성</SectionTitle>
-            <Abilities abilities={abilities} />
-          </section>
-          <section>
-            <SectionTitle id="type-defense">방어 상성</SectionTitle>
-            <TypeDefenses typeDefenses={typeDefense} types={types} />
-          </section>
-          <section>
-            <SectionTitle id="evolution">진화</SectionTitle>
-
-            <EvolutionTree id={evolutionId} />
-          </section>
-          <section>
-            <SectionTitle id="move">기술</SectionTitle>
-            <Moves moves={moves} />
-          </section>
-        </div>
+        <div className="flex flex-col max-w-7xl mx-auto gap-6 bg-card py-6 px-4 sm:px-6"></div>
       </div>
 
       {/* <div className="hidden xl:block sticky top-32 max-h-[calc(100svh-8rem)] z-10 w-60">

@@ -49,7 +49,7 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
       className="border flex flex-col rounded-2xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm @container"
     >
       <div className="flex justify-between p-6 pb-0">
-        <div className="shrink-0 text-muted-foreground/70 font-extrabold tabular-nums font-suite">
+        <div className="shrink-0 text-muted-foreground/80 font-extrabold tabular-nums font-suite">
           <span className="text-xl">No.</span>
           <span className="text-2xl">{formattedDexNumber}</span>
         </div>
@@ -68,10 +68,10 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
           <PokeSprite poke={poke} className="size-18" />
         </div>
         <div className="flex flex-col justify-center items-center pt-1.5">
-          <div className="text-xl text-center font-semibold min-w-0 truncate">
+          <div className="text-xl text-center font-medium min-w-0 truncate">
             {name}
           </div>
-          <div className="text-sm h-5 text-muted-foreground text-center font-semibold min-w-0 truncate">
+          <div className="text-sm h-5 text-muted-foreground text-center font-medium min-w-0 truncate">
             {form}
           </div>
         </div>

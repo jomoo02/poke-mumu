@@ -58,10 +58,13 @@ export default function TypeDefenses({
     .filter(({ items }) => items.length > 0);
 
   return (
-    <div className="grid sm:grid-cols-2 gap-6">
+    <div className="grid sm:grid-cols-3 gap-6">
       {/* <div className="w-full h-px bg-border" /> */}
       {defenseGroups.map(({ label, items }) => (
-        <div key={label} className="border p-6 rounded-2xl flex flex-col gap-3">
+        <div
+          key={label}
+          className="border p-6 rounded-3xl flex flex-col gap-3 bg-card"
+        >
           <h3 className="font-semibold text-xl">{label}</h3>
           <div className="flex flex-col gap-3">
             {items.map(({ multiple, types }, index) => (

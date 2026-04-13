@@ -88,11 +88,11 @@ export default function NaturesPageUI() {
         />
       </div>
 
-      <div className="">
+      <div className="bg-card rounded-md overflow-hidden">
         <Table>
           <TableHeader>
             <TableRow className="hover:bg-muted/70">
-              <TableHead role="checkbox">
+              <TableHead role="checkbox" className="h-11">
                 <Checkbox
                   checked={isAllSelected}
                   ref={(el) => {
@@ -104,11 +104,11 @@ export default function NaturesPageUI() {
                   onCheckedChange={toggleAll}
                 />
               </TableHead>
-              <TableHead>성격</TableHead>
-              <TableHead>영칭</TableHead>
-              <TableHead>일칭</TableHead>
-              <TableHead>1.1배 상승</TableHead>
-              <TableHead>0.9배 하락</TableHead>
+              <TableHead className="h-11">성격</TableHead>
+              <TableHead className="h-11">영칭</TableHead>
+              <TableHead className="h-11">일칭</TableHead>
+              <TableHead className="h-11">1.1배 상승</TableHead>
+              <TableHead className="h-11">0.9배 하락</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

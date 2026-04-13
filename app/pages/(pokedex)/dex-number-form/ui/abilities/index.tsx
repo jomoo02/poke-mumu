@@ -1,46 +1,49 @@
-import { Fragment } from 'react/jsx-runtime';
-import { AbilitiyView } from '../../model';
-import Ability from './ability';
-import SectionTitle from '../section-title';
-import { Card, CardHeader } from '../card';
+import { Fragment } from 'react';
+
+import {
+  Card,
+  CardTitle,
+  CardHeader,
+  CardContent,
+  CardGroup,
+  CardGroupLabel,
+  CardItem,
+  CardDescription,
+} from '@/app/shared/ui/card';
+import { Badge } from '@/app/shared/ui/badge';
+
+import { type AbilitiyView } from '../../model';
 
 interface AbilitiesProps {
   abilities: AbilitiyView[];
+  name: string;
 }
-export default function Abilities({ abilities }: AbilitiesProps) {
-  const normal = abilities.filter((a) => !a.isHidden);
-  const hidden = abilities.filter((a) => a.isHidden);
+
+export default function Abilities({ abilities, name }: AbilitiesProps) {
   return (
-    <div className="grid md:grid-cols-2 gap-6">
-      <Card>
-        <CardHeader className="">일반 특성</CardHeader>
-        <div className="flex flex-col">
-          {normal.map((ability) => (
-            <Ability key={ability.name} ability={ability} />
-          ))}
-        </div>
-      </Card>
-      <Card>
-        <CardHeader>숨겨진 특성</CardHeader>
-        {hidden.length > 0 ? (
-          <>
-            {hidden.map((ability) => (
-              <Ability key={ability.name} ability={ability} />
-            ))}
-          </>
-        ) : (
-          <div className="p-4 text-muted-foreground">-</div>
-        )}
-      </Card>
-    </div>
-
-    // <div className="grid  gap-4">
-    //   {abilities.map((ability, index) => (
-    //     <Fragment key={ability.name}>
-
-    //       <Ability key={ability.name} ability={ability} />
-    //     </Fragment>
-    //   ))}
-    // </div>
+    <Card className="h-full">
+      <CardHeader>
+        <CardTitle>특성</CardTitle>
+        <CardDescription>{name}의 특성</CardDescription>
+      </CardHeader>
+      <CardContent>
+        {abilities.map((ability, index) => (
+          <Fragment key={ability.name}>
+            {index > 0 && <div className="w-full h-px bg-border" />}
+            <CardGroup className="gap-2">
+              <CardGroupLabel className="flex gap-1.5 items-center">
+                {ability.name}
+                {ability.isHidden && (
+                  <Badge variant={'secondary'}>숨겨진 특성</Badge>
+                )}
+              </CardGroupLabel>
+              <CardItem className="text-muted-foreground">
+                {ability.flavorText}
+              </CardItem>
+            </CardGroup>
+          </Fragment>
+        ))}
+      </CardContent>
+    </Card>
   );
 }

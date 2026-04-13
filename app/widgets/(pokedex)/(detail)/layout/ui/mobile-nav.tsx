@@ -24,12 +24,12 @@ export default function MobileNav({ pokes }: MobileNavProps) {
         {prev && (
           <Link
             href={`/pokedex/${prev.dexNumber}/${prev.pokeKey}`}
-            className="flex gap-2 items-center active:bg-accent hover:bg-accent rounded-lg py-2 px-4 bg-accent/70 overflow-hidden"
+            className="flex gap-2 items-center active:bg-accent hover:bg-accent rounded-xl py-2 px-4 bg-accent/70 overflow-hidden"
           >
             <ArrowLeftIcon className="size-4 text-muted-foreground" />
             <div className="flex items-center gap-1 overflow-hidden">
               <span className=" text-sm font-medium">
-                {`#${formatNumber(prev.dexNumber)}`}
+                {`${formatNumber(prev.dexNumber)}`}
               </span>
               <span className="font-medium text-sm truncate">{prev.name}</span>
             </div>
@@ -40,11 +40,11 @@ export default function MobileNav({ pokes }: MobileNavProps) {
         {next && (
           <Link
             href={`/pokedex/${next.dexNumber}/${next.pokeKey}`}
-            className="flex gap-2 items-center active:bg-accent hover:bg-accent rounded-lg py-2 px-4 bg-accent/70 overflow-hidden"
+            className="flex gap-2 items-center active:bg-accent hover:bg-accent rounded-xl py-2 px-4 bg-accent/70 overflow-hidden"
           >
             <div className="flex items-center gap-1 overflow-hidden">
               <span className=" text-sm font-medium">
-                {`#${formatNumber(next.dexNumber)}`}
+                {`${formatNumber(next.dexNumber)}`}
               </span>
               <span className="font-medium text-sm truncate">{next.name}</span>
             </div>

@@ -11,7 +11,7 @@ export default function ArrowIcon() {
 
   return (
     <>
-      <div className="hidden xl:block">
+      <div className="hidden lg:block">
         <MoveRight className="size-7.5 text-muted-foreground" />
         {/* {desktop === 'up' && (
           <MoveUpRight className="size-7.5 text-muted-foreground" />
@@ -23,7 +23,7 @@ export default function ArrowIcon() {
           <MoveRight className="size-7.5 text-muted-foreground" />
         )} */}
       </div>
-      <div className="xl:hidden">
+      <div className="lg:hidden">
         <MoveDown className="size-7.5 text-muted-foreground" />
         {/* {mobile === 'left' && (
           <MoveDownLeft className="size-7.5 text-muted-foreground" />

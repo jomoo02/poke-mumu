@@ -5,8 +5,10 @@ export {
   adaptTrainingView,
   type BreedingView,
   type TrainingView,
+  type NameView,
 } from './rest-info';
 
+export { type RankView } from './rank';
 export {
   adaptBaseStatsView,
   type StatView,
@@ -17,7 +19,11 @@ export { useMinMaxStats } from './min-max-stats';
 
 export { type AbilitiyView, adaptAbilitiyView } from './ability';
 
-export { type TypeDefenseView } from './type-defense';
+export {
+  type TypeDefenseView,
+  type TypeDefenseDto,
+  adaptTypeDefenseView,
+} from './type-defense';
 
 export {
   type ChainNodeView,

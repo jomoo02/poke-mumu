@@ -111,8 +111,8 @@ export default function FilterAndSortDrawer({
             </Button>
             <Button
               onClick={() => onOpenChange(false)}
-              // variant={'default'}
-              className="bg-foreground font-semibold text-base flex-1 h-12.5"
+              variant={'default'}
+              className="bg-foreground text-background font-semibold text-base flex-1 h-12.5"
             >
               {`${filteredCount.toLocaleString()} 마리의 포켓몬`}
             </Button>

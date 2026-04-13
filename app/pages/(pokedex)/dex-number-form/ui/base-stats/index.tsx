@@ -1,40 +1,76 @@
 'use client';
 
-import { cn } from '@/app/shared/lib/cn';
-import { type StatView, getRaderChartOrder } from '../../model';
-import BarChart from './bar-chart';
-import RaderChart from './rader-chart';
-import TotalDonut from './total';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardGroup,
+  CardHeader,
+  CardTitle,
+} from '@/app/shared/ui/card';
 
-// import { useSidebar } from '@/app/shared/ui/sidebar';
+import { cn } from '@/app/shared/lib/cn';
+
+import { type StatView } from '../../model';
+import Bar from './bar';
 
 interface BaseStatsProps {
   stats: StatView[] | null;
-  rankRatio?: number;
+  name: string;
 }
 
-export default function BaseStats({ stats, rankRatio }: BaseStatsProps) {
-  // const { open } = useSidebar();
+export default function BaseStats({ stats, name }: BaseStatsProps) {
   if (!stats) {
     return <div>스탯 정보가 없습니다</div>;
   }
 
-  const baseStats = stats.filter(({ stat }) => stat !== 'total');
+  const order = [
+    'hp',
+    'attack',
+    'defense',
+    'specialAttack',
+    'specialDefense',
+    'speed',
+    'total',
+  ];
 
-  const totalStat = stats.find(({ stat }) => stat === 'total');
-
+  const sorted = [...stats].sort(
+    (a, b) => order.indexOf(a.stat) - order.indexOf(b.stat),
+  );
+  const isTotal = (stat: StatView) => stat.stat === 'total';
   return (
-    <div className="">
-      <div className="flex flex-col gap-6">
-        <BarChart baseStats={baseStats} />
-        <div className="text-muted-foreground rounded-xl hidden sm:block text-divretty break-keep">
-          <p> 오른쪽 범위(Min, Max)는 레벨 100 기준 능력치입니다.</p>
-          <p>
-            Max는 유리한 성격, 노력치 252, 개체값 31 기준이며, Min은 불리한
-            성격, 노력치 0, 개체값 0 기준입니다.
-          </p>
-        </div>
-      </div>
-    </div>
+    <Card className="">
+      <CardHeader>
+        <CardTitle>종족값</CardTitle>
+        <CardDescription>{name}의 종족값</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <CardGroup className="gap-2">
+          {sorted.map((stat) => (
+            <div
+              key={stat.stat}
+              className="flex items-center py-2.5 border rounded-2xl px-3"
+            >
+              <div className="px-4 pl-0 text-left w-18 xs:w-20 sm:w-22 shrink-0">
+                {stat.label}
+              </div>
+              <div
+                className={cn(
+                  'text-center w-16 xs:w-17 sm:w-20 shrink-0',
+                  isTotal(stat) ? 'font-medium' : '',
+                )}
+              >
+                {stat.value}
+              </div>
+              {!isTotal(stat) && (
+                <div className="px-4  pr-0  flex-1">
+                  <Bar value={stat.value} />
+                </div>
+              )}
+            </div>
+          ))}
+        </CardGroup>
+      </CardContent>
+    </Card>
   );
 }

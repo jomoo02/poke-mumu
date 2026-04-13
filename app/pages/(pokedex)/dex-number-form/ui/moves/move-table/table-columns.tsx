@@ -3,7 +3,7 @@ import { type MoveView } from '../../../model';
 import { Button } from '@/app/shared/ui/button';
 import { ArrowUp } from 'lucide-react';
 import { cn } from '@/app/shared/lib/cn';
-import { TypeIcon } from '@/app/entities/type/ui';
+import { TypeBadge, TypeIcon } from '@/app/entities/type/ui';
 import { DamageClassIcon } from '@/app/entities/damage-class/ui';
 
 const safeStr = (s?: string) => s ?? '';
@@ -14,7 +14,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="flex  hover:bg-accent gap-1 "
+        className="flex  hover:bg-accent gap-1 text-md"
         onClick={column.toggleSorting}
       >
         <span>기술</span>
@@ -40,7 +40,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex  hover:bg-accent gap-1 "
+          className="flex  hover:bg-accent gap-1 text-md"
           onClick={column.toggleSorting}
         >
           <span>타입</span>
@@ -58,7 +58,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
     ),
     cell: ({ row }) => (
       <div className="flex items-center justify-center">
-        {' '}
+        {/* <TypeBadge type={row.type} /> */}
         <TypeIcon type={row.type} className="size-6.5 md:size-7" />
       </div>
     ),
@@ -72,7 +72,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="h-full w-full flex justify-center items-center">
         <Button
           variant="ghost"
-          className="flex  hover:bg-accent gap-1 "
+          className="flex  hover:bg-accent gap-1 text-md "
           onClick={column.toggleSorting}
         >
           <span>분류</span>
@@ -89,8 +89,9 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="flex justify-center">
+      <div className="flex justify-center items-center">
         <DamageClassIcon damageClass={row.damageClass} />
+        {/* <span className="text-sm text-muted-foreground">{row.damageClass}</span> */}
       </div>
     ),
     sortable: true,
@@ -103,7 +104,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       <div className="flex justify-end items-center w-full h-full">
         <Button
           variant="ghost"
-          className="flex  hover:bg-accent gap-1 "
+          className="flex  hover:bg-accent gap-1 text-md "
           onClick={column.toggleSorting}
         >
           <span>위력</span>
@@ -132,7 +133,7 @@ export const basicColumns: ColumnDef<MoveView>[] = [
         {' '}
         <Button
           variant="ghost"
-          className="flex  hover:bg-accent gap-1 "
+          className="flex  hover:bg-accent gap-1 text-md"
           onClick={column.toggleSorting}
         >
           <span>명중률</span>
@@ -149,39 +150,39 @@ export const basicColumns: ColumnDef<MoveView>[] = [
       </div>
     ),
     cell: ({ row }) => (
-      <div className="text-right pr-2">
-        {row.accuracy ? `${row.accuracy}` : '-'}
+      <div className="text-right">
+        {row.accuracy ? `${row.accuracy}%` : '-'}
       </div>
     ),
     sortable: true,
     sortFn: (a, b) => (a.accuracy ?? -1) - (b.accuracy ?? -1),
   },
-  // {
-  //   id: 'pp',
-  //   header: ({ column }) => (
-  //     <div className="w-full h-full flex justify-end items-center">
-  //       <Button
-  //         variant="ghost"
-  //         className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent "
-  //         onClick={column.toggleSorting}
-  //       >
-  //         <span>PP</span>
-  //         <span className="size-3.5">
-  //           <ArrowUp
-  //             data-state={column.getSortedDirection() ?? 'hidden'}
-  //             className={cn(
-  //               'size-3.5 ',
-  //               'data-[state=hidden]:hidden data-[state=desc]:rotate-180 transition-transform transform duration-400 will-change-transform',
-  //             )}
-  //           />
-  //         </span>
-  //       </Button>
-  //     </div>
-  //   ),
-  //   cell: ({ row }) => <div className="text-right pr-2">{row.pp || '-'}</div>,
-  //   sortable: true,
-  //   sortFn: (a, b) => (a.pp ?? -1) - (b.pp ?? -1),
-  // },
+  {
+    id: 'pp',
+    header: ({ column }) => (
+      <div className="w-full h-full flex justify-end items-center">
+        <Button
+          variant="ghost"
+          className="flex justify-between gap-2 h-full hover:bg-accent px-2  active:bg-accent  text-md"
+          onClick={column.toggleSorting}
+        >
+          <span>PP</span>
+          <span className="size-3.5">
+            <ArrowUp
+              data-state={column.getSortedDirection() ?? 'hidden'}
+              className={cn(
+                'size-3.5 ',
+                'data-[state=hidden]:hidden data-[state=desc]:rotate-180 transition-transform transform duration-400 will-change-transform',
+              )}
+            />
+          </span>
+        </Button>
+      </div>
+    ),
+    cell: ({ row }) => <div className="text-right pr-2">{row.pp || '-'}</div>,
+    sortable: true,
+    sortFn: (a, b) => (a.pp ?? -1) - (b.pp ?? -1),
+  },
   // {
   //   id: 'info',
   //   header: () => <div />,
@@ -192,6 +193,12 @@ export const basicColumns: ColumnDef<MoveView>[] = [
   //   ),
   //   sortable: false,
   // },
+  {
+    id: 'description',
+    header: () => <>효과</>,
+    cell: ({ row }) => <div>{row.description}</div>,
+    sortable: false,
+  },
 ];
 
 export const levelUpColumn: ColumnDef<MoveView> = {
@@ -199,7 +206,7 @@ export const levelUpColumn: ColumnDef<MoveView> = {
   header: ({ column }) => (
     <Button
       variant="ghost"
-      className="flex  hover:bg-accent gap-1"
+      className="flex hover:bg-accent gap-1"
       onClick={column.toggleSorting}
     >
       <span>Lv.</span>

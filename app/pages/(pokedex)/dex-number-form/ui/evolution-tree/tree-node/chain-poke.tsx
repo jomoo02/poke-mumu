@@ -17,33 +17,37 @@ export default function ChainPoke({ poke }: ChainPokeProps) {
   const fomattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="flex flex-col h-full justify-center  bg-background">
+    <div className="flex flex-col h-full justify-center p-3">
       <Link
         href={href}
-        className="hover:bg-accent rounded-2xl border outline-ring"
+        className="hover:bg-accent rounded-xl outline-ring bg-muted/50"
       >
-        <div className="p-4">
+        <div className="p-2">
           <PokeArtwork
             poke={poke}
-            className="size-30 sm:size-36 xl:size-38 2xl:size-40"
+            // className="size-18"
+            className="size-26 xs:size-28 sm:size-32 xl:size-36"
             priority
           />
         </div>
       </Link>
-      <div className="font-medium text-muted-foreground pt-2 pl-1">
-        {fomattedDexNumber}
-      </div>
-      <Link
-        href={href}
-        className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground pl-1"
-      >
-        {name}
-      </Link>
-      {form && (
-        <div className="text-sm text-muted-foreground font-medium truncate pl-1 ">
-          {form}
+      <div className="flex flex-col pt-2">
+        {' '}
+        <div className="font-medium text-muted-foreground ">
+          {fomattedDexNumber}
         </div>
-      )}
+        <Link
+          href={href}
+          className="font-medium hover:underline outline-ring text-foreground active:underline underline-offset-2 decoration-foreground text-lg"
+        >
+          {name}
+        </Link>
+        {form && (
+          <div className="text-sm text-muted-foreground font-medium truncate  ">
+            {form}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

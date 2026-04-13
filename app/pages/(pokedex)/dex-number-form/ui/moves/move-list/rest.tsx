@@ -38,16 +38,16 @@ export default function Rest({ moves, method, versionGroupId }: RestProps) {
 
   const title = methodTitleMap[method] || '기술';
   return (
-    <div className=" overflow-auto max-w-2xl">
-      <h4 className="text-xl font-semibold mb-2">{title}</h4>
-      <div className=" border overflow-hidden rounded-md">
+    <div className=" overflow-auto">
+      <h4 className="text-xl font-semibold mb-4">{title}</h4>
+      <div className=" border overflow-hidden rounded-lg">
         <Table className="bg-card">
           <TableHeader>
-            <TableRow>
+            <TableRow className="bg-muted/50">
               {table.getVisibleColumns().map((header) => (
                 <TableHead
                   key={header.id}
-                  className={cn('text-sm border-border px-2')}
+                  className={cn('text-sm border-border px-1')}
                 >
                   {header.render()}
                 </TableHead>
@@ -58,7 +58,7 @@ export default function Rest({ moves, method, versionGroupId }: RestProps) {
             {table.rows.map((row) => (
               <TableRow key={row.id} className={cn('border-border')}>
                 {table.getVisibleColumns().map((col) => (
-                  <TableCell key={col.id} className={cn('text-sm')}>
+                  <TableCell key={col.id} className={cn('text-sm px-3')}>
                     {col.cell({ row })}
                   </TableCell>
                 ))}

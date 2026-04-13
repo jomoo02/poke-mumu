@@ -19,12 +19,12 @@ export default function ChildNode({
   const { details, next, ...poke } = node;
 
   const gridCols =
-    maxDepth === 2 ? 'xl:grid-cols-2' : 'grid-cols-1 xl:grid-cols-2';
+    maxDepth === 2 ? 'lg:grid-cols-2' : 'grid-cols-1 lg:grid-cols-2';
   // const gridCols = maxDepth === 2 ? 'grid-cols-1' : 'grid-cols-1';
 
   return (
     <div className={cn('grid w-full', gridCols, className)}>
-      <div className={cn('flex flex-col xl:flex-row items-center w-full')}>
+      <div className={cn('flex flex-col lg:flex-row items-center w-full')}>
         <Details
           details={details}
           className={cn(
@@ -34,7 +34,7 @@ export default function ChildNode({
         <ChainPoke poke={poke} />
       </div>
       {next.length > 0 && (
-        <div className="w-full flex flex-row xl:flex-col gap-4">
+        <div className="w-full flex flex-row lg:flex-col gap-4">
           {next.map((chainNode) => (
             <LeafNode key={chainNode.id} node={chainNode} />
           ))}

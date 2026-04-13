@@ -14,7 +14,7 @@ export default function LeafNode({ node, className }: LeafNodeProps) {
 
   return (
     <div
-      className={cn('flex flex-col xl:flex-row items-center w-full', className)}
+      className={cn('flex flex-col lg:flex-row items-center w-full', className)}
     >
       <Details
         details={details}

@@ -59,7 +59,7 @@ export function TypeIconV2({ type, className, size = 32 }: TypeIconProps) {
   }
   return (
     <div className=" text-[#F2F2F2] font-extrabold flex text-sm rounded-sm overflow-hidden items-center h-7 relative">
-      <div className={cn('flex flex-col items-center ', className)}>
+      <div className={cn('flex flex-col items-center bg-bug ', className)}>
         {/* <div className="overflow-hidden rounde"> */}
         <Image
           src={`/type-icon/${type.identifier}.png`}
@@ -183,19 +183,38 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   const content = type.name;
   const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
   const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
+
   return (
     <div
       className={cn(
-        'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shadow-sm shrink-0 text-shadow-lg',
-        'ring-inset ring-1 tracking-wide',
+        'w-20 h-7.5 rounded-md flex items-center p-1 shadow-sm',
         bg,
-        borderColor,
         shadowColor,
-        ringColor,
         className,
       )}
     >
-      {content}
+      <Image
+        src={`/type/${type.identifier}.png`}
+        width={22}
+        height={22}
+        alt={type.identifier}
+      />
+      <span className="text-sm text-white font-extrabold text-center flex-1 tracking-wide">
+        {content}
+      </span>
     </div>
+    // <div
+    //   className={cn(
+    //     'h-7.5 w-15 px-px font-extrabold text-sm flex items-center justify-center rounded-sm border text-white shadow-sm shrink-0 text-shadow-lg',
+    //     'ring-inset ring-1 tracking-wide',
+    //     bg,
+    //     borderColor,
+    //     shadowColor,
+    //     ringColor,
+    //     className,
+    //   )}
+    // >
+    //   {content}
+    // </div>
   );
 }

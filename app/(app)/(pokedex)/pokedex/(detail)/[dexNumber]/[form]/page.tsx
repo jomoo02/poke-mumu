@@ -18,7 +18,7 @@ export default async function PokedexDexNumberFormPage({
   return (
     <Suspense>
       {params.then(({ form, dexNumber }) => (
-        <PokedexDexNumberFormPageUIVV5 pokeKey={form} dexNumber={dexNumber} />
+        <PokedexDexNumberFormPageUI pokeKey={form} dexNumber={dexNumber} />
       ))}
     </Suspense>
   );

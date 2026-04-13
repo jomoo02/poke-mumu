@@ -220,7 +220,8 @@ export default function TypeDefenses({ typeDefenses }: TypeDefensesProps) {
                         <TypeIconV2
                           key={type.identifier}
                           type={type}
-                          className="size-7.5"
+                          className="size-6"
+                          // className="size-7.5"
                         />
                       ))}
                     </div>

@@ -87,8 +87,8 @@ export default function RaderChart({ data }: RaderChartProps) {
       style={{
         width: '100%',
         height: '100%',
-        maxWidth: '280px',
-        maxHeight: '50vh',
+        maxWidth: '285px',
+        maxHeight: '60vh',
         // aspectRatio: 1,
       }}
       responsive

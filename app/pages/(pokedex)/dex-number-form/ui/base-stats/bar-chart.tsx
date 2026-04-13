@@ -5,14 +5,11 @@ import {
   TableBody,
   TableCell,
   TableFooter,
-  TableHead,
-  TableHeader,
   TableRow,
 } from '@/app/shared/ui/table';
 
-import { type StatView } from '../../model';
-import { useMinMaxStats } from '../../model';
-import { Fragment } from 'react/jsx-runtime';
+import { type StatView, useMinMaxStats } from '../../model';
+import { cn } from '@/app/shared/lib/cn';
 
 interface BarProps {
   value: number;
@@ -28,12 +25,11 @@ function Bar({ value, color }: BarProps) {
   })();
 
   const ranges = [
-    { min: 150, color: '#023DB6' }, // darkest
-    { min: 125, color: '#0355FB' },
-    { min: 100, color: '#2F74FD' }, // primary
-    { min: 75, color: '#8CB2FE' },
-    { min: 50, color: '#A3C1FE' },
-    { min: -Infinity, color: '#BAD1FE' }, // lightest
+    { min: 150, color: 'fill-chart-5' }, // darkest
+    { min: 130, color: 'fill-chart-4' }, // primary
+    { min: 100, color: 'fill-chart-3' },
+    { min: 50, color: 'fill-chart-2' },
+    { min: -Infinity, color: 'fill-chart-1' }, // lightest
   ];
 
   const barColor = color ?? ranges.find((r) => value >= r.min)!.color;
@@ -41,14 +37,8 @@ function Bar({ value, color }: BarProps) {
   return (
     <svg width="100%" height="14">
       <g className="bars">
-        <rect
-          // fill="#f2f3f4"
-          width="100%"
-          height="14"
-          rx="5"
-          className="fill-muted"
-        />
-        <rect fill={barColor} width={width} height="14" rx={5} />
+        <rect width="100%" height="14" rx="5" className="fill-muted" />
+        <rect className={barColor} width={width} height="14" rx={5} />
       </g>
     </svg>
   );
@@ -59,61 +49,32 @@ interface BarChartProps {
 }
 
 export default function BarChart({ baseStats }: BarChartProps) {
-  const { statsMinMax } = useMinMaxStats(baseStats);
+  const isTotal = (stat: StatView) => stat.stat === 'total';
   return (
-    <div className="w-full rounded-xl  bg-card ">
-      <Table className="border-separate border-spacing-0">
-        <TableHeader>
-          <TableRow className="">
-            <TableHead className="w-[15%]   bg-muted/70 border-l-4">
-              종족값
-            </TableHead>
-            <TableHead
-              colSpan={2}
-              className="bg-muted/70 rounded-r-lg sm:rounded-r-none"
-            />
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70">
-              Min
-            </TableHead>
-            <TableHead className="text-center text-muted-foreground hidden sm:table-cell bg-muted/70 rounded-r-lg">
-              Max
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {statsMinMax.map((stat) => (
-            <Fragment key={stat.stat}>
-              <TableRow
-                key={stat.stat}
-                className=" border-b bg-transparent  hover:bg-muted/50"
-              >
-                <TableCell className="text-right w-[15%] border-b">
-                  {stat.label}
-                </TableCell>
-                <TableCell className="text-center w-[10%] border-b">
-                  {stat.value}
-                </TableCell>
-                <TableCell className="w-[70%] sm:w-[55%] border-b">
-                  <Bar value={stat.value} />
-                </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
-                  {stat.min100}
-                </TableCell>
-                <TableCell className="text-center hidden sm:table-cell w-[10%] border-b">
-                  {stat.max100}
-                </TableCell>
-              </TableRow>
-            </Fragment>
-          ))}
-        </TableBody>
-        <TableFooter className="bg-transparent hover:bg-muted/50">
-          <TableRow className="">
-            <TableCell className="text-right">총합</TableCell>
-            <TableCell className="text-center">500</TableCell>
-            <TableCell colSpan={3} />
-          </TableRow>
-        </TableFooter>
-      </Table>
+    <div className="grid gap-2">
+      {baseStats.map((stat) => (
+        <div
+          key={stat.stat}
+          className="flex items-center py-2 ring ring-border rounded-lg px-2.5"
+        >
+          <div className="px-4 pl-0 text-left w-18 xs:w-20 sm:w-22 shrink-0">
+            {stat.label}
+          </div>
+          <div
+            className={cn(
+              'text-center   w-16 xs:w-17 sm:w-20 shrink-0',
+              isTotal(stat) ? 'font-medium' : '',
+            )}
+          >
+            {stat.value}
+          </div>
+          {!isTotal(stat) && (
+            <div className="px-4  pr-0  flex-1">
+              <Bar value={stat.value} />
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

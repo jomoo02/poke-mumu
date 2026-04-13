@@ -1,8 +1,13 @@
 import { createClient } from '@/app/shared/lib/supabase/client';
 import { getAllType } from '@/app/entities/type/api';
-import { TypeDefenseView } from '../model/type-defense';
 
-export const getTypeDefenseDto = async (typeIds: number[]) => {
+import {
+  type TypeDefenseDto,
+  type TypeDefenseView,
+  adaptTypeDefenseView,
+} from '../model/type-defense';
+
+export const getTypeDefenseIds = async (typeIds: number[]) => {
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -28,7 +33,7 @@ export const getTypeDefenseDto = async (typeIds: number[]) => {
     ...new Set(data.map(({ attacker_type_id }) => attacker_type_id)),
   ];
 
-  const typeDefenseDto = attackerIds.map((id) => {
+  const typeDefenseIds = attackerIds.map((id) => {
     const effectiveness = data
       .filter(({ attacker_type_id }) => attacker_type_id === id)
       .map(({ effectiveness }) => effectiveness)
@@ -40,7 +45,7 @@ export const getTypeDefenseDto = async (typeIds: number[]) => {
     };
   });
 
-  return typeDefenseDto;
+  return typeDefenseIds;
 };
 
 export const getTypeDefenses = async (
@@ -48,15 +53,15 @@ export const getTypeDefenses = async (
 ): Promise<TypeDefenseView[]> => {
   'use cache';
 
-  const [typeDefenseDTOs, allType] = await Promise.all([
-    getTypeDefenseDto(typeIds),
+  const [typeDefenseIds, allType] = await Promise.all([
+    getTypeDefenseIds(typeIds),
     getAllType(),
   ]);
 
-  return allType
+  const typeDefenseDto: TypeDefenseDto[] = allType
     .filter((type) => type.identifier !== 'unknown')
     .map((dto) => {
-      const attackerType = typeDefenseDTOs.find(
+      const attackerType = typeDefenseIds.find(
         ({ attackerId }) => attackerId === dto.id,
       );
 
@@ -67,4 +72,6 @@ export const getTypeDefenses = async (
         attacker: dto,
       };
     });
+
+  return adaptTypeDefenseView(typeDefenseDto);
 };

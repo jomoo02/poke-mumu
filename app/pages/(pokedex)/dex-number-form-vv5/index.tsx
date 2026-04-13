@@ -71,8 +71,8 @@ export default async function PokedexDexNumberFormPageUIVV5({
           </div> */}
         </div>
 
-        <div className="w-full grid lg:grid-cols-2 gap-6">
-          <div className="flex flex-col gap-6">
+        <div className="w-full grid lg:grid-cols-3 gap-6">
+          <div className="flex flex-col gap-6 lg:col-span-2 border rounded-3xl p-6">
             <DexInfoV2 dexInfo={dexInfo} />
             <section className="border p-6 rounded-2xl bg-card">
               <SectionTitle id="abilities">타입</SectionTitle>
@@ -88,30 +88,33 @@ export default async function PokedexDexNumberFormPageUIVV5({
                 </div>
               </div>
             </section>
-            <section>
-              <TypeDefenses typeDefenses={typeDefense} types={types} />
-            </section>
           </div>
           <div className="flex flex-col gap-6">
-            <section className="border py-6 px-4 sm:px-6 rounded-3xl bg-card">
-              <SectionTitle id="abilities">특성</SectionTitle>
-              <Abilities abilities={abilities} />
-            </section>
-            <section className="border p-6 rounded-2xl bg-card">
-              <SectionTitle id="stats">종족값</SectionTitle>
-              <div>
-                <BaseStats
-                  stats={stats}
-                  rankRatio={rankRatio}
-                  name={dexInfo.name}
-                />
-              </div>
-            </section>
             <section className="border p-6 rounded-2xl bg-card">
               <SectionTitle id="rest-info">기타 정보</SectionTitle>
               <RestInfo names={names} training={training} breeding={breeding} />
             </section>
           </div>
+        </div>
+        <section>
+          <TypeDefenses typeDefenses={typeDefense} types={types} />
+        </section>
+        <div className="grid lg:grid-cols-2 gap-6">
+          {' '}
+          <section className="border py-6 px-4 sm:px-6 rounded-3xl bg-card">
+            <SectionTitle id="abilities">특성</SectionTitle>
+            <Abilities abilities={abilities} />
+          </section>
+          <section className="border p-6 rounded-2xl bg-card">
+            <SectionTitle id="stats">종족값</SectionTitle>
+            <div>
+              <BaseStats
+                stats={stats}
+                rankRatio={rankRatio}
+                name={dexInfo.name}
+              />
+            </div>
+          </section>
         </div>
 
         <section>{stats && <LevelStats stats={stats} />}</section>

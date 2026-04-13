@@ -20,12 +20,13 @@ export default async function EvolutionTree({ id }: EvolutionTreeProps) {
   const maxDepth = getMaxDepth(evolutionTree);
 
   return (
-    <div>
-      <div className="flex flex-col gap-4 py-2 w-full h-full">
+    <div className="flex flex-col gap-6 rounded-4xl border p-6 bg-card">
+      <h2 className="text-2xl font-semibold">진화</h2>
+      <div className="flex flex-col gap-3 w-full h-full">
         {evolutionTree.roots.map((node, idx) => (
           <Fragment key={`${node.id}-${idx}`}>
-            {idx > 0 && <div className="w-full h-px bg-border my-2" />}
-            <div className={cn(' w-full gap-4 flex flex-col mx-auto')}>
+            {idx > 0 && <div className="w-full h-px bg-border my-3" />}
+            <div className={cn(' w-full gap-3 flex flex-col overflow-hidden')}>
               <RootNode node={node} maxDepth={maxDepth} />
             </div>
           </Fragment>

@@ -36,8 +36,8 @@ export default function Moves({ moves }: MovesProps) {
   } = usePokeMovesV2(moves);
 
   return (
-    <div className=" rounded-2xl bg-card">
-      {/* <h3 className="text-3xl font-bold pb-4 w-full">기술</h3> */}
+    <div className="p-6 bg-card border rounded-4xl flex flex-col gap-6">
+      <h3 className="text-xl font-bold">기술</h3>
       {/* 
       <SelectGroup
         grouped={grouped}
@@ -46,35 +46,16 @@ export default function Moves({ moves }: MovesProps) {
         selectedVersionGroup={selectedVersionGroup}
         onValueChange={setSelectedVersionGroupId}
       /> */}
-      <div className="flex gap-8 mb-8">
+      <div className=" pb-1 overflow-x-auto">
         <SelectGen gen={gen} gens={gens} onChange={setGen} />
+      </div>
+      <div className="pb-1 overflow-x-auto">
         <SelectVersionGroup
           versionGroup={versionGroup}
           versionGroups={versionGroups}
           onChange={setVersionGroup}
         />
       </div>
-      <div className="text-2xl font-semibold mb-8">
-        {selectedVersionGroup?.label}
-      </div>
-
-      {/* <div className="flex justify-end py-4">
-        <div className=" max-w-64 w-full">
-          <div className="text-sm py-1 font-medium">버전</div>
-          <SelectVersion
-            grouped={grouped}
-            value={selectedVersionGroupId}
-            onValueChange={setSelectedVersionGroupId}
-          />
-        </div>
-      </div> */}
-
-      {/* {pokeMoves && selectedVersionGroupId && (
-        <MoveList
-          pokeMoves={pokeMoves}
-          versionGroupId={selectedVersionGroupId}
-        />
-      )} */}
 
       <MoveList pokeMoves={movesV2} versionGroupId={String(versionGroup)} />
 
