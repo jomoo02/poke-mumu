@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Type } from '@/app/entities/type/model';
 
@@ -48,7 +48,7 @@ const isSearchPoke = (v: unknown): v is SearchPoke => {
 const isSearchPokeArray = (v: unknown): v is SearchPoke[] =>
   Array.isArray(v) && v.every(isSearchPoke);
 
-export default function useLocalStoragePoke() {
+export default function useLocalStoragePoke(open: boolean) {
   const loadLocalPokeList = () => {
     if (typeof window === 'undefined') return [];
 
@@ -81,9 +81,13 @@ export default function useLocalStoragePoke() {
     const updatedPokeList = [{ ...poke }, ...filteredLocalPokeList.slice(0, 5)];
 
     window.localStorage.setItem(KEY, JSON.stringify(updatedPokeList));
-    setLocalPokeList(updatedPokeList);
+    // setLocalPokeList(updatedPokeList);
   };
-
+  useEffect(() => {
+    if (open) {
+      setLocalPokeList(loadLocalPokeList());
+    }
+  }, [open]);
   return {
     localPokeList,
     addPokeToLocalPokeList,

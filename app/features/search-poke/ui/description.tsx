@@ -38,7 +38,7 @@ export default function Description() {
   // return <PokeNameCase inputValue={inputValue} />;
 
   return (
-    <div className="px-4 border-b py-2">
+    <div className="px-4 border-b py-2 text-sm text-muted-foreground">
       {isInputEmpty ? (
         <EmptyCase />
       ) : checkTextIntergerType(inputValue) ? (

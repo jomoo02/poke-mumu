@@ -48,26 +48,36 @@ export default async function PokedexDexNumberFormPageUI({
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full mx-auto px-4 sm:px-6 relative max-w-7xl gap-6">
-        <div className="grid lg:grid-cols-2 gap-6">
+        <div className="grid lg:grid-cols-3 gap-6">
           <DexInfo dexInfo={dexInfo} />
-
-          <section>
-            <TypeDefenses typeDefenses={typeDefense} types={types} />
-          </section>
         </div>
-        <div className="grid lg:grid-cols-2 gap-6">
-          <section>
-            <BaseStats stats={stats} name={nameKo} />
-          </section>
+        <div>
           <section>
             <Abilities abilities={abilities} name={nameKo} />
           </section>
+        </div>
+        <div>
+          <SectionTitle id="stat">스탯</SectionTitle>
+          <div className="grid lg:grid-cols-2 gap-6">
+            <section>
+              <BaseStats stats={stats} name={nameKo} />
+            </section>
+            <section>{stats && <LevelStats stats={stats} />}</section>
+          </div>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-6">
+            <section>
+              <TypeDefenses typeDefenses={typeDefense} types={types} />
+            </section>
+          </div>
+          <div className="flex flex-col gap-6"> </div>
         </div>
         <div className="grid lg:grid-cols-2 gap-6">
           <section>
             <RestInfo names={names} training={training} breeding={breeding} />
           </section>
-          <section>{stats && <LevelStats stats={stats} />}</section>
         </div>
 
         <section>

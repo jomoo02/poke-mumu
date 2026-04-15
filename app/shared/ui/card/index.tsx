@@ -1,16 +1,28 @@
 import { cn } from '../../lib/cn';
 
+type CardVariant = 'bordered' | 'borderless';
+
 function Card({
   children,
   className,
+  variant = 'bordered',
 }: {
   children: React.ReactNode;
   className?: string;
+  variant?: CardVariant;
 }) {
+  const cardVariantsMap: Record<CardContentVariant, string> = {
+    bordered: 'border',
+    borderless: '',
+  };
+
+  const cardVariant = cardVariantsMap[variant];
+
   return (
     <div
       className={cn(
-        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6 border bg-card',
+        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6  bg-card',
+        cardVariant,
         className,
       )}
     >
@@ -39,7 +51,12 @@ function CardDescription({
   className?: string;
 }) {
   return (
-    <div className={cn('text-sm text-muted-foreground', className)}>
+    <div
+      className={cn(
+        'text-sm text-muted-foreground text-pretty break-keep',
+        className,
+      )}
+    >
       {children}
     </div>
   );
@@ -52,18 +69,36 @@ function CardTitle({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('text-xl font-bold', className)}>{children}</div>;
+  return (
+    <div
+      className={cn('text-xl font-bold flex gap-1.5 items-center', className)}
+    >
+      {children}
+    </div>
+  );
 }
+
+type CardContentVariant = 'bordered' | 'borderless';
 
 function CardContent({
   children,
   className,
+  variant = 'borderless',
 }: {
   children: React.ReactNode;
   className?: string;
+  variant?: CardContentVariant;
 }) {
+  const contentPaddingMap: Record<CardContentVariant, string> = {
+    bordered: 'px-4',
+    borderless: 'px-6',
+  };
+
+  const contentPadding = contentPaddingMap[variant];
   return (
-    <div className={cn('px-6 flex flex-col gap-6', className)}>{children}</div>
+    <div className={cn('px-6 flex flex-col gap-6', contentPadding, className)}>
+      {children}
+    </div>
   );
 }
 

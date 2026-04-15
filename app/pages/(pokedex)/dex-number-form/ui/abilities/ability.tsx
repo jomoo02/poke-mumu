@@ -1,4 +1,17 @@
+import {
+  Card,
+  CardDescription,
+  CardTitle,
+  CardHeader,
+} from '@/app/shared/ui/card';
+import {
+  Item,
+  ItemContent,
+  ItemTitle,
+  ItemDescription,
+} from '@/app/shared/ui/item';
 import { type AbilitiyView } from '../../model';
+import { Badge } from '@/app/shared/ui/badge';
 
 interface AbilityProps {
   ability: AbilitiyView;
@@ -6,24 +19,15 @@ interface AbilityProps {
 
 export default function Ability({ ability }: AbilityProps) {
   const { isHidden, flavorText, name } = ability;
-
-  const title = isHidden ? '숨겨진 특성' : ``;
   return (
-    <div className="">
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center gap-2">
-          <h3 className="text-lg font-semibold">{name}</h3>
-          {title && (
-            <span className="text-xs font-medium tracking-wide px-2 py-1 rounded-md bg-secondary">
-              {title}
-            </span>
-          )}
-        </div>
-
-        <div className="break-keep text-pretty text-muted-foreground">
-          {flavorText}
-        </div>
-      </div>
-    </div>
+    <Card>
+      <CardHeader>
+        <CardTitle>
+          {name}
+          {isHidden && <Badge variant={'secondary'}>숨겨진 특성</Badge>}
+        </CardTitle>
+        <CardDescription className="text-base"> {flavorText}</CardDescription>
+      </CardHeader>
+    </Card>
   );
 }

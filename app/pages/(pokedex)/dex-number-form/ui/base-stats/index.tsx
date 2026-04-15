@@ -39,31 +39,31 @@ export default function BaseStats({ stats, name }: BaseStatsProps) {
   );
   const isTotal = (stat: StatView) => stat.stat === 'total';
   return (
-    <Card className="">
-      <CardHeader>
+    <Card className="max-w-lg px-0" variant={'borderless'}>
+      <CardHeader className="px-0">
         <CardTitle>종족값</CardTitle>
-        <CardDescription>{name}의 종족값</CardDescription>
+        {/* <CardDescription>{name} 종족값</CardDescription> */}
       </CardHeader>
-      <CardContent>
+      <CardContent variant={'bordered'} className="px-0">
         <CardGroup className="gap-2">
           {sorted.map((stat) => (
             <div
               key={stat.stat}
-              className="flex items-center py-2.5 border rounded-2xl px-3"
+              className="flex items-center py-2.5 border rounded-2xl px-4"
             >
-              <div className="px-4 pl-0 text-left w-18 xs:w-20 sm:w-22 shrink-0">
+              <div className="px-4 pl-0 text-left w-18 sm:w-22 shrink-0">
                 {stat.label}
               </div>
               <div
                 className={cn(
-                  'text-center w-16 xs:w-17 sm:w-20 shrink-0',
+                  'text-center w-16 sm:w-18 lg:w-20 shrink-0',
                   isTotal(stat) ? 'font-medium' : '',
                 )}
               >
                 {stat.value}
               </div>
               {!isTotal(stat) && (
-                <div className="px-4  pr-0  flex-1">
+                <div className="px-4 pr-0 flex-1">
                   <Bar value={stat.value} />
                 </div>
               )}

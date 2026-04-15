@@ -12,7 +12,7 @@ export default function useInput(isOpen: boolean) {
   }, [isOpen]);
 
   useEffect(() => {
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   }, []);
 
   return {

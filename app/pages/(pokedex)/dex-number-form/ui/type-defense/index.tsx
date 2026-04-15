@@ -33,7 +33,7 @@ export default function TypeDefenses({
     <Card className="h-full w-full">
       <CardHeader>
         <CardTitle>방어 상성</CardTitle>
-        <CardDescription>{description} 타입의 방어 상성</CardDescription>
+        <CardDescription>{description} 타입 방어 상성</CardDescription>
       </CardHeader>
       <CardContent>
         {typeDefenses.map(({ multiple, description, types, color }, index) => (

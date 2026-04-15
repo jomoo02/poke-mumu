@@ -83,6 +83,8 @@ interface TypeBadgeProps {
   className?: string;
 }
 
+// 4/15 typeBadge
+
 export function TypeBadge({ type, className }: TypeBadgeProps) {
   const bgVariants: Record<string, string> = {
     normal: 'bg-normal',
@@ -187,7 +189,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'w-20 h-7.5 rounded-md flex items-center p-1 shadow-sm',
+        'w-20 h-7.5 rounded-lg flex items-center p-1 shadow-sm',
         bg,
         shadowColor,
         className,
@@ -216,5 +218,125 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
     // >
     //   {content}
     // </div>
+  );
+}
+
+export function TypeIconV3({ type, className }: TypeBadgeProps) {
+  const bgVariants: Record<string, string> = {
+    normal: 'bg-normal',
+    fire: 'bg-fire',
+    water: 'bg-water',
+    grass: 'bg-grass',
+    electric: 'bg-electric',
+    ice: 'bg-ice',
+    fighting: 'bg-fighting',
+    poison: 'bg-poison',
+    ground: 'bg-ground',
+    flying: 'bg-flying',
+    psychic: 'bg-psychic',
+    bug: 'bg-bug',
+    rock: 'bg-rock',
+    ghost: 'bg-ghost',
+    dragon: 'bg-dragon',
+    dark: 'bg-dark',
+    steel: 'bg-steel',
+    fairy: 'bg-fairy',
+    unknown: 'bg-unknown',
+  };
+
+  const shadowVariants: Record<string, string> = {
+    normal: 'shadow-normal/50',
+    fire: 'shadow-fire/50',
+    water: 'shadow-water/50',
+    grass: 'shadow-grass/50',
+    electric: 'shadow-electric/50',
+    ice: 'shadow-ice/50',
+    fighting: 'shadow-fighting/50',
+    poison: 'shadow-poison/50',
+    ground: 'shadow-ground/50',
+    flying: 'shadow-flying/50',
+    psychic: 'shadow-psychic/50',
+    bug: 'shadow-bug/50',
+    rock: 'shadow-rock/50',
+    ghost: 'shadow-ghost/50',
+    dragon: 'shadow-dragon/50',
+    dark: 'shadow-dark/50',
+    steel: 'shadow-steel/50',
+    fairy: 'shadow-fairy/50',
+    unknown: 'shadow-unknown/50',
+  };
+
+  const borderColorVariatns: Record<string, string> = {
+    normal: 'border-normal',
+    fire: 'border-fire',
+    water: 'border-water',
+    grass: 'border-grass',
+    electric: 'border-electric',
+    ice: 'border-ice',
+    fighting: 'border-fighting',
+    poison: 'border-poison',
+    ground: 'border-ground',
+    flying: 'border-flying',
+    psychic: 'border-psychic',
+    bug: 'border-bug',
+    rock: 'border-rock',
+    ghost: 'border-ghost',
+    dragon: 'border-dragon',
+    dark: 'border-dark',
+    steel: 'border-steel',
+    fairy: 'border-fairy',
+    unknown: 'border-unknown',
+  };
+
+  const ringVariants: Record<string, string> = {
+    // 어두운 타입 — highlight 약하게
+    dark: 'ring-white/10',
+    ghost: 'ring-white/10',
+    poison: 'ring-white/15',
+    dragon: 'ring-white/15',
+    ground: 'ring-white/15',
+    rock: 'ring-white/15',
+
+    // 중간 타입 — 기본
+    normal: 'ring-white/20',
+    fighting: 'ring-white/20',
+    bug: 'ring-white/20',
+    grass: 'ring-white/20',
+    fire: 'ring-white/20',
+    water: 'ring-white/20',
+    psychic: 'ring-white/20',
+    steel: 'ring-white/20',
+    fairy: 'ring-white/20',
+
+    // 밝은 타입 — highlight 강하게
+    flying: 'ring-white/35',
+    ice: 'ring-white/35',
+    electric: 'ring-white/35',
+
+    unknown: 'ring-white/20',
+  };
+  const bg = bgVariants[type.identifier] || bgVariants.unknown;
+  const borderColor =
+    borderColorVariatns[type.identifier] || borderColorVariatns.unknown;
+  const content = type.name;
+  const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
+  const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
+
+  return (
+    <div
+      className={cn(
+        'size-7 rounded-lg flex items-center p-1 shadow-sm',
+        bg,
+        shadowColor,
+        className,
+      )}
+    >
+      <Image
+        src={`/type/${type.identifier}.png`}
+        width={22}
+        height={22}
+        alt={type.identifier}
+      />
+    </div>
   );
 }

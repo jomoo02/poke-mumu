@@ -4,8 +4,9 @@ import Item from './item';
 import { memo } from 'react';
 import { cn } from '@/app/shared/lib/cn';
 import { LoaderCircleIcon } from 'lucide-react';
+import ItemMobile from './item-mobile';
 
-const Content = memo(function Content() {
+const ContentMobile = memo(function Content() {
   const {
     searchResult,
     // isError,
@@ -62,16 +63,12 @@ const Content = memo(function Content() {
       )}
     >
       {searchResult.map((poke, i) => (
-        <div
-          key={poke.pokeKey}
-          ref={registerItem(i)}
-          onMouseMove={() => onMouseMoveItem(i)}
-        >
-          <Item item={poke} isActive={activeIndex === i} />
+        <div key={poke.pokeKey}>
+          <ItemMobile item={poke} />
         </div>
       ))}
     </div>
   );
 });
 
-export default Content;
+export default ContentMobile;

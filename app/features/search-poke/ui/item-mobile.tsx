@@ -14,7 +14,7 @@ interface ItemProps {
   isActive?: boolean;
 }
 
-export default function Item({ item, isActive }: ItemProps) {
+export default function ItemMobile({ item, isActive }: ItemProps) {
   const { selectPoke } = useSearchContext();
 
   const { dexNumber, form, name, type1, type2, pokeKey } = item;
@@ -33,8 +33,7 @@ export default function Item({ item, isActive }: ItemProps) {
       tabIndex={-1}
       onClick={() => selectPoke(item)}
       className={cn(
-        'flex py-2.5 px-4 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card',
-        isActive && 'bg-accent hover:bg-accent dark:hover:bg-accent',
+        'flex py-2 px-2 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card active:bg-accent',
       )}
     >
       <PokeSprite poke={item} className="shrink-0" />
@@ -48,9 +47,10 @@ export default function Item({ item, isActive }: ItemProps) {
           {form}
         </span>
       </div>
-      <div className="flex-col gap-1 shrink-0 flex">
-        {type1 && <TypeBadge type={type1} />}
-        {type2 && <TypeBadge type={type2} />}
+
+      <div className="flex flex-col gap-1 shrink-0">
+        {type1 && <TypeIconV3 type={type1} />}
+        {type2 && <TypeIconV3 type={type2} />}
       </div>
     </Button>
     //  </Link>

@@ -17,10 +17,10 @@ const multiple = [4, 2, 0.5, 0.25, 0] as const;
 type Multiple = (typeof multiple)[number];
 
 const labels: Record<Multiple, string> = {
-  0: '무효',
+  0: '효과 없음',
   0.25: '효과가 매우 별로',
   0.5: '효과가 별로',
-  2: '효과가 굉장',
+  2: '효과가 굉장함',
   4: '효과가 매우 굉장함',
 };
 

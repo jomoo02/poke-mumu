@@ -28,7 +28,7 @@ interface SearchContextValue {
   inputValue: string;
   handleInputValueChange: Dispatch<SetStateAction<string>>;
 
-  isLoading: boolean;
+  isPending: boolean;
   isInputEmpty: boolean;
   closeSearch: () => void;
   isOpen: boolean;
@@ -56,8 +56,8 @@ function useSearchContext() {
 function SearchProvider({ children }: { children: React.ReactNode }) {
   const { isOpen, setIsOpen, closeSearch } = useOpen();
   const { inputRef, setInputValue, inputValue } = useInput(isOpen);
-  const { data, error, isLoading } = useSearch(inputValue);
-  const { localPokeList, addPokeToLocalPokeList } = useLocalStoragePoke();
+  const { data, error, isLoading, isPending } = useSearch(inputValue);
+  const { localPokeList, addPokeToLocalPokeList } = useLocalStoragePoke(isOpen);
   const isInputEmpty = checkEmptyText(inputValue);
 
   const searchResult = useMemo(
@@ -83,8 +83,8 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
 
   const selectPoke = useCallback(
     (poke: SearchPoke) => {
-      addPokeToLocalPokeList(poke);
       router.push(`/pokedex/${poke.dexNumber}/${poke.pokeKey}`);
+      addPokeToLocalPokeList(poke);
     },
     [addPokeToLocalPokeList, router],
   );
@@ -94,6 +94,7 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
   const lastInputRef = useRef<'keyboard' | 'mouse'>('keyboard');
 
   useActiveScroll({ activeIndex, listContainerRef, itemRefs, lastInputRef });
+
   useEffect(() => {
     if (!isOpen) return;
 
@@ -130,13 +131,13 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
 
   const value = useMemo(
     () => ({
-      searchResult: deferredSearchResult,
+      searchResult,
       closeSearch,
       inputRef,
       inputValue,
       handleInputValueChange: setInputValue,
       isInputEmpty,
-      isLoading,
+      isPending,
       isOpen,
       setIsOpen,
       onMouseMoveItem,
@@ -147,18 +148,17 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
       selectPoke,
     }),
     [
-      deferredSearchResult,
+      searchResult,
       closeSearch,
       inputRef,
       inputValue,
       setInputValue,
       isInputEmpty,
-      isLoading,
+      isPending,
       isOpen,
       setIsOpen,
       onMouseMoveItem,
       onKeyDown,
-      listContainerRef,
       registerItem,
       activeIndex,
       selectPoke,

@@ -10,13 +10,18 @@ const fetcher = (inputValue: string) =>
 export default function useSearch(input: string) {
   const [value] = useDebounce(input, 300);
 
-  const { data, error, isLoading } = useSWR(value, fetcher, {
+  const isDebouncing = input !== value;
+
+  const { data, error, isLoading } = useSWR(value || null, fetcher, {
     keepPreviousData: true,
   });
+
+  const isPending = input !== '' && (isDebouncing || isLoading);
 
   return {
     data,
     error,
     isLoading,
+    isPending,
   };
 }

@@ -1,3 +1,7 @@
+const height = 18;
+
+const rx = 7;
+
 interface BarProps {
   value: number;
   color?: string;
@@ -22,10 +26,10 @@ export default function Bar({ value, color }: BarProps) {
   const barColor = color ?? ranges.find((r) => value >= r.min)!.color;
 
   return (
-    <svg width="100%" height="14">
+    <svg width="100%" height={height}>
       <g className="bars">
-        <rect width="100%" height="14" rx="5" className="fill-muted" />
-        <rect className={barColor} width={width} height="14" rx={5} />
+        <rect width="100%" height={height} rx={rx} className="fill-muted" />
+        <rect className={barColor} width={width} height={height} rx={rx} />
       </g>
     </svg>
   );

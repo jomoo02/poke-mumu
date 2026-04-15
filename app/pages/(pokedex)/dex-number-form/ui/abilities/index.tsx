@@ -10,9 +10,11 @@ import {
   CardItem,
   CardDescription,
 } from '@/app/shared/ui/card';
+
 import { Badge } from '@/app/shared/ui/badge';
 
 import { type AbilitiyView } from '../../model';
+import Ability from './ability';
 
 interface AbilitiesProps {
   abilities: AbilitiyView[];
@@ -21,29 +23,14 @@ interface AbilitiesProps {
 
 export default function Abilities({ abilities, name }: AbilitiesProps) {
   return (
-    <Card className="h-full">
-      <CardHeader>
-        <CardTitle>특성</CardTitle>
-        <CardDescription>{name}의 특성</CardDescription>
-      </CardHeader>
-      <CardContent>
-        {abilities.map((ability, index) => (
-          <Fragment key={ability.name}>
-            {index > 0 && <div className="w-full h-px bg-border" />}
-            <CardGroup className="gap-2">
-              <CardGroupLabel className="flex gap-1.5 items-center">
-                {ability.name}
-                {ability.isHidden && (
-                  <Badge variant={'secondary'}>숨겨진 특성</Badge>
-                )}
-              </CardGroupLabel>
-              <CardItem className="text-muted-foreground">
-                {ability.flavorText}
-              </CardItem>
-            </CardGroup>
-          </Fragment>
+    <div className="flex flex-col">
+      <h2 className="text-3xl font-bold mb-6 mt-8">특성</h2>
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {' '}
+        {abilities.map((ability) => (
+          <Ability key={ability.name} ability={ability} />
         ))}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
