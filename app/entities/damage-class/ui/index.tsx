@@ -19,7 +19,9 @@ export function DamageClassIcon({
 }: DamageClassIconProps) {
   if (!isValidDamageClass(damageClass)) {
     return (
-      <div className="w-7 h-5 rounded-[5px] border border-zinc-700/8">???</div>
+      <div className="w-6.5 h-5 rounded-[5px] border border-zinc-700/8">
+        ???
+      </div>
     );
   }
 
@@ -30,7 +32,7 @@ export function DamageClassIcon({
   };
 
   return (
-    <div className={cn('relative', 'w-7 h-5', className)}>
+    <div className={cn('relative', 'w-6.5 h-5', className)}>
       <Image
         src={srcMap[damageClass]}
         alt={damageClass}

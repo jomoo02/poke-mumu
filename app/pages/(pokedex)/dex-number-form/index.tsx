@@ -5,6 +5,7 @@ import BaseStats from './ui/base-stats';
 import DexInfo from './ui/dex-info';
 import EvolutionTree from './ui/evolution-tree';
 import Moves from './ui/moves';
+import Moves2 from './ui/moves-2';
 
 import TypeDefenses from './ui/type-defense';
 
@@ -48,9 +49,16 @@ export default async function PokedexDexNumberFormPageUI({
   return (
     <div className="flex flex-col w-full">
       <div className="flex flex-col w-full mx-auto px-4 sm:px-6 relative max-w-7xl gap-6">
-        <div className="grid lg:grid-cols-3 gap-6">
-          <DexInfo dexInfo={dexInfo} />
-        </div>
+        {/* <div className="grid lg:grid-cols-3 gap-6">
+          <section className="lg:col-span-2">
+            <DexInfo dexInfo={dexInfo} />
+          </section>
+
+          <section>
+            <RestInfo names={names} training={training} breeding={breeding} />
+          </section>
+        </div> */}
+
         <div>
           <section>
             <Abilities abilities={abilities} name={nameKo} />
@@ -66,25 +74,17 @@ export default async function PokedexDexNumberFormPageUI({
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="flex flex-col gap-6">
-            <section>
-              <TypeDefenses typeDefenses={typeDefense} types={types} />
-            </section>
-          </div>
-          <div className="flex flex-col gap-6"> </div>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-6">
-          <section>
-            <RestInfo names={names} training={training} breeding={breeding} />
-          </section>
-        </div>
+        <section>
+          <TypeDefenses typeDefenses={typeDefense} types={types} />
+        </section>
+        <div className="grid lg:grid-cols-2 gap-6"></div>
 
         <section>
           <EvolutionTree id={evolutionId} />
         </section>
         <section>
-          <Moves moves={moves} />
+          {/* <Moves moves={moves} name={nameKo} /> */}
+          <Moves2 moves={moves} name={nameKo} />
         </section>
       </div>
 

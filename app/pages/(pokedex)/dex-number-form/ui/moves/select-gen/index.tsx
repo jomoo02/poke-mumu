@@ -24,14 +24,14 @@ export default function SelectGen({ gen, gens, onChange }: SelectGenProps) {
     onChange(Number(target));
   };
   return (
-    <div className="inline-flex bg-muted p-1 rounded-lg gap-1.5">
+    <div className="inline-flex bg-muted p-1 rounded-4xl gap-1.5">
       {gens.map((curGen) => (
         <Button
           onClick={() => onChange(curGen)}
           variant={'ghost'}
           key={curGen}
           className={cn(
-            ' opacity-50',
+            ' opacity-50 rounded-2xl',
             gen === curGen
               ? 'bg-background hover:bg-background opacity-100 shadow-xs'
               : '',

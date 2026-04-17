@@ -35,7 +35,7 @@ const colors: Record<Multiple, string> = {
 const adaptTypeDefenseView = (typeDefenses: TypeDefenseDto[]) => {
   return multiple
     .map((v) => ({
-      multiple: `x${v}`,
+      multiple: `${v}`,
       description: labels[v],
       color: colors[v],
       types: typeDefenses

@@ -34,7 +34,7 @@ function SearchDialog() {
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="gap-0 sm:max-w-xl px-0 rounded-4xl ring-4 shadow-xl bg-muted pt-0 overflow-hidden"
+        className="gap-0 sm:max-w-xl px-0 rounded-4xl shadow-xl bg-muted pt-0 overflow-hidden"
       >
         <DialogHeader className="gap-0">
           <DialogTitle>
@@ -77,7 +77,7 @@ function SearchDialogMobile() {
           }
         }
         className={cn(
-          'gap-0 w-full max-w-none px-0 rounded-4xl ring-2 shadow-xl py-0 overflow-hidden',
+          'gap-0 w-full px-0 rounded-4xl  shadow-xl py-0 overflow-hidden',
           `    top-auto bottom-0 left-0 translate-x-0 translate-y-0
     max-w-full rounded-t-3xl rounded-b-none
     data-open:zoom-in-100 data-closed:zoom-out-100

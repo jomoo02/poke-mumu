@@ -17,26 +17,31 @@ export default function DexInfo({ dexInfo }: DexInfoProps) {
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
 
   return (
-    <div className="flex flex-col gap-6 p-6 border rounded-4xl bg-card">
-      <div className="flex flex-col gap-1">
-        <div className="text-xl font-semibold text-muted-foreground ">
-          {formattedDexNumber}
+    <div className="grid gap-6 p-6 border rounded-4xl bg-card lg:grid-cols-2">
+      <div className="flex flex-col justify-between gap-6">
+        {' '}
+        <div className="flex flex-col gap-1">
+          <div className="text-xl font-semibold text-muted-foreground ">
+            {formattedDexNumber}
+          </div>
+          <h1 className="text-3xl  font-semibold">{name}</h1>
+          <div className="text-lg  font-medium text-muted-foreground">
+            {form}
+          </div>
+          <div className="flex gap-2  pt-3">
+            {types.map((type) => (
+              <TypeBadge key={type.identifier} type={type} />
+            ))}
+          </div>
         </div>
-        <h1 className="text-3xl  font-semibold">{name}</h1>
-        <div className="text-lg  font-medium text-muted-foreground">{form}</div>
-        <div className="flex gap-2  pt-3">
-          {types.map((type) => (
-            <TypeBadge key={type.identifier} type={type} />
-          ))}
+        <div className="h-full w-full relative mx-auto  max-w-64 max-h-64 aspect-square">
+          <PokeImg
+            className="object-contain w-full h-full"
+            poke={dexInfo}
+            type={types[0]}
+            priority
+          />
         </div>
-      </div>
-      <div className="h-full w-full relative mx-auto  max-w-64 max-h-64 aspect-square">
-        <PokeImg
-          className="object-contain w-full h-full"
-          poke={dexInfo}
-          type={types[0]}
-          priority
-        />
       </div>
 
       <div className="grid grid-cols-2 gap-2">

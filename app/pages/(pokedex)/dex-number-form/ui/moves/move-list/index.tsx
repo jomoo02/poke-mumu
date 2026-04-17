@@ -4,8 +4,7 @@ import LevelUp from './level-up';
 import Machine from './machine';
 import Rest from './rest';
 import { Fragment } from 'react/jsx-runtime';
-
-// import { useSidebar } from '@/app/shared/ui/sidebar';
+import MoveTable from '../move-table-v2';
 
 interface PokeMovesProps {
   versionGroupId: string;
@@ -21,8 +20,6 @@ export default function MoveList({
   const { error, isLoading, levelUpMoves, restMoves, machineMoves } =
     useMoveData(pokeMoves, versionGroupIdNumber);
 
-  // const { open } = useSidebar();
-
   return (
     <div
       className={cn(
@@ -33,7 +30,24 @@ export default function MoveList({
       )}
     >
       <div className={cn('flex flex-col gap-6 overflow-hidden w-full h-full')}>
-        <LevelUp
+        <MoveTable
+          moves={levelUpMoves}
+          key={versionGroupId}
+          versionGroupId={versionGroupIdNumber}
+          method="level_up"
+        />
+
+        {restMoves.map(({ method, moves }) => (
+          <Fragment key={method}>
+            <MoveTable
+              moves={moves}
+              method={method}
+              key={versionGroupId}
+              versionGroupId={versionGroupIdNumber}
+            />
+          </Fragment>
+        ))}
+        {/* <LevelUp
           moves={levelUpMoves}
           key={versionGroupId}
           versionGroupId={versionGroupIdNumber}
@@ -48,14 +62,15 @@ export default function MoveList({
               versionGroupId={versionGroupId}
             />
           </Fragment>
-        ))}
+        ))} */}
       </div>
 
       <div className={cn('flex flex-col gap-6 overflow-hidden w-full')}>
         {machineMoves.map(({ moves, machineType }) => (
           <Fragment key={machineType}>
-            <Machine
+            <MoveTable
               moves={moves}
+              method="machine"
               machineType={machineType}
               key={versionGroupId}
               versionGroupId={versionGroupIdNumber}

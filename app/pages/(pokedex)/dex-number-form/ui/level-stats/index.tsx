@@ -40,8 +40,8 @@ export default function LevelStats({ stats }: LevelStatsProps) {
   const annotation2 = '최솟값은 하락시키는 성격, 노력치 0, 개체값 0';
 
   return (
-    <Card className="" variant="borderless">
-      <CardHeader>
+    <Card className="px-0 " variant="borderless">
+      <CardHeader className="px-0">
         <CardTitle>레벨별 스탯 범위</CardTitle>
         <CardDescription>
           <p className="text-muted-foreground text-pretty break-keep ">
@@ -52,7 +52,7 @@ export default function LevelStats({ stats }: LevelStatsProps) {
           </p>
         </CardDescription>
       </CardHeader>
-      <CardContent variant={'bordered'}>
+      <CardContent variant={'bordered'} className="px-0">
         <div className="border rounded-2xl overflow-hidden">
           {targetLevels.map((level, index) => {
             const isOpen = openLevel === level;
@@ -90,7 +90,7 @@ export default function LevelStats({ stats }: LevelStatsProps) {
                   )}
                 >
                   <div className="overflow-hidden ">
-                    <div className="py-1.5">
+                    <div className="pb-1.5">
                       <div className="flex flex-col">
                         {targetStats.map(({ stat, label, value }) => {
                           const min = calculateMinStatValue(stat, value, level);
@@ -99,7 +99,7 @@ export default function LevelStats({ stats }: LevelStatsProps) {
                           return (
                             <div
                               key={stat}
-                              className="flex items-center justify-between py-3 px-4 text-md"
+                              className="flex items-center justify-between py-2.5 px-4 tex"
                             >
                               <span className="">{label}</span>
                               <span>

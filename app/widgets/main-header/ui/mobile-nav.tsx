@@ -49,7 +49,7 @@ export default function MobileNav({ items }: MobileNavProps) {
       <Dialog.Portal>
         {/* Overlay 없음 — 풀스크린이라 불필요 */}
         <Dialog.Overlay />
-        <Dialog.Content className="fixed inset-0 z-50 bg-background outline-none">
+        <Dialog.Content className="fixed inset-0 z-50 bg-background outline-none w-full h-full">
           <VisuallyHidden.Root>
             <Dialog.Title>메뉴</Dialog.Title>
             <Dialog.Description>사이트 내비게이션</Dialog.Description>

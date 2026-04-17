@@ -42,7 +42,6 @@ export default function BaseStats({ stats, name }: BaseStatsProps) {
     <Card className="max-w-lg px-0" variant={'borderless'}>
       <CardHeader className="px-0">
         <CardTitle>종족값</CardTitle>
-        {/* <CardDescription>{name} 종족값</CardDescription> */}
       </CardHeader>
       <CardContent variant={'bordered'} className="px-0">
         <CardGroup className="gap-2">
