@@ -40,7 +40,7 @@ export default function Moves({ moves, name }: MovesProps) {
         <div className=" pb-1 overflow-x-auto">
           <SelectGen gen={gen} gens={gens} onChange={setGen} />
         </div>
-        <div className="pb-1 overflow-x-auto">
+        <div className="pb-1 overflow-x-auto break-keep">
           <SelectVersionGroup
             versionGroup={versionGroup}
             versionGroups={versionGroups}

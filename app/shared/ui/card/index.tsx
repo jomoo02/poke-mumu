@@ -12,7 +12,7 @@ function Card({
   variant?: CardVariant;
 }) {
   const cardVariantsMap: Record<CardContentVariant, string> = {
-    bordered: 'border',
+    bordered: 'ring ring-border',
     borderless: '',
   };
 
@@ -21,7 +21,7 @@ function Card({
   return (
     <div
       className={cn(
-        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6  bg-card',
+        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6 bg-card shadow-sm',
         cardVariant,
         className,
       )}
@@ -39,7 +39,9 @@ function CardHeader({
   className?: string;
 }) {
   return (
-    <div className={cn('px-6 flex flex-col gap-2', className)}>{children}</div>
+    <div className={cn('px-6 flex flex-col gap-1.5', className)}>
+      {children}
+    </div>
   );
 }
 

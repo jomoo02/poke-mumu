@@ -16,7 +16,7 @@ interface AbilitiesProps {
 }
 
 export default function Abilities({ abilities, name }: AbilitiesProps) {
-  const description = `${name} 특성`;
+  const description = `${name}의 특성`;
   return (
     <Section>
       <SectionBorder />

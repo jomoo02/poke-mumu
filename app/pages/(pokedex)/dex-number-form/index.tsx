@@ -14,6 +14,9 @@ import SectionTitle from './ui/section-title';
 import RestInfo from './ui/resf-info';
 import MinMaxStats from './ui/min-max-stats';
 import LevelStats from './ui/level-stats';
+import Stats from './ui/stats';
+import DexInfo2 from './ui/dex-info-2';
+import RestInfo2 from './ui/rest-info-2';
 
 interface PokedexDexNumberFormPageUIProps {
   dexNumber: string;
@@ -48,34 +51,37 @@ export default async function PokedexDexNumberFormPageUI({
 
   return (
     <div className="flex flex-col w-full">
+      <div className="max-w-384 mx-auto w-full px-4 sm:px-6">
+        <DexInfo2 dexInfo={dexInfo} />
+      </div>
+
       <div className="flex flex-col w-full mx-auto px-4 sm:px-6 relative max-w-7xl gap-6">
-        {/* <div className="grid lg:grid-cols-3 gap-6">
-          <section className="lg:col-span-2">
-            <DexInfo dexInfo={dexInfo} />
-          </section>
-
-          <section>
-            <RestInfo names={names} training={training} breeding={breeding} />
-          </section>
-        </div> */}
-
+        <div className="grid lg:grid-cols-3 gap-6"></div>
+        <section className="lg:col-span-2">
+          {/* <DexInfo dexInfo={dexInfo} /> */}
+        </section>
+        <section>
+          {/* <RestInfo names={names} training={training} breeding={breeding} /> */}
+          <RestInfo2 names={names} training={training} breeding={breeding} />
+        </section>
+        {/* <section>
+          <RestInfo names={names} training={training} breeding={breeding} />
+        </section> */}
         <div>
           <section>
             <Abilities abilities={abilities} name={nameKo} />
           </section>
         </div>
-        <div>
-          <SectionTitle id="stat">스탯</SectionTitle>
-          <div className="grid lg:grid-cols-2 gap-6">
-            <section>
-              <BaseStats stats={stats} name={nameKo} />
-            </section>
-            <section>{stats && <LevelStats stats={stats} />}</section>
-          </div>
-        </div>
+        <section>
+          <Stats stats={stats} name={nameKo} />
+        </section>
 
         <section>
-          <TypeDefenses typeDefenses={typeDefense} types={types} />
+          <TypeDefenses
+            typeDefenses={typeDefense}
+            types={types}
+            name={nameKo}
+          />
         </section>
         <div className="grid lg:grid-cols-2 gap-6"></div>
 

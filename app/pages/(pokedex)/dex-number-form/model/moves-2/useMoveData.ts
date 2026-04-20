@@ -2,8 +2,13 @@
 
 import useSWR from 'swr';
 
-import { type MoveView, type PokeMoves, type MoveMethod, type RestMethod } from '../moves';
-import { type MoveViewNew } from '.';
+import {
+  type MoveView,
+  type PokeMoves,
+  type MoveMethod,
+  type RestMethod,
+  type MoveViewNew,
+} from '.';
 
 const fetcher = (versionGroupId: string) =>
   fetch(
@@ -19,12 +24,16 @@ const REST_METHODS: RestMethod[] = [
   'form',
 ];
 
-const buildLabel = (method: MoveMethod, move: MoveView, level?: number): string => {
+const buildLabel = (
+  method: MoveMethod,
+  move: MoveView,
+  level?: number,
+): string => {
   switch (method) {
     case 'level_up':
       return `Lv.${level ?? '?'}`;
     case 'machine':
-      return `${move.machineType ?? ''}-${String(move.machineNumber ?? '').padStart(3, '0')}`;
+      return `${move.machineType ?? ''} ${String(move.machineNumber ?? '').padStart(3, '0')}`;
     case 'evolution':
       return '진화';
     case 'form':
@@ -63,7 +72,10 @@ const toMoveViewNew = (
   machineNumber: move.machineNumber,
 });
 
-export function useMoveDataNew(moves: PokeMoves | undefined, versionGroupId: number) {
+export function useMoveDataNew(
+  moves: PokeMoves | undefined,
+  versionGroupId: number,
+) {
   const { data, error, isLoading } = useSWR(`${versionGroupId}`, fetcher, {
     keepPreviousData: true,
   });

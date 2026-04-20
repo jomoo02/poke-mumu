@@ -1,8 +1,7 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { type MoveMethod } from '../moves';
-import { type MoveViewNew } from '.';
+import { useEffect, useMemo, useState } from 'react';
+import { type MoveMethod, type MoveViewNew } from '.';
 
 export type SortMode = 'default' | 'power-desc' | 'power-asc' | 'type-asc';
 
@@ -40,12 +39,17 @@ const defaultSort = (a: MoveViewNew, b: MoveViewNew): number => {
 // power null은 항상 마지막
 const powerVal = (power: number | null) => (power == null ? -Infinity : power);
 
-export function useMoveListSort(moves: MoveViewNew[]) {
+export function useMoveListSort(moves: MoveViewNew[], resetKey: number) {
   const [sortMode, setSortMode] = useState<SortMode>('default');
   const [query, setQuery] = useState('');
 
+  // useEffect(() => {
+  //   setSortMode('default');
+  //   setQuery('');
+  // }, [resetKey]);
+
   const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
+    const q = query.replaceAll(' ', '').toLowerCase();
     if (!q) return moves;
     return moves.filter((m) => m.name.toLowerCase().includes(q));
   }, [moves, query]);

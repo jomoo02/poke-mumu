@@ -1,6 +1,15 @@
 import { cn } from '@/app/shared/lib/cn';
 import { Button } from '@/app/shared/ui/button';
 import { type SortMode } from '../../model/moves-2/useMoveListSort';
+import { useEffect } from 'react';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+} from '@/app/shared/ui/select';
 
 interface SortButtonsProps {
   sortMode: SortMode;
@@ -16,22 +25,38 @@ const SORT_OPTIONS: { mode: SortMode; label: string }[] = [
 
 export default function SortButtons({ sortMode, onSort }: SortButtonsProps) {
   return (
-    <div className="inline-flex bg-muted p-1 rounded-lg gap-1">
-      {SORT_OPTIONS.map(({ mode, label }) => (
-        <Button
-          key={mode}
-          variant="ghost"
-          onClick={() => onSort(mode)}
-          className={cn(
-            'text-sm opacity-50',
-            sortMode === mode
-              ? 'bg-background hover:bg-background opacity-100 shadow-xs'
-              : '',
-          )}
-        >
-          {label}
-        </Button>
-      ))}
-    </div>
+    <Select value={sortMode} onValueChange={onSort}>
+      <SelectTrigger className="rounded-3xl w-40 px-4  min-h-10 h-10 bg-muted border-transparent dark:bg-input dark:hover:bg-input">
+        <SelectValue />
+      </SelectTrigger>
+      <SelectContent className="rounded-3xl p-0.5 transition-none animate-none">
+        <SelectGroup>
+          {SORT_OPTIONS.map((option) => (
+            <SelectItem
+              key={option.mode}
+              value={option.mode}
+              className="rounded-2xl h-10 px-3 font-medium"
+            >
+              {option.label}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+    // <div className="flex gap-2 h-full items-center p-1">
+    //   {SORT_OPTIONS.map(({ mode, label }) => (
+    //     <Button
+    //       key={mode}
+    //       variant={'outline'}
+    //       onClick={() => onSort(mode)}
+    //       className={cn(
+    //         'text-sm rounded-3xl',
+    //         sortMode === mode ? 'bg-muted hover:bg-muted opacity-100' : '',
+    //       )}
+    //     >
+    //       {label}
+    //     </Button>
+    //   ))}
+    // </div>
   );
 }

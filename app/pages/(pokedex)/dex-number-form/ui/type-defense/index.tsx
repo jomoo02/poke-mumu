@@ -28,11 +28,13 @@ import {
 interface TypeDefensesProps {
   types: Type[];
   typeDefenses: TypeDefenseView[];
+  name: string;
 }
 
 export default function TypeDefenses({
   typeDefenses,
   types,
+  name,
 }: TypeDefensesProps) {
   const description = types.map(({ name }) => name).join(', ');
 
@@ -59,12 +61,13 @@ export default function TypeDefenses({
     <Section>
       <SectionBorder />
       <SectionTitle>방어 상성</SectionTitle>
-      <SectionDescription>{description} 타입 방어 상성</SectionDescription>
+      <SectionDescription>{name} 방어 상성</SectionDescription>
       <SectionContent className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {groups.map(({ label, items }) => (
-          <Card key={label} className="h-full w-full gap-3">
+          <Card key={label} className="h-full w-full">
             <CardHeader>
               <CardTitle>{label}</CardTitle>
+              <CardDescription>{`${description} 타입의 ${label} 타입 목록`}</CardDescription>
             </CardHeader>
             <CardContent>
               {items.map(({ multiple, description, types, color }, index) => (

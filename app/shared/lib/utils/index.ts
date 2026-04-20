@@ -5,3 +5,5 @@ export function createMapGetter<T extends string, V>(
   return (key: string | null | undefined): V =>
     key && Object.hasOwn(map, key) ? map[key as T] : map[fallbackKey];
 }
+
+export { getSubjectParticle } from './subject-particle';

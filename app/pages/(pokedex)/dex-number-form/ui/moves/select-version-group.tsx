@@ -28,17 +28,15 @@ export default function SelectVersionGroup({
     onChange(Number(v));
   };
   return (
-    <div className="inline-flex bg-muted p-1 rounded-lg gap-1.5">
+    <div className="inline-flex p-1 rounded-4xl gap-3">
       {versionGroups.map((vg) => (
         <Button
           onClick={() => handleOnValueChange(vg.id)}
-          variant={'ghost'}
+          variant={'outline'}
           key={vg.id}
           className={cn(
-            ' opacity-50',
-            versionGroup === vg.id
-              ? 'bg-background hover:bg-background opacity-100 '
-              : '',
+            ' rounded-2xl',
+            versionGroup === vg.id ? 'bg-muted hover:bg-muted' : '',
           )}
         >
           {vg.label}

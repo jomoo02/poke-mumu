@@ -322,6 +322,18 @@ export function TypeIconV3({ type, className }: TypeBadgeProps) {
   const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
   const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
 
+  if (type.identifier === 'unknown') {
+    return (
+      <div
+        className={cn(
+          'size-7 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center',
+          className,
+        )}
+      >
+        ?
+      </div>
+    );
+  }
   return (
     <div
       className={cn(

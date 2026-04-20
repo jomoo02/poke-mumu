@@ -7,6 +7,10 @@ import { type PokeMoves } from '../../model/moves-2';
 import { useMoveListSort } from '../../model/moves-2/useMoveListSort';
 import MoveRow from './move-row';
 import SortButtons from './sort-buttons';
+import { Fragment } from 'react/jsx-runtime';
+import MoveRowZa from './move-row-za';
+import { Button } from '@/app/shared/ui/button';
+import { XIcon } from 'lucide-react';
 
 interface MoveListProps {
   pokeMoves: PokeMoves | undefined;
@@ -15,19 +19,39 @@ interface MoveListProps {
 
 export default function MoveList({ pokeMoves, versionGroupId }: MoveListProps) {
   const { isLoading, moves } = useMoveDataNew(pokeMoves, versionGroupId);
-  const { sorted, sortMode, setSortMode, query, setQuery } =
-    useMoveListSort(moves);
+  const { sorted, sortMode, setSortMode, query, setQuery } = useMoveListSort(
+    moves,
+    versionGroupId,
+  );
 
   return (
-    <div className="flex flex-col gap-4 sm:min-h-[500px]">
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Input
-          placeholder="기술 이름 검색"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="sm:max-w-56"
-        />
-        <div className="overflow-x-auto pb-1">
+    <div className="flex flex-col gap-5 sm:min-h-125">
+      <div className="flex flex-col sm:flex-row gap-6 sm:justify-between">
+        <div
+          className={cn(
+            'flex-1 max-w-lg  relative flex items-center',
+            isLoading && 'opacity-70',
+          )}
+        >
+          <Input
+            placeholder="Name"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className=" min-h-10 rounded-4xl  px-4 bg-muted dark:bg-input border-transparent"
+          />
+          {query !== '' && (
+            <Button
+              variant={'ghost'}
+              className="absolute right-4"
+              onClick={() => setQuery('')}
+              size={'icon-sm'}
+            >
+              <XIcon />
+            </Button>
+          )}
+        </div>
+
+        <div className={cn('flex justify-end', isLoading && 'opacity-70')}>
           <SortButtons sortMode={sortMode} onSort={setSortMode} />
         </div>
       </div>
@@ -45,10 +69,13 @@ export default function MoveList({ pokeMoves, versionGroupId }: MoveListProps) {
         ) : (
           <div className="min-w-max w-full">
             {sorted.map((move) => (
-              <MoveRow
-                key={`${move.method}-${move.moveId}-${move.label}`}
-                move={move}
-              />
+              <Fragment key={`${move.method}-${move.moveId}-${move.label}`}>
+                {versionGroupId === 22 ? (
+                  <MoveRowZa move={move} />
+                ) : (
+                  <MoveRow move={move} />
+                )}
+              </Fragment>
             ))}
           </div>
         )}
