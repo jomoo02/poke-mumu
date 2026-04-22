@@ -24,7 +24,7 @@ import {
   SectionDescription,
   SectionContent,
 } from '../section';
-
+//s
 interface TypeDefensesProps {
   types: Type[];
   typeDefenses: TypeDefenseView[];
