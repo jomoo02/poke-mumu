@@ -15,7 +15,7 @@ import {
 } from '@/app/shared/ui/card';
 import { Badge } from '@/app/shared/ui/badge';
 import { type Type } from '@/app/entities/type/model';
-//test2
+//test3
 import { type TypeDefenseView } from '../../model';
 import {
   Section,
