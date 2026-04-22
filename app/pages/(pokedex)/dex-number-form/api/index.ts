@@ -146,8 +146,8 @@ export const getPokeData = async (pokeKey: string) => {
   };
 
   const names = [
-    { label: '영문명', name: nameEn },
     { label: '일본명', name: nameJa },
+    { label: '영문명', name: nameEn },
   ];
 
   const poke = {

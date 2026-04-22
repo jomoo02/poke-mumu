@@ -1,91 +1,188 @@
-import { BookIcon, RulerIcon, WeightIcon } from 'lucide-react';
-
+import { cn } from '@/app/shared/lib/cn';
 import { TypeBadge } from '@/app/entities/type/ui';
 import { formatNumber } from '@/app/shared/lib/format';
-import { cn } from '@/app/shared/lib/cn';
 
-import { type DexInfoView } from '../../model';
+import { NameView, type DexInfoView } from '../../model';
 import PokeHeroImg from './poke-img';
+import { Fragment } from 'react/jsx-runtime';
+import { DotIcon } from 'lucide-react';
 
 interface DexInfo2Props {
   dexInfo: DexInfoView;
+  names: NameView[];
 }
 
-export default function DexInfo2({ dexInfo }: DexInfo2Props) {
+export default function DexInfo2({ dexInfo, names }: DexInfo2Props) {
   const { name, dexNumber, genera, weight, height, form, types, sprite } =
     dexInfo;
   const primaryType = types[0];
 
   return (
-    <div className="relative overflow-hidden rounded-4xl bg-muted/30">
+    <section className="relative overflow-hidden rounded-4xl bg-card">
+      {/* 데스크탑: 이중 물결 (이미지 중앙까지) */}
       {primaryType && (
         <>
-          {/* 이미지 뒤 메인 글로우 */}
-          <div
+          {/* 뒷 물결 - 더 높게, 옅게 */}
+          <svg
+            aria-hidden
             className={cn(
-              'pointer-events-none absolute -left-16 top-1/2 -translate-y-1/2 size-144 rounded-full blur-3xl opacity-15 dark:opacity-35',
-              `bg-${primaryType.identifier}`,
+              'hidden sm:block absolute inset-x-0 bottom-0 w-full h-72 lg:h-80 opacity-[0.08] dark:opacity-[0.18]',
+              `text-${primaryType.identifier}`,
             )}
-          />
-          {/* 오른쪽 하단 보조 글로우 */}
-          <div
+            viewBox="0 0 1200 320"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,100 C200,100 200,210 400,210 C600,210 600,100 800,100 C1000,100 1000,210 1200,210 L1200,320 L0,320 Z"
+              fill="currentColor"
+            />
+          </svg>
+          {/* 앞 물결 - 조금 낮게, 진하게 */}
+          <svg
+            aria-hidden
             className={cn(
-              'pointer-events-none absolute -bottom-24 -right-24 size-96 rounded-full blur-3xl opacity-10',
-              `bg-${primaryType.identifier}`,
+              'hidden sm:block absolute inset-x-0 bottom-0 w-full h-56 lg:h-64 opacity-[0.15] dark:opacity-[0.30]',
+              `text-${primaryType.identifier}`,
             )}
-          />
+            viewBox="0 0 1200 260"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,80 C200,80 200,170 400,170 C600,170 600,80 800,80 C1000,80 1000,170 1200,170 L1200,260 L0,260 Z"
+              fill="currentColor"
+            />
+          </svg>
         </>
       )}
 
-      <div className="relative grid lg:grid-cols-2 items-center min-h-112">
-        {/* LEFT: 이미지 */}
-        <div className="relative mx-auto h-82 w-82 shrink-0 p-6 lg:h-100 lg:w-100">
-          <PokeHeroImg
-            sprite={sprite}
-            name={name}
-            type={primaryType}
-            className="h-full w-full"
-            priority
-          />
+      {/* 모바일: 이중 물결 */}
+      {primaryType && (
+        <>
+          <svg
+            aria-hidden
+            className={cn(
+              'sm:hidden absolute inset-x-0 bottom-0 w-full h-80 opacity-[0.08] dark:opacity-[0.18]',
+              `text-${primaryType.identifier}`,
+            )}
+            viewBox="0 0 600 320"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,100 C100,100 100,210 200,210 C300,210 300,100 400,100 C500,100 500,210 600,210 L600,320 L0,320 Z"
+              fill="currentColor"
+            />
+          </svg>
+          <svg
+            aria-hidden
+            className={cn(
+              'sm:hidden absolute inset-x-0 bottom-0 w-full h-64 opacity-[0.15] dark:opacity-[0.30]',
+              `text-${primaryType.identifier}`,
+            )}
+            viewBox="0 0 600 260"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M0,80 C100,80 100,170 200,170 C300,170 300,80 400,80 C500,80 500,170 600,170 L600,260 L0,260 Z"
+              fill="currentColor"
+            />
+          </svg>
+        </>
+      )}
+
+      {/* 모바일: flex-col 레이아웃 */}
+      <div className="sm:hidden relative flex flex-col">
+        <div className="flex flex-col gap-2 px-6 pt-6 pb-5">
+          <span className="text-sm font-mono tracking-widest text-muted-foreground">
+            No.{formatNumber(dexNumber)}
+          </span>
+          <h1 className="text-3xl font-bold tracking-tight leading-[0.95]">
+            {name}
+          </h1>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {names.map((n, index) => (
+              <Fragment key={n.label}>
+                {index > 0 && <DotIcon className="size-4.5" />}
+                <div className="text-lg">{n.name}</div>
+              </Fragment>
+            ))}
+          </div>
+          {form && <p className="text-sm text-muted-foreground">{form}</p>}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {types.map((t) => (
+              <TypeBadge key={t.identifier} type={t} />
+            ))}
+          </div>
         </div>
 
-        {/* RIGHT: 텍스트 */}
-        <div className="flex flex-col justify-center gap-8 p-8 lg:p-12">
-          <div className="flex flex-col gap-3">
-            <span className="text-md font-semibold tracking-widest text-muted-foreground">
-              No.{formatNumber(dexNumber)}
-            </span>
-            <h1 className="text-6xl font-black tracking-tight leading-none">
-              {name}
-            </h1>
-            {form && (
-              <span className="text-base font-medium text-muted-foreground">
-                {form}
-              </span>
-            )}
-            <div className="flex gap-3 pt-2">
-              {types.map((type) => (
-                <TypeBadge key={type.identifier} type={type} />
-              ))}
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-3">
-            <InfoChip icon={<BookIcon className="size-4" />} value={genera} />
-            <InfoChip icon={<WeightIcon className="size-4" />} value={weight} />
-            <InfoChip icon={<RulerIcon className="size-4" />} value={height} />
+        <div className="relative flex items-center justify-center py-4">
+          <div className="relative size-56">
+            <PokeHeroImg
+              sprite={sprite}
+              name={name}
+              type={primaryType}
+              className="h-full w-full"
+              priority
+            />
           </div>
         </div>
       </div>
-    </div>
+
+      {/* 데스크탑: 겹침 레이아웃 */}
+      <div className="hidden sm:block relative h-[28rem] lg:h-[32rem]">
+        <div className="h-full flex items-center justify-center">
+          <div className="relative size-72 lg:size-[26rem]">
+            <PokeHeroImg
+              sprite={sprite}
+              name={name}
+              type={primaryType}
+              className="h-full w-full"
+              priority
+            />
+          </div>
+        </div>
+
+        <div className="absolute left-8 top-8 lg:left-12 lg:top-12 z-10 flex flex-col gap-2 max-w-[55%]">
+          <span className="text-lg  tracking-widest text-muted-foreground font-semibold">
+            No.{formatNumber(dexNumber)}
+          </span>
+          <h1 className="text-5xl font-bold tracking-tight leading-[0.95]">
+            {name}
+          </h1>
+          <div className="flex flex-wrap items-center gap-1.5">
+            {names.map((n, index) => (
+              <Fragment key={n.label}>
+                {index > 0 && <DotIcon className="size-4.5" />}
+                <div className="text-lg">{n.name}</div>
+              </Fragment>
+            ))}
+          </div>
+          {form && <p className="text-base text-muted-foreground">{form}</p>}
+          <div className="flex flex-wrap gap-2 pt-1">
+            {types.map((t) => (
+              <TypeBadge key={t.identifier} type={t} />
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
   );
 }
 
-function InfoChip({ icon, value }: { icon: React.ReactNode; value: string }) {
+function InfoCard({
+  genera,
+  height,
+  weight,
+}: {
+  genera: string;
+  height: string;
+  weight: string;
+}) {
   return (
-    <div className="flex items-center gap-2 rounded-4xl bg-background border px-4 py-1.5 text-base font-medium">
-      <span className="text-muted-foreground">{icon}</span>
-      {value}
+    <div className="flex flex-col gap-1 rounded-2xl bg-background/80 backdrop-blur-sm border px-4 py-3">
+      <span className="text-base font-semibold">{genera}</span>
+      <span className="text-sm text-muted-foreground tabular-nums">
+        {height} · {weight}
+      </span>
     </div>
   );
 }

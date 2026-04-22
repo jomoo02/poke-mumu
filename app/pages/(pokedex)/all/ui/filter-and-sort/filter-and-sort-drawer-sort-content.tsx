@@ -20,7 +20,7 @@ export default function SortContent({ sort, onSortChange }: SortContentProps) {
         return (
           <label
             key={value}
-            className="flex px-2 gap-2 h-11 items-center group hover:bg-accent rounded-lg has-checked:bg-accent"
+            className="flex px-4 gap-2 h-11 items-center group hover:bg-muted dark:hover:bg-input rounded-4xl dark:has-checked:bg-input has-checked:bg-muted"
           >
             <input
               name="sort"
@@ -29,8 +29,8 @@ export default function SortContent({ sort, onSortChange }: SortContentProps) {
               checked={currentValue === value}
               onChange={() => onSortChange(option)}
               className={cn(
-                'border border-border relative appearance-none rounded-full size-4 group-hover:bg-accent checked:after:scale-100',
-                'after:absolute after:size-2 after:rounded-full after:bg-foreground after:inset-0 after:m-auto after:scale-0',
+                'border border-border bg-input relative appearance-none rounded-full size-4 checked:after:scale-100 checked:bg-primary',
+                'after:absolute after:size-1.75 after:rounded-full after:bg-white after:inset-0 after:m-auto after:scale-0',
               )}
             />
             <span className="text-md">{option.label}</span>

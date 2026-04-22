@@ -104,11 +104,11 @@ export default function NaturesPageUI() {
                   onCheckedChange={toggleAll}
                 />
               </TableHead>
-              <TableHead className="h-11">성격</TableHead>
+              <TableHead className="h-11 ">성격</TableHead>
               <TableHead className="h-11">영칭</TableHead>
               <TableHead className="h-11">일칭</TableHead>
-              <TableHead className="h-11">1.1배 상승</TableHead>
-              <TableHead className="h-11">0.9배 하락</TableHead>
+              <TableHead className="h-11">상승</TableHead>
+              <TableHead className="h-11">하락</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -116,18 +116,24 @@ export default function NaturesPageUI() {
               <TableRow
                 key={d.identifier}
                 data-state={selected.has(d.identifier) ? 'selected' : undefined}
-                className="hover:bg-muted/70"
+                className="hover:bg-muted/70 min-w-16 shrink-0"
               >
-                <TableCell className="pl-4 py-2.5" role="checkbox">
+                <TableCell className="px-4 py-2.5" role="checkbox">
                   <Checkbox
                     checked={selected.has(d.identifier)}
                     onCheckedChange={() => toggle(d.identifier)}
                   />
                 </TableCell>
-                <TableCell className="px-4 py-2.5">{d.ko}</TableCell>
-                <TableCell className="px-4 py-2.5">{d.en}</TableCell>
-                <TableCell className="px-4 py-2.5">{d.ja}</TableCell>
-                <TableCell className="px-4 py-2.5">
+                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                  {d.ko}
+                </TableCell>
+                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                  {d.en}
+                </TableCell>
+                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                  {d.ja}
+                </TableCell>
+                <TableCell className="px-4 py-2.5  min-w-38 shrink-0">
                   <div className="flex items-center gap-1 ">
                     {d.increase || '-'}
                     {d.increase && (
@@ -135,7 +141,7 @@ export default function NaturesPageUI() {
                     )}
                   </div>
                 </TableCell>
-                <TableCell className="px-4 py-2.5">
+                <TableCell className="px-4 py-2.5 min-w-38 shrink-0">
                   <div className="flex items-center gap-1">
                     {d.decrease || '-'}
                     {d.decrease && (

@@ -16,11 +16,11 @@ export default async function PokedexGameGroupPageUI({
   } = await getRegionalPokedex(group);
 
   return (
-    <div>
-      <h1 className="scroll-m-20 text-3xl font-semibold text-foreground max-w-7xl mx-auto w-full py-6 px-4 sm:px-6">
+    <div className=" max-w-384 mx-auto w-full py-8 px-4 sm:px-6 xl:px-10">
+      <h1 className="scroll-m-20 text-4xl font-bold tracking-wide mt-4 mb-6 text-foreground">
         {gameGroupKo} 도감
       </h1>
-      <div className="text-muted-foreground my-6 whitespace-pre-line break-keep text-pretty max-w-7xl mx-auto w-full px-4 sm:px-6">
+      <div className="text-muted-foreground mb-6 whitespace-pre-line break-keep text-pretty">
         {description}
       </div>
       {dexRegion.length > 1 ? (
@@ -29,10 +29,8 @@ export default async function PokedexGameGroupPageUI({
         <>
           {dexRegion.map((dex, idx) => (
             <div key={dex.id}>
-              {idx > 0 && (
-                <div className="max-w-7xl w-full mx-auto px-6 bg-border h-px my-4" />
-              )}
-              <h2 className="max-w-7xl mx-auto w-full px-6 pt-2 text-2xl font-semibold ">
+              {idx > 0 && <div className="bg-border h-px my-6" />}
+              <h2 className="w-full mt-3 text-2xl font-semibold ">
                 {dex.regionKo}
               </h2>
               <Regionaldex pokes={dex.entries} />

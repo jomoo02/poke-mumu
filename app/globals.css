@@ -41,6 +41,26 @@
   --sidebar-accent-foreground: oklch(0.218 0.008 223.9);
   --sidebar-border: oklch(0.925 0.005 214.3);
   --sidebar-ring: oklch(0.723 0.014 214.4);
+
+  --normal: #949495;
+  --fire: #e56c3e;
+  --water: #5185c5;
+  --grass: #4caf50;
+  --electric: #f4d03f;
+  --ice: #3dcef3;
+  --fighting: #e09c40;
+  --poison: #735198;
+  --ground: #9c7743;
+  --flying: #81b9ef;
+  --psychic: #dd6b7b;
+  --bug: #8d9e2a;
+  --rock: #b8a36e;
+  --ghost: #684870;
+  --dragon: #535ca8;
+  --dark: #4c4948;
+  --steel: #69a9c7;
+  --fairy: #e8a0e8;
+  --unknown: #a21caf;
 }
 
 .dark {
@@ -76,7 +96,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.56 0.021 213.5);
 }
-@theme {
+/* @theme {
   --color-primary: var(--primary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -95,48 +115,29 @@
   --font-suite: var(--font-suite);
   --font-elice: var(--font-elice);
 
-  --color-normal: #949495;
-  --color-fire: #e56c3e;
-  --color-water: #5185c5;
-  --color-grass: #4caf50;
-  --color-electric: #f4d03f;
-  --color-ice: #3dcef3;
-  --color-fighting: #e09c40;
-  --color-poison: #735198;
-  --color-ground: #9c7743;
-  --color-flying: #81b9ef;
-  --color-psychic: #dd6b7b;
-  --color-bug: #8d9e2a;
-  --color-rock: #b8a36e;
-  --color-ghost: #684870;
-  --color-dragon: #535ca8;
-  --color-dark: #4c4948;
-  --color-steel: #69a9c7;
-  --color-fairy: #e8a0e8;
-  --color-unknown: #a21caf;
+  --color-normal: var(--normal);
+  --color-fire: var(--fire);
+  --color-water: var(--water);
+  --color-grass: var(--grass);
+  --color-electric: var(--electric);
+  --color-ice: var(--ice);
+  --color-fighting: var(--fighting);
+  --color-poison: var(--poison);
+  --color-ground: var(--ground);
+  --color-flying: var(--flying);
+  --color-psychic: var(--psychic);
+  --color-bug: var(--bug);
+  --color-rock: var(--rock);
+  --color-ghost: var(--ghost);
+  --color-dragon: var(--dragon);
+  --color-dark: var(--dark);
+  --color-steel: var(--steel);
+  --color-fairy: var(--fairy);
+  --color-unknown: var(--unknown);
 
-  --color-border-normal: #7e7e7f;
-  --color-border-fire: #c35c35;
-  --color-border-water: #4571a7;
-  --color-border-grass: #57903b;
-  --color-border-electric: #c8af34;
-  --color-border-ice: #5daac8;
-  --color-border-fighting: #be8536;
-  --color-border-poison: #624581;
-  --color-border-ground: #856539;
-  --color-border-flying: #8aa6c4;
-  --color-border-psychic: #bc5b69;
-  --color-border-bug: #878a3a;
-  --color-border-rock: #a29c74;
-  --color-border-ghost: #583d5f;
-  --color-border-dragon: #474e8f;
-  --color-border-dark: #413e3d;
-  --color-border-steel: #5990a9;
-  --color-border-fairy: #d680d6;
-  --color-border-unknown: #a21caf;
-  --font-size-md: 0.9375rem; /* 15px */
-  --line-height-md: 1.3125rem; /* 21px */
-}
+
+
+} */
 
 @theme inline {
   --radius-sm: calc(var(--radius) * 0.6);
@@ -179,6 +180,49 @@
   --color-sidebar-ring: var(--sidebar-ring);
   --breakpoint-2xs: 22rem;
   --breakpoint-xs: 30rem;
+  --color-normal: var(--normal);
+  --color-fire: var(--fire);
+  --color-water: var(--water);
+  --color-grass: var(--grass);
+  --color-electric: var(--electric);
+  --color-ice: var(--ice);
+  --color-fighting: var(--fighting);
+  --color-poison: var(--poison);
+  --color-ground: var(--ground);
+  --color-flying: var(--flying);
+  --color-psychic: var(--psychic);
+  --color-bug: var(--bug);
+  --color-rock: var(--rock);
+  --color-ghost: var(--ghost);
+  --color-dragon: var(--dragon);
+  --color-dark: var(--dark);
+  --color-steel: var(--steel);
+  --color-fairy: var(--fairy);
+  --color-unknown: var(--unknown);
+  --font-size-md: 0.9375rem; /* 15px */
+  --line-height-md: 1.3125rem; /* 21px */
+  --color-border-normal: #7e7e7f;
+  --color-border-fire: #c35c35;
+  --color-border-water: #4571a7;
+  --color-border-grass: #57903b;
+  --color-border-electric: #c8af34;
+  --color-border-ice: #5daac8;
+  --color-border-fighting: #be8536;
+  --color-border-poison: #624581;
+  --color-border-ground: #856539;
+  --color-border-flying: #8aa6c4;
+  --color-border-psychic: #bc5b69;
+  --color-border-bug: #878a3a;
+  --color-border-rock: #a29c74;
+  --color-border-ghost: #583d5f;
+  --color-border-dragon: #474e8f;
+  --color-border-dark: #413e3d;
+  --color-border-steel: #5990a9;
+  --color-border-fairy: #d680d6;
+  --color-border-unknown: #a21caf;
+  --font-suit: var(--font-suit);
+  --font-suite: var(--font-suite);
+  --font-elice: var(--font-elice);
 }
 
 @layer base {

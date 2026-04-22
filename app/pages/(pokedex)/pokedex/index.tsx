@@ -1,6 +1,16 @@
 import Link from 'next/link';
 
-import Card from './ui/card';
+// import Card from './ui/card';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardGroup,
+  CardGroupLabel,
+  CardHeader,
+  CardTitle,
+} from '@/app/shared/ui/card';
 import {
   generation1,
   generation2,
@@ -12,6 +22,8 @@ import {
   generation8,
   generation9,
 } from './config';
+import { Badge } from '@/app/shared/ui/badge';
+import { Fragment } from 'react/jsx-runtime';
 
 const regionalDex = [
   { gen: '1세대', genDexs: generation1 },
@@ -27,44 +39,54 @@ const regionalDex = [
 
 export default function PokedexPageUI() {
   return (
-    <div className="flex flex-col max-w-7xl w-full mx-auto  p-6 px-4 sm:px-6">
-      <h1
-        className="text-4xl font-semibold tracking-tight scroll-m-24"
-        id="dex"
-      >
+    <div className="flex flex-col max-w-384 mine-h-dvh py-8 w-full mx-auto  p-6 px-4 sm:px-6 xl:px-10">
+      <h1 className="text-4xl font-bold tracking-wide mt-4 mb-6" id="dex">
         도감
       </h1>
-      <p className="py-10 text-muted-foreground">{`${'전국도감 및 세대·버전별 지역도감 목록'}`}</p>
-      <h2 className="text-3xl font-semibold mb-6">전국도감</h2>
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        <Card title="전국도감" href="/pokedex/all" subTitle="National Pokédex">
-          모든 포켓몬 정보
-        </Card>
-      </div>
-      <div className="w-full bg-border h-px my-8 sm:my-10" />
-      <h2 className="text-3xl font-semibold mb-6">지역도감</h2>
-      <div className="flex flex-col">
-        {regionalDex.map(({ gen, genDexs }) => (
-          <div key={gen} className="flex flex-col">
-            <div className="my-4">
-              <Link
-                href={`/pokedex/#${gen}`}
-                id={gen}
-                className="text-2xl font-semibold scroll-m-32 rounded-md outline-ring scroll-smooth"
-              >
-                {gen}
-              </Link>
-            </div>
+      <p className="pb-6 text-muted-foreground">{`${'전국도감 및 버전별 지역도감 목록'}`}</p>
 
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-              {genDexs.map(({ title, content, href, subTitle }) => (
-                <Card key={title} href={href} title={title} subTitle={subTitle}>
-                  {content}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <Link href="/pokedex/all" className="rounded-4xl group h-full ">
+          <Card className="group-hover:bg-accent group-active:bg-accent">
+            <CardHeader>
+              <CardTitle>전국도감</CardTitle>
+              <CardDescription>National Pokédex</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex gap-2 flex-wrap">
+                <Badge variant={'blue'}>모든 포켓몬</Badge>
+                <Badge variant={'blue'}>종족값</Badge>
+              </div>
+            </CardContent>
+          </Card>
+        </Link>
+        {regionalDex.map(({ gen, genDexs }) => (
+          <Fragment key={gen}>
+            {genDexs.map(({ title, href, subTitle, labels }) => (
+              <Link
+                key={title}
+                href={href}
+                className="rounded-4xl group h-full "
+              >
+                <Card className="group-hover:bg-accent group-active:bg-accent">
+                  <CardHeader>
+                    <CardTitle>{title}</CardTitle>
+                    <CardDescription>{subTitle}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-wrap gap-x-2 gap-y-2">
+                      <Badge variant={'blue'}>{gen}</Badge>
+                      {labels?.map((label) => (
+                        <Badge key={label} variant="blue">
+                          {label}
+                        </Badge>
+                      ))}
+                    </div>
+                  </CardContent>
                 </Card>
-              ))}
-            </div>
-            <div className="w-full bg-border h-px my-8 sm:my-10" />
-          </div>
+              </Link>
+            ))}
+          </Fragment>
         ))}
       </div>
     </div>

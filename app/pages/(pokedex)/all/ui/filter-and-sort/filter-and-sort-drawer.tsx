@@ -56,7 +56,7 @@ export default function FilterAndSortDrawer({
         <DialogOverlay />
         <DialogPrimitive.Content
           className={cn(
-            'bg-background fixed z-50 flex flex-col focus:outline-none',
+            'bg-popover fixed z-50 flex flex-col focus:outline-none',
             'data-open:animate-in data-closed:animate-out duration-300',
             isDesktop
               ? 'inset-y-0 right-0 w-100 border-l data-open:slide-in-from-right data-closed:slide-out-to-right'

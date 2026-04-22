@@ -3,6 +3,7 @@ type GenerationDex = {
   href: string;
   subTitle?: string;
   content?: string;
+  labels?: string[];
 };
 
 export const generation1: GenerationDex[] = [
@@ -11,6 +12,7 @@ export const generation1: GenerationDex[] = [
     href: '/pokedex/game/red-blue-yellow',
     subTitle: 'Red·Green·Blue & Yellow',
     content: '관동지방',
+    labels: ['관동'],
   },
 ];
 
@@ -19,7 +21,8 @@ export const generation2: GenerationDex[] = [
     title: '골드·실버 & 크리스탈',
     href: '/pokedex/game/gold-silver-crystal',
     subTitle: 'Gold·Silver & Crystal',
-    content: '성동지방',
+    content: '성도지방',
+    labels: ['성도'],
   },
 ];
 
@@ -29,12 +32,14 @@ export const generation3: GenerationDex[] = [
     href: '/pokedex/game/ruby-sapphire-emerald',
     subTitle: 'Ruby·Sapphire·Emerald',
     content: '호연지방',
+    labels: ['호연'],
   },
   {
     title: '파이어레드·리프그린',
     href: '/pokedex/game/firered-leafgreen',
     subTitle: 'FireRed·LeafGreen',
     content: '관동지방',
+    labels: ['관동'],
   },
 ];
 
@@ -44,18 +49,21 @@ export const generation4: GenerationDex[] = [
     href: '/pokedex/game/diamond-pearl',
     subTitle: 'Diamond·Pearl',
     content: '신오지방',
+    labels: ['신오'],
   },
   {
     title: '기라티나',
     href: '/pokedex/game/platinum',
     subTitle: 'Diamond·Pearl',
     content: '신오지방',
+    labels: ['신오'],
   },
   {
     title: '하트골드·소울실버',
     href: '/pokedex/game/heartgold-soulsilver',
     subTitle: 'HeartGold·SoulSilver',
-    content: '성동지방',
+    content: '성도지방',
+    labels: ['성도'],
   },
 ];
 
@@ -65,12 +73,14 @@ export const generation5: GenerationDex[] = [
     href: '/pokedex/game/black-white',
     subTitle: 'Black·White',
     content: '하나지방',
+    labels: ['하나'],
   },
   {
     title: '블랙 2·화이트 2',
     href: '/pokedex/game/black-2-white-2',
     subTitle: 'Black 2·White 2',
     content: '하나지방',
+    labels: ['하나'],
   },
 ];
 
@@ -80,12 +90,14 @@ export const generation6: GenerationDex[] = [
     href: '/pokedex/game/x-y',
     subTitle: 'X·Y',
     content: '칼로스지방',
+    labels: ['센트럴 칼로스', '코스트 칼로스', '마운틴 칼로스'],
   },
   {
     title: '오메가루비·알파사파이어',
     href: '/pokedex/game/omega-ruby-alpha-sapphire',
     subTitle: 'Omega Ruby·Alpha Sapphire',
     content: '호연지방',
+    labels: ['호연'],
   },
 ];
 
@@ -95,12 +107,14 @@ export const generation7: GenerationDex[] = [
     href: '/pokedex/game/sun-moon',
     subTitle: 'Sun·Moon',
     content: '알로라지방',
+    labels: ['알로라', '멜레멜레', '아칼라', '울라울라', '포니'],
   },
   {
     title: '울트라썬·울트라문',
     href: '/pokedex/game/ultra-sun-ultra-moon',
     subTitle: 'Ultra Sun·Ultra Moon',
     content: '알로라지방',
+    labels: ['알로라', '멜레멜레', '아칼라', '울라울라', '포니'],
   },
 
   {
@@ -108,6 +122,7 @@ export const generation7: GenerationDex[] = [
     href: '/pokedex/game/lets-go-pikachu-letgs-go-eevee',
     subTitle: `Let's Go, Pikachu!·Let's Go, Eevee!`,
     content: '관동지방',
+    labels: ['관동'],
   },
 ];
 
@@ -117,18 +132,21 @@ export const generation8: GenerationDex[] = [
     href: '/pokedex/game/sword-shield',
     subTitle: 'Sword·Shield',
     content: '가라르지방',
+    labels: ['가라르', '갑옷섬', '왕관설원'],
   },
   {
     title: '브릴리언트 다이아몬드·샤이닝 펄',
     href: '/pokedex/game/brilliant-diamond-shining-pearl',
     subTitle: 'Brilliant Diamond·Shining Pearl',
     content: '신오지방',
+    labels: ['신오'],
   },
   {
     title: 'LEGENDS 아르세우스',
     href: '/pokedex/game/legends-arceus',
     subTitle: 'LEGENDS Arceus',
     content: '히스이지방',
+    labels: ['히스이'],
   },
 ];
 
@@ -138,11 +156,13 @@ export const generation9: GenerationDex[] = [
     href: '/pokedex/game/scarlet-violet',
     subTitle: 'Scarlet·Violet',
     content: '팔데아지방',
+    labels: ['팔데아', '북신', '블루베리'],
   },
   {
     title: 'LEGENDS Z-A',
     href: '/pokedex/game/legends-z-a',
     subTitle: 'LEGENDS Z-A',
     content: '미르시티',
+    labels: ['미르', '이차원'],
   },
 ];

@@ -1,14 +1,35 @@
 import { MarsIcon, VenusIcon } from 'lucide-react';
 
-import { type BreedingView, type TrainingView, type NameView } from '../../model';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardGroup,
+  CardGroupLabel,
+  CardHeader,
+  CardTitle,
+} from '@/app/shared/ui/card';
+
+import {
+  type BreedingView,
+  type TrainingView,
+  type NameView,
+  DexInfoView,
+} from '../../model';
 
 interface RestInfo2Props {
   names: NameView[];
   breeding: BreedingView;
+  dexInfo: DexInfoView;
   training: TrainingView;
 }
 
-export default function RestInfo2({ names, breeding, training }: RestInfo2Props) {
+export default function RestInfo2({
+  names,
+  breeding,
+  training,
+  dexInfo,
+}: RestInfo2Props) {
   const { eggGroups, genderRatio, hatchCounter } = breeding;
   const { growthRate, baseFriendShip, captureRate, effortValues } = training;
 
@@ -18,11 +39,11 @@ export default function RestInfo2({ names, breeding, training }: RestInfo2Props)
       : '-';
 
   return (
-    <div className="grid gap-6 sm:grid-cols-3">
-      <InfoCard title="언어별 이름">
-        {names.map(({ label, name }) => (
-          <InfoRow key={label} label={label} value={name} />
-        ))}
+    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <InfoCard title="도감">
+        <InfoRow label="분류" value={dexInfo.genera} />
+        <InfoRow label="몸무게" value={dexInfo.weight} />
+        <InfoRow label="키" value={dexInfo.height} />
       </InfoCard>
 
       <InfoCard title="유전">
@@ -32,7 +53,7 @@ export default function RestInfo2({ names, breeding, training }: RestInfo2Props)
           label="성비"
           value={
             genderRatio ? (
-              <div className="flex gap-3 flex-wrap">
+              <div className="flex gap-3 flex-wrap justify-end">
                 {genderRatio.male != null && (
                   <span className="flex items-center gap-1 text-blue-500">
                     <MarsIcon className="size-4" />
@@ -71,26 +92,24 @@ function InfoCard({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-6 rounded-3xl bg-muted/40 p-6">
-      <h3 className="border-b border-border pb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-        {title}
-      </h3>
-      <div className="flex flex-col gap-6">{children}</div>
-    </div>
+    <Card className="">
+      <CardHeader>
+        <CardTitle> {title}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col divide-y">{children}</div>
+      </CardContent>
+    </Card>
   );
 }
 
-function InfoRow({
-  label,
-  value,
-}: {
-  label: string;
-  value: React.ReactNode;
-}) {
+function InfoRow({ label, value }: { label: string; value: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-1">
-      <span className="text-md text-muted-foreground">{label}</span>
-      <span className="text-base font-medium break-keep">{value}</span>
+    <div className="flex justify-between gap-3 py-3 first:pt-0 last:pb-0">
+      <span className="text-muted-foreground w-24 shrink-0">{label}</span>
+      <span className="text-base font-medium text-end text-pretty flex-1">
+        {value}
+      </span>
     </div>
   );
 }

@@ -51,7 +51,8 @@ export default function InputFilter({
         onKeyDown={handleKeyDown}
         onChange={handleChangeInput}
         placeholder={placeholder}
-        className="w-full px-11 h-10 rounded-lg"
+        className="w-full px-11"
+        // className="w-full px-11 h-10 rounded-lg"
       />
       {inputValue && (
         <Button

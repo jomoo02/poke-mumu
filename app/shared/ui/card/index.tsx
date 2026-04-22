@@ -134,6 +134,20 @@ function CardItem({
   return <div className={cn('', className)}>{children}</div>;
 }
 
+function CardFooter({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className="px-6">
+      <div className={cn('', className)}>{children}</div>
+    </div>
+  );
+}
+
 export {
   Card,
   CardHeader,
@@ -143,4 +157,5 @@ export {
   CardGroup,
   CardGroupLabel,
   CardItem,
+  CardFooter,
 };

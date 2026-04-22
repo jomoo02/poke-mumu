@@ -18,7 +18,7 @@ function Badge({
   return (
     <span
       className={cn(
-        'px-2 py-px text-xs  bg-primary text-primary-foreground rounded-xl font-medium border border-transparent flex justify-center items-center shrink-0  w-fit overflow-hidden whitespace-nowrap',
+        'px-2 py-0.5 text-xs  bg-primary text-primary-foreground rounded-4xl font-medium border border-transparent flex justify-center items-center shrink-0  w-fit overflow-hidden whitespace-nowrap',
         variant && badgeVariants[variant],
         className,
       )}

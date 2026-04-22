@@ -52,7 +52,7 @@ export default async function PokedexDexNumberFormPageUI({
   return (
     <div className="flex flex-col w-full">
       <div className="max-w-384 mx-auto w-full px-4 sm:px-6">
-        <DexInfo2 dexInfo={dexInfo} />
+        <DexInfo2 dexInfo={dexInfo} names={names} />
       </div>
 
       <div className="flex flex-col w-full mx-auto px-4 sm:px-6 relative max-w-7xl gap-6">
@@ -62,7 +62,12 @@ export default async function PokedexDexNumberFormPageUI({
         </section>
         <section>
           {/* <RestInfo names={names} training={training} breeding={breeding} /> */}
-          <RestInfo2 names={names} training={training} breeding={breeding} />
+          <RestInfo2
+            dexInfo={dexInfo}
+            names={names}
+            training={training}
+            breeding={breeding}
+          />
         </section>
         {/* <section>
           <RestInfo names={names} training={training} breeding={breeding} />

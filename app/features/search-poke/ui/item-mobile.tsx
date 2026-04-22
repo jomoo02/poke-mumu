@@ -33,7 +33,7 @@ export default function ItemMobile({ item, isActive }: ItemProps) {
       tabIndex={-1}
       onClick={() => selectPoke(item)}
       className={cn(
-        'flex py-2 px-2 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card active:bg-accent',
+        'flex py-2.5 px-3 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card active:bg-accent',
       )}
     >
       <PokeSprite poke={item} className="shrink-0" />

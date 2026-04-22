@@ -26,26 +26,26 @@ export default function RegionalPoke({
     <div className="flex flex-col gap-2">
       <Link
         href={href}
-        className="flex flex-col items-center rounded-2xl hover:bg-accent active:bg-accent bg-card"
+        className="flex flex-col items-center rounded-4xl hover:bg-accent active:bg-accent p-4"
         aria-label={`${name} 상세 페이지로 이동`}
       >
         <div className="flex justify-center w-full p-4 z-10 ">
           <PokeSprite poke={poke} className="size-18" />
         </div>
-        <div className="pb-4">
+        <div className="">
           <div className="">No.{formattedRegionDexNumber}</div>
           <div className="text-foreground min-w-0 truncate font-medium text-lg">
             {name}
           </div>
         </div>
       </Link>
-      <div className="grid grid-cols-2 w-full gap-1.5 sm:gap-2">
-        {type1 && (
-          <TypeBadge type={type1} className="w-full max-w-40 mx-auto" />
-        )}
-        {type2 && (
-          <TypeBadge type={type2} className="w-full max-w-40 mx-auto" />
-        )}
+      <div className="flex justify-center w-full gap-1.5">
+        <div className="w-20">
+          {type1 && <TypeBadge type={type1} className="" />}
+        </div>
+        <div className="w-20">
+          {type2 && <TypeBadge type={type2} className="" />}
+        </div>
       </div>
     </div>
   );

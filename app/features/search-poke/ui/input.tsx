@@ -17,12 +17,12 @@ export default function Input() {
         <div
           className={cn(
             ' flex rounded-4xl justify-center items-center gap-x-1 px-4 border h-10 shrink-0 group shadow-sm bg-input/50',
-            'group has-focus:border-ring has-focus:ring-ring/50 has-focus:ring-[3px]',
+            'group',
           )}
         >
           <SearchIcon className="size-5" />
           <input
-            type="text"
+            type="search"
             value={inputValue}
             onChange={(e) => handleInputValueChange(e.target.value)}
             autoComplete="off"
@@ -31,10 +31,10 @@ export default function Input() {
             //   e.target.scrollIntoView({ block: 'nearest' });
             // }}
             placeholder={placeholderText}
-            className="flex-1 px-2 py-1 h-8 focus:outline-none placeholder:text-muted-foreground placeholder:font-suit"
+            className="flex-1 px-2 py-1 h-8 focus:outline-none placeholder:text-muted-foreground placeholder:font-suit [&::-webkit-search-cancel-button]:appearance-none "
           />
 
-          <Button
+          {/* <Button
             variant="ghost"
             type="button"
             className=""
@@ -44,7 +44,7 @@ export default function Input() {
             onClick={closeSearch}
           >
             <XIcon className="size-5" />
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>

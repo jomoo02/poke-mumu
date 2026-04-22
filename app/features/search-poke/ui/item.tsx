@@ -33,7 +33,7 @@ export default function Item({ item, isActive }: ItemProps) {
       tabIndex={-1}
       onClick={() => selectPoke(item)}
       className={cn(
-        'flex py-2.5 px-4 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card',
+        'flex py-3 px-4 rounded-4xl gap-4 w-full h-full overflow-hidden bg-card pointer-event cursor-pointer hover:bg-card dark:hover:bg-card',
         isActive && 'bg-accent hover:bg-accent dark:hover:bg-accent',
       )}
     >

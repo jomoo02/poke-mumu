@@ -6,6 +6,7 @@ import { RegionalPokeView } from '../model';
 import Regionaldex from './regionaldex';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/app/shared/lib/cn';
+import { Button } from '@/app/shared/ui/button';
 
 interface DexRegionListProps {
   dexRegions: {
@@ -36,14 +37,15 @@ export default function DexRegionList({ dexRegions }: DexRegionListProps) {
   };
 
   return (
-    <div className="grid py-4">
+    <div className="grid">
       {dexRegions.map((dex, index) => (
         <div key={dex.id} className="">
-          <div className="max-w-7xl mx-auto w-full px-6">
-            {index > 0 && <div className="w-full h-px bg-border my-2"></div>}
-            <button
+          <div className=" relative">
+            {index > 0 && <div className="w-full h-px bg-border my-3"></div>}
+            <Button
+              variant={'ghost'}
               onClick={() => handleToggle(dex.id)}
-              className="text-2xl w-full font-semibold  rounded-xl px-4 py-6 flex justify-between items-center hover:bg-accent active:bg-accent "
+              className="text-2xl w-full font-semibold rounded-4xl px-4 py-6 h-auto flex justify-between items-center hover:bg-accent active:bg-accent "
             >
               <div>{dex.regionKo} 도감</div>
               <ChevronDown
@@ -52,7 +54,7 @@ export default function DexRegionList({ dexRegions }: DexRegionListProps) {
                   visibleIds.has(dex.id) ? 'rotate-180' : '',
                 )}
               />
-            </button>
+            </Button>
           </div>
 
           {visibleIds.has(dex.id) && <Regionaldex pokes={dex.entries} />}

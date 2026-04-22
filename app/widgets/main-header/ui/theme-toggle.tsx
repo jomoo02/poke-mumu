@@ -19,7 +19,7 @@ export default function ThemeToggle() {
   return (
     <Button
       variant={'ghost'}
-      className="size-10"
+      className="size-10 hover:bg-accent dark:hover:bg-accent"
       size={'icon-lg'}
       onClick={handleClick}
     >

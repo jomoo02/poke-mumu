@@ -46,14 +46,14 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
   return (
     <Link
       href={href}
-      className="border flex flex-col rounded-2xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm @container"
+      className="border flex flex-col rounded-4xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm @container"
     >
       <div className="flex justify-between p-6 pb-0">
         <div className="shrink-0 text-muted-foreground/80 font-extrabold tabular-nums font-suite">
           <span className="text-xl">No.</span>
           <span className="text-2xl">{formattedDexNumber}</span>
         </div>
-        <div className="flex flex-col size-15 items-center justify-center bg-muted rounded-xl">
+        <div className="flex flex-col size-15 items-center justify-center bg-muted rounded-2xl">
           <div className="shrink-0 font-semibold text-muted-foreground text-sm">
             총합
           </div>
@@ -80,7 +80,7 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
             <TypeBadge
               key={type.identifier}
               type={type}
-              className="w-20 h-7.5 text-sm rounded-md"
+              // className="w-20 h-7.5 text-sm rounded-md"
             />
           ))}
         </div>

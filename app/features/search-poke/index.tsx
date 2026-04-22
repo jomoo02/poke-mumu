@@ -28,13 +28,16 @@ function SearchDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={'ghost'} className="size-10">
+        <Button
+          variant={'ghost'}
+          className="size-10 hover:bg-accent dark:hover:bg-accent"
+        >
           <SearchIcon className="size-5" />
         </Button>
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="gap-0 sm:max-w-xl px-0 rounded-4xl shadow-xl bg-muted pt-0 overflow-hidden"
+        className="gap-0 sm:max-w-xl px-0 rounded-4xl shadow-xl bg-muted pt-0 overflow-hidden ring-4"
       >
         <DialogHeader className="gap-0">
           <DialogTitle>
@@ -64,7 +67,10 @@ function SearchDialogMobile() {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={'ghost'} className="size-10">
+        <Button
+          variant={'ghost'}
+          className="size-10 hover:bg-accent dark:hover:bg-accent"
+        >
           <SearchIcon className="size-5" />
         </Button>
       </DialogTrigger>
@@ -77,7 +83,7 @@ function SearchDialogMobile() {
           }
         }
         className={cn(
-          'gap-0 w-full px-0 rounded-4xl  shadow-xl py-0 overflow-hidden',
+          'gap-0 w-full px-0 rounded-4xl  shadow-xl py-0 overflow-hidden ring-4',
           `    top-auto bottom-0 left-0 translate-x-0 translate-y-0
     max-w-full rounded-t-3xl rounded-b-none
     data-open:zoom-in-100 data-closed:zoom-out-100
