@@ -28,7 +28,7 @@ interface LevelStatsProps {
 }
 
 export default function LevelStats({ stats }: LevelStatsProps) {
-  const [openLevel, setOpenLevel] = useState<number | null>(50);
+  const [openLevel, setOpenLevel] = useState<number>(50);
 
   if (!stats) {
     return null;
@@ -36,89 +36,60 @@ export default function LevelStats({ stats }: LevelStatsProps) {
 
   const targetStats = stats.filter(({ stat }) => stat !== 'total');
 
-  const handleToggle = (level: number) => {
-    setOpenLevel((prev) => (prev === level ? null : level));
-  };
+  // const handleToggle = (level: number) => {
+  //   setOpenLevel((prev) => (prev === level ? null : level));
+  // };
 
   const annotation1 = '최댓값은 상승시키는 성격, 노력치 252, 개체값 31';
   const annotation2 = '최솟값은 하락시키는 성격, 노력치 0, 개체값 0';
 
   return (
-    <Card className="ring-0 shadow-none bg-transparent max-w-xl">
-      <CardHeader className="px-0">
+    <Card className="">
+      <CardHeader>
         <CardTitle>레벨별 스탯 범위</CardTitle>
-        <CardDescription>
+        {/* <CardDescription>
           <p className="text-muted-foreground text-pretty break-keep ">
             {annotation1}
           </p>
           <p className="text-muted-foreground text-pretty break-keep">
             {annotation2}
           </p>
-        </CardDescription>
+        </CardDescription> */}
       </CardHeader>
-      <CardContent className="px-0">
-        <div className="border rounded-3xl overflow-hidden bg-card">
-          {targetLevels.map((level, index) => {
-            const isOpen = openLevel === level;
-            const isLast = index === targetLevels.length - 1;
-
-            return (
+      <CardContent>
+        <div className="flex flex-wrap gap-1.5 justify-end">
+          {targetLevels.map((level) => (
+            <Button
+              key={level}
+              className={cn(
+                'text-sm h-9',
+                level === openLevel
+                  ? 'bg-muted dark:bg-input hover:bg-muted dark:hover:bg-input '
+                  : '',
+              )}
+              onClick={() => setOpenLevel(level)}
+              variant={'outline'}
+            >
+              Lv.{level}
+            </Button>
+          ))}
+        </div>
+        <div className="@container">
+          <div className="grid grid-cols-1 @[500px]:grid-cols-2 @[650px]:grid-cols-3 gap-3">
+            {targetStats.map((stat) => (
               <div
-                key={level}
-                className={cn(!isLast && 'border-b border-border')}
+                key={stat.stat}
+                className="p-4 rounded-4xl border flex justify-between gap-1"
               >
-                <Button
-                  type="button"
-                  variant={'link'}
-                  onClick={() => handleToggle(level)}
-                  className={cn(
-                    'flex w-full items-center justify-between text-left p-4 h-auto border-none font-medium text-foreground text-base rounded-none',
-                    isOpen ? 'bg-muted/50' : 'bg-transparent',
-                  )}
-                >
-                  <span className="font-medium">Lv. {level}</span>
-                  <ChevronDown
-                    className={cn(
-                      'size-5 text-muted-foreground transition-transform duration-200',
-                      isOpen && 'rotate-180',
-                    )}
-                  />
-                </Button>
-
-                <div
-                  className={cn(
-                    'grid transition-all duration-200',
-                    isOpen
-                      ? 'grid-rows-[1fr] bg-muted/50'
-                      : 'grid-rows-[0fr] bg-transparent',
-                  )}
-                >
-                  <div className="overflow-hidden ">
-                    <div className="pb-4">
-                      <div className="flex flex-col">
-                        {targetStats.map(({ stat, label, value }) => {
-                          const min = calculateMinStatValue(stat, value, level);
-                          const max = calculateMaxStatValue(stat, value, level);
-
-                          return (
-                            <div
-                              key={stat}
-                              className="flex items-center justify-between py-2.5 px-4"
-                            >
-                              <span className="">{label}</span>
-                              <span>
-                                {min} ~ {max}
-                              </span>
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
+                <div className="text-md font-medium text-muted-foreground">
+                  {stat.label}
+                </div>
+                <div>
+                  {`${calculateMinStatValue(stat.stat, stat.value, openLevel)} ~ ${calculateMaxStatValue(stat.stat, stat.value, openLevel)}`}
                 </div>
               </div>
-            );
-          })}
+            ))}
+          </div>
         </div>
       </CardContent>
     </Card>

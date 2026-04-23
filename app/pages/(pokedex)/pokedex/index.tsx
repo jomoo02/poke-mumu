@@ -45,7 +45,7 @@ export default function PokedexPageUI() {
       </h1>
       <p className="pb-6 text-muted-foreground">{`${'전국도감 및 버전별 지역도감 목록'}`}</p>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
         <Link href="/pokedex/all" className="rounded-4xl group h-full ">
           <Card className="group-hover:bg-accent group-active:bg-accent">
             <CardHeader>
@@ -68,7 +68,7 @@ export default function PokedexPageUI() {
                 href={href}
                 className="rounded-4xl group h-full "
               >
-                <Card className="group-hover:bg-accent group-active:bg-accent">
+                <Card className="group-hover:bg-accent group-active:bg-accent h-full">
                   <CardHeader>
                     <CardTitle>{title}</CardTitle>
                     <CardDescription>{subTitle}</CardDescription>

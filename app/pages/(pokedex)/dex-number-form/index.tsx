@@ -17,6 +17,7 @@ import LevelStats from './ui/level-stats';
 import Stats from './ui/stats';
 import DexInfo2 from './ui/dex-info-2';
 import RestInfo2 from './ui/rest-info-2';
+import { getRanks } from './api/get-ranks';
 
 interface PokedexDexNumberFormPageUIProps {
   dexNumber: string;
@@ -27,9 +28,10 @@ export default async function PokedexDexNumberFormPageUI({
   pokeKey,
   dexNumber,
 }: PokedexDexNumberFormPageUIProps) {
-  const [data, forms] = await Promise.all([
+  const [data, forms, ranks] = await Promise.all([
     getPokeData(pokeKey),
     getDexNumberForms(dexNumber),
+    getRanks(pokeKey),
   ]);
 
   const {
@@ -78,7 +80,7 @@ export default async function PokedexDexNumberFormPageUI({
           </section>
         </div>
         <section>
-          <Stats stats={stats} name={nameKo} />
+          <Stats stats={stats} name={nameKo} ranks={ranks} types={types} />
         </section>
 
         <section>

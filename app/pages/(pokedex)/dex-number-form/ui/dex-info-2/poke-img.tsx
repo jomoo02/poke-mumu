@@ -43,8 +43,8 @@ export default function PokeHeroImg({
         />
       )} */}
       <Image
-        // src={src}
-        src="/pokeball.svg"
+        src={src}
+        // src="/pokeball.svg"
         alt={name}
         fill
         className="object-contain"

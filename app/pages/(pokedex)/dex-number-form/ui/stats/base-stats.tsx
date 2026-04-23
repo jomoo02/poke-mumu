@@ -39,12 +39,12 @@ export default function BaseStats({ stats, name }: BaseStatsProps) {
   );
   const isTotal = (stat: StatView) => stat.stat === 'total';
   return (
-    <Card className="max-w-md shadow-none ring-0 bg-transparent">
-      <CardHeader className="px-0">
+    <Card className="h-fit ">
+      <CardHeader>
         <CardTitle>종족값</CardTitle>
         <CardDescription>{name}의 종족값</CardDescription>
       </CardHeader>
-      <CardContent className="px-0">
+      <CardContent>
         <CardGroup className="gap-2.5">
           {sorted.map((stat) => (
             <div
