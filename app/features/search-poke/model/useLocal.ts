@@ -19,15 +19,7 @@ const isType = (v: unknown): v is Type => {
 
   const o = v as Record<string, unknown>;
 
-  return (
-    typeof o.identifier === 'string' &&
-    typeof o.name === 'string' &&
-    (o.id === undefined || typeof o.id === 'number') &&
-    (o.generation === undefined || typeof o.generation === 'number') &&
-    (o.damageClassId === undefined ||
-      typeof o.damageClassId === 'number' ||
-      o.damageClassId === null)
-  );
+  return typeof o.identifier === 'string' && typeof o.nameKo === 'string';
 };
 
 const isSearchPoke = (v: unknown): v is SearchPoke => {
@@ -36,10 +28,9 @@ const isSearchPoke = (v: unknown): v is SearchPoke => {
   const o = v as Record<string, unknown>;
 
   return (
-    typeof o.id === 'number' &&
     typeof o.dexNumber === 'number' &&
     typeof o.pokeKey === 'string' &&
-    typeof o.name === 'string' &&
+    typeof o.nameKo === 'string' &&
     isType(o.type1) &&
     isType(o.type2)
   );
@@ -65,6 +56,7 @@ export default function useLocalStoragePoke(open: boolean) {
 
       return parsed;
     } catch {
+      // console.log('catch');
       localStorage.removeItem(KEY);
       return [];
     }
@@ -75,11 +67,11 @@ export default function useLocalStoragePoke(open: boolean) {
 
   const addPokeToLocalPokeList = (poke: SearchPoke) => {
     const filteredLocalPokeList = loadLocalPokeList().filter(
-      ({ id }) => id !== poke.id,
+      ({ pokeKey }) => pokeKey !== poke.pokeKey,
     );
 
     const updatedPokeList = [{ ...poke }, ...filteredLocalPokeList.slice(0, 5)];
-
+    console.log(updatedPokeList);
     window.localStorage.setItem(KEY, JSON.stringify(updatedPokeList));
     // setLocalPokeList(updatedPokeList);
   };

@@ -21,7 +21,7 @@ function Card({
   return (
     <div
       className={cn(
-        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6 bg-card shadow-sm',
+        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6 bg-card',
         cardVariant,
         className,
       )}
@@ -73,7 +73,10 @@ function CardTitle({
 }) {
   return (
     <div
-      className={cn('text-xl font-bold flex gap-1.5 items-center', className)}
+      className={cn(
+        'text-xl font-semibold flex gap-1.5 items-center',
+        className,
+      )}
     >
       {children}
     </div>
@@ -121,7 +124,7 @@ function CardGroupLabel({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('font-medium text-lg', className)}>{children}</div>;
+  return <div className={cn('font-medium', className)}>{children}</div>;
 }
 
 function CardItem({
@@ -141,11 +144,7 @@ function CardFooter({
   children: React.ReactNode;
   className?: string;
 }) {
-  return (
-    <div className="px-6">
-      <div className={cn('', className)}>{children}</div>
-    </div>
-  );
+  return <div className={cn('px-6', className)}>{children}</div>;
 }
 
 export {

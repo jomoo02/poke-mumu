@@ -83,7 +83,7 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
 
   const selectPoke = useCallback(
     (poke: SearchPoke) => {
-      router.push(`/pokedex/${poke.dexNumber}/${poke.pokeKey}`);
+      router.push(`/pokedex/${poke.pokeKey}`);
       addPokeToLocalPokeList(poke);
     },
     [addPokeToLocalPokeList, router],

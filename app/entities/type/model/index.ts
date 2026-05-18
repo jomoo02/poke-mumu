@@ -1,7 +1,7 @@
 export interface Type {
   id?: number;
   identifier: string;
-  name: string;
+  nameKo: string;
   generation?: number;
   damageClassId?: number | null;
 }

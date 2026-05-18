@@ -17,30 +17,46 @@ export async function GET(request: Request) {
       .from('poke')
       .select(
         `
-        id,
-        dexNumber:no,
         pokeKey:poke_key,
-        name:name_ko,
+        nameKo:name_ko,
+        nameEn:name_en,
         sprite,
-        form,
-        type1: type!type_1_id (
-          id,
+        form: form!form_id (
           identifier,
-          name:type_ko
+          nameKo:name_ko
+        ),
+        type1: type!type_1_id (
+          identifier,
+          nameKo:name_ko
         ),
         type2: type!type_2_id (
-          id,
           identifier,
-          name:type_ko
+          nameKo:name_ko
+        ),
+        species (
+          dexNumber:dex_number
         )
       `,
       )
       .order('id', { ascending: true });
+    const payload = ((await query.like(column, `%${value}%`)).data ?? []).map(
+      ({ species, form, ...rest }) => ({
+        ...rest,
+        dexNumber: species.dexNumber,
+        form: form?.nameKo ?? null,
+      }),
+    );
 
-    const payload =
-      column === 'no'
-        ? ((await query.eq('no', Number(value))).data ?? [])
-        : ((await query.like(column, `%${value}%`)).data ?? []);
+    // const payload =
+    //   column === 'dex_number'
+    //     ? ((await query.eq('dex_number', Number(value))).data ?? [])
+    //     : ((await query.like(column, `%${value}%`)).data ?? []).map(
+    //         ({ species, form, ...rest }) => ({
+    //           ...rest,
+    //           dexNumber: species.dexNumber,
+    //           form: form?.nameKo ?? null,
+    //         }),
+    //       );
 
     return NextResponse.json(payload, { status: 200 });
   } catch (error) {

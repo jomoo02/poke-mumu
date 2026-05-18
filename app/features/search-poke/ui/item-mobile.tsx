@@ -17,7 +17,7 @@ interface ItemProps {
 export default function ItemMobile({ item, isActive }: ItemProps) {
   const { selectPoke } = useSearchContext();
 
-  const { dexNumber, form, name, type1, type2, pokeKey } = item;
+  const { dexNumber, form, nameKo, type1, type2, pokeKey } = item;
 
   const href = `/pokedex/${dexNumber}/${pokeKey}`;
   const formattedDexNumber = `No.${formatNumber(dexNumber)}`;
@@ -42,7 +42,7 @@ export default function ItemMobile({ item, isActive }: ItemProps) {
         <span className="text-sm text-muted-foreground font-medium">
           {formattedDexNumber}
         </span>
-        <span className="font-medium text-base truncate">{name}</span>
+        <span className="font-medium text-base truncate">{nameKo}</span>
         <span className="text-sm h-5 text-muted-foreground font-medium truncate ">
           {form}
         </span>

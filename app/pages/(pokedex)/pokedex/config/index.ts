@@ -54,7 +54,7 @@ export const generation4: GenerationDex[] = [
   {
     title: '기라티나',
     href: '/pokedex/game/platinum',
-    subTitle: 'Diamond·Pearl',
+    subTitle: 'Platinum',
     content: '신오지방',
     labels: ['신오'],
   },

@@ -22,12 +22,35 @@ const isSortKey = (value: string): value is SortKey => {
   return (SORT_KEY_LIST as readonly string[]).includes(value);
 };
 
-const COMPARATORS: Record<
+/**
+ * 결정성을 위한 최종 tie-breaker.
+ * dexNumber → sortOrder 순. 항상 ascending.
+ * 같은 species 내에서는 sortOrder가 form 순서를 결정 (base → mega → variant).
+ */
+const tieBreaker = (a: NationalPokeView, b: NationalPokeView): number => {
+  const dexDiff = a.dexNumber - b.dexNumber;
+  if (dexDiff !== 0) return dexDiff;
+  return a.sortOrder - b.sortOrder;
+};
+
+/**
+ * 1차 정렬키가 같을 때 tie-breaker로 풀어주는 wrapper.
+ * direction이 desc여도 tie-breaker는 항상 asc로 적용 (안정성).
+ */
+const withTieBreaker =
+  (compare: (a: NationalPokeView, b: NationalPokeView) => number) =>
+  (a: NationalPokeView, b: NationalPokeView): number => {
+    const primary = compare(a, b);
+    if (primary !== 0) return primary;
+    return tieBreaker(a, b);
+  };
+
+const RAW_COMPARATORS: Record<
   SortKey,
   (a: NationalPokeView, b: NationalPokeView) => number
 > = {
   dexNumber: (a, b) => a.dexNumber - b.dexNumber,
-  name: (a, b) => String(a.name).localeCompare(String(b.name)),
+  name: (a, b) => String(a.nameKo).localeCompare(String(b.nameKo)),
   hp: (a, b) => a.hp - b.hp,
   attack: (a, b) => a.attack - b.attack,
   defense: (a, b) => a.defense - b.defense,
@@ -37,8 +60,16 @@ const COMPARATORS: Record<
   total: (a, b) => (a.total ?? 0) - (b.total ?? 0),
 };
 
+const COMPARATORS: Record<
+  SortKey,
+  (a: NationalPokeView, b: NationalPokeView) => number
+> = Object.fromEntries(
+  Object.entries(RAW_COMPARATORS).map(([key, fn]) => [key, withTieBreaker(fn)]),
+) as typeof RAW_COMPARATORS;
+
 const getComparator = (key: SortKey) => COMPARATORS[key];
 
+// ... (이하 SORT_KEY_LABELS, ORDINAL_KEYS, SORT_OPTIONS, DEFAULT_SORT 등은 변경 없음)
 const SORT_KEY_LABELS: Record<SortKey, string> = {
   dexNumber: '도감번호',
   name: '이름',

@@ -7,18 +7,19 @@ type NationalPokeDto = Tables<'national_pokedex_with_stat'>;
 
 const adaptNationPokeView = (dto: NationalPokeDto): NationalPokeView => {
   const type1 =
-    dto.type1_identifier && dto.type1_typeko
-      ? { identifier: dto.type1_identifier, name: dto.type1_typeko }
+    dto.type_1_identifier && dto.type_1_name_ko
+      ? { identifier: dto.type_1_identifier, nameKo: dto.type_1_name_ko }
       : null;
 
   const type2 =
-    dto.type2_identifier && dto.type2_typeko
-      ? { identifier: dto.type2_identifier, name: dto.type2_typeko }
+    dto.type_2_identifier && dto.type_2_name_ko
+      ? { identifier: dto.type_2_identifier, nameKo: dto.type_2_name_ko }
       : null;
 
   return {
     type1,
     type2,
+    sortOrder: dto.sort_order!,
     hp: dto.hp || 0,
     attack: dto.attack || 0,
     defense: dto.defense || 0,
@@ -26,12 +27,12 @@ const adaptNationPokeView = (dto: NationalPokeDto): NationalPokeView => {
     specialDefense: dto.special_defense || 0,
     speed: dto.speed || 0,
     total: dto.total || 0,
-    id: dto.id!,
     sprite: dto.sprite!,
     pokeKey: dto.poke_key!,
     dexNumber: dto.dex_number!,
-    name: dto.name!,
-    form: dto.form,
+    nameKo: dto.name_ko!,
+    formIdentifier: dto.form_identifier,
+    form: dto.form_name_ko,
   };
 };
 
@@ -44,7 +45,7 @@ export const getNationalPokedex = async () => {
     .from('national_pokedex_with_stat')
     .select('*')
     .order('dex_number', { ascending: true })
-    .order('id', { ascending: true });
+    .order('sort_order', { ascending: true });
 
   if (error) {
     console.error('Supabase error:', error);

@@ -24,6 +24,7 @@ import {
   CollapsibleTrigger,
 } from '@/app/shared/ui/collapsible';
 import { usePathname, useRouter } from 'next/navigation';
+import { cn } from '@/app/shared/lib/cn';
 
 const data = [
   [
@@ -54,11 +55,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { setOpenMobile } = useSidebar();
   return (
     <Sidebar
-      className=""
-      // className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
+      // className="group-data-[side=left]:border-r-0"
+      className="top-(--header-height) h-[calc(100svh-var(--header-height))]! group-data-[side=left]:border-r-0 group-data-[side=left]:shadow-border group-data-[side=left]:shadow"
       {...props}
     >
-      <SidebarHeader>
+      <SidebarHeader className="sm:hidden">
         <SidebarMenu>
           <SidebarMenuItem>
             <Link
@@ -71,7 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className="p-3">
           <SidebarGroupLabel>도감</SidebarGroupLabel>
           <SidebarMenu>
             <SidebarMenuItem>
@@ -94,17 +95,45 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuButton>
             </SidebarMenuItem>
           </SidebarMenu>
-          {/* <SidebarGroupContent>
-            <SidebarMenu>
-              {data.map((item, index) => (
-                <Tree key={index} item={item} />
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent> */}
         </SidebarGroup>
-        {/* <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
+        <SidebarGroup className="p-3">
+          <SidebarGroupLabel>게임 시스템</SidebarGroupLabel>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                onClick={() => setOpenMobile(false)}
+                className="h-10"
+              >
+                <Link href="/natures">성격</Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                onClick={() => setOpenMobile(false)}
+                isActive={pathname === '/ability'}
+                className="h-10 rounded-4xl px-4"
+              >
+                <Link href="/ability" className={cn('')}>
+                  특성
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+            <SidebarMenuItem>
+              <SidebarMenuButton
+                asChild
+                onClick={() => setOpenMobile(false)}
+                isActive={pathname === '/move'}
+                className="h-10 rounded-4xl px-4"
+              >
+                <Link href="/move" className={cn('')}>
+                  기술
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </SidebarGroup>
       </SidebarContent>
     </Sidebar>
   );

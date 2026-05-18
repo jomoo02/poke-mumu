@@ -14,7 +14,7 @@ interface PokeCardProps {
 export default function PokeCardV2({ poke }: PokeCardProps) {
   const {
     dexNumber,
-    name,
+    nameKo,
     form,
     type1,
     type2,
@@ -41,19 +41,19 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
 
   const formattedDexNumber = `${formatNumber(dexNumber)}`;
 
-  const href = `/pokedex/${dexNumber}/${pokeKey}`;
+  const href = `/pokedex/${pokeKey}`;
 
   return (
     <Link
       href={href}
-      className="border flex flex-col rounded-4xl bg-card overflow-hidden hover:shadow-lg active:shadow-lg shadow-sm @container"
+      className="border flex flex-col rounded-4xl bg-card overflow-hidden hover:bg-accent active:bg-accent shadow-sm @container"
     >
       <div className="flex justify-between p-6 pb-0">
-        <div className="shrink-0 text-muted-foreground/80 font-extrabold tabular-nums font-suite">
+        <div className="shrink-0 text-foreground/50 font-extrabold tabular-nums font-suite">
           <span className="text-xl">No.</span>
           <span className="text-2xl">{formattedDexNumber}</span>
         </div>
-        <div className="flex flex-col size-15 items-center justify-center bg-muted rounded-2xl">
+        <div className="flex flex-col size-15 items-center justify-center bg-muted/70 z-10 rounded-2xl">
           <div className="shrink-0 font-semibold text-muted-foreground text-sm">
             총합
           </div>
@@ -63,13 +63,13 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-4">
+      <div className="flex-1 flex flex-col items-center justify-center px-6 pt-3">
         <div className="flex items-center justify-center">
-          <PokeSprite poke={poke} className="size-18" />
+          <PokeSprite poke={poke} className="size-16" />
         </div>
         <div className="flex flex-col justify-center items-center pt-1.5">
-          <div className="text-xl text-center font-medium min-w-0 truncate">
-            {name}
+          <div className="text-lg text-center font-medium min-w-0 truncate">
+            {nameKo}
           </div>
           <div className="text-sm h-5 text-muted-foreground text-center font-medium min-w-0 truncate">
             {form}
@@ -77,15 +77,11 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
         </div>
         <div className="grid grid-cols-2 pt-1.5 gap-1.5">
           {types.map((type) => (
-            <TypeBadge
-              key={type.identifier}
-              type={type}
-              // className="w-20 h-7.5 text-sm rounded-md"
-            />
+            <TypeBadge key={type.identifier} type={type} />
           ))}
         </div>
       </div>
-      <div className="p-6 grid grid-cols-3 gap-y-4 gap-x-2">
+      <div className="p-6 grid grid-cols-3 gap-y-3 gap-x-3">
         {stats.map((stat) => (
           <div
             key={stat.label}
@@ -94,7 +90,7 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
             <div className="text-sm font-medium text-muted-foreground ">
               {stat.label}
             </div>
-            <div className="font-medium text-center text-base tabular-nums">
+            <div className="font-medium text-center text-base tabular-nums text-md">
               {stat.value}
             </div>
           </div>

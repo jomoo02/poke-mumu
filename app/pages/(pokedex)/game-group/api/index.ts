@@ -1,6 +1,5 @@
 import { createClient } from '@/app/shared/lib/supabase/client';
-
-import { type RegionalPokeView } from '../model';
+import { RegionalPokeView } from '../model';
 
 export const fetchRegionalDexDto = async (gameGroup: string) => {
   const supabase = createClient();
@@ -19,21 +18,9 @@ export const fetchRegionalDexDto = async (gameGroup: string) => {
             id,
             regionalDexNumber:dex_number,
             poke (
-              id,
-              dexNumber:no,
+              pokeKey:poke_key,
               sprite,
-              name:name_ko,
-              type1: type!type_1_id (
-                id,
-                identifier,
-                name:type_ko
-              ),
-              type2: type!type_2_id (
-                id,
-                identifier,
-                name:type_ko
-              ),
-              pokeKey:poke_key
+              nameKo:name_ko
             )
           )
         )
@@ -75,7 +62,12 @@ export const getRegionalPokedex = async (gameGroup: string) => {
       const entries: RegionalPokeView[] = d.entries.map(
         ({ poke, regionalDexNumber }) => ({
           regionalDexNumber,
-          ...poke,
+          form: null,
+          pokeKey: poke.pokeKey,
+          sprite: poke.sprite,
+          nameKo: poke.nameKo,
+          // type1: poke.type1,
+          // type2: poke.type2,
         }),
       );
       return {

@@ -22,15 +22,15 @@ export function PokeSprite({
   }
 
   const src = getPokeSpriteSrc(sprite);
-  const alt = poke.name;
+  const alt = poke.nameKo;
 
   return (
     <div className={cn('w-14 h-14 relative', className)}>
       <Image
         placeholder="blur"
         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-        // src={src}
-        src={'/pokeball.svg'}
+        src={src}
+        // src={'/pokeball.svg'}
         alt={alt}
         fill
         style={{
@@ -54,7 +54,7 @@ export function PokeArtwork({
   }
 
   const src = getPokeArtworkSrc(sprite);
-  const alt = poke.name;
+  const alt = poke.nameKo;
 
   return (
     <div className={cn('w-80 h-80 relative', className)}>

@@ -1,16 +1,15 @@
 import Link from 'next/link';
+import { ChevronRightIcon } from 'lucide-react';
 
-// import Card from './ui/card';
+import { cn } from '@/app/shared/lib/cn';
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardGroup,
-  CardGroupLabel,
   CardHeader,
   CardTitle,
 } from '@/app/shared/ui/card';
+
 import {
   generation1,
   generation2,
@@ -22,73 +21,96 @@ import {
   generation8,
   generation9,
 } from './config';
-import { Badge } from '@/app/shared/ui/badge';
-import { Fragment } from 'react/jsx-runtime';
 
 const regionalDex = [
-  { gen: '1세대', genDexs: generation1 },
-  { gen: '2세대', genDexs: generation2 },
-  { gen: '3세대', genDexs: generation3 },
-  { gen: '4세대', genDexs: generation4 },
-  { gen: '5세대', genDexs: generation5 },
-  { gen: '6세대', genDexs: generation6 },
-  { gen: '7세대', genDexs: generation7 },
-  { gen: '8세대', genDexs: generation8 },
-  { gen: '9세대', genDexs: generation9 },
+  { gen: '1', genDexs: generation1 },
+  { gen: '2', genDexs: generation2 },
+  { gen: '3', genDexs: generation3 },
+  { gen: '4', genDexs: generation4 },
+  { gen: '5', genDexs: generation5 },
+  { gen: '6', genDexs: generation6 },
+  { gen: '7', genDexs: generation7 },
+  { gen: '8', genDexs: generation8 },
+  { gen: '9', genDexs: generation9 },
 ];
 
 export default function PokedexPageUI() {
   return (
-    <div className="flex flex-col max-w-384 mine-h-dvh py-8 w-full mx-auto  p-6 px-4 sm:px-6 xl:px-10">
-      <h1 className="text-4xl font-bold tracking-wide mt-4 mb-6" id="dex">
-        도감
-      </h1>
-      <p className="pb-6 text-muted-foreground">{`${'전국도감 및 버전별 지역도감 목록'}`}</p>
+    <div className="flex flex-col max-w-7xl mine-h-dvh py-16 w-full mx-auto px-4 sm:px-6 xl:px-0">
+      <h1 className="text-4xl font-bold tracking-wide">도감</h1>
+      <p className="pt-3 text-muted-foreground">전국도감 및 버전별 지역도감</p>
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
-        <Link href="/pokedex/all" className="rounded-4xl group h-full ">
-          <Card className="group-hover:bg-accent group-active:bg-accent">
-            <CardHeader>
-              <CardTitle>전국도감</CardTitle>
-              <CardDescription>National Pokédex</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex gap-2 flex-wrap">
-                <Badge variant={'blue'}>모든 포켓몬</Badge>
-                <Badge variant={'blue'}>종족값</Badge>
-              </div>
-            </CardContent>
-          </Card>
-        </Link>
-        {regionalDex.map(({ gen, genDexs }) => (
-          <Fragment key={gen}>
-            {genDexs.map(({ title, href, subTitle, labels }) => (
-              <Link
-                key={title}
-                href={href}
-                className="rounded-4xl group h-full "
-              >
-                <Card className="group-hover:bg-accent group-active:bg-accent h-full">
-                  <CardHeader>
-                    <CardTitle>{title}</CardTitle>
-                    <CardDescription>{subTitle}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-x-2 gap-y-2">
-                      <Badge variant={'blue'}>{gen}</Badge>
-                      {labels?.map((label) => (
-                        <Badge key={label} variant="blue">
-                          {label}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+      <section className="mt-12">
+        <h2 className="text-2xl font-bold tracking-wide">전국 도감</h2>
+        <p className="pt-3 text-muted-foreground text-md">모든 포켓몬 목록</p>
+        <div className="w-full pt-6">
+          <PokedexItem
+            href="/pokedex/all"
+            title="전국도감"
+            content="National Pokédex"
+            className="p-6 rounded-4xl"
+          />
+        </div>
+      </section>
+      <section className="mt-12">
+        <div className="">
+          <h2 className="text-2xl font-bold tracking-wide">지역 도감</h2>
+          <p className="pt-3 text-muted-foreground text-md">
+            각 게임 버전에 등장하는 포켓몬 목록
+          </p>
+          <div className="pt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {regionalDex.map(({ gen, genDexs }) => (
+              <Card key={gen}>
+                <CardHeader>
+                  <CardTitle>{gen}세대</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <CardGroup>
+                    {genDexs.map(({ title, href, subTitle }) => (
+                      <PokedexItem
+                        key={title}
+                        href={href}
+                        title={title}
+                        content={subTitle}
+                      />
+                    ))}
+                  </CardGroup>
+                </CardContent>
+              </Card>
             ))}
-          </Fragment>
-        ))}
-      </div>
+          </div>
+        </div>
+      </section>
     </div>
+  );
+}
+
+interface PokedexItemProps {
+  title: string;
+  content?: string;
+  href: string;
+  className?: string;
+}
+
+function PokedexItem({ title, content, href, className }: PokedexItemProps) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        'flex p-4 gap-x-4 justify-between items-center rounded-2xl bg-card overflow-hidden',
+        'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
+        'bg-muted/70 hover:bg-muted active:bg-muted',
+        className,
+      )}
+    >
+      <div className="flex flex-col flex-1 overflow-hidden gap-y-0.5">
+        <div className="line-clamp-1 font-medium">{title}</div>
+        <div className="text-muted-foreground text-sm line-clamp-1">
+          {content}
+        </div>
+      </div>
+
+      <ChevronRightIcon className="size-4.5 shrink-0" />
+    </Link>
   );
 }

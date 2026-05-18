@@ -37,7 +37,7 @@ export default function TypeFilterContent({
               ' dark:data-active:hover:bg-input dark:data-active:hover:text-foreground dark:data-active:bg-input dark:data-active:text-foreground',
             )}
           >
-            {type.name}
+            {type.nameKo}
           </Button>
         );
       })}

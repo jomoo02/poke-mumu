@@ -1,9 +1,16 @@
+// export interface Poke {
+//   id?: number;
+//   dexNumber: number;
+//   pokeKey: string;
+//   sprite?: string;
+//   name: string;
+//   form?: string | null;
+// }
+
 export interface Poke {
-  id?: number;
-  dexNumber: number;
   pokeKey: string;
-  sprite?: string;
-  name: string;
+  sprite: string;
+  nameKo: string;
   form?: string | null;
 }
 

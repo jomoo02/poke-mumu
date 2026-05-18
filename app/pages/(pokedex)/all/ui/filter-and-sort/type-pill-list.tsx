@@ -21,7 +21,7 @@ export default function TypePillList({ types, onRemove }: TypePillListProps) {
           variant={'secondary'}
           onClick={() => onRemove(type)}
         >
-          {type.name}
+          {type.nameKo}
           <XIcon className="size-3.5" />
         </Button>
       ))}

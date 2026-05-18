@@ -18,7 +18,7 @@ export default function usePokedex({
   const enhancedPokes = useMemo(() => {
     return pokes.map((p) => ({
       ...p,
-      nameLower: p.name.toLowerCase(),
+      nameLower: p.nameKo.toLowerCase(),
       type1Identifier: p.type1?.identifier ?? '',
       type2Identifier: p.type2?.identifier ?? '',
     }));

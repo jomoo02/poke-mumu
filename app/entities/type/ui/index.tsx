@@ -70,7 +70,7 @@ export function TypeIconV2({ type, className, size = 32 }: TypeIconProps) {
         {/* </div> */}
       </div>
       <div className="w-17 text-center bg-[#404259]/95 h-full flex items-center justify-center">
-        {type.name}
+        {type.nameKo}
       </div>
     </div>
   );
@@ -78,14 +78,18 @@ export function TypeIconV2({ type, className, size = 32 }: TypeIconProps) {
 
 interface TypeBadgeProps {
   type: Type;
-  size?: number;
+  size?: 'small' | 'default';
   isVisibleContent?: boolean;
   className?: string;
 }
 
 // 4/15 typeBadge
 
-export function TypeBadge({ type, className }: TypeBadgeProps) {
+export function TypeBadge({
+  type,
+  className,
+  size = 'default',
+}: TypeBadgeProps) {
   const bgVariants: Record<string, string> = {
     normal: 'bg-normal',
     fire: 'bg-fire',
@@ -182,7 +186,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
   const bg = bgVariants[type.identifier] || bgVariants.unknown;
   const borderColor =
     borderColorVariatns[type.identifier] || borderColorVariatns.unknown;
-  const content = type.name;
+  const content = type.nameKo;
   const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
   const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
 
@@ -190,6 +194,7 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
     <div
       className={cn(
         'w-20 h-7.5 rounded-lg flex items-center p-1 shadow-sm',
+        size === 'small' ? 'w-18.5 h-7' : '',
         bg,
         shadowColor,
         className,
@@ -197,11 +202,16 @@ export function TypeBadge({ type, className }: TypeBadgeProps) {
     >
       <Image
         src={`/type/${type.identifier}.png`}
-        width={22}
-        height={22}
+        width={size === 'small' ? 20 : 22}
+        height={size === 'small' ? 20 : 22}
         alt={type.identifier}
       />
-      <span className="text-sm text-white font-extrabold text-center flex-1 tracking-wide">
+      <span
+        className={cn(
+          'text-sm text-white font-extrabold text-center flex-1 tracking-wide',
+          size === 'small' ? 'text-xs' : '',
+        )}
+      >
         {content}
       </span>
     </div>
@@ -318,7 +328,7 @@ export function TypeIconV3({ type, className }: TypeBadgeProps) {
   const bg = bgVariants[type.identifier] || bgVariants.unknown;
   const borderColor =
     borderColorVariatns[type.identifier] || borderColorVariatns.unknown;
-  const content = type.name;
+  const content = type.nameKo;
   const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
   const ringColor = ringVariants[type.identifier] || ringVariants.unknown;
 
@@ -326,7 +336,7 @@ export function TypeIconV3({ type, className }: TypeBadgeProps) {
     return (
       <div
         className={cn(
-          'size-7 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center',
+          'size-7.5 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center',
           className,
         )}
       >
@@ -337,7 +347,7 @@ export function TypeIconV3({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'size-7 rounded-lg flex items-center p-1 shadow-sm',
+        'size-7.5 rounded-lg flex items-center p-1 shadow-sm',
         bg,
         shadowColor,
         className,

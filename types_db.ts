@@ -10,46 +10,67 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "12.2.3 (519615d)"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
       ability: {
         Row: {
-          change_log: Json[] | null
           created_at: string
           description: string | null
           flavor_text: string
           gen: number | null
           id: number
-          name_en: string | null
+          identifier: string
+          name_en: string
           name_ja: string | null
           name_ko: string
-          poke_list: Json[] | null
         }
         Insert: {
-          change_log?: Json[] | null
           created_at?: string
           description?: string | null
           flavor_text: string
           gen?: number | null
           id?: number
-          name_en?: string | null
+          identifier: string
+          name_en: string
           name_ja?: string | null
           name_ko: string
-          poke_list?: Json[] | null
         }
         Update: {
-          change_log?: Json[] | null
           created_at?: string
           description?: string | null
           flavor_text?: string
           gen?: number | null
           id?: number
-          name_en?: string | null
+          identifier?: string
+          name_en?: string
           name_ja?: string | null
           name_ko?: string
-          poke_list?: Json[] | null
+        }
+        Relationships: []
+      }
+      damage_class: {
+        Row: {
+          id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Insert: {
+          id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Update: {
+          id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
         }
         Relationships: []
       }
@@ -58,19 +79,19 @@ export type Database = {
           dex_number: number
           dex_region_id: number
           id: number
-          poke_id: number
+          poke_key: string
         }
         Insert: {
           dex_number: number
           dex_region_id: number
           id?: number
-          poke_id: number
+          poke_key: string
         }
         Update: {
           dex_number?: number
           dex_region_id?: number
           id?: number
-          poke_id?: number
+          poke_key?: string
         }
         Relationships: [
           {
@@ -81,18 +102,18 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "dex_entry_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "dex_entry_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
-            foreignKeyName: "dex_entry_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "dex_entry_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "poke"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
         ]
       }
@@ -149,77 +170,51 @@ export type Database = {
           },
         ]
       }
-      evolution_chain: {
-        Row: {
-          created_at: string
-          evolution_id: number
-          from_poke_id: number | null
-          id: number
-          stage: number
-          to_detail: Json[] | null
-          to_poke_id: number
-        }
-        Insert: {
-          created_at?: string
-          evolution_id: number
-          from_poke_id?: number | null
-          id?: number
-          stage?: number
-          to_detail?: Json[] | null
-          to_poke_id: number
-        }
-        Update: {
-          created_at?: string
-          evolution_id?: number
-          from_poke_id?: number | null
-          id?: number
-          stage?: number
-          to_detail?: Json[] | null
-          to_poke_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "evolution_chain_from_poke_id_fkey"
-            columns: ["from_poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "evolution_chain_from_poke_id_fkey"
-            columns: ["from_poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "evolution_chain_to_poke_id_fkey"
-            columns: ["to_poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "evolution_chain_to_poke_id_fkey"
-            columns: ["to_poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      "\blanguage": {
+      egg_group: {
         Row: {
           id: number
           identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Insert: {
           id?: number
           identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Update: {
           id?: number
           identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
+        }
+        Relationships: []
+      }
+      form: {
+        Row: {
+          id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Insert: {
+          id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Update: {
+          id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
         }
         Relationships: []
       }
@@ -228,73 +223,83 @@ export type Database = {
           accuracy: number | null
           created_at: string
           damage_class_id: number | null
-          description: string | null
+          description: string
           effect_chance: number | null
-          effect_id: number | null
-          generation: number | null
+          generation: number
           id: number
-          identifier: string | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
+          identifier: string
+          legacy_id: number | null
+          name_en: string
+          name_ja: string
+          name_ko: string
           power: number | null
           pp: number | null
-          priority: number | null
-          target_id: number | null
-          type_id: number | null
+          priority: number
+          target_id: number
+          type_id: number
+          variant_id: number | null
         }
         Insert: {
           accuracy?: number | null
           created_at?: string
           damage_class_id?: number | null
-          description?: string | null
+          description: string
           effect_chance?: number | null
-          effect_id?: number | null
-          generation?: number | null
+          generation: number
           id?: number
-          identifier?: string | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
+          identifier: string
+          legacy_id?: number | null
+          name_en: string
+          name_ja: string
+          name_ko: string
           power?: number | null
           pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          type_id?: number | null
+          priority?: number
+          target_id: number
+          type_id: number
+          variant_id?: number | null
         }
         Update: {
           accuracy?: number | null
           created_at?: string
           damage_class_id?: number | null
-          description?: string | null
+          description?: string
           effect_chance?: number | null
-          effect_id?: number | null
-          generation?: number | null
+          generation?: number
           id?: number
-          identifier?: string | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
+          identifier?: string
+          legacy_id?: number | null
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
           power?: number | null
           pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          type_id?: number | null
+          priority?: number
+          target_id?: number
+          type_id?: number
+          variant_id?: number | null
         }
         Relationships: [
           {
             foreignKeyName: "move_damage_class_id_fkey"
             columns: ["damage_class_id"]
             isOneToOne: false
-            referencedRelation: "move_damage_class"
+            referencedRelation: "damage_class"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "move_effect_id_fkey"
-            columns: ["effect_id"]
+            foreignKeyName: "move_damage_class_id_fkey"
+            columns: ["damage_class_id"]
             isOneToOne: false
-            referencedRelation: "move_effect"
-            referencedColumns: ["id"]
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["damage_class_id"]
+          },
+          {
+            foreignKeyName: "move_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["damage_class_id"]
           },
           {
             foreignKeyName: "move_target_id_fkey"
@@ -307,822 +312,173 @@ export type Database = {
             foreignKeyName: "move_type_id_fkey"
             columns: ["type_id"]
             isOneToOne: false
-            referencedRelation: "type"
-            referencedColumns: ["id"]
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
           },
-        ]
-      }
-      move_changelog: {
-        Row: {
-          accuracy: number | null
-          created_at: string
-          damage_class_id: number | null
-          effect_chance: number | null
-          effect_id: number | null
-          id: number
-          move_id: number | null
-          power: number | null
-          pp: number | null
-          priority: number | null
-          target_id: number | null
-          type_id: number | null
-          version_group_id: number | null
-        }
-        Insert: {
-          accuracy?: number | null
-          created_at?: string
-          damage_class_id?: number | null
-          effect_chance?: number | null
-          effect_id?: number | null
-          id?: number
-          move_id?: number | null
-          power?: number | null
-          pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          type_id?: number | null
-          version_group_id?: number | null
-        }
-        Update: {
-          accuracy?: number | null
-          created_at?: string
-          damage_class_id?: number | null
-          effect_chance?: number | null
-          effect_id?: number | null
-          id?: number
-          move_id?: number | null
-          power?: number | null
-          pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          type_id?: number | null
-          version_group_id?: number | null
-        }
-        Relationships: [
           {
-            foreignKeyName: "move_changelog_damage_class_id_fkey"
-            columns: ["damage_class_id"]
+            foreignKeyName: "move_type_id_fkey"
+            columns: ["type_id"]
             isOneToOne: false
-            referencedRelation: "move_damage_class"
-            referencedColumns: ["id"]
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
           },
           {
-            foreignKeyName: "move_changelog_effect_id_fkey"
-            columns: ["effect_id"]
-            isOneToOne: false
-            referencedRelation: "move_effect"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "move_changelog_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "move_changelog_target_id_fkey"
-            columns: ["target_id"]
-            isOneToOne: false
-            referencedRelation: "move_target"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "move_changelog_type_id_fkey"
+            foreignKeyName: "move_type_id_fkey"
             columns: ["type_id"]
             isOneToOne: false
             referencedRelation: "type"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "move_changelog_version_group_id_fkey"
-            columns: ["version_group_id"]
+            foreignKeyName: "move_variant_id_fkey"
+            columns: ["variant_id"]
             isOneToOne: false
-            referencedRelation: "version_group"
+            referencedRelation: "move_variant"
             referencedColumns: ["id"]
           },
         ]
       }
-      move_damage_class: {
-        Row: {
-          id: number
-          identifier: string
-        }
-        Insert: {
-          id?: number
-          identifier: string
-        }
-        Update: {
-          id?: number
-          identifier?: string
-        }
-        Relationships: []
-      }
-      move_effect: {
-        Row: {
-          effect: string
-          id: number
-        }
-        Insert: {
-          effect: string
-          id?: number
-        }
-        Update: {
-          effect?: string
-          id?: number
-        }
-        Relationships: []
-      }
-      move_lets_go: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_lets_go_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen1: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen1_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen2: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen2_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen3: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen3_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen4: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen4_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen5: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen5_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen6: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen6_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen7: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen7_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen8: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen8_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_list_gen9: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_list_gen9_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_machine: {
+      move_learn_method: {
         Row: {
           created_at: string
           id: number
-          machine_number: number
-          machine_type: string
-          move_id: number
-          version_group_id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Insert: {
           created_at?: string
           id?: number
-          machine_number: number
-          machine_type: string
-          move_id: number
-          version_group_id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Update: {
           created_at?: string
-          id?: number
-          machine_number?: number
-          machine_type?: string
-          move_id?: number
-          version_group_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_machine_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "move_machine_version_group_id_fkey"
-            columns: ["version_group_id"]
-            isOneToOne: false
-            referencedRelation: "version_group"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_sw_sh: {
-        Row: {
-          accuracy: number | null
-          damage_class: string | null
-          id: number
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          type: string | null
-        }
-        Insert: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Update: {
-          accuracy?: number | null
-          damage_class?: string | null
-          id?: number
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          type?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "move_sw_sh_move_id_fkey"
-            columns: ["move_id"]
-            isOneToOne: false
-            referencedRelation: "move"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      move_target: {
-        Row: {
-          id: number
-          identifier: string
-        }
-        Insert: {
-          id?: number
-          identifier: string
-        }
-        Update: {
           id?: number
           identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
         }
         Relationships: []
       }
-      move_with_changes: {
+      move_target: {
         Row: {
-          accuracy: number | null
-          damage_class_id: number | null
-          damage_class_name: string | null
-          effect_chance: number | null
-          effect_description: string | null
-          effect_id: number | null
-          generation: number | null
-          move_id: number | null
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
-          power: number | null
-          pp: number | null
-          priority: number | null
-          target_id: number | null
-          target_name: string | null
-          type_id: number | null
-          type_name: string | null
+          created_at: string
+          id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Insert: {
-          accuracy?: number | null
-          damage_class_id?: number | null
-          damage_class_name?: string | null
-          effect_chance?: number | null
-          effect_description?: string | null
-          effect_id?: number | null
-          generation?: number | null
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          target_name?: string | null
-          type_id?: number | null
-          type_name?: string | null
+          created_at?: string
+          id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Update: {
-          accuracy?: number | null
-          damage_class_id?: number | null
-          damage_class_name?: string | null
-          effect_chance?: number | null
-          effect_description?: string | null
-          effect_id?: number | null
-          generation?: number | null
-          move_id?: number | null
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
-          power?: number | null
-          pp?: number | null
-          priority?: number | null
-          target_id?: number | null
-          target_name?: string | null
-          type_id?: number | null
-          type_name?: string | null
+          created_at?: string
+          id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
+        }
+        Relationships: []
+      }
+      move_variant: {
+        Row: {
+          created_at: string
+          id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
         }
         Relationships: []
       }
       poke: {
         Row: {
           created_at: string
-          evolution_id: number | null
-          form: string | null
+          form_id: number | null
+          height_dm: number | null
           id: number
+          is_default: boolean
           name_en: string
           name_ja: string
           name_ko: string
-          no: number
           poke_key: string
+          sort_order: number
           species_id: number
           sprite: string
-          type_1: string
           type_1_id: number
-          type_2: string | null
           type_2_id: number | null
+          weight_hg: number | null
         }
         Insert: {
           created_at?: string
-          evolution_id?: number | null
-          form?: string | null
+          form_id?: number | null
+          height_dm?: number | null
           id?: number
+          is_default?: boolean
           name_en: string
           name_ja: string
           name_ko: string
-          no: number
           poke_key: string
+          sort_order: number
           species_id: number
           sprite: string
-          type_1: string
           type_1_id: number
-          type_2?: string | null
           type_2_id?: number | null
+          weight_hg?: number | null
         }
         Update: {
           created_at?: string
-          evolution_id?: number | null
-          form?: string | null
+          form_id?: number | null
+          height_dm?: number | null
           id?: number
+          is_default?: boolean
           name_en?: string
           name_ja?: string
           name_ko?: string
-          no?: number
           poke_key?: string
+          sort_order?: number
           species_id?: number
           sprite?: string
-          type_1?: string
           type_1_id?: number
-          type_2?: string | null
           type_2_id?: number | null
+          weight_hg?: number | null
         }
         Relationships: [
+          {
+            foreignKeyName: "poke_form_id_fkey"
+            columns: ["form_id"]
+            isOneToOne: false
+            referencedRelation: "form"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "poke_species_id_fkey"
             columns: ["species_id"]
@@ -1134,8 +490,36 @@ export type Database = {
             foreignKeyName: "poke_type_1_id_fkey"
             columns: ["type_1_id"]
             isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "poke_type_1_id_fkey"
+            columns: ["type_1_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "poke_type_1_id_fkey"
+            columns: ["type_1_id"]
+            isOneToOne: false
             referencedRelation: "type"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poke_type_2_id_fkey"
+            columns: ["type_2_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "poke_type_2_id_fkey"
+            columns: ["type_2_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
           },
           {
             foreignKeyName: "poke_type_2_id_fkey"
@@ -1151,22 +535,25 @@ export type Database = {
           ability_id: number
           created_at: string
           id: number
-          poke_id: number
-          slot: number
+          is_hidden: boolean
+          poke_key: string
+          slot: number | null
         }
         Insert: {
           ability_id: number
           created_at?: string
           id?: number
-          poke_id: number
-          slot: number
+          is_hidden?: boolean
+          poke_key: string
+          slot?: number | null
         }
         Update: {
           ability_id?: number
           created_at?: string
           id?: number
-          poke_id?: number
-          slot?: number
+          is_hidden?: boolean
+          poke_key?: string
+          slot?: number | null
         }
         Relationships: [
           {
@@ -1177,105 +564,18 @@ export type Database = {
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "poke_ability_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_ability_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
-            foreignKeyName: "poke_ability_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_ability_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      poke_breeding: {
-        Row: {
-          created_at: string
-          egg_group_1: string
-          egg_group_2: string | null
-          gender_rate: number | null
-          hatch_counter: number | null
-          id: number
-          poke_id: number
-        }
-        Insert: {
-          created_at?: string
-          egg_group_1: string
-          egg_group_2?: string | null
-          gender_rate?: number | null
-          hatch_counter?: number | null
-          id?: number
-          poke_id: number
-        }
-        Update: {
-          created_at?: string
-          egg_group_1?: string
-          egg_group_2?: string | null
-          gender_rate?: number | null
-          hatch_counter?: number | null
-          id?: number
-          poke_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "poke_breeding_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_breeding_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      poke_detail: {
-        Row: {
-          base_friendship: number | null
-          capture_rate: number | null
-          created_at: string
-          growth_rate: string | null
-          id: number
-          poke_id: number
-        }
-        Insert: {
-          base_friendship?: number | null
-          capture_rate?: number | null
-          created_at?: string
-          growth_rate?: string | null
-          id?: number
-          poke_id: number
-        }
-        Update: {
-          base_friendship?: number | null
-          capture_rate?: number | null
-          created_at?: string
-          growth_rate?: string | null
-          id?: number
-          poke_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "poke_detail_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_detail_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
         ]
       }
@@ -1283,37 +583,44 @@ export type Database = {
         Row: {
           created_at: string
           id: number
-          poke_id: number
-          stat_name: string
-          stat_value: number
+          poke_key: string
+          stat_id: number
+          value: number
         }
         Insert: {
           created_at?: string
           id?: number
-          poke_id: number
-          stat_name: string
-          stat_value: number
+          poke_key: string
+          stat_id: number
+          value: number
         }
         Update: {
           created_at?: string
           id?: number
-          poke_id?: number
-          stat_name?: string
-          stat_value?: number
+          poke_key?: string
+          stat_id?: number
+          value?: number
         }
         Relationships: [
           {
-            foreignKeyName: "poke_effort_value_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_effort_value_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
-            foreignKeyName: "poke_effort_value_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_effort_value_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "poke"
+            referencedColumns: ["poke_key"]
+          },
+          {
+            foreignKeyName: "poke_effort_value_stat_id_fkey"
+            columns: ["stat_id"]
+            isOneToOne: false
+            referencedRelation: "stat"
             referencedColumns: ["id"]
           },
         ]
@@ -1321,128 +628,100 @@ export type Database = {
       poke_move: {
         Row: {
           created_at: string
+          detail: string | null
           id: number
-          moves: Json
-          poke_id: number
+          learn_method_id: number
+          level: number | null
+          move_id: number
+          poke_key: string
           version_group_id: number
         }
         Insert: {
           created_at?: string
+          detail?: string | null
           id?: number
-          moves: Json
-          poke_id: number
+          learn_method_id: number
+          level?: number | null
+          move_id: number
+          poke_key: string
           version_group_id: number
         }
         Update: {
           created_at?: string
+          detail?: string | null
           id?: number
-          moves?: Json
-          poke_id?: number
+          learn_method_id?: number
+          level?: number | null
+          move_id?: number
+          poke_key?: string
           version_group_id?: number
         }
         Relationships: [
           {
-            foreignKeyName: "poke_move_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_move_learn_method_id_fkey"
+            columns: ["learn_method_id"]
             isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
+            referencedRelation: "move_learn_method"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "poke_move_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_move_learn_method_id_fkey"
+            columns: ["learn_method_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["learn_method_id"]
+          },
+          {
+            foreignKeyName: "poke_move_learn_method_id_fkey"
+            columns: ["learn_method_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["learn_method_id"]
+          },
+          {
+            foreignKeyName: "poke_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "move"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poke_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "move_current"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "poke_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "poke_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
+            isOneToOne: false
+            referencedRelation: "national_pokedex_with_stat"
+            referencedColumns: ["poke_key"]
+          },
+          {
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "poke"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
             foreignKeyName: "poke_move_version_group_id_fkey"
-            columns: ["version_group_id"]
-            isOneToOne: false
-            referencedRelation: "version_group"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      poke_moves: {
-        Row: {
-          id: number
-          moves: Json
-          poke_id: number
-          version_group_id: number
-        }
-        Insert: {
-          id?: number
-          moves: Json
-          poke_id: number
-          version_group_id: number
-        }
-        Update: {
-          id?: number
-          moves?: Json
-          poke_id?: number
-          version_group_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "poke_moves_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_moves_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_moves_version_group_id_fkey"
-            columns: ["version_group_id"]
-            isOneToOne: false
-            referencedRelation: "version_group"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      poke_moves_2: {
-        Row: {
-          id: number
-          moves: Json
-          poke_id: number
-          version_group_id: number
-        }
-        Insert: {
-          id?: number
-          moves?: Json
-          poke_id: number
-          version_group_id: number
-        }
-        Update: {
-          id?: number
-          moves?: Json
-          poke_id?: number
-          version_group_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "poke_moves_2_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_moves_2_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "poke_moves_2_version_group_id_fkey"
             columns: ["version_group_id"]
             isOneToOne: false
             referencedRelation: "version_group"
@@ -1456,8 +735,7 @@ export type Database = {
           created_at: string
           defense: number
           hp: number
-          id: number
-          poke_id: number
+          poke_key: string
           special_attack: number
           special_defense: number
           speed: number
@@ -1468,8 +746,7 @@ export type Database = {
           created_at?: string
           defense: number
           hp: number
-          id?: number
-          poke_id: number
+          poke_key: string
           special_attack: number
           special_defense: number
           speed: number
@@ -1480,8 +757,7 @@ export type Database = {
           created_at?: string
           defense?: number
           hp?: number
-          id?: number
-          poke_id?: number
+          poke_key?: string
           special_attack?: number
           special_defense?: number
           speed?: number
@@ -1489,177 +765,119 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "poke_stat_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_stat_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: true
             referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
-            foreignKeyName: "poke_stat_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_stat_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: true
             referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      pokedex_info: {
-        Row: {
-          genera: string
-          height: number
-          id: number
-          poke_id: number
-          weight: number
-        }
-        Insert: {
-          genera: string
-          height: number
-          id?: number
-          poke_id: number
-          weight: number
-        }
-        Update: {
-          genera?: string
-          height?: number
-          id?: number
-          poke_id?: number
-          weight?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "pokedex_info_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "pokedex_info_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: true
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      pokedex_number: {
-        Row: {
-          dex_number: number
-          dex_type: string
-          id: number
-          poke_id: number | null
-        }
-        Insert: {
-          dex_number: number
-          dex_type: string
-          id?: number
-          poke_id?: number | null
-        }
-        Update: {
-          dex_number?: number
-          dex_type?: string
-          id?: number
-          poke_id?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "pokedex_number_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "pokedex_number_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      regional_pokedex: {
-        Row: {
-          id: number
-          poke_id: number
-          regional_dex_number: number
-          subdex_code: string
-          version_group_id: number
-        }
-        Insert: {
-          id?: number
-          poke_id: number
-          regional_dex_number: number
-          subdex_code?: string
-          version_group_id: number
-        }
-        Update: {
-          id?: number
-          poke_id?: number
-          regional_dex_number?: number
-          subdex_code?: string
-          version_group_id?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "regional_pokedex_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "regional_pokedex_poke_id_fkey"
-            columns: ["poke_id"]
-            isOneToOne: false
-            referencedRelation: "poke"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "regional_pokedex_version_group_id_fkey"
-            columns: ["version_group_id"]
-            isOneToOne: false
-            referencedRelation: "version_group"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
         ]
       }
       species: {
         Row: {
+          base_happiness: number
+          capture_rate: number
+          created_at: string
+          dex_number: number
+          egg_group_1_id: number
+          egg_group_2_id: number | null
+          gender_rate: number
+          genera_ko: string
+          growth_rate: string
+          hatch_counter: number | null
           id: number
+          identifier: string
+          name_en: string
+          name_ja: string
           name_ko: string
-          no: number
-          species: string
         }
         Insert: {
+          base_happiness: number
+          capture_rate: number
+          created_at?: string
+          dex_number: number
+          egg_group_1_id: number
+          egg_group_2_id?: number | null
+          gender_rate: number
+          genera_ko: string
+          growth_rate: string
+          hatch_counter?: number | null
           id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
           name_ko: string
-          no: number
-          species: string
         }
         Update: {
+          base_happiness?: number
+          capture_rate?: number
+          created_at?: string
+          dex_number?: number
+          egg_group_1_id?: number
+          egg_group_2_id?: number | null
+          gender_rate?: number
+          genera_ko?: string
+          growth_rate?: string
+          hatch_counter?: number | null
           id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
           name_ko?: string
-          no?: number
-          species?: string
         }
         Relationships: [
           {
-            foreignKeyName: "species_species_fkey"
-            columns: ["species"]
-            isOneToOne: true
-            referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["poke_key"]
+            foreignKeyName: "species_egg_group_1_id_fkey"
+            columns: ["egg_group_1_id"]
+            isOneToOne: false
+            referencedRelation: "egg_group"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "species_species_fkey"
-            columns: ["species"]
-            isOneToOne: true
-            referencedRelation: "poke"
-            referencedColumns: ["poke_key"]
+            foreignKeyName: "species_egg_group_2_id_fkey"
+            columns: ["egg_group_2_id"]
+            isOneToOne: false
+            referencedRelation: "egg_group"
+            referencedColumns: ["id"]
           },
         ]
+      }
+      stat: {
+        Row: {
+          created_at: string
+          display_order: number
+          id: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Insert: {
+          created_at?: string
+          display_order: number
+          id?: number
+          identifier: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          id?: number
+          identifier?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
+        }
+        Relationships: []
       }
       type: {
         Row: {
@@ -1667,56 +885,109 @@ export type Database = {
           generation: number
           id: number
           identifier: string
-          type_ko: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Insert: {
           damage_class_id?: number | null
           generation: number
           id?: number
           identifier: string
-          type_ko: string
+          name_en: string
+          name_ja: string
+          name_ko: string
         }
         Update: {
           damage_class_id?: number | null
           generation?: number
           id?: number
           identifier?: string
-          type_ko?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "type_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "damage_class"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "type_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["damage_class_id"]
+          },
+          {
+            foreignKeyName: "type_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["damage_class_id"]
+          },
+        ]
       }
-      type_effective: {
+      type_effectiveness: {
         Row: {
           attacker_type_id: number
           defender_type_id: number
+          effective_from: number
           effectiveness: number
-          generation: number | null
-          id: number
         }
         Insert: {
           attacker_type_id: number
           defender_type_id: number
+          effective_from: number
           effectiveness: number
-          generation?: number | null
-          id?: number
         }
         Update: {
           attacker_type_id?: number
           defender_type_id?: number
+          effective_from?: number
           effectiveness?: number
-          generation?: number | null
-          id?: number
         }
         Relationships: [
           {
-            foreignKeyName: "type_defense_attacker_type_id_fkey"
+            foreignKeyName: "type_effectiveness_attacker_fkey"
+            columns: ["attacker_type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "type_effectiveness_attacker_fkey"
+            columns: ["attacker_type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "type_effectiveness_attacker_fkey"
             columns: ["attacker_type_id"]
             isOneToOne: false
             referencedRelation: "type"
             referencedColumns: ["id"]
           },
           {
-            foreignKeyName: "type_defense_defender_type_id_fkey"
+            foreignKeyName: "type_effectiveness_defender_fkey"
+            columns: ["defender_type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "type_effectiveness_defender_fkey"
+            columns: ["defender_type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "type_effectiveness_defender_fkey"
             columns: ["defender_type_id"]
             isOneToOne: false
             referencedRelation: "type"
@@ -1726,89 +997,152 @@ export type Database = {
       }
       version_group: {
         Row: {
+          created_at: string
           generation: number
           id: number
           identifier: string
-          order: number
-          version_group_ko: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+          sort_order: number
         }
         Insert: {
+          created_at?: string
           generation: number
           id?: number
           identifier: string
-          order: number
-          version_group_ko: string
+          name_en: string
+          name_ja: string
+          name_ko: string
+          sort_order: number
         }
         Update: {
+          created_at?: string
           generation?: number
           id?: number
           identifier?: string
-          order?: number
-          version_group_ko?: string
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
+          sort_order?: number
         }
         Relationships: []
       }
       version_move: {
         Row: {
           accuracy: number | null
-          damage_class: string
+          created_at: string
+          damage_class_id: number | null
           description: string
           id: number
-          identifier: string
           machine_number: number | null
           machine_type: string | null
           move_id: number
-          move_number: number
-          name_en: string
-          name_ja: string
           name_ko: string
           power: number | null
           pp: number | null
-          type: string
+          type_id: number
           version_group_id: number
         }
         Insert: {
           accuracy?: number | null
-          damage_class: string
+          created_at?: string
+          damage_class_id?: number | null
           description: string
           id?: number
-          identifier: string
           machine_number?: number | null
           machine_type?: string | null
           move_id: number
-          move_number: number
-          name_en: string
-          name_ja: string
           name_ko: string
           power?: number | null
           pp?: number | null
-          type: string
+          type_id: number
           version_group_id: number
         }
         Update: {
           accuracy?: number | null
-          damage_class?: string
+          created_at?: string
+          damage_class_id?: number | null
           description?: string
           id?: number
-          identifier?: string
           machine_number?: number | null
           machine_type?: string | null
           move_id?: number
-          move_number?: number
-          name_en?: string
-          name_ja?: string
           name_ko?: string
           power?: number | null
           pp?: number | null
-          type?: string
+          type_id?: number
           version_group_id?: number
         }
         Relationships: [
+          {
+            foreignKeyName: "version_move_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "damage_class"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["damage_class_id"]
+          },
+          {
+            foreignKeyName: "version_move_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["damage_class_id"]
+          },
           {
             foreignKeyName: "version_move_move_id_fkey"
             columns: ["move_id"]
             isOneToOne: false
             referencedRelation: "move"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "move_current"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "version_move_move_id_fkey"
+            columns: ["move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "version_move_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "version_move_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "version_move_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "type"
             referencedColumns: ["id"]
           },
           {
@@ -1822,75 +1156,154 @@ export type Database = {
       }
       version_move_legends_za: {
         Row: {
+          base_move_id: number | null
           cooldown: number | null
-          damage_class: string | null
-          description: string | null
+          created_at: string
+          damage_class_id: number
+          description: string
           duration: number | null
           frames_exec: number | null
           frames_wind_up: number | null
           id: number
           identifier: string
+          legacy_move_id: number
           machine_number: number | null
           machine_type: string | null
-          move_id: number
-          name_en: string | null
-          name_ja: string | null
-          name_ko: string | null
+          name_en: string
+          name_ja: string
+          name_ko: string
           power: number | null
           pp: number | null
           range_eff: number | null
           range_max: number | null
           range_min: number | null
-          type: string | null
+          type_id: number
           version_group_id: number
+          za_variant: string
         }
         Insert: {
+          base_move_id?: number | null
           cooldown?: number | null
-          damage_class?: string | null
-          description?: string | null
+          created_at?: string
+          damage_class_id: number
+          description: string
           duration?: number | null
           frames_exec?: number | null
           frames_wind_up?: number | null
           id?: number
           identifier: string
+          legacy_move_id: number
           machine_number?: number | null
           machine_type?: string | null
-          move_id: number
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
+          name_en: string
+          name_ja: string
+          name_ko: string
           power?: number | null
           pp?: number | null
           range_eff?: number | null
           range_max?: number | null
           range_min?: number | null
-          type?: string | null
+          type_id: number
           version_group_id?: number
+          za_variant: string
         }
         Update: {
+          base_move_id?: number | null
           cooldown?: number | null
-          damage_class?: string | null
-          description?: string | null
+          created_at?: string
+          damage_class_id?: number
+          description?: string
           duration?: number | null
           frames_exec?: number | null
           frames_wind_up?: number | null
           id?: number
           identifier?: string
+          legacy_move_id?: number
           machine_number?: number | null
           machine_type?: string | null
-          move_id?: number
-          name_en?: string | null
-          name_ja?: string | null
-          name_ko?: string | null
+          name_en?: string
+          name_ja?: string
+          name_ko?: string
           power?: number | null
           pp?: number | null
           range_eff?: number | null
           range_max?: number | null
           range_min?: number | null
-          type?: string | null
+          type_id?: number
           version_group_id?: number
+          za_variant?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "move"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "move_current"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "damage_class"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["damage_class_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_damage_class_id_fkey"
+            columns: ["damage_class_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["damage_class_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["type_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_type_id_fkey"
+            columns: ["type_id"]
+            isOneToOne: false
+            referencedRelation: "type"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "version_move_legends_za_version_group_id_fkey"
             columns: ["version_group_id"]
@@ -1902,55 +1315,97 @@ export type Database = {
       }
     }
     Views: {
-      evolution_mview: {
+      move_current: {
         Row: {
-          evolution_data: Json | null
-          evolution_id: number | null
+          accuracy: number | null
+          damage_class_id: number | null
+          damage_class_identifier: string | null
+          damage_class_name_ko: string | null
+          generation: number | null
+          id: number | null
+          identifier: string | null
+          name_en: string | null
+          name_ja: string | null
+          name_ko: string | null
+          power: number | null
+          pp: number | null
+          type_id: number | null
+          type_identifier: string | null
+          type_name_ko: string | null
+          version_group_id: number | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "version_move_version_group_id_fkey"
+            columns: ["version_group_id"]
+            isOneToOne: false
+            referencedRelation: "version_group"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       national_pokedex_with_stat: {
         Row: {
           attack: number | null
           defense: number | null
           dex_number: number | null
-          form: string | null
+          form_identifier: string | null
+          form_name_ko: string | null
           hp: number | null
-          id: number | null
-          name: string | null
+          name_ko: string | null
           poke_key: string | null
+          sort_order: number | null
           special_attack: number | null
           special_defense: number | null
           speed: number | null
           sprite: string | null
           total: number | null
-          type1_identifier: string | null
-          type1_typeko: string | null
-          type2_identifier: string | null
-          type2_typeko: string | null
+          type_1_identifier: string | null
+          type_1_name_ko: string | null
+          type_2_identifier: string | null
+          type_2_name_ko: string | null
         }
         Relationships: []
       }
-      poke_move_view: {
+      poke_move_vm_view: {
         Row: {
-          moves: Json | null
-          poke_id: number | null
+          accuracy: number | null
+          damage_class_id: number | null
+          damage_class_identifier: string | null
+          description: string | null
+          detail: string | null
+          generation: number | null
+          identifier: string | null
+          learn_method_id: number | null
+          learn_method_identifier: string | null
+          learn_method_name_ko: string | null
+          level: number | null
+          machine_number: number | null
+          machine_type: string | null
+          move_id: number | null
+          name_ko: string | null
+          poke_key: string | null
+          power: number | null
+          pp: number | null
+          type_id: number | null
+          type_identifier: string | null
+          type_name_ko: string | null
           version_group_id: number | null
         }
         Relationships: [
           {
-            foreignKeyName: "poke_move_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "national_pokedex_with_stat"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
-            foreignKeyName: "poke_move_poke_id_fkey"
-            columns: ["poke_id"]
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
             isOneToOne: false
             referencedRelation: "poke"
-            referencedColumns: ["id"]
+            referencedColumns: ["poke_key"]
           },
           {
             foreignKeyName: "poke_move_version_group_id_fkey"
@@ -1961,59 +1416,153 @@ export type Database = {
           },
         ]
       }
-      poke_total_rank: {
+      poke_move_za_view: {
         Row: {
-          id: number | null
-          rank_ratio: number | null
+          base_move_id: number | null
+          cooldown: number | null
+          damage_class_id: number | null
+          damage_class_identifier: string | null
+          description: string | null
+          detail: string | null
+          duration: number | null
+          frames_exec: number | null
+          frames_wind_up: number | null
+          generation: number | null
+          identifier: string | null
+          learn_method_id: number | null
+          learn_method_identifier: string | null
+          learn_method_name_ko: string | null
+          legacy_move_id: number | null
+          level: number | null
+          machine_number: number | null
+          machine_type: string | null
+          move_id: number | null
+          name_ko: string | null
+          poke_key: string | null
+          power: number | null
+          pp: number | null
+          range_eff: number | null
+          range_max: number | null
+          range_min: number | null
+          type_id: number | null
+          type_identifier: string | null
+          type_name_ko: string | null
+          version_group_id: number | null
+          za_id: number | null
+          za_variant: string | null
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
+            isOneToOne: false
+            referencedRelation: "national_pokedex_with_stat"
+            referencedColumns: ["poke_key"]
+          },
+          {
+            foreignKeyName: "poke_move_poke_key_fkey"
+            columns: ["poke_key"]
+            isOneToOne: false
+            referencedRelation: "poke"
+            referencedColumns: ["poke_key"]
+          },
+          {
+            foreignKeyName: "poke_move_version_group_id_fkey"
+            columns: ["version_group_id"]
+            isOneToOne: false
+            referencedRelation: "version_group"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "move"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "move_current"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_vm_view"
+            referencedColumns: ["move_id"]
+          },
+          {
+            foreignKeyName: "version_move_legends_za_base_move_id_fkey"
+            columns: ["base_move_id"]
+            isOneToOne: false
+            referencedRelation: "poke_move_za_view"
+            referencedColumns: ["move_id"]
+          },
+        ]
       }
     }
     Functions: {
-      get_poke_rank: {
-        Args: { target_id: number }
+      backfill_poke_metrics: { Args: { updates: Json }; Returns: number }
+      get_available_vgs_for_poke: {
+        Args: { p_poke_key: string }
         Returns: {
-          rank_ratio: number
+          generation: number
+          identifier: string
+          name_ko: string
+          sort_order: number
+          version_group_id: number
         }[]
       }
-      get_poke_rank_by_key: {
-        Args: { target_key: string }
+      get_default_vg_for_poke: { Args: { p_poke_key: string }; Returns: number }
+      poke_type_defense: {
+        Args: { defender_ids: number[]; target_gen?: number }
         Returns: {
-          top_percent: number
+          attacker_type_id: number
+          effectiveness: number
         }[]
       }
-      get_poke_ranks: {
-        Args: { target_key: string }
+      poke_type_defense_history: {
+        Args: { defender_ids: number[] }
         Returns: {
-          attack_rank: number
-          attack_tied: number
-          defense_rank: number
-          defense_tied: number
-          hp_rank: number
-          hp_tied: number
-          special_attack_rank: number
-          special_attack_tied: number
-          special_defense_rank: number
-          special_defense_tied: number
-          speed_rank: number
-          speed_tied: number
-          total_count: number
-          total_rank: number
-          total_tied: number
-          type1_count: number
-          type1_rank: number
-          type1_tied: number
-          type2_count: number
-          type2_rank: number
-          type2_tied: number
+          attacker_type_id: number
+          defender_type_id: number
+          effective_from: number
+          effective_until: number
+          effectiveness: number
         }[]
       }
-      get_poke_with_rank: {
-        Args: { target_key: string }
+      reset_poke_metrics: { Args: never; Returns: undefined }
+      sync_move_learn_method_sequence: { Args: never; Returns: undefined }
+      sync_move_sequence: { Args: never; Returns: undefined }
+      sync_move_target_sequence: { Args: never; Returns: undefined }
+      sync_move_variant_sequence: { Args: never; Returns: undefined }
+      sync_poke_move_sequence: { Args: never; Returns: undefined }
+      sync_version_group_sequence: { Args: never; Returns: undefined }
+      sync_version_move_legends_za_sequence: { Args: never; Returns: undefined }
+      sync_version_move_sequence: { Args: never; Returns: undefined }
+      truncate_ability_tables: { Args: never; Returns: undefined }
+      truncate_poke: { Args: never; Returns: undefined }
+      truncate_species: { Args: never; Returns: undefined }
+      type_effectiveness_at: {
+        Args: { target_gen?: number }
         Returns: {
-          id: number
-          rank_ratio: number
-          total: number
+          attacker_type_id: number
+          defender_type_id: number
+          effectiveness: number
+        }[]
+      }
+      type_effectiveness_changes: {
+        Args: never
+        Returns: {
+          attacker_type_id: number
+          change_kind: string
+          current: number
+          defender_type_id: number
+          generation: number
+          previous: number
         }[]
       }
     }

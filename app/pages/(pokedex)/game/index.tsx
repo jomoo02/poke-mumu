@@ -12,7 +12,8 @@ import {
   generation9,
 } from '../pokedex/config';
 
-import Card from '../pokedex/ui/card';
+import Card from './ui/card';
+
 const regionalDex = [
   { gen: '1세대', genDexs: generation1 },
   { gen: '2세대', genDexs: generation2 },

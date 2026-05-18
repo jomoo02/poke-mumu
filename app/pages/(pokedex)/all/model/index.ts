@@ -5,6 +5,10 @@ import { type Type } from '@/app/entities/type/model';
 export interface NationalPokeView extends Poke, Stats {
   type1: Type | null;
   type2: Type | null;
+  dexNumber: number;
+  form: string | null;
+  formIdentifier: string | null;
+  sortOrder: number;
 }
 
 export {

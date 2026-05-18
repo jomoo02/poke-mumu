@@ -48,7 +48,7 @@ const DIGIT_READING: Record<string, string> = {
  * - 영문자/숫자면 발음으로 변환 후 마지막 글자 반환
  * - 그 외는 null
  */
-function getLastKoreanSyllable(word: string): string | null {
+const getLastKoreanSyllable = (word: string): string | null => {
   if (!word) return null;
 
   const lastChar = word[word.length - 1];
@@ -71,9 +71,9 @@ function getLastKoreanSyllable(word: string): string | null {
   }
 
   return null;
-}
+};
 
-export function getSubjectParticle(word: string): '이' | '가' {
+export const getSubjectParticle = (word: string): '이' | '가' => {
   const syllable = getLastKoreanSyllable(word);
   if (!syllable) return '가';
 
@@ -81,4 +81,14 @@ export function getSubjectParticle(word: string): '이' | '가' {
   const hasJongseong = (code - 0xac00) % 28 !== 0;
 
   return hasJongseong ? '이' : '가';
-}
+};
+
+export const getObjectParticle = (word: string): '을' | '를' => {
+  const syllable = getLastKoreanSyllable(word);
+  if (!syllable) return '를';
+
+  const code = syllable.charCodeAt(0);
+  const hasJongseong = (code - 0xac00) % 28 !== 0;
+
+  return hasJongseong ? '을' : '를';
+};

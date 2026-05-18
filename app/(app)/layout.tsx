@@ -4,28 +4,29 @@ import MainHeader from '../widgets/main-header';
 
 // import { SidebarInset, SidebarProvider } from '@/app/shared/ui/sidebar';
 // import { AppSidebar } from '../widgets/app-sidebar';
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
+import MainHeaderV2 from '../widgets/main-header-v2';
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className="relative z-10 flex flex-col bg-background font-suit [--header-height:calc(--spacing(14))]">
-      <MainHeader />
-      <main className="flex flex-col flex-1">{children}</main>
-      {/* <SidebarProvider className="flex flex-col">
+    <div className=" font-suit [--header-height:calc(--spacing(14))]">
+      {/* <MainHeader /> */}
+      {/* <main className="flex flex-col flex-1">{children}</main> */}
+      <SidebarProvider className="flex flex-col">
+        <MainHeaderV2 />
         <div className="flex flex-1">
-          <Suspense>
+          {/* <Suspense>
             <AppSidebar />
-          </Suspense>
+          </Suspense> */}
 
           <SidebarInset>
-            <MainHeader />
-            <main className="flex flex-col flex-1 py-8">{children}</main>
+            <main className="flex flex-1 flex-col  w-full">{children}</main>
           </SidebarInset>
         </div>
-      </SidebarProvider> */}
+      </SidebarProvider>
       {/* <div id="ttt" className="sticky top-14 z-60" /> */}
     </div>
   );

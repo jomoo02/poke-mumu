@@ -72,10 +72,10 @@ export default function NaturesPageUI() {
   const isIndeterminate = selected.size > 0 && !isAllSelected;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full pt-8 pb-12 min-h-svh flex flex-col gap-6 ">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0 py-16 w-full min-h-svh flex flex-col gap-6 ">
       <div>
-        <h1 className="text-4xl font-bold tracking-tight mt-4">성격</h1>
-        <p className="text-muted-foreground  pt-3 md:max-w-[80%] text-pretty break-keep">
+        <h1 className="text-4xl font-bold tracking-tight">성격</h1>
+        <p className="text-muted-foreground  pt-4 md:max-w-[80%] text-pretty break-keep">
           포켓몬 능력치에 영향을 미치는 요소로, 총 25가지의 성격이 있습니다.
         </p>
       </div>
@@ -84,31 +84,21 @@ export default function NaturesPageUI() {
         <Input
           value={inputValue}
           placeholder="Name..."
+          name="natures-input"
+          autoComplete="off"
           onChange={(e) => setInputValue(e.target.value)}
         />
       </div>
 
-      <div className="bg-card rounded-md overflow-hidden">
+      <div className="bg-card rounded-4xl overflow-hidden mx-auto max-w-5xl w-full">
         <Table>
           <TableHeader>
-            <TableRow className="hover:bg-muted/70">
-              <TableHead role="checkbox" className="h-11">
-                <Checkbox
-                  checked={isAllSelected}
-                  ref={(el) => {
-                    if (el)
-                      el.dataset.state = isIndeterminate
-                        ? 'indeterminate'
-                        : undefined;
-                  }}
-                  onCheckedChange={toggleAll}
-                />
-              </TableHead>
-              <TableHead className="h-11 ">성격</TableHead>
-              <TableHead className="h-11">영칭</TableHead>
-              <TableHead className="h-11">일칭</TableHead>
-              <TableHead className="h-11">상승</TableHead>
-              <TableHead className="h-11">하락</TableHead>
+            <TableRow>
+              <TableHead className="px-4 py-4">성격</TableHead>
+              <TableHead className="px-4 py-4">영칭</TableHead>
+              <TableHead className="px-4 py-4">일칭</TableHead>
+              <TableHead className="px-4 py-4">상승</TableHead>
+              <TableHead className="px-4 py-4">하락</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -116,24 +106,23 @@ export default function NaturesPageUI() {
               <TableRow
                 key={d.identifier}
                 data-state={selected.has(d.identifier) ? 'selected' : undefined}
-                className="hover:bg-muted/70 min-w-16 shrink-0"
               >
-                <TableCell className="px-4 py-2.5" role="checkbox">
+                {/* <TableCell className="px-4 py-2.5" role="checkbox">
                   <Checkbox
                     checked={selected.has(d.identifier)}
                     onCheckedChange={() => toggle(d.identifier)}
                   />
-                </TableCell>
-                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                </TableCell> */}
+                <TableCell className="px-4 py-4 min-w-30 shrink-0">
                   {d.ko}
                 </TableCell>
-                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                <TableCell className="px-4 py-4 min-w-30 shrink-0">
                   {d.en}
                 </TableCell>
-                <TableCell className="px-4 py-2.5 min-w-28 shrink-0">
+                <TableCell className="px-4 py-4 min-w-30 shrink-0">
                   {d.ja}
                 </TableCell>
-                <TableCell className="px-4 py-2.5  min-w-38 shrink-0">
+                <TableCell className="px-4 py-4  min-w-38 shrink-0">
                   <div className="flex items-center gap-1 ">
                     {d.increase || '-'}
                     {d.increase && (

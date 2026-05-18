@@ -13,7 +13,7 @@ export const getAllType = async (): Promise<Type[]> => {
       generation,
       identifier,
       damageClassId: damage_class_id,
-      name: type_ko
+      nameKo: name_ko
     `,
   );
 

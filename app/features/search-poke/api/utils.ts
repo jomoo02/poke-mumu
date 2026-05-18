@@ -2,7 +2,7 @@ import { checkTextIntergerType, checkTextLanguageKo } from '../lib';
 
 export const getSearchColumn = (inputValue: string) => {
   if (checkTextIntergerType(inputValue)) {
-    return { column: 'no', value: inputValue };
+    return { column: 'dex_number', value: inputValue };
   }
 
   if (checkTextLanguageKo(inputValue)) {
