@@ -81,7 +81,7 @@ function InfoItem({ label, className, children }: InfoItemProps) {
       )}
     >
       <div className="text-muted-foreground text-md font-medium">{label}</div>
-      <div className="text-pretty break-keep">{children}</div>
+      <div className="text-pretty break-keep text-md">{children}</div>
     </div>
   );
 }

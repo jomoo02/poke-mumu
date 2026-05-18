@@ -35,7 +35,7 @@ export default function BaseStats({ baseStats, statRows }: BaseStatsProps) {
                   <TableCell className="text-center py-2">
                     {baseStats[stat.identifier]}
                   </TableCell>
-                  <TableCell className="py-2">
+                  <TableCell className="py-2 w-full">
                     <Bar value={baseStats[stat.identifier]} scale={255} />
                   </TableCell>
                 </TableRow>
