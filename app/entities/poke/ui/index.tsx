@@ -29,8 +29,8 @@ export function PokeSprite({
       <Image
         placeholder="blur"
         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-        src={src}
-        // src={'/pokeball.svg'}
+        // src={src}
+        src={'/pokeball.svg'}
         alt={alt}
         fill
         style={{

@@ -1,15 +1,6 @@
-type Stat = 'attack' | 'defense' | 'speed' | 'specialAttack' | 'specialDefense';
+import type { Nature } from '../model/nature';
 
-interface Nature {
-  ko: string;
-  ja: string;
-  en: string;
-  identifier: string;
-  increase: Stat | null;
-  decrease: Stat | null;
-}
-
-export const NATURES: Nature[] = [
+export const NATURE_LIST: Nature[] = [
   // ── 공격 상승 (4개) ─────────────────────────────────────
   {
     ko: '외로움',

@@ -12,7 +12,7 @@ export default async function PokedexAllPageUI() {
   const title = '전국도감';
 
   return (
-    <div className="w-full mx-auto max-w-7xl min-h-dvh px-4 sm:px-6 xl:px-0 py-16">
+    <div className="w-full mx-auto max-w-384 min-h-dvh px-4 sm:px-6 xl:px-12 py-16">
       <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6">{title}</h1>
       <Container pokes={nationPokedex} types={allType} />
     </div>

@@ -5,7 +5,7 @@ export default async function AbilityPageUI() {
   const abilities = await getAllAbility();
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0 py-16 min-h-svh flex flex-col gap-6 w-full">
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 py-16 min-h-svh flex flex-col gap-6 w-full">
       <div>
         <h1 className="text-4xl font-bold tracking-tight">특성</h1>
         <div className="pt-4 text-muted-foreground">

@@ -3,6 +3,7 @@
 import { type AbilityView } from '../model';
 import useAbilityList from '../model/useAbilityList';
 import AbilityList from './ability-list';
+import AbilityListV2 from './ability-list-v2';
 import NameFilter from './name-filter';
 import SortSelect from './sort-select';
 
@@ -32,7 +33,8 @@ export default function Container({ abilities }: ContainerProps) {
         <SortSelect setSortOption={setSortOption} value={sortOption} />
       </div>
 
-      <AbilityList abilities={filteredAbilities} />
+      {/* <AbilityList abilities={filteredAbilities} /> */}
+      <AbilityListV2 abilities={filteredAbilities} />
     </>
   );
 }

@@ -40,9 +40,9 @@ export default function MobileNav({ items }: MobileNavProps) {
       <Dialog.Trigger asChild>
         <Button
           variant="ghost"
-          className="hover:bg-accent p-2 h-10 aspect-square rounded-lg flex items-center justify-center active:bg-accent border-0"
+          className="hover:bg-accent size-10 rounded-4xl flex items-center justify-center active:bg-accent border-0"
         >
-          <MenuIcon className="size-5 text-muted-foreground" />
+          <MenuIcon className="size-5" />
         </Button>
       </Dialog.Trigger>
 
@@ -64,7 +64,7 @@ export default function MobileNav({ items }: MobileNavProps) {
             >
               포케무무
             </Link>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-x-2.5">
               <Suspense>
                 <SearchPoke />
                 <ThemeToggle />
@@ -78,7 +78,7 @@ export default function MobileNav({ items }: MobileNavProps) {
           </header>
 
           {/* 메뉴 본문 */}
-          <nav className="flex flex-col px-2 py-3 gap-3 overflow-y-auto h-[calc(100dvh-56px)]">
+          <nav className="flex flex-col px-4 py-3 gap-3 overflow-y-auto h-[calc(100dvh-56px)]">
             {items.map((item) => {
               const isActive = pathname === item.href;
               return (
@@ -87,7 +87,7 @@ export default function MobileNav({ items }: MobileNavProps) {
                   href={item.href}
                   // onClick={() => handleNavigate(item.href)}
                   className={[
-                    'px-4 py-2 rounded-lg text-base font-medium transition-colors text-left',
+                    'px-2 py-2.5 rounded-lg text-base font-medium transition-colors text-left',
                     isActive
                       ? 'text-primary'
                       : 'text-foreground/70 hover:text-foreground',

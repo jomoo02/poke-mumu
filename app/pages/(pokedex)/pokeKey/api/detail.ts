@@ -71,7 +71,8 @@ export const getPokeDetail = async (pokeKey: string) => {
         identifier,
         name_ko
        )
-      )
+      ),
+      evolutionId:evolution_id
     `,
     )
     .eq('poke_key', pokeKey)
@@ -101,6 +102,7 @@ export const getPokeDetail = async (pokeKey: string) => {
     type_1_id,
     type_2_id,
     poke_effort_value,
+    evolutionId,
   } = data;
   const {
     dexNumber,
@@ -158,5 +160,6 @@ export const getPokeDetail = async (pokeKey: string) => {
     typeIds,
     baseStats: poke_stat,
     effortValues,
+    evolutionId,
   };
 };

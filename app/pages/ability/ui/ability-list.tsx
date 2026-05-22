@@ -18,7 +18,7 @@ export default function AbilityList({ abilities }: AbilityListProps) {
   const getAppeared = (ability: AbilityView) =>
     ability.gen ? `${ability.gen}세대` : '-';
   return (
-    <div className="rounded-4xl bg-card overflow-hidden">
+    <div className="rounded-2xl bg-card overflow-hidden">
       <Table>
         <TableHeader>
           <TableRow>
@@ -38,12 +38,12 @@ export default function AbilityList({ abilities }: AbilityListProps) {
                   {ability.nameKo}
                 </Link>
               </TableCell>
-              <TableCell className="py-4 px-4 min-w-[200px]">
-                <p className="line-clamp-3 whitespace-normal wrap-break-word">
+              <TableCell className="py-4 px-4 min-w-50">
+                <p className="line-clamp-3 whitespace-normal wrap-break-word text-md">
                   {ability.flavorText}
                 </p>
               </TableCell>
-              <TableCell className="py-4 px-4">
+              <TableCell className="py-4 px-4 text-md">
                 {getAppeared(ability)}
               </TableCell>
             </TableRow>

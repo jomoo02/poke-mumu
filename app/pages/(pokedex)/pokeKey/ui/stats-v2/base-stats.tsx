@@ -25,7 +25,36 @@ export default function BaseStats({ baseStats, statRows }: BaseStatsProps) {
       </CardHeader>
       <CardContent>
         <CardGroup className="gap-y-1.5">
-          <Table>
+          <div className="flex flex-col gap-y-3">
+            {statRows.map((stat) => (
+              <div
+                key={stat.identifier}
+                className="flex items-center gap-x-3.5 px-3.5 py-1"
+              >
+                <div className="text-right text-md w-16 shrink-0">
+                  {stat.nameKo}
+                </div>
+                <div className="text-center w-14 text-md shrink-0">
+                  {baseStats[stat.identifier]}
+                </div>
+                <div className=" w-full flex-1 ">
+                  <Bar value={baseStats[stat.identifier]} scale={255} />
+                </div>
+              </div>
+            ))}
+            <div className="flex items-center gap-x-3.5 px-3.5 py-1">
+              <div className="text-right text-md w-16 shrink-0 font-medium">
+                총합
+              </div>
+              <div className="text-center w-14  text-md shrink-0 font-medium">
+                {baseStats.total}
+              </div>
+              <div className=" w-full flex-1 ">
+                <Bar value={baseStats.total} scale={780} />
+              </div>
+            </div>
+          </div>
+          {/* <Table className="">
             <TableBody>
               {statRows.map((stat) => (
                 <TableRow key={stat.identifier} className="border-b-0">
@@ -50,14 +79,14 @@ export default function BaseStats({ baseStats, statRows }: BaseStatsProps) {
                 </TableCell>
               </TableRow>
             </TableBody>
-          </Table>
+          </Table> */}
         </CardGroup>
       </CardContent>
     </Card>
   );
 }
 
-const height = 22;
+const height = 20;
 
 const rx = 5;
 

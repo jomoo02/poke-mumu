@@ -21,6 +21,13 @@ import BasicInfoV2 from './ui/basic-info-v2';
 import StatsV2 from './ui/stats-v2';
 import AbilityListV2 from './ui/ability-list-v2';
 import TypeV2 from './ui/type-v2';
+import EvolutionSection from './evolution';
+import {
+  Section,
+  SectionBorder,
+  SectionContent,
+  SectionTitle,
+} from './ui/section';
 
 interface PokedexPokeKeyPageUIProps {
   pokeKey: string;
@@ -49,6 +56,7 @@ export default async function PokedexPokeKeyPageUI({
     baseStats,
     typeIds,
     effortValues,
+    evolutionId,
   } = data;
 
   const [nav, pokeForms, typeDefenseGroups, moves] = await Promise.all([
@@ -56,6 +64,7 @@ export default async function PokedexPokeKeyPageUI({
     getPokeForms(speciesId),
     getTypeDefenses(typeIds),
     getPokeMovesByVg(pokeKey, vg),
+    // getEvolutionTree(evolutionId),
   ]);
 
   const { prev, next } = nav;
@@ -106,6 +115,21 @@ export default async function PokedexPokeKeyPageUI({
                 <TypeV2 typeDefenseGroups={typeDefenseGroups} />
               </section>
             </div>
+            <section>
+              <EvolutionSection
+                evolutionId={evolutionId}
+                currentPokeKey={pokeKey}
+              />
+              {/* {tree && (
+                <Section>
+                  <SectionBorder />
+                  <SectionTitle>진화</SectionTitle>
+                  <SectionContent>
+                    <EvolutionTreeView tree={tree} currentPokeKey={pokeKey} />
+                  </SectionContent>
+                </Section>
+              )} */}
+            </section>
 
             <section>
               <Suspense fallback={<MoveSkeleton />}>
