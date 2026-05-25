@@ -1,4 +1,5 @@
-import AbilityIdentifierPageUI from '@/app/pages/ability-identifier';
+// import AbilityIdentifierPageUI from '@/app/pages/ability-identifier';
+import AbilityIdentifierView from '@/views/ability-identifier';
 import { Suspense } from 'react';
 
 export default async function AbilityIdentifierPage({
@@ -7,7 +8,7 @@ export default async function AbilityIdentifierPage({
   return (
     <Suspense>
       {params.then(({ identifier }) => (
-        <AbilityIdentifierPageUI identifier={identifier} />
+        <AbilityIdentifierView identifier={identifier} />
       ))}
     </Suspense>
   );

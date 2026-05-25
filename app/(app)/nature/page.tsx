@@ -1,5 +1,5 @@
-import NaturePage from '@/app/pages/nature';
+import NaturePageView from '@/views/nature';
 
 export default function Page() {
-  return <NaturePage />;
+  return <NaturePageView />;
 }

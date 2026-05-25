@@ -1,5 +1,5 @@
-import AbilityPageUI from '@/app/pages/ability';
+import AbilityPageView from '@/views/ability';
 
 export default function AbilityPage() {
-  return <AbilityPageUI />;
+  return <AbilityPageView />;
 }
