@@ -11,6 +11,8 @@ export default function useFilterNature(natures: Nature[]) {
     setInputValue(e.target.value);
   };
 
+  const resetInputValue = () => setInputValue('');
+
   const filterdNatures = useMemo(() => {
     const keyword = inputValue.trim().toLowerCase();
 
@@ -25,6 +27,7 @@ export default function useFilterNature(natures: Nature[]) {
   return {
     inputValue,
     changeInputValue,
+    resetInputValue,
     filterdNatures,
   };
 }

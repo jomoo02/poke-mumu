@@ -1,6 +1,7 @@
 import { ArrowDownIcon, ArrowUpIcon, DotIcon } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/app/shared/ui/card';
+import { cn } from '@/app/shared/lib/cn';
 
 import { groupNaturesByMode } from '../model/nature-list-grid';
 import { getStatLabelKo, type Nature } from '../model/nature';
@@ -20,14 +21,20 @@ export default function NatureListGrid({
   return (
     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
       {grouppedNatures.map(({ title, natures }) => (
-        <Card key={title}>
+        <Card key={title} className={cn(natures.length === 0 && 'opacity-50')}>
           <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-y-0 divide-y">
-            {natures.map((nature) => (
-              <Nature key={nature.identifier} nature={nature} />
-            ))}
+            {natures.length === 0 ? (
+              <>일치하는 성격이 없습니다</>
+            ) : (
+              <>
+                {natures.map((nature) => (
+                  <Nature key={nature.identifier} nature={nature} />
+                ))}
+              </>
+            )}
           </CardContent>
         </Card>
       ))}

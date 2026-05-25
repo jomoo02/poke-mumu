@@ -29,29 +29,41 @@ export default function NatureListList({ natures }: NatureListListProps) {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {natures.map((d) => (
-            <TableRow key={d.identifier}>
-              <TableCell className="px-4 py-2.5 font-medium">{d.ko}</TableCell>
-              <TableCell className="px-4 py-2.5">{d.en}</TableCell>
-              <TableCell className="px-4 py-2.5">{d.ja}</TableCell>
-              <TableCell className="px-4 py-2.5 ">
-                <div className="flex items-center gap-x-1">
-                  {d.increase ? getStatLabelKo(d.increase) : '-'}
-                  {d.increase && (
-                    <ArrowUpIcon className="size-4.5 text-red-400" />
-                  )}
-                </div>
-              </TableCell>
-              <TableCell className="px-4 py-2.5">
-                <div className="flex items-center gap-x-1">
-                  {d.decrease ? getStatLabelKo(d.decrease) : '-'}
-                  {d.decrease && (
-                    <ArrowDownIcon className="size-4.5 text-blue-400" />
-                  )}
-                </div>
+          {natures.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={5} className="px-4 py-2.5">
+                일치하는 성격이 없습니다
               </TableCell>
             </TableRow>
-          ))}
+          ) : (
+            <>
+              {natures.map((d) => (
+                <TableRow key={d.identifier}>
+                  <TableCell className="px-4 py-2.5 font-medium">
+                    {d.ko}
+                  </TableCell>
+                  <TableCell className="px-4 py-2.5">{d.en}</TableCell>
+                  <TableCell className="px-4 py-2.5">{d.ja}</TableCell>
+                  <TableCell className="px-4 py-2.5 ">
+                    <div className="flex items-center gap-x-1">
+                      {d.increase ? getStatLabelKo(d.increase) : '-'}
+                      {d.increase && (
+                        <ArrowUpIcon className="size-4.5 text-red-400" />
+                      )}
+                    </div>
+                  </TableCell>
+                  <TableCell className="px-4 py-2.5">
+                    <div className="flex items-center gap-x-1">
+                      {d.decrease ? getStatLabelKo(d.decrease) : '-'}
+                      {d.decrease && (
+                        <ArrowDownIcon className="size-4.5 text-blue-400" />
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </>
+          )}
         </TableBody>
       </Table>
     </div>
