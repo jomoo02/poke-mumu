@@ -3,6 +3,7 @@ import { DotIcon } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
 import type { Ability } from '@/entities/ability/model';
+import { Fragment } from 'react/jsx-runtime';
 
 interface AbilityListProps {
   abilities: Ability[];
@@ -20,9 +21,12 @@ export default function AbilityList({ abilities }: AbilityListProps) {
         <div className="flex justify-end px-2">세대</div>
       </div>
       {abilities.length > 0 ? (
-        <div className="divide-y divide-border">
-          {abilities.map((ability) => (
-            <AbilityItem key={ability.identifier} ability={ability} />
+        <div className="dividy">
+          {abilities.map((ability, index) => (
+            <Fragment key={ability.identifier}>
+              {index > 0 && <div className="w-full h-px bg-border" />}
+              <AbilityItem key={ability.identifier} ability={ability} />
+            </Fragment>
           ))}
         </div>
       ) : (
@@ -42,7 +46,7 @@ function AbilityItem({ ability }: AbilityProps) {
   return (
     <Link
       href={`/ability/${ability.identifier}`}
-      className="group block py-3 lg:px-4 active:bg-muted/70 lg:hover:bg-muted/70"
+      className="group block py-3 -mx-4 lg:mx-0 px-4 active:bg-muted/70 lg:hover:bg-muted/70"
     >
       <div
         className={cn(
