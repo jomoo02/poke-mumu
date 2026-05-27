@@ -18,7 +18,7 @@ export default function NaturePageView() {
     useFilterNature(sortedNatures);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0 py-12 w-full min-h-svh flex flex-col gap-6">
+    <div className="max-w-7xl 2xl:max-w-350 mx-auto px-4 sm:px-6 py-12 w-full min-h-svh flex flex-col gap-6">
       <div className="flex flex-col gap-y-3">
         <h1 className="text-4xl font-bold tracking-tight">성격</h1>
         <p className="text-muted-foreground text-pretty break-keep md:max-w-[80%]">

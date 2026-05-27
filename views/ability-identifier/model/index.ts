@@ -1,13 +1,7 @@
-import { AbilityEntity } from '@/entities/ability/model';
+import { Ability as A } from '@/entities/ability/model';
 import { Type } from '@/app/entities/type/model';
 
-interface Ability extends AbilityEntity {
-  id: number;
-  nameEn: string;
-  nameJa: string | null;
-  gen: number | null;
-  description: string | null;
-}
+interface Ability extends A {}
 
 interface Poke {
   pokeKey: string;

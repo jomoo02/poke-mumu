@@ -72,7 +72,7 @@ export default async function PokedexPokeKeyPageUI({
   return (
     // <div className="w-full max-w-384 px-4 sm:px-6 xl:px-10 mx-auto min-h-dvh py-8">
     <div className="">
-      <div className="w-full max-w-7xl mx-auto min-h-dvh py-8 px-4 sm:px-6 xl:px-0">
+      <div className="w-full max-w-7xl mx-auto min-h-dvh py-8 px-4 sm:px-6 2xl:max-w-350">
         <div className="flex flex-col gap-6">
           <section className="mt-4 mb-6">
             <Nav prev={prev} next={next} />

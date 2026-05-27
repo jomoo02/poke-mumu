@@ -1,6 +1,6 @@
 import { ArrowDownIcon, ArrowUpIcon, DotIcon } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/app/shared/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
 import { cn } from '@/shared/lib/cn';
 
 import { groupNaturesByMode } from '../model/nature-list-grid';

@@ -17,8 +17,8 @@ export default async function AbilityIdentifierView({
 
   const pokes = await getPokes(ability.id);
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-0 py-12 w-full min-h-svh flex flex-col gap-6">
-      <div>
+    <div className="max-w-7xl mx-auto 2xl:max-w-350 py-12 w-full min-h-svh flex flex-col gap-6">
+      <div className="px-4 sm:px-6">
         <h1 className="text-4xl font-bold tracking-tight ">{ability.nameKo}</h1>
         <div className="pt-1.5 flex items-center">
           <span>{ability.nameEn}</span>
@@ -31,7 +31,7 @@ export default async function AbilityIdentifierView({
         </p>
       </div>
       {ability.gen && (
-        <div>
+        <div className="px-4 sm:px-6">
           <h2 className="text-2xl font-bold tracking-wide mt-10 ">첫 등장</h2>
           <div className="pt-6">{ability.gen}세대</div>
         </div>

@@ -1,38 +1,67 @@
 'use client';
 
-import { type AbilityView } from '../model';
-import useAbilityList from '../model/useAbilityList';
+import { useDeferredValue, useMemo, useState } from 'react';
+
+import type { Ability } from '@/entities/ability/model';
+
 import AbilityList from './ability-list';
-import AbilityListV2 from './ability-list-v2';
 import NameFilter from './name-filter';
 import SortSelect from './sort-select';
+import {
+  getSortOptionItems,
+  sortAbilities,
+  isSortOption,
+  DEFAULT_SORT,
+  type SortOption,
+} from '../model/sort-ability';
 
 interface MainContainerProps {
-  abilities: AbilityView[];
+  abilities: Ability[];
 }
 
 export default function MainContainer({ abilities }: MainContainerProps) {
-  const {
-    filteredAbilities,
-    inputValue,
-    changeInputValue,
-    clearInputValue,
-    sortOption,
-    setSortOption,
-  } = useAbilityList(abilities);
+  const [inputValue, setInputValue] = useState('');
+  const filterValue = useDeferredValue(inputValue);
+
+  const [sortOption, setSortOption] = useState<SortOption>(DEFAULT_SORT);
+
+  const sortOptionItems = getSortOptionItems();
+
+  const processedAbilities = useMemo(() => {
+    const keyword = filterValue.trim().toLowerCase();
+
+    const filteredAbilities = keyword
+      ? abilities.filter(({ nameKo, nameEn, nameJa }) =>
+          [nameKo, nameEn.toLowerCase(), nameJa].some(
+            (v) => !!v?.includes(keyword),
+          ),
+        )
+      : abilities;
+
+    return sortAbilities(filteredAbilities, sortOption);
+  }, [filterValue, abilities, sortOption]);
+
+  const handleValueChangeSortSelect = (v: string) => {
+    if (isSortOption(v)) {
+      setSortOption(v);
+    }
+  };
+
   return (
     <>
-      <div className="flex items-center justify-between gap-6">
+      <div className="flex items-center justify-between gap-2">
         <NameFilter
           value={inputValue}
-          onChange={(e) => changeInputValue(e.target.value)}
-          clearInputValue={clearInputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onClear={() => setInputValue('')}
         />
-
-        <SortSelect setSortOption={setSortOption} value={sortOption} />
+        <SortSelect
+          onValueChange={handleValueChangeSortSelect}
+          value={sortOption}
+          items={sortOptionItems}
+        />
       </div>
-
-      <AbilityListV2 abilities={filteredAbilities} />
+      <AbilityList abilities={processedAbilities} />
     </>
   );
 }

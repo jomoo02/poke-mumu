@@ -1,10 +1,10 @@
-export interface AbilityEntity {
-  id?: number;
+export interface Ability {
+  id: number;
   identifier: string;
   nameKo: string;
   flavorText: string;
-  nameEn?: string;
-  nameJa?: string | null;
-  gen?: number | null;
+  nameEn: string;
+  nameJa: string | null;
+  gen: number | null;
   description?: string | null;
 }

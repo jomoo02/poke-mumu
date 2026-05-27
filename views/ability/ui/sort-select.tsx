@@ -1,3 +1,5 @@
+import * as SelectPrimitive from '@radix-ui/react-select';
+
 import {
   Select,
   SelectContent,
@@ -6,35 +8,30 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/shared/ui/select';
-import { SortOption } from '../model/useAbilityList';
-import { Dispatch, SetStateAction } from 'react';
 
-interface SortSelectProps {
-  value: SortOption;
-  setSortOption: Dispatch<SetStateAction<SortOption>>;
+interface SortSelectProps extends React.ComponentProps<
+  typeof SelectPrimitive.Root
+> {
+  items: {
+    value: string;
+    label: string;
+  }[];
 }
 
-const SORT_OPTIONS: { mode: SortOption; label: string }[] = [
-  { mode: 'name-asc', label: '이름 순' },
-  { mode: 'name-desc', label: '이름 역순' },
-  { mode: 'gen-asc', label: '세대 순' },
-  { mode: 'gen-desc', label: '세대 역순' },
-];
-
-export default function SortSelect({ value, setSortOption }: SortSelectProps) {
-  const handleChange = (v: SortOption) => {
-    setSortOption(v);
-  };
-
+export default function SortSelect({
+  value,
+  onValueChange,
+  items,
+}: SortSelectProps) {
   return (
-    <Select value={value} onValueChange={handleChange}>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger className="w-32">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {SORT_OPTIONS.map((option) => (
-            <SelectItem key={option.mode} value={option.mode}>
+          {items.map((option) => (
+            <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>
           ))}

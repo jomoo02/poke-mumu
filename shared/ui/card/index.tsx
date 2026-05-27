@@ -21,7 +21,7 @@ function Card({
   return (
     <div
       className={cn(
-        'rounded-4xl py-6 flex flex-col overflow-hidden gap-6 bg-card',
+        'rounded-4xl py-5 flex flex-col overflow-hidden gap-5 bg-card',
         cardVariant,
         className,
       )}
@@ -39,7 +39,7 @@ function CardHeader({
   className?: string;
 }) {
   return (
-    <div className={cn('px-6 flex flex-col gap-1.5', className)}>
+    <div className={cn('px-5 flex flex-col gap-1.5', className)}>
       {children}
     </div>
   );
@@ -74,7 +74,7 @@ function CardTitle({
   return (
     <div
       className={cn(
-        'text-xl font-semibold flex gap-1.5 items-center',
+        'text-lg font-semibold flex gap-1.5 items-center',
         className,
       )}
     >
@@ -95,13 +95,13 @@ function CardContent({
   variant?: CardContentVariant;
 }) {
   const contentPaddingMap: Record<CardContentVariant, string> = {
-    bordered: 'px-4',
-    borderless: 'px-6',
+    bordered: 'px-5',
+    borderless: 'px-5',
   };
 
   const contentPadding = contentPaddingMap[variant];
   return (
-    <div className={cn('px-6 flex flex-col gap-6', contentPadding, className)}>
+    <div className={cn('px-5 flex flex-col gap-6', contentPadding, className)}>
       {children}
     </div>
   );
@@ -144,7 +144,7 @@ function CardFooter({
   children: React.ReactNode;
   className?: string;
 }) {
-  return <div className={cn('px-6', className)}>{children}</div>;
+  return <div className={cn('px-5', className)}>{children}</div>;
 }
 
 export {

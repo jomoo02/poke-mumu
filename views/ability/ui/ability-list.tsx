@@ -1,89 +1,78 @@
-import { cn } from '@/shared/lib/cn';
-import { type AbilityView } from '../model';
-
 import Link from 'next/link';
+import { DotIcon } from 'lucide-react';
 
-const getAppeared = (ability: AbilityView) =>
-  ability.gen ? `${ability.gen}세대` : '-';
+import { cn } from '@/shared/lib/cn';
+import type { Ability } from '@/entities/ability/model';
 
 interface AbilityListProps {
-  abilities: AbilityView[];
-  className?: string;
+  abilities: Ability[];
 }
 
-export default function AbilityList({
-  abilities,
-  className,
-}: AbilityListProps) {
+export default function AbilityList({ abilities }: AbilityListProps) {
   return (
-    <div className={cn(className)}>
-      {/* <div className="grid-cols-9 gap-x-6 py-2 border-b hidden lg:grid">
-        <div className="col-span-2 px-4 text-md font-medium">특성</div>
-        <div className="col-span-6 px-4 text-md font-medium">설명</div>
-        <div className="col-span-1 px-4 text-md font-medium">등장</div>
-      </div> */}
-      {abilities.map((ability) => (
-        <Ability key={ability.identifier} ability={ability} />
-      ))}
+    <div>
+      <div
+        id="ability-list-header"
+        className="py-2  grid-cols-8 gap-x-4 text-sm font-medium px-4 border-b hidden lg:grid"
+      >
+        <div className="col-span-2">특성</div>
+        <div className="col-span-5">설명</div>
+        <div className="flex justify-end px-2">세대</div>
+      </div>
+      {abilities.length > 0 ? (
+        <div className="divide-y divide-border">
+          {abilities.map((ability) => (
+            <AbilityItem key={ability.identifier} ability={ability} />
+          ))}
+        </div>
+      ) : (
+        <div className="py-3 lg:px-4">일치하는 특성이 없습니다</div>
+      )}
     </div>
   );
 }
 
 interface AbilityProps {
-  ability: AbilityView;
+  ability: Ability;
 }
 
-function Ability({ ability }: AbilityProps) {
+function AbilityItem({ ability }: AbilityProps) {
+  const genLabel = ability.gen ? `${ability.gen}세대` : '-';
+
   return (
-    <div>
-      {/* lg */}
-      <div className="hidden lg:block">
-        <Link href={`/ability/${ability.identifier}`} className="group">
-          <div className="py-2.5 px-4 group-hover:bg-muted border-b ">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-x-3">
-                <div className="font-medium text-lg">{ability.nameKo}</div>
-                <div className="text-foreground/70">{ability.nameEn}</div>
-                <div className="text-foreground/70">{ability.nameJa}</div>
-              </div>
-
-              <div className="">{getAppeared(ability)}</div>
-            </div>
-
-            <p className="line-clamp-3 whitespace-normal wrap-break-word pt-1">
-              {ability.flavorText}
-            </p>
+    <Link
+      href={`/ability/${ability.identifier}`}
+      className="group block py-3 lg:px-4 active:bg-muted/70 lg:hover:bg-muted/70"
+    >
+      <div
+        className={cn(
+          'grid-cols-[1fr_auto] gap-y-1.5 grid gap-x-6 ',
+          'lg:grid-cols-8 lg:gap-x-4 lg:items-start',
+        )}
+      >
+        <div className="flex flex-col lg:col-span-2">
+          <div className="font-medium">{ability.nameKo}</div>
+          <div className="text-foreground/70 flex items-center text-md lg:text-base flex-wrap">
+            <span className=" truncate">{ability.nameEn}</span>
+            <DotIcon className="size-4.5" />
+            <span className=" truncate">{ability.nameJa}</span>
           </div>
-          {/* <div className="grid grid-cols-8 gap-x-6 py-2.5 group-hover:bg-muted border-b">
-            <div className="col-span-1 px-4 font-medium">{ability.nameKo}</div>
-            <div className="col-span-1 px-4">{ability.nameEn}</div>
-            <div className="col-span-1 px-4">{ability.nameJa}</div>
-            <div className="col-span-4 px-4">
-              <p className="line-clamp-3 whitespace-normal wrap-break-word">
-                {ability.flavorText}
-              </p>
-            </div>
-            <div className="col-span-1 px-4">{getAppeared(ability)}</div>
-          </div> */}
-        </Link>
-      </div>
-      {/* mobile */}
-      <div className="lg:hidden">
-        <Link href={`/ability/${ability.identifier}`} className="group">
-          <div className="py-3.5 border-b flex gap-x-6 justify-between">
-            <div className="flex flex-col gap-y-1">
-              <div className="font-medium">{ability.nameKo}</div>
+        </div>
 
-              <p className="line-clamp-2 whitespace-normal break-keep text-foreground/70 text-md">
-                {ability.flavorText}
-              </p>
-            </div>
-            <div className=" flex justify-end shrink-0 text-sm text-foreground/70 h-fit border px-2 rounded-2xl py-0.5 bg-muted">
-              {getAppeared(ability)}
-            </div>
+        <div className="lg:col-start-8 flex justify-end">
+          <div className="shrink-0 text-xs text-foreground/80 w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
+            {genLabel}
           </div>
-        </Link>
+        </div>
+        <p
+          className={cn(
+            'col-span-2 line-clamp-2 break-keep',
+            'lg:col-span-5 lg:col-start-3 lg:row-start-1 lg:line-clamp-3',
+          )}
+        >
+          {ability.flavorText}
+        </p>
       </div>
-    </div>
+    </Link>
   );
 }
