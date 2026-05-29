@@ -24,7 +24,7 @@ export default function AbilityList({ abilities }: AbilityListProps) {
         <div>
           {abilities.map((ability, index) => (
             <Fragment key={ability.identifier}>
-              <div className="-mx-4 sm:mx-0 lg:mx-0">
+              <div className="">
                 <div className="w-full h-px bg-border my-1" />
               </div>
               <AbilityItem key={ability.identifier} ability={ability} />
@@ -61,7 +61,7 @@ function AbilityItem({ ability }: AbilityProps) {
       >
         <div className="flex flex-col lg:col-span-2">
           <div className="font-semibold">{ability.nameKo}</div>
-          <div className="text-foreground/70 flex items-center text-md lg:text-base flex-wrap lg:pt-1">
+          <div className="text-foreground/70 flex items-center text-md lg:text-base flex-wrap">
             <span className=" truncate">{ability.nameEn}</span>
             <DotIcon className="size-4.5" />
             <span className=" truncate">{ability.nameJa}</span>

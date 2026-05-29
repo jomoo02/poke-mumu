@@ -50,7 +50,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-4">
+      <div className="flex items-center justify-between gap-3">
         <NameFilter
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

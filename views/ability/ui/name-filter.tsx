@@ -11,7 +11,7 @@ export default function NameFilter({ onClear, ...props }: NameFilterProps) {
   return (
     <div className="relative max-w-md w-full">
       <Input
-        className="pr-10"
+        className="pr-10 h-9"
         autoComplete="new-password"
         placeholder="맹화, Blaze, もうか"
         {...props}
