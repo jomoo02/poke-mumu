@@ -21,11 +21,11 @@ export default function NatureListList({ natures }: NatureListListProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="px-4 py-2">성격</TableHead>
-            <TableHead className="px-4 py-2">영칭</TableHead>
-            <TableHead className="px-4 py-2">일칭</TableHead>
-            <TableHead className="px-4 py-2">상승</TableHead>
-            <TableHead className="px-4 py-2">하락</TableHead>
+            <TableHead className="px-4 py-2 text-sm">성격</TableHead>
+            <TableHead className="px-4 py-2 text-sm">영칭</TableHead>
+            <TableHead className="px-4 py-2 text-sm">일칭</TableHead>
+            <TableHead className="px-4 py-2 text-sm">상승</TableHead>
+            <TableHead className="px-4 py-2 text-sm">하락</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

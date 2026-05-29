@@ -2,13 +2,6 @@
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 
-@custom-variant dark (&:is(.dark *));
-.recharts-wrapper *:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  border: none !important;
-}
-
 :root {
   --background: oklch(1 0 0);
   --foreground: oklch(0.148 0.004 228.8);
@@ -236,57 +229,22 @@
   }
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
 @layer utilities {
   .text-md {
     font-size: var(--font-size-md);
     line-height: var(--line-height-md);
   }
-}
-/* 변경된 부분만 */
-.sticky-header {
-  overflow-x: auto; /* 반드시 auto로 둠(모바일 터치 허용) */
-  -webkit-overflow-scrolling: touch; /* iOS 터치 관성 */
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE10+ */
-}
 
-.sticky-header::-webkit-scrollbar {
-  display: none;
-}
+  @keyframes tap-flash {
+    from {
+      background-color: rgb(229 231 235 / 0.8);
+    }
+    to {
+      background-color: transparent;
+    }
+  }
 
-/* Chrome/Safari */
-
-.thin-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-border) transparent;
-}
-
-/* .thin-scrollbar:hover {
-  scrollbar-color: var(--color-muted-foreground) transparent;
-} */
-
-.thin-scrollbar::-webkit-scrollbar {
-  width: 6px;
-}
-
-.thin-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.thin-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--color-border);
-  border-radius: 3px;
-}
-
-.thin-scrollbar:hover::-webkit-scrollbar-thumb {
-  background: var(--color-muted-foreground);
+  .tap-flash:active {
+    animation: tap-flash 350ms ease-out forwards;
+  }
 }

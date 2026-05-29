@@ -14,6 +14,7 @@ import {
   DEFAULT_SORT,
   type SortOption,
 } from '../model/sort-ability';
+// import AbilityListV2 from './ability-list-v2';
 
 interface MainContainerProps {
   abilities: Ability[];
@@ -49,7 +50,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-4">
         <NameFilter
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
@@ -61,6 +62,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
           items={sortOptionItems}
         />
       </div>
+      {/* <AbilityList abilities={processedAbilities} /> */}
       <AbilityList abilities={processedAbilities} />
     </>
   );

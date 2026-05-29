@@ -25,7 +25,7 @@ export default function SortSelect({
 }: SortSelectProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-32">
+      <SelectTrigger className="w-32 min-w-28">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
