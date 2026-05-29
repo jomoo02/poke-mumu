@@ -224,27 +224,17 @@
   * {
     @apply border-border outline-ring/50;
   }
+  a:active,
+  button:active {
+    @apply opacity-60 md:opacity-100;
+  }
+
   body {
     @apply bg-background text-foreground font-suit;
   }
 }
 
-@layer utilities {
-  .text-md {
-    font-size: var(--font-size-md);
-    line-height: var(--line-height-md);
-  }
-
-  @keyframes tap-flash {
-    from {
-      background-color: rgb(229 231 235 / 0.8);
-    }
-    to {
-      background-color: transparent;
-    }
-  }
-
-  .tap-flash:active {
-    animation: tap-flash 350ms ease-out forwards;
-  }
+@utility text-md {
+  font-size: var(--font-size-md);
+  line-height: var(--line-height-md);
 }

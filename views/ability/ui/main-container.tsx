@@ -14,7 +14,6 @@ import {
   DEFAULT_SORT,
   type SortOption,
 } from '../model/sort-ability';
-// import AbilityListV2 from './ability-list-v2';
 
 interface MainContainerProps {
   abilities: Ability[];

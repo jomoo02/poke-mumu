@@ -53,7 +53,7 @@ function Nature({ nature }: NatureProps) {
     <div className="flex flex-col gap-y-1.5 py-3 first:pt-0 last:pb-0">
       <div className="flex gap-x-3 gap-y-1">
         <div className="font-medium">{ko}</div>
-        <div className="flex items-center gap-x-1 text-md text-foreground/80">
+        <div className="flex items-center gap-x-1 text-foreground/70 font-medium">
           <span>{en}</span>
           <DotIcon className="size-3.5" />
           <span>{ja}</span>

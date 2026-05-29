@@ -14,15 +14,15 @@ export default function AbilityList({ abilities }: AbilityListProps) {
     <div>
       <div
         id="ability-list-header"
-        className="py-2  grid-cols-8 gap-x-4 text-sm font-medium px-4  hidden lg:grid"
+        className="py-2 grid-cols-8 gap-x-4 text-sm font-medium px-4  hidden lg:grid"
       >
         <div className="col-span-2">특성</div>
-        <div className="col-span-5 ">설명</div>
+        <div className="col-span-5">설명</div>
         <div className=" justify-end px-2 flex ">세대</div>
       </div>
       {abilities.length > 0 ? (
         <div>
-          {abilities.map((ability, index) => (
+          {abilities.map((ability) => (
             <Fragment key={ability.identifier}>
               <div className="">
                 <div className="w-full h-px bg-border my-1" />
@@ -49,13 +49,13 @@ function AbilityItem({ ability }: AbilityProps) {
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
-        'group block -mx-2.5 lg:mx-0',
-        'active:bg-muted/70 hover:bg-muted/70 rounded-2xl',
+        'group block -mx-2.5 lg:mx-0 rounded-2xl px-2.5 py-2 lg:px-4 lg:py-3',
+        ' transition-colors hover:bg-accent/70  duration-100 aria-expanded:bg-accent/70',
       )}
     >
       <div
         className={cn(
-          'grid-cols-[1fr_auto] gap-y-1.5 grid gap-x-6  px-2.5 py-2.5 lg:px-4 lg:py-3 ',
+          'grid-cols-[1fr_auto] gap-y-1.5 grid gap-x-6',
           'lg:grid-cols-8 lg:gap-x-4 lg:items-start',
         )}
       >
@@ -69,7 +69,7 @@ function AbilityItem({ ability }: AbilityProps) {
         </div>
 
         <div className="lg:col-start-8 flex h-fit justify-end">
-          <div className="shrink-0 text-xs  text-foreground/80 w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
+          <div className="shrink-0 text-xs text-foreground/80 w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
             {genLabel}
           </div>
         </div>

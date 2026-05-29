@@ -25,13 +25,13 @@ export default function SortSelect({
 }: SortSelectProps) {
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="w-32 min-w-28 min-h-9 h-9">
+      <SelectTrigger className="w-32 min-w-28">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
           {items.map((option) => (
-            <SelectItem key={option.value} value={option.value} className="h-9">
+            <SelectItem key={option.value} value={option.value}>
               {option.label}
             </SelectItem>
           ))}

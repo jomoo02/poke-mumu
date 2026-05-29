@@ -13,7 +13,7 @@ interface PokeListProps {
   abilityName: string;
 }
 
-export default function PokeListV2({ pokes, abilityName }: PokeListProps) {
+export default function PokeList({ pokes, abilityName }: PokeListProps) {
   const normalAbilityPokes = pokes.filter((poke) => !poke.isHidden);
   const hiddenAbilityPokes = pokes.filter((poke) => poke.isHidden);
 
@@ -21,29 +21,22 @@ export default function PokeListV2({ pokes, abilityName }: PokeListProps) {
   return (
     <div>
       <div>
-        <h2 className="text-2xl font-bold tracking-wide mt-10 px-4 sm:px-6 ">
-          포켓몬
-        </h2>
+        <h2 className="text-2xl font-bold tracking-wide mt-12">포켓몬</h2>
 
-        <p className="text-muted-foreground text-md pt-3 px-4 sm:px-6 ">
-          {description}
-        </p>
-        <div className="grid gap-y-6 gap-x-20 md:grid-cols-2">
+        <p className="text-muted-foreground text-md pt-3">{description}</p>
+        <div className="flex flex-col gap-6">
           <div className="pt-6">
-            <h3 className="text-xl font-medium px-4 sm:px-6 ">일반 특성</h3>
-            <div className="flex flex-col pt-6 max-w-lg w-full  px-4 sm:px-6">
+            <h3 className="text-xl font-medium">일반 특성</h3>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3  pt-6">
               {normalAbilityPokes.map((poke, idx) => (
-                <Fragment key={poke.pokeKey}>
-                  {/* {idx > 0 && <div className="w-full h-px bg-border" />} */}
-                  <PokeItem key={poke.pokeKey} poke={poke} />
-                </Fragment>
+                <PokeItem key={poke.pokeKey} poke={poke} />
               ))}
             </div>
           </div>
           {hiddenAbilityPokes.length > 0 && (
             <div className="pt-6">
               <h3 className="text-xl font-medium">숨겨진 특성</h3>
-              <div className="flex flex-col divide-y  pt-6 max-w-lg w-full">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-3 pt-6">
                 {hiddenAbilityPokes.map((poke) => (
                   <PokeItem key={poke.pokeKey} poke={poke} />
                 ))}
@@ -61,31 +54,18 @@ interface PokeItemProps {
 }
 
 function PokeItem({ poke }: PokeItemProps) {
-  const { pokeKey, type1, type2, nameKo } = poke;
+  const { pokeKey, nameKo, form } = poke;
   const href = `/pokedex/${pokeKey}`;
   return (
-    <Link
-      href={href}
-      className={cn(
-        // 'hover:bg-accent/70 active:bg-accent/70  px-4  py-3 rounded-4xl',
-        'hover:bg-muted/70 rounded-4xl -mx-4  px-4  py-3',
-        'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
-      )}
-      aria-label={`${nameKo} 상세 페이지로 이동`}
-    >
-      <div className="flex gap-x-4 items-center group  ">
-        <div className="p-1.5 rounded-2xl bg-muted/50">
-          <PokeSprite poke={poke} className="size-13" />
+    <Link href={href} className="block">
+      <div className="flex items-center px-4 py-3 bg-accent/50 hover:bg-accent gap-4 rounded-2xl">
+        <div>
+          <PokeSprite poke={poke} className="size-12" />
         </div>
-
-        <div className="flex-1">
-          <div className="flex-1 text-sm truncate">No.{poke.dexNumber}</div>
-          <div className="font-medium truncate flex-1 text-primary group-hover:underline group-active:underline ">
-            {poke.nameKo}
-          </div>
-          <div className="text-sm text-foreground/70">{poke.form}</div>
+        <div className="flex flex-col flex-1 gap-x-3">
+          <div className="font-medium truncate ">{nameKo}</div>
+          <div className="text-foreground/70 text-sm">{form}</div>
         </div>
-
         <ChevronRightIcon className="size-4.5" />
       </div>
     </Link>
