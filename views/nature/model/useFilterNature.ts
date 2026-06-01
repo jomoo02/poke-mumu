@@ -1,17 +1,9 @@
-import { ChangeEvent, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import type { Nature } from './nature';
 
 export default function useFilterNature(natures: Nature[]) {
   const [inputValue, setInputValue] = useState('');
-
-  const changeInputValue = (
-    e: ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => {
-    setInputValue(e.target.value);
-  };
-
-  const clearInputValue = () => setInputValue('');
 
   const filterdNatures = useMemo(() => {
     const keyword = inputValue.trim().toLowerCase();
@@ -26,8 +18,7 @@ export default function useFilterNature(natures: Nature[]) {
 
   return {
     inputValue,
-    changeInputValue,
-    clearInputValue,
+    setInputValue,
     filterdNatures,
   };
 }

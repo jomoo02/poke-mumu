@@ -7,15 +7,18 @@ import type { ViewMode } from '../model/useViewMode';
 
 interface ViewModeTab {
   viewMode: ViewMode;
-  chageViewMode: (mode: string) => void;
+  onChageViewMode: (mode: string) => void;
 }
 
-export default function ViewModeTab({ viewMode, chageViewMode }: ViewModeTab) {
+export default function ViewModeTab({
+  viewMode,
+  onChageViewMode,
+}: ViewModeTab) {
   const handleClickGrid = () => {
-    chageViewMode('grid');
+    onChageViewMode('grid');
   };
   const handleClickList = () => {
-    chageViewMode('list');
+    onChageViewMode('list');
   };
 
   return (
@@ -39,7 +42,7 @@ export default function ViewModeTab({ viewMode, chageViewMode }: ViewModeTab) {
         className={cn(
           'h-8 rounded-2xl',
           viewMode === 'list'
-            ? 'bg-background text-foreground hover:bg-background  dark:hover:bg-background'
+            ? 'bg-background text-foreground hover:bg-background dark:hover:bg-background'
             : 'text-muted-foreground hover:text-foreground',
         )}
         aria-label="리스트 보기"

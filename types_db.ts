@@ -117,6 +117,27 @@ export type Database = {
           },
         ];
       };
+      dex_entry_backup: {
+        Row: {
+          dex_number: number | null;
+          dex_region_id: number | null;
+          id: number | null;
+          poke_key: string | null;
+        };
+        Insert: {
+          dex_number?: number | null;
+          dex_region_id?: number | null;
+          id?: number | null;
+          poke_key?: string | null;
+        };
+        Update: {
+          dex_number?: number | null;
+          dex_region_id?: number | null;
+          id?: number | null;
+          poke_key?: string | null;
+        };
+        Relationships: [];
+      };
       dex_group: {
         Row: {
           description: string;
@@ -140,35 +161,62 @@ export type Database = {
       };
       dex_region: {
         Row: {
-          dex_group_id: number;
           id: number;
+          identifier: string;
+          is_primary: boolean;
           order_index: number;
-          region: string;
           region_ko: string | null;
+          version_group_id: number;
         };
         Insert: {
-          dex_group_id: number;
           id?: number;
+          identifier: string;
+          is_primary?: boolean;
           order_index: number;
-          region: string;
           region_ko?: string | null;
+          version_group_id: number;
         };
         Update: {
-          dex_group_id?: number;
           id?: number;
+          identifier?: string;
+          is_primary?: boolean;
           order_index?: number;
-          region?: string;
           region_ko?: string | null;
+          version_group_id?: number;
         };
         Relationships: [
           {
-            foreignKeyName: 'dex_region_dex_group_id_fkey';
-            columns: ['dex_group_id'];
+            foreignKeyName: 'dex_region_version_group_id_fkey';
+            columns: ['version_group_id'];
             isOneToOne: false;
-            referencedRelation: 'dex_group';
+            referencedRelation: 'version_group';
             referencedColumns: ['id'];
           },
         ];
+      };
+      dex_region_backup: {
+        Row: {
+          dex_group_id: number | null;
+          id: number | null;
+          order_index: number | null;
+          region: string | null;
+          region_ko: string | null;
+        };
+        Insert: {
+          dex_group_id?: number | null;
+          id?: number | null;
+          order_index?: number | null;
+          region?: string | null;
+          region_ko?: string | null;
+        };
+        Update: {
+          dex_group_id?: number | null;
+          id?: number | null;
+          order_index?: number | null;
+          region?: string | null;
+          region_ko?: string | null;
+        };
+        Relationships: [];
       };
       egg_group: {
         Row: {
@@ -1698,6 +1746,7 @@ export type Database = {
           effectiveness: number;
         }[];
       };
+      reset_dex_sequences: { Args: never; Returns: undefined };
       reset_poke_metrics: { Args: never; Returns: undefined };
       sync_move_learn_method_sequence: { Args: never; Returns: undefined };
       sync_move_sequence: { Args: never; Returns: undefined };

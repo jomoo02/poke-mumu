@@ -4,7 +4,7 @@ export type ViewMode = 'grid' | 'list';
 
 const VIEW_MODES = ['grid', 'list'] as const satisfies readonly ViewMode[];
 
-export const isViewMode = (value: string): value is ViewMode =>
+const isViewMode = (value: string): value is ViewMode =>
   (VIEW_MODES as readonly string[]).includes(value);
 
 const DEFAULT_VIEW_MODE = 'grid';
@@ -12,7 +12,7 @@ const DEFAULT_VIEW_MODE = 'grid';
 export default function useViewMode() {
   const [viewMode, setViewMode] = useState<ViewMode>(DEFAULT_VIEW_MODE);
 
-  const chageViewMode = (mode: string) => {
+  const handleChageViewMode = (mode: string) => {
     if (isViewMode(mode)) {
       setViewMode(mode);
     }
@@ -20,6 +20,6 @@ export default function useViewMode() {
 
   return {
     viewMode,
-    chageViewMode,
+    setViewMode: handleChageViewMode,
   };
 }

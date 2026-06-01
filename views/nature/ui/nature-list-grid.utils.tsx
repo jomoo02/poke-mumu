@@ -1,5 +1,5 @@
-import type { Nature } from './nature';
-import type { SortMode } from './useSortNature';
+import type { Nature } from '../model/nature';
+import type { SortMode } from '../model/useSortNature';
 
 const STAT_GROUPS = [
   { key: 'attack', label: '공격이' },

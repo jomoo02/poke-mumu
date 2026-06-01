@@ -1,4 +1,4 @@
-import PokedexPageUI from '@/app/pages/(pokedex)/pokedex';
+import PokedexPageUI from '@/views/pokedex';
 
 export default function PokdexPage() {
   return <PokedexPageUI />;

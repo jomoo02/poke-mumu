@@ -4,7 +4,7 @@ import {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/widgets/breadcrumbs/ui/breadcrumb';
+} from '@/shared/ui/breadcrumb';
 import { getAbilityName } from '@/widgets/breadcrumbs/api';
 
 export default async function AbilityIdentifierPageBreadcrumbs({

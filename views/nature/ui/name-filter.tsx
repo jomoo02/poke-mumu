@@ -1,37 +1,35 @@
 import { XIcon } from 'lucide-react';
-import { ChangeEvent } from 'react';
 
 import { Button } from '@/shared/ui/button';
 import { Input } from '@/shared/ui/input';
 
-interface FilterNameProps {
-  inputValue: string;
-  changeInputValue: (
-    e: ChangeEvent<HTMLInputElement, HTMLInputElement>,
-  ) => void;
+interface FilterNameProps extends React.ComponentProps<'input'> {
+  value: string;
   clearInputValue: () => void;
 }
 
 export default function FilterName({
-  inputValue,
-  changeInputValue,
+  value,
+  onChange,
   clearInputValue,
+  ...props
 }: FilterNameProps) {
   const placeholder = '명랑, Jolly, ようき';
 
   return (
     <div className="sm:max-w-md w-full relative">
       <Input
-        value={inputValue}
+        value={value}
         id="nature-search"
         placeholder={placeholder}
         name="natures-input"
         autoComplete="new-password"
-        onChange={changeInputValue}
+        onChange={onChange}
         className="pr-10"
+        {...props}
       />
 
-      {inputValue.length > 0 && (
+      {value.length > 0 && (
         <Button
           tabIndex={-1}
           variant={'ghost'}

@@ -14,11 +14,11 @@ export default function AbilityList({ abilities }: AbilityListProps) {
     <div>
       <div
         id="ability-list-header"
-        className="py-2 grid-cols-8 gap-x-4 text-sm font-medium px-4  hidden lg:grid"
+        className="py-2 grid-cols-8 gap-x-4 text-sm font-medium px-4 hidden lg:grid"
       >
         <div className="col-span-2">특성</div>
         <div className="col-span-5">설명</div>
-        <div className=" justify-end px-2 flex ">세대</div>
+        <div className="justify-end px-2 flex ">세대</div>
       </div>
       {abilities.length > 0 ? (
         <div>
@@ -32,7 +32,10 @@ export default function AbilityList({ abilities }: AbilityListProps) {
           ))}
         </div>
       ) : (
-        <div className="py-3 lg:px-4">일치하는 특성이 없습니다</div>
+        <div>
+          <div className="w-full h-px bg-border my-1" />
+          <div className="lg:px-4 py-2 lg:py-3 ">일치하는 특성이 없습니다</div>
+        </div>
       )}
     </div>
   );
@@ -49,8 +52,9 @@ function AbilityItem({ ability }: AbilityProps) {
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
-        'group block -mx-2.5 lg:mx-0 rounded-2xl px-2.5 py-2 lg:px-4 lg:py-3',
-        ' transition-colors hover:bg-accent/70  duration-100 aria-expanded:bg-accent/70',
+        'group block -mx-2.5 lg:mx-0 rounded-2xl px-2.5 py-2 lg:px-4 lg:py-3 border border-transparent',
+        'transition-colors hover:bg-accent/70 duration-100 aria-expanded:bg-accent/70',
+        'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
       )}
     >
       <div
@@ -60,11 +64,11 @@ function AbilityItem({ ability }: AbilityProps) {
         )}
       >
         <div className="flex flex-col lg:col-span-2">
-          <div className="font-semibold">{ability.nameKo}</div>
+          <div className="font-medium">{ability.nameKo}</div>
           <div className="text-foreground/70 flex items-center text-md lg:text-base flex-wrap">
-            <span className=" truncate">{ability.nameEn}</span>
+            <span className="truncate">{ability.nameEn}</span>
             <DotIcon className="size-4.5" />
-            <span className=" truncate">{ability.nameJa}</span>
+            <span className="truncate">{ability.nameJa}</span>
           </div>
         </div>
 

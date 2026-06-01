@@ -1,91 +1,91 @@
-import { createClient } from '@/app/shared/lib/supabase/client';
-import { RegionalPokeView } from '../model';
+// import { createClient } from '@/app/shared/lib/supabase/client';
+// import { RegionalPokeView } from '../model';
 
-export const fetchRegionalDexDto = async (gameGroup: string) => {
-  const supabase = createClient();
+// export const fetchRegionalDexDto = async (gameGroup: string) => {
+//   const supabase = createClient();
 
-  const { data, error } = await supabase
-    .from('dex_group')
-    .select(
-      `
-        gameGroup:game_group_ko,
-        description,
-        dexRegion:dex_region (
-          id,
-          region,
-          regionKo:region_ko,
-          entries:dex_entry (
-            id,
-            regionalDexNumber:dex_number,
-            poke (
-              pokeKey:poke_key,
-              sprite,
-              nameKo:name_ko
-            )
-          )
-        )
-      `,
-    )
-    .eq('game_group', gameGroup)
-    .order('order_index', {
-      referencedTable: 'dex_region',
-      ascending: true,
-    })
-    .order('dex_number', {
-      referencedTable: 'dex_region.dex_entry',
-      ascending: true,
-    })
-    .maybeSingle();
+//   const { data, error } = await supabase
+//     .from('dex_group')
+//     .select(
+//       `
+//         gameGroup:game_group_ko,
+//         description,
+//         dexRegion:dex_region (
+//           id,
+//           region,
+//           regionKo:region_ko,
+//           entries:dex_entry (
+//             id,
+//             regionalDexNumber:dex_number,
+//             poke (
+//               pokeKey:poke_key,
+//               sprite,
+//               nameKo:name_ko
+//             )
+//           )
+//         )
+//       `,
+//     )
+//     .eq('game_group', gameGroup)
+//     .order('order_index', {
+//       referencedTable: 'dex_region',
+//       ascending: true,
+//     })
+//     .order('dex_number', {
+//       referencedTable: 'dex_region.dex_entry',
+//       ascending: true,
+//     })
+//     .maybeSingle();
 
-  if (error) {
-    console.error('Supabase error:', error);
-    throw new Error(
-      `Failed to fetch pokedex for ${gameGroup}: ${error.message}`,
-    );
-  }
+//   if (error) {
+//     console.error('Supabase error:', error);
+//     throw new Error(
+//       `Failed to fetch pokedex for ${gameGroup}: ${error.message}`,
+//     );
+//   }
 
-  if (!data) {
-    throw new Error(`No data found for game group: ${gameGroup}`);
-  }
+//   if (!data) {
+//     throw new Error(`No data found for game group: ${gameGroup}`);
+//   }
 
-  return data;
-};
+//   return data;
+// };
 
-export const getRegionalPokedex = async (gameGroup: string) => {
-  'use cache';
+// export const getRegionalPokedex = async (gameGroup: string) => {
+//   'use cache';
 
-  const { dexRegion, ...rest } = await fetchRegionalDexDto(gameGroup);
+//   const { dexRegion, ...rest } = await fetchRegionalDexDto(gameGroup);
 
-  return {
-    ...rest,
-    dexRegion: dexRegion.map((d) => {
-      const entries: RegionalPokeView[] = d.entries.map(
-        ({ poke, regionalDexNumber }) => ({
-          regionalDexNumber,
-          form: null,
-          pokeKey: poke.pokeKey,
-          sprite: poke.sprite,
-          nameKo: poke.nameKo,
-          // type1: poke.type1,
-          // type2: poke.type2,
-        }),
-      );
-      return {
-        ...d,
-        entries,
-      };
-    }),
-  };
-};
+//   return {
+//     ...rest,
+//     dexRegion: dexRegion.map((d) => {
+//       const entries: RegionalPokeView[] = d.entries.map(
+//         ({ poke, regionalDexNumber }) => ({
+//           regionalDexNumber,
+//           form: null,
+//           pokeKey: poke.pokeKey,
+//           sprite: poke.sprite,
+//           nameKo: poke.nameKo,
+//           // type1: poke.type1,
+//           // type2: poke.type2,
+//         }),
+//       );
+//       return {
+//         ...d,
+//         entries,
+//       };
+//     }),
+//   };
+// };
 
-export const getGameGroupAll = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from('dex_group')
-    .select('group:game_group');
+// export const getGameGroupAll = async () => {
+//   const supabase = createClient();
+//   const { data, error } = await supabase
+//     .from('dex_group')
+//     .select('group:game_group');
 
-  if (error) {
-    throw new Error(`Error getGameGroupAll: ${error}`);
-  }
-  return data;
-};
+//   if (error) {
+//     throw new Error(`Error getGameGroupAll: ${error}`);
+//   }
+//   return data;
+// };

@@ -12,16 +12,16 @@ import {
 import type { SortMode } from '../model/useSortNature';
 
 interface SortModeSelectProps {
-  sortMode: SortMode;
-  changeSortMode: (mode: string) => void;
+  value: SortMode;
+  onValueChange: (mode: string) => void;
 }
 
 export default function SortModeSelect({
-  sortMode,
-  changeSortMode,
+  value,
+  onValueChange,
 }: SortModeSelectProps) {
   return (
-    <Select value={sortMode} onValueChange={changeSortMode}>
+    <Select value={value} onValueChange={onValueChange}>
       <SelectTrigger aria-label="정렬 기준">
         <SelectValue />
       </SelectTrigger>

@@ -1,4 +1,5 @@
 import { createClient } from '@/shared/lib/supabase/client';
+
 import { type Ability, Poke } from '../model';
 
 export type AbilityDetail = {

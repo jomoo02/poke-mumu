@@ -11,10 +11,5 @@ export interface Nature {
   decrease: Stat | null;
 }
 
-export const getStatLabelKo = (stat: Stat | null) => {
-  if (!stat) {
-    return null;
-  }
-
-  return resolveStatLabel(stat);
-};
+export const getStatLabelKo = (stat: Stat | null) =>
+  !stat ? null : resolveStatLabel(stat);

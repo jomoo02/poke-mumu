@@ -67,7 +67,7 @@ export default function useNature() {
     [sortMode],
   );
 
-  const changeSortMode = (mode: string) => {
+  const handleChangeSortMode = (mode: string) => {
     if (isSortMode(mode)) {
       setSortMode(mode);
     }
@@ -76,6 +76,6 @@ export default function useNature() {
   return {
     sortedNatures,
     sortMode,
-    changeSortMode,
+    setSortMode: handleChangeSortMode,
   };
 }

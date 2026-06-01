@@ -17,55 +17,53 @@ interface NatureListListProps {
 
 export default function NatureListList({ natures }: NatureListListProps) {
   return (
-    <div>
-      <Table>
-        <TableHeader>
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="px-4 py-2 text-sm">성격</TableHead>
+          <TableHead className="px-4 py-2 text-sm">영칭</TableHead>
+          <TableHead className="px-4 py-2 text-sm">일칭</TableHead>
+          <TableHead className="px-4 py-2 text-sm">상승</TableHead>
+          <TableHead className="px-4 py-2 text-sm">하락</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {natures.length === 0 ? (
           <TableRow>
-            <TableHead className="px-4 py-2 text-sm">성격</TableHead>
-            <TableHead className="px-4 py-2 text-sm">영칭</TableHead>
-            <TableHead className="px-4 py-2 text-sm">일칭</TableHead>
-            <TableHead className="px-4 py-2 text-sm">상승</TableHead>
-            <TableHead className="px-4 py-2 text-sm">하락</TableHead>
+            <TableCell colSpan={5} className="px-4 py-2.5">
+              일치하는 성격이 없습니다
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {natures.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={5} className="px-4 py-2.5">
-                일치하는 성격이 없습니다
-              </TableCell>
-            </TableRow>
-          ) : (
-            <>
-              {natures.map((d) => (
-                <TableRow key={d.identifier}>
-                  <TableCell className="px-4 py-2.5 font-medium">
-                    {d.ko}
-                  </TableCell>
-                  <TableCell className="px-4 py-2.5">{d.en}</TableCell>
-                  <TableCell className="px-4 py-2.5">{d.ja}</TableCell>
-                  <TableCell className="px-4 py-2.5 ">
-                    <div className="flex items-center gap-x-1">
-                      {d.increase ? getStatLabelKo(d.increase) : '-'}
-                      {d.increase && (
-                        <ArrowUpIcon className="size-4.5 text-red-400" />
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell className="px-4 py-2.5">
-                    <div className="flex items-center gap-x-1">
-                      {d.decrease ? getStatLabelKo(d.decrease) : '-'}
-                      {d.decrease && (
-                        <ArrowDownIcon className="size-4.5 text-blue-400" />
-                      )}
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+        ) : (
+          <>
+            {natures.map((d) => (
+              <TableRow key={d.identifier}>
+                <TableCell className="px-4 py-2.5 font-medium">
+                  {d.ko}
+                </TableCell>
+                <TableCell className="px-4 py-2.5">{d.en}</TableCell>
+                <TableCell className="px-4 py-2.5">{d.ja}</TableCell>
+                <TableCell className="px-4 py-2.5 ">
+                  <div className="flex items-center gap-x-1">
+                    {d.increase ? getStatLabelKo(d.increase) : '-'}
+                    {d.increase && (
+                      <ArrowUpIcon className="size-4.5 text-red-400" />
+                    )}
+                  </div>
+                </TableCell>
+                <TableCell className="px-4 py-2.5">
+                  <div className="flex items-center gap-x-1">
+                    {d.decrease ? getStatLabelKo(d.decrease) : '-'}
+                    {d.decrease && (
+                      <ArrowDownIcon className="size-4.5 text-blue-400" />
+                    )}
+                  </div>
+                </TableCell>
+              </TableRow>
+            ))}
+          </>
+        )}
+      </TableBody>
+    </Table>
   );
 }

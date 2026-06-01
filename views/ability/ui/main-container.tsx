@@ -61,7 +61,6 @@ export default function MainContainer({ abilities }: MainContainerProps) {
           items={sortOptionItems}
         />
       </div>
-      {/* <AbilityList abilities={processedAbilities} /> */}
       <AbilityList abilities={processedAbilities} />
     </>
   );

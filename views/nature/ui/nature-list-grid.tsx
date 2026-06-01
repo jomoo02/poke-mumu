@@ -3,7 +3,7 @@ import { ArrowDownIcon, ArrowUpIcon, DotIcon } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
 import { cn } from '@/shared/lib/cn';
 
-import { groupNaturesByMode } from '../model/nature-list-grid';
+import { groupNaturesByMode } from './nature-list-grid.utils';
 import { getStatLabelKo, type Nature } from '../model/nature';
 import type { SortMode } from '../model/useSortNature';
 
@@ -25,7 +25,7 @@ export default function NatureListGrid({
           <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col gap-y-0 divide-y">
+          <CardContent className="flex flex-col gap-y-4">
             {natures.length === 0 ? (
               <>일치하는 성격이 없습니다</>
             ) : (
@@ -50,21 +50,21 @@ function Nature({ nature }: NatureProps) {
   const { ko, en, ja, increase, decrease } = nature;
 
   return (
-    <div className="flex flex-col gap-y-1.5 py-3 first:pt-0 last:pb-0">
+    <div className="flex flex-col gap-y-1.5 py-3.5 bg-muted/50 rounded-2xl px-4">
       <div className="flex gap-x-3 gap-y-1">
         <div className="font-medium">{ko}</div>
-        <div className="flex items-center gap-x-1 text-foreground/70 font-medium">
+        <div className="flex items-center gap-x-1 text-foreground/70 font-medium text-md">
           <span>{en}</span>
-          <DotIcon className="size-3.5" />
+          <DotIcon className="size-4" />
           <span>{ja}</span>
         </div>
       </div>
 
-      <div className="flex items-center">
+      <div className="flex items-center text-base">
         {increase && (
           <div className="flex items-center gap-x-1">
             <span>{getStatLabelKo(increase)}</span>
-            <ArrowUpIcon className="size-4.5 text-red-400 dark:text-red-400" />
+            <ArrowUpIcon className="size-4.5 text-red-500 dark:text-red-400" />
           </div>
         )}
         {increase && decrease && (
@@ -74,7 +74,7 @@ function Nature({ nature }: NatureProps) {
         {decrease && (
           <div className="flex items-center gap-x-1 ">
             <span>{getStatLabelKo(decrease)}</span>
-            <ArrowDownIcon className="size-4.5 text-blue-400 dark:text-blue-400" />
+            <ArrowDownIcon className="size-4.5 text-blue-500 dark:text-blue-400" />
           </div>
         )}
         {!increase && !decrease && <div>변화 없음</div>}
