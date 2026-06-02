@@ -60,11 +60,12 @@ function PokeItem({ poke }: PokeItemProps) {
     <Link
       href={href}
       className={cn(
-        'block bg-accent/50  border border-transparent hover:bg-accent active:bg-accent rounded-2xl ',
+        'block border border-transparent hover:bg-accent active:bg-accent rounded-2xl',
         'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
+        'bg-accent/50',
       )}
     >
-      <div className="flex items-center px-4 py-3  gap-4 ">
+      <div className="flex items-center gap-4 px-4 py-3.5">
         <div>
           <PokeSprite poke={poke} className="size-12" />
         </div>

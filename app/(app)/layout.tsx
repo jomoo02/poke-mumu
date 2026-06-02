@@ -26,11 +26,11 @@ export default function MainLayout({ children, breadcrumbs }: MainLayoutProps) {
           </Suspense> */}
 
           <SidebarInset>
-            <Suspense>
+            {/* <Suspense>
               <div className="px-4 sm:px-6 py-4">
                 <Breadcrumb>{breadcrumbs}</Breadcrumb>
               </div>
-            </Suspense>
+            </Suspense> */}
 
             <main className="flex flex-1 flex-col  w-full">{children}</main>
           </SidebarInset>

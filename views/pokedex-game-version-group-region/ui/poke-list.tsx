@@ -31,8 +31,8 @@ export default function PokeList({ pokes }: PokeListProps) {
           >
             <div className="flex items-center gap-x-4">
               <div className="flex flex-col items-center justify-center font-medium ">
-                <span className="text-sm text-muted-foreground">No</span>
-                <span className="tabular-nums">
+                {/* <span className="text-sm text-muted-foreground">No</span> */}
+                <span className="tabular-nums text-foreground/70 font-semibold">
                   {formatNumber(poke.regionalDexNumber, 3)}
                 </span>
               </div>
