@@ -15,7 +15,7 @@ export default function useAbilityList(abilities: Ability[]) {
 
     const filtered = abilities.filter(({ nameKo, nameEn, nameJa, gen }) => {
       const matchesName = [nameKo, nameEn.toLowerCase(), nameJa].some(
-        (v) => !!v?.includes(keyword),
+        (v) => v !== null && v.includes(keyword),
       );
 
       const matchesGen =
@@ -25,7 +25,7 @@ export default function useAbilityList(abilities: Ability[]) {
     });
 
     return filtered.sort((a, b) => a.nameKo.localeCompare(b.nameKo, 'ko'));
-  }, [deferredInputValue, selectedAppearedGens]);
+  }, [abilities, deferredInputValue, selectedAppearedGens]);
 
   return {
     inputValue,
@@ -70,18 +70,15 @@ function useFilter() {
       return;
     }
 
-    const params = new URLSearchParams(searchParams.toString());
+    const next = new Set(selectedAppearedGens);
 
-    const current = params.getAll('appeared');
+    next.has(gen) ? next.delete(gen) : next.add(gen);
+
+    const params = new URLSearchParams(searchParams.toString());
 
     params.delete('appeared');
 
-    const next = current.includes(String(gen))
-      ? current.filter((g) => g !== String(gen))
-      : [...current, String(gen)];
-
-    next.forEach((g) => params.append('appeared', g));
-
+    [...next].forEach((g) => params.append('appeared', String(g)));
     commit(params);
   };
 

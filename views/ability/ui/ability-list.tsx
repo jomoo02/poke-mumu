@@ -22,7 +22,7 @@ export default function AbilityList({ abilities }: AbilityListProps) {
                 )}
               />
               <div className="-mx-3.5 lg:mx-0">
-                <AbilityItem key={ability.identifier} ability={ability} />
+                <AbilityItem ability={ability} />
               </div>
             </li>
           ))}
@@ -44,15 +44,13 @@ interface AbilityProps {
 }
 
 function AbilityItem({ ability }: AbilityProps) {
-  const genLabel = ability.gen ? `${ability.gen}세대` : '-';
-
   return (
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
         'group block hover:bg-accent/70 rounded-2xl',
         'outline-none border border-transparent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-        'aria-expanded:bg-accent/70 transition-colors duration-100',
+        'transition-colors duration-100',
       )}
     >
       <div
@@ -83,7 +81,7 @@ function AbilityItem({ ability }: AbilityProps) {
         </div>
 
         <div className="shrink-0 truncate text-xs text-muted-foreground font-medium w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
-          {genLabel}
+          {`${ability.gen}세대`}
         </div>
       </div>
     </Link>
