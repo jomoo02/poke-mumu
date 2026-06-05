@@ -15,7 +15,8 @@ export const getAllAbility = async (): Promise<Ability[]> => {
       nameEn:name_en,
       nameJa:name_ja,
       gen,
-      flavorText:flavor_text
+      flavorText:flavor_text,
+      isChampions:is_champions
     `,
   );
 

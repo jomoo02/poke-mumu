@@ -62,7 +62,7 @@ function PokeItem({ poke }: PokeItemProps) {
       className={cn(
         'block border border-transparent hover:bg-accent active:bg-accent rounded-2xl',
         'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
-        'bg-accent/50',
+        // 'bg-accent/50',
       )}
     >
       <div className="flex items-center gap-4 px-4 py-3.5">

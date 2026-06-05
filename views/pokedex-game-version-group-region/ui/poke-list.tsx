@@ -24,15 +24,15 @@ export default function PokeList({ pokes }: PokeListProps) {
           <Link
             href={`/pokedex/${poke.pokeKey}`}
             className={cn(
-              'flex items-center py-3.5 px-4 gap-x-4 justify-between rounded-2xl bg-accent/50',
-              'hover:bg-accent border border-transparent',
+              'flex items-center py-3 px-3.5 gap-x-3.5 justify-between rounded-2xl bg-muted/50',
+              'hover:bg-muted border border-transparent',
               'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
             )}
           >
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center gap-x-3.5">
               <div className="flex flex-col items-center justify-center font-medium ">
                 {/* <span className="text-sm text-muted-foreground">No</span> */}
-                <span className="tabular-nums text-foreground/70 font-semibold">
+                <span className="tabular-nums text-foreground/70 font-medium">
                   {formatNumber(poke.regionalDexNumber, 3)}
                 </span>
               </div>
@@ -41,7 +41,7 @@ export default function PokeList({ pokes }: PokeListProps) {
               </div>
 
               <div className="flex flex-col">
-                <span className="font-medium">{poke.nameKo}</span>
+                <span className="font-mediu">{poke.nameKo}</span>
                 <span className="text-sm">{poke.form}</span>
               </div>
             </div>

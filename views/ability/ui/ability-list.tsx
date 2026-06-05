@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { DotIcon } from 'lucide-react';
-import { Fragment } from 'react/jsx-runtime';
 
 import { cn } from '@/shared/lib/cn';
 import type { Ability } from '@/entities/ability/model';
@@ -11,33 +10,32 @@ interface AbilityListProps {
 
 export default function AbilityList({ abilities }: AbilityListProps) {
   return (
-    <div>
-      <div
-        id="ability-list-header"
-        className="py-2 grid-cols-8 gap-x-4 text-sm font-medium px-4 hidden lg:grid"
-      >
-        <div className="col-span-2">특성</div>
-        <div className="col-span-5">설명</div>
-        <div className="justify-end px-2 flex ">세대</div>
-      </div>
+    <>
       {abilities.length > 0 ? (
-        <div>
-          {abilities.map((ability) => (
-            <Fragment key={ability.identifier}>
-              <div className="">
-                <div className="w-full h-px bg-border my-1" />
+        <ul className="flex flex-col">
+          {abilities.map((ability, idx) => (
+            <li key={ability.identifier}>
+              <div
+                className={cn(
+                  'w-full h-px bg-border',
+                  idx > 0 ? 'my-1' : 'mb-1',
+                )}
+              />
+              <div className="-mx-3.5 lg:mx-0">
+                <AbilityItem key={ability.identifier} ability={ability} />
               </div>
-              <AbilityItem key={ability.identifier} ability={ability} />
-            </Fragment>
+            </li>
           ))}
-        </div>
+        </ul>
       ) : (
         <div>
-          <div className="w-full h-px bg-border my-1" />
-          <div className="lg:px-4 py-2 lg:py-3 ">일치하는 특성이 없습니다</div>
+          <div className="w-full h-px bg-border mb-1" />
+          <div className=" px-3.5 py-3 lg:px-4 lg:py-3.5 font-medium text-muted-foreground -mx-3.5 lg:mx-0">
+            일치하는 특성이 없습니다
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 
@@ -52,39 +50,41 @@ function AbilityItem({ ability }: AbilityProps) {
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
-        'group block -mx-2.5 lg:mx-0 rounded-2xl px-2.5 py-2 lg:px-4 lg:py-3 border border-transparent',
-        'transition-colors hover:bg-accent/70 duration-100 aria-expanded:bg-accent/70',
-        'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
+        'group block hover:bg-accent/70 rounded-2xl',
+        'outline-none border border-transparent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
+        'aria-expanded:bg-accent/70 transition-colors duration-100',
       )}
     >
       <div
         className={cn(
-          'grid-cols-[1fr_auto] gap-y-1.5 grid gap-x-6',
-          'lg:grid-cols-8 lg:gap-x-4 lg:items-start',
+          'flex gap-x-3.5 px-3.5 py-3 lg:px-4 lg:py-3.5 justify-between',
         )}
       >
-        <div className="flex flex-col lg:col-span-2">
-          <div className="font-medium">{ability.nameKo}</div>
-          <div className="text-foreground/70 flex items-center text-md lg:text-base flex-wrap">
-            <span className="truncate">{ability.nameEn}</span>
-            <DotIcon className="size-4.5" />
-            <span className="truncate">{ability.nameJa}</span>
+        <div className="flex flex-col gap-y-1">
+          <div
+            id="ability-names"
+            className="flex flex-col lg:flex-row gap-x-3.5"
+          >
+            <h3 className="font-semibold text-lg">{ability.nameKo}</h3>
+            <div className="flex items-center flex-wrap">
+              <span className="truncate">{ability.nameEn}</span>
+              <DotIcon className="size-4.5" />
+              <span className="truncate">{ability.nameJa}</span>
+            </div>
           </div>
+          <p
+            id="ability-flavorText"
+            className={cn(
+              'line-clamp-2 break-keep text-md lg:text-base text-balance text-foreground/70',
+            )}
+          >
+            {ability.flavorText}
+          </p>
         </div>
 
-        <div className="lg:col-start-8 flex h-fit justify-end">
-          <div className="shrink-0 text-xs text-foreground/80 w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
-            {genLabel}
-          </div>
+        <div className="shrink-0 truncate text-xs text-muted-foreground font-medium w-fit h-fit border px-2 rounded-2xl py-0.5 bg-muted">
+          {genLabel}
         </div>
-        <p
-          className={cn(
-            'col-span-2 line-clamp-2 break-keep text-md lg:text-base text-balance',
-            'lg:col-span-5 lg:col-start-3 lg:row-start-1 lg:line-clamp-3',
-          )}
-        >
-          {ability.flavorText}
-        </p>
       </div>
     </Link>
   );

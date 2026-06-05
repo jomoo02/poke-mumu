@@ -5,6 +5,7 @@ export interface Ability {
   flavorText: string;
   nameEn: string;
   nameJa: string | null;
-  gen: number | null;
+  gen: number;
   description?: string | null;
+  isChampions?: boolean;
 }

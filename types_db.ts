@@ -19,9 +19,10 @@ export type Database = {
           created_at: string;
           description: string | null;
           flavor_text: string;
-          gen: number | null;
+          gen: number;
           id: number;
           identifier: string;
+          is_champions: boolean;
           name_en: string;
           name_ja: string | null;
           name_ko: string;
@@ -30,9 +31,10 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           flavor_text: string;
-          gen?: number | null;
+          gen: number;
           id?: number;
           identifier: string;
+          is_champions?: boolean;
           name_en: string;
           name_ja?: string | null;
           name_ko: string;
@@ -41,9 +43,10 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           flavor_text?: string;
-          gen?: number | null;
+          gen?: number;
           id?: number;
           identifier?: string;
+          is_champions?: boolean;
           name_en?: string;
           name_ja?: string | null;
           name_ko?: string;
@@ -161,6 +164,8 @@ export type Database = {
       };
       dex_region: {
         Row: {
+          description: string | null;
+          group: string | null;
           id: number;
           identifier: string;
           is_primary: boolean;
@@ -169,6 +174,8 @@ export type Database = {
           version_group_id: number;
         };
         Insert: {
+          description?: string | null;
+          group?: string | null;
           id?: number;
           identifier: string;
           is_primary?: boolean;
@@ -177,6 +184,8 @@ export type Database = {
           version_group_id: number;
         };
         Update: {
+          description?: string | null;
+          group?: string | null;
           id?: number;
           identifier?: string;
           is_primary?: boolean;
