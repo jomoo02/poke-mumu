@@ -50,9 +50,9 @@ function Nature({ nature }: NatureProps) {
   const { ko, en, ja, increase, decrease } = nature;
 
   return (
-    <div className="flex flex-col gap-y-1.5 py-3.5 bg-muted/50 rounded-2xl px-4">
+    <div className="flex flex-col gap-y-1 py-3.5 bg-muted/50 rounded-2xl px-4">
       <div className="flex gap-x-3 gap-y-1">
-        <div className="font-medium">{ko}</div>
+        <div className="font-medium ">{ko}</div>
         <div className="flex items-center gap-x-1 text-foreground/70 font-medium text-md">
           <span>{en}</span>
           <DotIcon className="size-4" />

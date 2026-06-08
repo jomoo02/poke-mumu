@@ -155,7 +155,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'size-7.5 rounded-lg flex items-center p-1',
+        'size-7.5 rounded-lg flex items-center justify-center p-1',
         bg,
         // shadowColor,
         className,
@@ -163,8 +163,10 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
     >
       <Image
         src={`/type/${type.identifier}.png`}
-        width={22}
-        height={22}
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ width: '100%', height: 'auto' }}
         alt={type.identifier}
       />
     </div>

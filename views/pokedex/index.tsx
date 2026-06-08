@@ -8,7 +8,7 @@ export default async function PokedexPageView() {
   const data = await getGenGroupedPokedexes();
 
   return (
-    <div className="max-w-7xl 2xl:max-w-360 mx-auto px-4 sm:px-6 py-12 w-full min-h-svh flex flex-col gap-6">
+    <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
       <div>
         <h1 className="text-4xl font-bold tracking-wide">도감</h1>
         <p className="pt-3 text-muted-foreground">

@@ -26,8 +26,8 @@ export default function MainContainer({ abilities }: MainContainerProps) {
   } = useAbilityList(abilities);
 
   return (
-    <div className="flex flex-col lg:flex-row pt-8 px-5 md:px-8 lg:px-10 3xl:px-2.5">
-      <div className="mr-10 3xl:mr-30.5 hidden lg:block pr-5 pt-2  overflow-auto lg:w-68 3xl:w-91.25 sticky z-10 top-25 h-[calc(100dvh-200px)]">
+    <div className="flex flex-col lg:flex-row pt-10">
+      <div className="mr-10 3xl:mr-30 hidden lg:block pr-5 3xl:pr-10 pt-1 overflow-auto lg:w-68 3xl:w-92 sticky z-10 top-25 h-[calc(100dvh-200px)]">
         <AppearedFilter
           selectedAppearedGens={selectedAppearedGens}
           resetFilter={resetFilter}
@@ -37,13 +37,13 @@ export default function MainContainer({ abilities }: MainContainerProps) {
       </div>
       <div
         className={cn(
-          'flex flex-col gap-y-6 flex-1 pt-2 w-full',
+          'flex flex-col gap-y-6 flex-1 pt-1 w-full',
           'lg:max-w-[calc(100%-332px)] 3xl:max-w-[calc(100%-487px)]',
         )}
       >
-        <div className="flex flex-col md:flex-row md:justify-between lg:items-center gap-3 gap-y-6">
+        <div className="flex flex-col md:flex-row md:justify-between lg:items-center gap-x-3 gap-y-6">
           <h2 className="text-2xl font-bold">{count}개의 특성</h2>
-          <div className="flex gap-x-4 md:justify-end">
+          <div className="flex gap-x-3 md:justify-end">
             <NameFilter
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}

@@ -20,22 +20,21 @@ export default function PokeList({ pokes, abilityName }: PokeListProps) {
   return (
     <div>
       <div>
-        <h2 className="text-2xl font-bold tracking-wide mt-12">포켓몬</h2>
-
-        <p className="text-muted-foreground text-md pt-3">{description}</p>
+        <h2 className="text-2xl font-bold tracking-wide mt-10">포켓몬</h2>
+        <p className="text-muted-foreground pt-3">{description}</p>
         <div className="flex flex-col gap-6">
-          <div className="pt-6">
+          <div className="mt-8">
             <h3 className="text-xl font-medium">일반 특성</h3>
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 pt-6">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
               {normalAbilityPokes.map((poke) => (
                 <PokeItem key={poke.pokeKey} poke={poke} />
               ))}
             </div>
           </div>
           {hiddenAbilityPokes.length > 0 && (
-            <div className="pt-6">
+            <div className="mt-8">
               <h3 className="text-xl font-medium">숨겨진 특성</h3>
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 pt-6">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
                 {hiddenAbilityPokes.map((poke) => (
                   <PokeItem key={poke.pokeKey} poke={poke} />
                 ))}
@@ -60,13 +59,13 @@ function PokeItem({ poke }: PokeItemProps) {
     <Link
       href={href}
       className={cn(
-        'block border border-transparent hover:bg-accent active:bg-accent rounded-2xl',
-        'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
-        // 'bg-accent/50',
+        'block border border-transparent  rounded-2xl',
+        'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50 rounded-2xl px-3.5 py-3',
+        'bg-muted/50 hover:bg-muted active:bg-muted',
       )}
     >
-      <div className="flex items-center gap-4 px-4 py-3.5">
-        <div>
+      <div className="flex items-center gap-x-4">
+        <div className="">
           <PokeSprite poke={poke} className="size-12" />
         </div>
         <div className="flex flex-col flex-1 gap-x-4 overflow-hidden">

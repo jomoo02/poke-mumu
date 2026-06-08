@@ -101,7 +101,7 @@ function CardContent({
 
   const contentPadding = contentPaddingMap[variant];
   return (
-    <div className={cn('px-5 flex flex-col gap-6', contentPadding, className)}>
+    <div className={cn('px-5 flex flex-col gap-5', contentPadding, className)}>
       {children}
     </div>
   );

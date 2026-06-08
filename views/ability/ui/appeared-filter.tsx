@@ -29,7 +29,7 @@ export default function AppearedFilter({
         <Button
           variant={'ghost'}
           onClick={resetFilter}
-          className="text-base h-9 px-3"
+          className="text-base h-9 px-3 active:bg-muted"
         >
           초기화
         </Button>
@@ -63,14 +63,14 @@ export default function AppearedFilter({
             </FieldGroup>
           </FieldSet>
         ) : (
-          <div className="flex flex-wrap gap-3 py-4">
+          <div className="flex flex-wrap gap-3 py-3">
             {appearedGens.map((gen) => (
               <Toggle
                 pressed={selectedAppearedGens.has(gen)}
                 onPressedChange={() => toggleAppearedGen(gen)}
                 variant={'outline'}
                 key={gen}
-                className="h-11 px-5 rounded-4xl cursor-pointer dark:aria-pressed:bg-input"
+                className="cursor-pointer dark:aria-pressed:bg-input"
               >
                 {gen}세대
               </Toggle>
