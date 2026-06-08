@@ -28,11 +28,11 @@ export default function SortModeSelect({
       <SelectContent>
         <SelectGroup>
           <SelectItem value="increase">
-            <ArrowUpIcon /> 상승 능력치 기준
+            <ArrowUpIcon className="size-4.25" /> 상승 기준
           </SelectItem>
           <SelectItem value="decrease">
-            <ArrowDownIcon />
-            하락 능력치 기준
+            <ArrowDownIcon className="size-4.25" />
+            하락 기준
           </SelectItem>
         </SelectGroup>
       </SelectContent>

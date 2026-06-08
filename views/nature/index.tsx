@@ -25,22 +25,22 @@ export default function NaturePageView() {
       <div className="flex flex-col gap-y-3">
         <h1 className="text-4xl font-bold tracking-tight">성격</h1>
         <div>
-          <p className="text-muted-foreground text-pretty break-keep md:max-w-[80%]">
+          <p className="text-foreground/70 text-pretty break-keep md:max-w-[80%]">
             {description1}
           </p>
-          <p className="text-muted-foreground text-pretty break-keep md:max-w-[80%]">
+          <p className="text-foreground/70 text-pretty break-keep md:max-w-[80%]">
             {description2}
           </p>
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-3">
+      <div className="flex flex-col md:flex-row justify-between gap-x-6 gap-y-3 mt-8">
         <NameFilter
           value={inputValue}
           onClear={() => setInputValue('')}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <div className="flex flex-wrap gap-y-3 gap-x-1.5 md:gap-x-3.5 items-center justify-between">
+        <div className="flex flex-wrap gap-y-3 gap-x-1.5 lg:gap-x-3.5 items-center justify-between">
           <SortModeSelect value={sortMode} onValueChange={setSortMode} />
           <div className="h-7 w-px bg-transparent md:bg-border" />
           <ViewModeTab viewMode={viewMode} onChageViewMode={setViewMode} />

@@ -11,13 +11,11 @@ export default async function PokedexPageView() {
     <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
       <div>
         <h1 className="text-4xl font-bold tracking-wide">도감</h1>
-        <p className="pt-3 text-muted-foreground">
-          전국도감 및 버전별 지역도감
-        </p>
+        <p className="pt-3 text-foreground/70">전국도감 및 버전별 지역도감</p>
       </div>
       <section className="mt-10">
         <h2 className="text-2xl font-bold tracking-wide">전국 도감</h2>
-        <p className="pt-3 text-muted-foreground text-md">모든 포켓몬 목록</p>
+        <p className="pt-3 text-muted-foreground">모든 포켓몬 목록</p>
         <div className="w-full pt-6">
           <div className="lg:max-w-[50%]">
             <Link
@@ -39,7 +37,7 @@ export default async function PokedexPageView() {
       </section>
       <section className="mt-10">
         <h2 className="text-2xl font-bold tracking-wide">지역 도감</h2>
-        <p className="pt-3 text-muted-foreground text-md">
+        <p className="pt-3 text-muted-foreground">
           각 게임에 등장하는 포켓몬 목록
         </p>
         <div className="pt-6">

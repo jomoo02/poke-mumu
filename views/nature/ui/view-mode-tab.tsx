@@ -27,7 +27,7 @@ export default function ViewModeTab({
         onClick={handleClickGrid}
         variant={'ghost'}
         className={cn(
-          'h-8 rounded-2xl',
+          'h-9 rounded-2xl',
           viewMode === 'grid'
             ? 'bg-background text-foreground hover:bg-background dark:hover:bg-background'
             : 'text-muted-foreground hover:text-foreground',
@@ -40,7 +40,7 @@ export default function ViewModeTab({
         onClick={handleClickList}
         variant={'ghost'}
         className={cn(
-          'h-8 rounded-2xl',
+          'h-9 rounded-2xl',
           viewMode === 'list'
             ? 'bg-background text-foreground hover:bg-background dark:hover:bg-background'
             : 'text-muted-foreground hover:text-foreground',

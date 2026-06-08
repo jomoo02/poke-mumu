@@ -24,13 +24,13 @@ export default function SheetMobile({ children }: SheetMobileProps) {
       {isMobile && (
         <Sheet>
           <SheetTrigger asChild>
-            <Button className="size-10 active:bg-muted" variant={'outline'}>
+            <Button className="size-11 active:bg-muted" variant={'outline'}>
               <SlidersHorizontalIcon className="size-4.5" />
             </Button>
           </SheetTrigger>
           <SheetContent
             showCloseButton={false}
-            className="gap-y-0 data-[side=right]:sm:max-w-none data-[side=right]:md:max-w-sm data-[side=right]:w-full px-4 flex lg:hidden"
+            className="gap-y-0 data-[side=right]:sm:max-w-none data-[side=right]:md:max-w-sm data-[side=right]:w-full px-5 flex lg:hidden"
           >
             <div className="h-14 flex items-center justify-end mb-3">
               <SheetPrimitive.Close data-slot="sheet-close" asChild>

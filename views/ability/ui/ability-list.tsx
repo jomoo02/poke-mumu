@@ -11,7 +11,7 @@ interface AbilityListProps {
 export default function AbilityList({ abilities }: AbilityListProps) {
   if (abilities.length === 0) {
     return (
-      <div className="py-3 lg:py-3.5 font-medium text-muted-foreground">
+      <div className="py-4 font-medium text-muted-foreground">
         일치하는 특성이 없습니다
       </div>
     );
@@ -40,7 +40,7 @@ function AbilityItem({ ability }: AbilityProps) {
         'group block rounded-2xl',
         'outline-none border border-transparent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
         'transition-colors duration-100 bg-muted/50 hover:bg-muted',
-        'flex gap-3.5 px-3.5 py-3 lg:px-4 lg:py-3.5',
+        'flex gap-3.5 px-4 py-3.5',
       )}
     >
       <div className="flex flex-col flex-1 gap-1 w-full">
@@ -62,7 +62,7 @@ function AbilityItem({ ability }: AbilityProps) {
         </p>
       </div>
 
-      <div className="shrink-0 truncate text-xs font-medium w-fit h-fit border px-2 rounded-2xl py-0.5 bg-secondary text-secondary-foreground">
+      <div className="shrink-0 truncate text-xs font-medium w-fit h-fit border px-2 rounded-xl py-0.5 bg-secondary text-secondary-foreground">
         {`${ability.gen}세대`}
       </div>
     </Link>

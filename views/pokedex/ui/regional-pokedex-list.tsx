@@ -20,27 +20,29 @@ export default function RegionalPokedexList({
           <CardHeader>
             <CardTitle>{title}</CardTitle>
           </CardHeader>
-          <CardContent className="gap-4">
-            {versionGroups.map((vg) => (
-              <Link
-                key={vg.identifier}
-                href={vg.href}
-                className={cn(
-                  'block bg-accent/50 rounded-2xl hover:bg-accent',
-                  'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
-                )}
-              >
-                <div className="flex justify-between px-4 py-3.5 items-center gap-x-4">
-                  <div className="flex flex-col gap-1 flex-1 overflow-hidden">
-                    <div className="font-medium truncate">{vg.nameKo}</div>
-                    <div className="text-sm text-muted-foreground font-medium line-clamp-2 text-balance break-keep text-ellipsis">
-                      {vg.nameEn}
+          <CardContent>
+            <div className="flex flex-col gap-y-4">
+              {versionGroups.map((vg) => (
+                <Link
+                  key={vg.identifier}
+                  href={vg.href}
+                  className={cn(
+                    'block bg-accent/50 rounded-2xl hover:bg-accent active:bg-accent border border-transparent focus-visible:border-ring',
+                    'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
+                  )}
+                >
+                  <div className="flex justify-between px-4 py-3.5 items-center gap-x-4">
+                    <div className="flex flex-col gap-1 flex-1 overflow-hidden">
+                      <div className="font-medium truncate">{vg.nameKo}</div>
+                      <div className="text-sm text-muted-foreground font-medium line-clamp-2 text-balance break-keep text-ellipsis">
+                        {vg.nameEn}
+                      </div>
                     </div>
+                    <ChevronRightIcon className="size-4.5" />
                   </div>
-                  <ChevronRightIcon className="size-4.5" />
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </CardContent>
         </Card>
       ))}

@@ -19,29 +19,27 @@ export default function PokeList({ pokes, abilityName }: PokeListProps) {
   const description = `특성 ${abilityName}${getObjectParticle(abilityName)} 보유한 포켓몬 목록`;
   return (
     <div>
-      <div>
-        <h2 className="text-2xl font-bold tracking-wide mt-10">포켓몬</h2>
-        <p className="text-muted-foreground pt-3">{description}</p>
-        <div className="flex flex-col gap-6">
+      <h2 className="text-2xl font-bold tracking-wide mt-10">포켓몬</h2>
+      <p className="text-muted-foreground pt-3">{description}</p>
+      <div className="flex flex-col gap-6">
+        <div className="mt-8">
+          <h3 className="text-xl font-medium">일반 특성</h3>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
+            {normalAbilityPokes.map((poke) => (
+              <PokeItem key={poke.pokeKey} poke={poke} />
+            ))}
+          </div>
+        </div>
+        {hiddenAbilityPokes.length > 0 && (
           <div className="mt-8">
-            <h3 className="text-xl font-medium">일반 특성</h3>
+            <h3 className="text-xl font-medium">숨겨진 특성</h3>
             <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
-              {normalAbilityPokes.map((poke) => (
+              {hiddenAbilityPokes.map((poke) => (
                 <PokeItem key={poke.pokeKey} poke={poke} />
               ))}
             </div>
           </div>
-          {hiddenAbilityPokes.length > 0 && (
-            <div className="mt-8">
-              <h3 className="text-xl font-medium">숨겨진 특성</h3>
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
-                {hiddenAbilityPokes.map((poke) => (
-                  <PokeItem key={poke.pokeKey} poke={poke} />
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
+        )}
       </div>
     </div>
   );
@@ -68,7 +66,7 @@ function PokeItem({ poke }: PokeItemProps) {
         <div className="">
           <PokeSprite poke={poke} className="size-12" />
         </div>
-        <div className="flex flex-col flex-1 gap-x-4 overflow-hidden">
+        <div className="flex flex-col flex-1 overflow-hidden">
           <div className="font-medium truncate">{nameKo}</div>
           <div className="text-foreground/70 text-sm truncate">{form}</div>
         </div>

@@ -29,7 +29,7 @@ export default function AppearedFilter({
         <Button
           variant={'ghost'}
           onClick={resetFilter}
-          className="text-base h-9 px-3 active:bg-muted"
+          className="text-base h-10 px-4 active:bg-muted"
         >
           초기화
         </Button>
@@ -43,7 +43,7 @@ export default function AppearedFilter({
                 <Field
                   key={gen}
                   orientation="horizontal"
-                  className={cn('gap-x-2.5 px-1')}
+                  className={cn('gap-x-2.5 px-1 py-0.5')}
                 >
                   <Checkbox
                     checked={selectedAppearedGens.has(gen)}

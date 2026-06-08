@@ -26,7 +26,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
   } = useAbilityList(abilities);
 
   return (
-    <div className="flex flex-col lg:flex-row pt-10">
+    <div className="flex flex-col lg:flex-row mt-10">
       <div className="mr-10 3xl:mr-30 hidden lg:block pr-5 3xl:pr-10 pt-1 overflow-auto lg:w-68 3xl:w-92 sticky z-10 top-25 h-[calc(100dvh-200px)]">
         <AppearedFilter
           selectedAppearedGens={selectedAppearedGens}

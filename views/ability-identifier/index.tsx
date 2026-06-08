@@ -21,7 +21,7 @@ export default async function AbilityIdentifierView({
     <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
       <div>
         <h1 className="text-4xl font-bold tracking-tight ">{ability.nameKo}</h1>
-        <div className="pt-3 flex items-center text-lg font-medium">
+        <div className="pt-3 flex items-center text-lg">
           <span>{ability.nameEn}</span>
           <DotIcon className="size-4.5" />
           <span>{ability.nameJa}</span>

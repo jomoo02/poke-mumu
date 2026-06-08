@@ -17,7 +17,7 @@ export default function FilterName({ onClear, ...props }: FilterNameProps) {
   const placeholder = '명랑, Jolly, ようき';
 
   return (
-    <InputGroup className="w-full md:max-w-md md:w-sm">
+    <InputGroup className="w-full md:max-w-xs md:w-xs lg:max-w-sm lg:w-sm">
       <InputGroupInput placeholder={placeholder} {...props} />
       <InputGroupAddon>
         <SearchIcon className="size-4.5" />
@@ -26,6 +26,7 @@ export default function FilterName({ onClear, ...props }: FilterNameProps) {
       <InputGroupAddon align={'inline-end'}>
         <InputGroupButton
           onClick={onClear}
+          tabIndex={-1}
           className={
             props.value === '' ? 'text-transparent hover:text-transparent' : ''
           }

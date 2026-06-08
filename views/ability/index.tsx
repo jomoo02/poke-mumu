@@ -13,9 +13,9 @@ export default async function AbilityPageView() {
     <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
       <div>
         <h1 className="text-4xl font-bold tracking-tight">특성</h1>
-        <div className="pt-3 text-muted-foreground">
-          <p className="break-keep text-balance">{description}</p>
-        </div>
+        <p className="pt-3 break-keep text-balance text-foreground/70">
+          {description}
+        </p>
       </div>
       <Suspense>
         <MainContainer abilities={abilities} />
