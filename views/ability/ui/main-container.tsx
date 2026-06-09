@@ -27,7 +27,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
 
   return (
     <div className="flex flex-col lg:flex-row mt-10">
-      <div className="mr-10 3xl:mr-30 hidden lg:block pr-5 3xl:pr-10 pt-1 overflow-auto lg:w-68 3xl:w-92 sticky z-10 top-25 h-[calc(100dvh-200px)]">
+      <div className="mr-10 3xl:mr-30 hidden lg:block pr-5 3xl:pr-10 pt-1 overflow-auto lg:w-68 3xl:w-88 sticky z-10 top-25 h-[calc(100dvh-200px)]">
         <AppearedFilter
           selectedAppearedGens={selectedAppearedGens}
           resetFilter={resetFilter}
@@ -38,7 +38,7 @@ export default function MainContainer({ abilities }: MainContainerProps) {
       <div
         className={cn(
           'flex flex-col gap-y-6 flex-1 pt-1 w-full',
-          'lg:max-w-[calc(100%-332px)] 3xl:max-w-[calc(100%-487px)]',
+          'lg:max-w-[calc(100%-332px)] 3xl:max-w-[calc(100%-448px)]',
         )}
       >
         <div className="flex flex-col md:flex-row md:justify-between lg:items-center gap-x-3 gap-y-6">

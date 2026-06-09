@@ -15,8 +15,8 @@ export default function NameFilter({ onClear, ...props }: NameFilterProps) {
   const placeholder = '맹화, Blaze, もうか';
 
   return (
-    <InputGroup className="w-full md:max-w-md md:w-sm">
-      <InputGroupInput placeholder={placeholder} {...props} />
+    <InputGroup className="w-full md:max-w-md md:w-sm h-10">
+      <InputGroupInput placeholder={placeholder} className="h-10" {...props} />
       <InputGroupAddon>
         <SearchIcon className="size-4.5" />
       </InputGroupAddon>

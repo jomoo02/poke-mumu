@@ -18,7 +18,7 @@ export default function AbilityList({ abilities }: AbilityListProps) {
   }
 
   return (
-    <ul className="flex flex-col gap-4">
+    <ul className="flex flex-col divide-y">
       {abilities.map((ability) => (
         <li key={ability.identifier}>
           <AbilityItem ability={ability} />
@@ -37,15 +37,18 @@ function AbilityItem({ ability }: AbilityProps) {
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
-        'group block rounded-2xl',
+        'group block ',
         'outline-none border border-transparent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-        'transition-colors duration-100 bg-muted/50 hover:bg-muted',
-        'flex gap-3.5 px-4 py-3.5',
+        // 'transition-colors duration-100  hover:bg-muted/70 rounded-2xl',
+        'flex gap-3.5 py-3.5',
+        '',
       )}
     >
-      <div className="flex flex-col flex-1 gap-1 w-full">
-        <div id="ability-names" className="flex flex-col lg:flex-row gap-x-3.5">
-          <span className="font-semibold text-lg">{ability.nameKo}</span>
+      <div className="flex flex-col flex-1 gap-1.5 w-full">
+        <div id="ability-names" className="flex flex-col gap-0.5">
+          <span className="font-semibold text-lg lg:text-xl group-hover:text-primary transition-colors duration-200">
+            {ability.nameKo}
+          </span>
           <div className="flex items-center flex-wrap">
             <span className="truncate">{ability.nameEn}</span>
             <DotIcon className="size-4.5" />

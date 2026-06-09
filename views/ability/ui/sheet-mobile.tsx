@@ -24,7 +24,7 @@ export default function SheetMobile({ children }: SheetMobileProps) {
       {isMobile && (
         <Sheet>
           <SheetTrigger asChild>
-            <Button className="size-11 active:bg-muted" variant={'outline'}>
+            <Button className="size-10 active:bg-muted" variant={'outline'}>
               <SlidersHorizontalIcon className="size-4.5" />
             </Button>
           </SheetTrigger>
