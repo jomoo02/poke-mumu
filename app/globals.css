@@ -308,7 +308,7 @@
   --font-suit: var(--font-suit);
   --font-suite: var(--font-suite);
   --font-elice: var(--font-elice);
-
+  --breakpoint-2xs: 22.5rem;
   --breakpoint-3xl: 100rem;
 }
 

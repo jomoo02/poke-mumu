@@ -1,80 +1,82 @@
 import Link from 'next/link';
 
 import { cn } from '@/shared/lib/cn';
-import { PokeSprite } from '@/entities/poke/ui';
 import { getObjectParticle } from '@/shared/lib/utils';
-import { TypeIcon } from '@/entities/type/ui';
+import PokeItem from '@/features/poke-item/ui';
 
-import type { Poke } from '../model';
+import type { AbilityPoke } from '../api';
 
 interface PokeListProps {
-  pokes: Poke[];
+  pokes: AbilityPoke[];
   abilityName: string;
 }
 
 export default function PokeList({ pokes, abilityName }: PokeListProps) {
-  const normalAbilityPokes = pokes.filter((poke) => !poke.isHidden);
-  const hiddenAbilityPokes = pokes.filter((poke) => poke.isHidden);
+  const normalPokes = pokes.filter((poke) => !poke.isHidden);
+  const hiddenPokes = pokes.filter((poke) => poke.isHidden);
+
+  const title = '보유 포켓몬';
+  const normalTitle = '일반 특성';
+  const hiddenTitle = '숨겨진 특성';
 
   const description = `특성 ${abilityName}${getObjectParticle(abilityName)} 보유한 포켓몬 목록`;
+
   return (
     <div>
-      <h2 className="text-2xl font-bold tracking-wide mt-10">포켓몬</h2>
-      <p className="text-muted-foreground pt-3">{description}</p>
-      <div className="flex flex-col gap-6">
-        <div className="mt-8">
-          <h3 className="text-xl font-medium">일반 특성</h3>
-          <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
-            {normalAbilityPokes.map((poke) => (
-              <PokeItem key={poke.pokeKey} poke={poke} />
-            ))}
-          </div>
-        </div>
-        {hiddenAbilityPokes.length > 0 && (
-          <div className="mt-8">
-            <h3 className="text-xl font-medium">숨겨진 특성</h3>
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(270px,1fr))] gap-4 sm:gap-6 pt-6">
-              {hiddenAbilityPokes.map((poke) => (
-                <PokeItem key={poke.pokeKey} poke={poke} />
-              ))}
-            </div>
-          </div>
-        )}
+      <h2 className="text-2xl font-bold tracking-wide mt-10">{title}</h2>
+      <p className="pt-3 text-foreground/70">{description}</p>
+      <div className="grid lg:grid-cols-12 gap-6">
+        <ItemList
+          pokes={normalPokes}
+          title={normalTitle}
+          className="mt-8 lg:col-span-5"
+        />
+        <ItemList
+          pokes={hiddenPokes}
+          title={hiddenTitle}
+          className="mt-8 lg:col-span-5 lg:col-start-8"
+        />
       </div>
     </div>
   );
 }
 
-interface PokeItemProps {
-  poke: Poke;
+interface ItemListProps {
+  title: string;
+  pokes: AbilityPoke[];
+  className?: string;
 }
 
-function PokeItem({ poke }: PokeItemProps) {
-  const { pokeKey, nameKo, form, type1, type2 } = poke;
-  const href = `/pokedex/${pokeKey}`;
+function ItemList({ title, pokes, className }: ItemListProps) {
+  return (
+    <div className={cn(pokes.length === 0 && 'opacity-30', className)}>
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <div className="grid md:grid-cols-2 lg:grid-cols-1 pt-6 gap-x-6 lg:max-w-md gap-y-3">
+        {pokes.map((poke) => (
+          <Item key={poke.pokeKey} poke={poke} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+interface ItemProps {
+  poke: AbilityPoke;
+}
+
+function Item({ poke }: ItemProps) {
+  const href = `/pokedex/${poke.pokeKey}`;
 
   return (
     <Link
       href={href}
       className={cn(
-        'block border border-transparent  rounded-2xl',
-        'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50 rounded-2xl px-3.5 py-3',
-        'bg-muted/50 hover:bg-muted active:bg-muted',
+        'block border border-transparent hover:bg-muted rounded-2xl',
+        'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring',
+        '-mx-1',
       )}
     >
-      <div className="flex items-center gap-x-4">
-        <div className="">
-          <PokeSprite poke={poke} className="size-12" />
-        </div>
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <div className="font-medium truncate">{nameKo}</div>
-          <div className="text-foreground/70 text-sm truncate">{form}</div>
-        </div>
-        <div className="grid grid-cols-2 gap-1.5 items-center">
-          <TypeIcon type={type1} className="size-7 rounded-md" />
-          {type2 && <TypeIcon type={type2} className="size-7 rounded-md" />}
-        </div>
-      </div>
+      <PokeItem poke={poke} className="p-1" />
     </Link>
   );
 }
