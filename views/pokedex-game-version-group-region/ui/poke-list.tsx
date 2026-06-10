@@ -1,3 +1,5 @@
+'use client';
+
 import { PokeSprite } from '@/entities/poke/ui';
 import { RegionalPoke } from '../model/poke';
 import { formatNumber } from '@/shared/lib/format';
@@ -5,6 +7,7 @@ import { TypeIcon } from '@/entities/type/ui';
 import Link from 'next/link';
 import { cn } from '@/shared/lib/cn';
 import { Fragment } from 'react/jsx-runtime';
+import PokeItem from '@/features/poke-item/ui';
 
 interface PokeListProps {
   pokes: RegionalPoke[];
@@ -12,42 +15,58 @@ interface PokeListProps {
 
 export default function PokeList({ pokes }: PokeListProps) {
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4 md:gap-6 w-full">
+    <div
+      className={cn(
+        'flex flex-col gap-3 mx-auto',
+        // 'grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6 2xl:gap-8',
+      )}
+    >
       {pokes.map((poke, idx) => (
-        <Fragment key={poke.pokeKey}>
-          <Link
-            href={`/pokedex/${poke.pokeKey}`}
-            className={cn(
-              'flex items-center py-3 px-3.5 gap-x-3.5 justify-between rounded-2xl bg-muted/50',
-              'hover:bg-muted active:bg-muted border border-transparent',
-              'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
-            )}
-          >
-            <div className="flex items-center gap-x-3.5">
-              <div className="flex flex-col items-center justify-center font-medium ">
-                <span className="tabular-nums text-foreground/70 font-medium">
-                  {formatNumber(poke.regionalDexNumber, 3)}
-                </span>
-              </div>
-              <div className="px-1">
-                <PokeSprite poke={poke} className="size-13" />
-              </div>
-
-              <div className="flex flex-col">
-                <span className="font-medium">{poke.nameKo}</span>
-                <span className="text-sm">{poke.form}</span>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-1.5">
-              <TypeIcon type={poke.type1} className="size-7.25 rounded-md" />
-              {poke.type2 && (
-                <TypeIcon type={poke.type2} className="size-7.25 rounded-md" />
-              )}
-            </div>
-          </Link>
-        </Fragment>
+        <Link
+          id={`dex-${poke.dexNumber}`}
+          key={poke.pokeKey}
+          href={`/pokedex/${poke.pokeKey}`}
+          className={cn(
+            'block border border-transparent hover:bg-muted rounded-2xl lg:max-w-md lg:min-w-md w-full',
+            'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring',
+            '-mx-1',
+          )}
+        >
+          <PokeItem poke={poke} className="p-1" formatLength={3} />
+        </Link>
       ))}
     </div>
   );
 }
+
+// <Link
+//   href={`/pokedex/${poke.pokeKey}`}
+//   className={cn(
+//     'flex items-center py-3 px-3.5 gap-x-3.5 justify-between rounded-2xl bg-muted/50',
+//     'hover:bg-muted active:bg-muted border border-transparent',
+//     'outline-none focus-visible:ring-[3px] focus-visible:border-ring focus-visible:ring-ring/50',
+//   )}
+// >
+//   <div className="flex items-center gap-x-3.5">
+//     <div className="flex flex-col items-center justify-center font-medium ">
+//       <span className="tabular-nums text-foreground/70 font-medium">
+//         {formatNumber(poke.regionalDexNumber, 3)}
+//       </span>
+//     </div>
+//     <div className="px-1">
+//       <PokeSprite poke={poke} className="size-13" />
+//     </div>
+
+//     <div className="flex flex-col">
+//       <span className="font-medium">{poke.nameKo}</span>
+//       <span className="text-sm">{poke.form}</span>
+//     </div>
+//   </div>
+
+//   <div className="grid grid-cols-2 gap-1.5">
+//     <TypeIcon type={poke.type1} className="size-7.25 rounded-md" />
+//     {poke.type2 && (
+//       <TypeIcon type={poke.type2} className="size-7.25 rounded-md" />
+//     )}
+//   </div>
+// </Link>;

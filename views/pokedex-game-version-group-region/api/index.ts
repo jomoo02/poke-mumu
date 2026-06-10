@@ -60,7 +60,7 @@ export const getRegionalDex = async (versionGroup: string, region: string) => {
 
   const entries: RegionalPoke[] = data.entries.map(
     ({ poke, regionalDexNumber }) => ({
-      regionalDexNumber: Number(regionalDexNumber),
+      dexNumber: Number(regionalDexNumber),
       form: poke.form?.name_ko ?? null,
       pokeKey: poke.pokeKey,
       sprite: poke.sprite,
