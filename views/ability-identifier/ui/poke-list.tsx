@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { cn } from '@/shared/lib/cn';
 import { getObjectParticle } from '@/shared/lib/utils';
-import PokeItem from '@/features/poke-item/ui';
+import { PokeItem } from '@/features/poke-item/ui';
 
 import type { AbilityPoke } from '../api';
 
@@ -68,15 +68,19 @@ function Item({ poke }: ItemProps) {
   const href = `/pokedex/${poke.pokeKey}`;
 
   return (
-    <Link
-      href={href}
-      className={cn(
-        'block border border-transparent hover:bg-muted rounded-2xl',
-        'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring',
-        '-mx-1',
-      )}
-    >
+    // <Link
+    //   href={href}
+    //   className={cn(
+    //     'block border border-transparent hover:bg-muted rounded-2xl',
+    //     'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring',
+    //     '-mx-1',
+    //   )}
+    // >
+    <div>
+      {' '}
       <PokeItem poke={poke} className="p-1" />
-    </Link>
+    </div>
+
+    // </Link>
   );
 }

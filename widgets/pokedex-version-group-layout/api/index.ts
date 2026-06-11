@@ -12,7 +12,7 @@ export const getVersionGroupKo = async (versionGroup: string) => {
     .maybeSingle();
 
   if (error) {
-    console.error(error.message);
+    console.error(`widgents getVersionGroupKo: ${error.message}`);
     return '...';
   }
 
@@ -44,7 +44,7 @@ export const getRegions = async (versionGroup: string) => {
     .order('order_index', { ascending: true });
 
   if (error) {
-    console.error(error);
+    console.error(`widgents getRegions: ${error.message}`);
     return null;
   }
 
@@ -56,6 +56,8 @@ export const getRegions = async (versionGroup: string) => {
 };
 
 export const getRegionKo = async (versionGroup: string, region: string) => {
+  'use cache';
+
   const supabase = createClient();
 
   const { data, error } = await supabase
@@ -74,7 +76,7 @@ export const getRegionKo = async (versionGroup: string, region: string) => {
     .maybeSingle();
 
   if (error) {
-    console.error(error);
+    console.error(`widgets getRegionKo: ${error.message}`);
     return '...';
   }
 
