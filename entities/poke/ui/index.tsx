@@ -7,12 +7,14 @@ import { getPokeSpriteSrc, getPokeArtworkSrc, type Poke } from '../model';
 interface PokeSpriteProps {
   poke: Poke;
   className?: string;
+  alt?: string;
   priority?: boolean;
 }
 
 export function PokeSprite({
   poke,
   className,
+  alt,
   priority = false,
 }: PokeSpriteProps) {
   const { sprite } = poke;
@@ -20,10 +22,7 @@ export function PokeSprite({
   if (!sprite) {
     return <div className={cn('w-14 h-14 bg-muted', className)} />;
   }
-
   const src = getPokeSpriteSrc(sprite);
-  const alt = poke.nameKo;
-
   return (
     <div className={cn('w-14 h-14 relative', className)}>
       <Image
@@ -31,7 +30,7 @@ export function PokeSprite({
         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
         src={src}
         // src={'/pokeball.svg'}
-        alt={alt}
+        alt={alt || poke.nameKo}
         fill
         style={{
           objectFit: 'contain',
