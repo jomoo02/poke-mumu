@@ -1,7 +1,5 @@
 'use client';
 
-import { useRef } from 'react';
-
 import { type Type } from '@/entities/type/model';
 
 import { type NationalPoke } from '../model';
@@ -27,8 +25,6 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
     all,
     effectiveQuery,
   );
-
-  const listTopRef = useRef<HTMLDivElement>(null);
 
   const selectedTypes = (searchParams.get('type') ?? '')
     .split(',')
@@ -60,19 +56,21 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
 
   const resetFilters = () => update({ type: null, form: null });
 
-  // 페이지 이동만 push(뒤로가기로 되감김) + 리스트 상단으로 스크롤.
+  // 페이지 이동만 push(뒤로가기로 되감김) + 맨 위로 스크롤.
   const goToPage = (p: number) => {
     update(
       { page: p > 1 ? String(p) : null },
       { resetPage: false, history: 'push' },
     );
-    listTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // 모바일에서 먼 거리 smooth 스크롤이 콘텐츠 리플로우로 취소되는 것을 피해
+    // 다음 프레임에 문서 최상단으로 스크롤한다.
+    requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
   };
 
   return (
     <div className="flex flex-col gap-6">
-      <div ref={listTopRef} className="scroll-mt-20" />
-
       <div className="flex flex-col gap-3 ">
         <SearchInput value={input} onChange={onSearchChange} />
         <div className="flex items-center justify-between gap-2">
