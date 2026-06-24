@@ -49,7 +49,7 @@ export default function FilterSheet({
       <SheetTrigger asChild>
         <Button
           variant="ghost"
-          className="rounded-4xl h-10 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input"
+          className="rounded-4xl h-10.5 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input"
         >
           <SlidersHorizontalIcon className="size-4" />
           필터{activeCount > 0 ? ` ${activeCount}` : ''}

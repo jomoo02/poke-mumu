@@ -4,6 +4,7 @@ import { type Type } from '@/entities/type/model';
 
 import { type NationalPoke } from '../model';
 import { useListParams } from '../model/use-list-params';
+import { parseSort } from '../model/sort';
 import { useSearchQuery } from '../model/use-search-query';
 import { usePaginatedPoke } from '../model/use-paginated-poke';
 import SearchInput from './search-input';
@@ -21,7 +22,7 @@ interface PokedexViewProps {
 export default function PokedexView({ all, types }: PokedexViewProps) {
   const { searchParams, update } = useListParams();
   const { input, setInput, effectiveQuery } = useSearchQuery();
-  const { items, page, totalPages, total } = usePaginatedPoke(
+  const { items, page, totalPages, total, startIndex } = usePaginatedPoke(
     all,
     effectiveQuery,
   );
@@ -32,6 +33,8 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
   const selectedForms = (searchParams.get('form') ?? '')
     .split(',')
     .filter(Boolean);
+
+  const { key: sortKey } = parseSort(searchParams);
 
   // 검색은 URL 미경유 → 자동 page 리셋이 안 걸림. page가 있을 때만 정리.
   const onSearchChange = (value: string) => {
@@ -93,7 +96,7 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
       </div>
 
       <div className="flex flex-col gap-8">
-        <PokeCardList pokes={items} />
+        <PokeCardList pokes={items} startIndex={startIndex} sortKey={sortKey} />
         <PokePagination
           page={page}
           totalPages={totalPages}

@@ -38,7 +38,7 @@ export default function SortControl() {
     <div className="flex gap-2">
       <div>
         <Select value={key} onValueChange={changeKey}>
-          <SelectTrigger className="min-w-32">
+          <SelectTrigger className="min-w-32 h-10.5">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -54,7 +54,7 @@ export default function SortControl() {
       <Button
         type="button"
         variant="secondary"
-        className="size-10 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input"
+        className="size-10.5 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input"
         size="icon"
         onClick={toggleDir}
         aria-label={dir === 'asc' ? '오름차순' : '내림차순'}

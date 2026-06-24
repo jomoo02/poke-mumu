@@ -24,10 +24,13 @@ export function usePaginatedPoke(all: NationalPoke[], query: string) {
     totalPages,
   );
 
+  // 현재 페이지 첫 항목의 전역(0-based) 오프셋. 카드 순번 계산에 사용.
+  const startIndex = (page - 1) * PAGE_SIZE;
+
   const items = useMemo(
-    () => filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
-    [filtered, page],
+    () => filtered.slice(startIndex, startIndex + PAGE_SIZE),
+    [filtered, startIndex],
   );
 
-  return { items, page, totalPages, total: filtered.length };
+  return { items, page, totalPages, total: filtered.length, startIndex };
 }
