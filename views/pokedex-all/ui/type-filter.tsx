@@ -45,14 +45,14 @@ export default function TypeFilterTrigger({ types }: TypeFilterTriggerProps) {
       </SheetTrigger>
       <SheetContent
         side={isMobile ? 'bottom' : 'right'}
-        className="data-[side=bottom]:max-h-[80vh] data-[side=bottom]:h-[80vh] "
+        className="data-[side=bottom]:max-h-[80dvh] data-[side=bottom]:h-[80dvh] "
       >
         <SheetHeader>
           <SheetTitle>타입 필터</SheetTitle>
           <SheetDescription className="sr-only">type filter</SheetDescription>
         </SheetHeader>
         <div className="px-5 py-1 flex flex-col gap-5 overflow-auto">
-          <div className="grid grid-cols-3 gap-4 ">
+          <div className="flex flex-wrap gap-3">
             {types.map((type) => (
               <Toggle
                 key={type.identifier}
@@ -63,11 +63,13 @@ export default function TypeFilterTrigger({ types }: TypeFilterTriggerProps) {
                     ? ' opacity-30 hover:opacity-70'
                     : 'hover:opacity-70',
                   isSelected(type) ? ' opacity-100 hover:opacity-100' : '',
-                  'hover:bg-transparent data-[state=on]:bg-transparent p-0 justify-center',
+                  'hover:bg-muted  data-[state=on]:border-primary/50 data-[state=on]:bg-primary/10  dark:data-[state=on]:bg-primary/30   dark:data-state:on:text-primary-foreground justify-center',
+                  'border px-2.5 h-10 rounded-2xl gap-x-2.5',
                 )}
                 aria-label={type.nameKo}
               >
-                <TypeBadge type={type} className="w-22 h-8.5" />
+                <TypeIcon type={type} className="size-7 rounded-lg" />
+                <span className="pr-2.5">{type.nameKo}</span>
               </Toggle>
             ))}
           </div>

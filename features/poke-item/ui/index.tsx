@@ -91,6 +91,7 @@ interface PokeItemProps {
   formatLength?: number;
   className?: string;
   showForm?: boolean;
+  showType?: boolean;
 }
 
 export function NationalPokeItem({
@@ -98,6 +99,7 @@ export function NationalPokeItem({
   className,
   formatLength = 4,
   showForm = true,
+  showType = true,
 }: PokeItemProps) {
   const { nameKo, form, type1, type2, dexNumber } = poke;
 
@@ -125,18 +127,22 @@ export function NationalPokeItem({
         <div className="flex flex-col flex-1 overflow-hidden text-center relative z-10">
           <div className="text-lg truncate">{nameKo}</div>
           {showForm && (
-            <div className="text-foreground/70 text-md truncate">{form}</div>
+            <div className="text-foreground/70 text-md truncate min-h-5.25">
+              {form}
+            </div>
           )}
         </div>
-        <div className="flex justify-center gap-2 items-center shrink-0 pt-1.5 relative z-10">
-          <TypeIcon type={type1} className="size-7.5  rounded-md " />
+        {showType && (
+          <div className="flex justify-center gap-2 items-center shrink-0 pt-1.5 relative z-10">
+            <TypeIcon type={type1} className="size-7.5  rounded-md " />
 
-          {type2 ? (
-            <TypeIcon type={type2} className="size-7.5 rounded-md" />
-          ) : (
-            <div className="size-7.5" />
-          )}
-        </div>
+            {type2 ? (
+              <TypeIcon type={type2} className="size-7.5 rounded-md" />
+            ) : (
+              <div className="size-7.5" />
+            )}
+          </div>
+        )}
       </Link>
     </div>
   );

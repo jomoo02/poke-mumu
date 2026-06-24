@@ -55,7 +55,7 @@ function CardDescription({
   return (
     <div
       className={cn(
-        'text-sm text-muted-foreground text-pretty break-keep',
+        'text-md text-foreground/70 text-balance break-keep',
         className,
       )}
     >
@@ -72,14 +72,7 @@ function CardTitle({
   className?: string;
 }) {
   return (
-    <div
-      className={cn(
-        'text-lg font-semibold flex gap-1.5 items-center',
-        className,
-      )}
-    >
-      {children}
-    </div>
+    <div className={cn('text-lg font-semibold', className)}>{children}</div>
   );
 }
 
@@ -94,16 +87,8 @@ function CardContent({
   className?: string;
   variant?: CardContentVariant;
 }) {
-  const contentPaddingMap: Record<CardContentVariant, string> = {
-    bordered: 'px-5',
-    borderless: 'px-5',
-  };
-
-  const contentPadding = contentPaddingMap[variant];
   return (
-    <div className={cn('px-5 flex flex-col gap-5', contentPadding, className)}>
-      {children}
-    </div>
+    <div className={cn('px-5 flex flex-col gap-5', className)}>{children}</div>
   );
 }
 

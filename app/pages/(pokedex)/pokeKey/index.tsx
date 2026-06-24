@@ -36,6 +36,12 @@ interface PokedexPokeKeyPageUIProps {
 export default async function PokedexPokeKeyPageUI({
   pokeKey,
 }: PokedexPokeKeyPageUIProps) {
+  // const [data, abilities, statRows] = await Promise.all([
+  //   getPokeDetail(pokeKey),
+  //   getAbilitiesByPokeKey(pokeKey),
+  //   getStats(),
+  // ]);
+
   const [data, abilities, statRows, vg] = await Promise.all([
     getPokeDetail(pokeKey),
     getAbilitiesByPokeKey(pokeKey),
@@ -58,6 +64,12 @@ export default async function PokedexPokeKeyPageUI({
     effortValues,
     evolutionId,
   } = data;
+
+  // const [nav, pokeForms, typeDefenseGroups] = await Promise.all([
+  //   getPokeNav(dexNumber),
+  //   getPokeForms(speciesId),
+  //   getTypeDefenses(typeIds),
+  // ]);
 
   const [nav, pokeForms, typeDefenseGroups, moves] = await Promise.all([
     getPokeNav(dexNumber),

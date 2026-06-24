@@ -14,7 +14,8 @@ export default function PokeListV2({ pokes }: PokeListProps) {
   return (
     <div
       className={cn(
-        'grid gap-4 sm:gap-6 md:gap-12 sm:grid-cols-[repeat(auto-fill,minmax(138px,1fr))]',
+        // 'grid gap-4 sm:gap-6 md:gap-12 sm:grid-cols-[repeat(auto-fill,minmax(138px,1fr))]',
+        'grid gap-4 sm:gap-6 md:gap-12 sm:grid-cols-[repeat(auto-fill,minmax(128px,1fr))]',
       )}
     >
       {pokes.map((poke, idx) => (

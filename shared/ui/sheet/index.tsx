@@ -71,10 +71,10 @@ function SheetContent({
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>
             <Button
-              variant="secondary"
-              className="absolute top-3.5 right-5 size-10"
+              variant="ghost"
+              className="absolute top-3.5 right-3.5 size-10"
             >
-              <XIcon className="size-5" />
+              <XIcon className="size-6" />
               <span className="sr-only">Close</span>
             </Button>
           </SheetPrimitive.Close>
@@ -112,7 +112,7 @@ function SheetTitle({
     <SheetPrimitive.Title
       data-slot="sheet-title"
       className={cn(
-        'cn-font-heading text-xl font-medium text-foreground',
+        'cn-font-heading text-xl font-semibold text-foreground',
         className,
       )}
       {...props}

@@ -34,7 +34,7 @@ export default function FormFilterTrigger() {
       </SheetTrigger>
       <SheetContent
         side={isMobile ? 'bottom' : 'right'}
-        className="data-[side=bottom]:max-h-[80vh] data-[side=bottom]:h-[80vh] "
+        className="data-[side=bottom]:max-h-[80dvh] data-[side=bottom]:h-[80dvh] "
       >
         <SheetHeader>
           <SheetTitle>모습 필터</SheetTitle>

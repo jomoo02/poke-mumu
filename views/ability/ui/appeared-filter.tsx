@@ -10,6 +10,8 @@ interface AppearedFilterProps {
   toggleAppearedGen: (gen: number) => void;
   appearedGens: number[];
   variant?: 'desktop' | 'mobile';
+  isChampions: boolean;
+  toggleChampions: (on: boolean) => void;
 }
 
 export default function AppearedFilter({
@@ -17,24 +19,26 @@ export default function AppearedFilter({
   toggleAppearedGen,
   resetFilter,
   appearedGens,
+  isChampions,
+  toggleChampions,
   variant = 'desktop',
 }: AppearedFilterProps) {
   return (
     <div>
       <div
         id={`filter-header-${variant}`}
-        className="pb-6 border-b flex justify-between items-center"
+        className="pb-5 border-b flex justify-between items-center"
       >
         <div className="text-xl font-bold">필터</div>
         <Button
           variant={'ghost'}
           onClick={resetFilter}
-          className="text-base h-10 px-4 active:bg-muted"
+          className="text-md h-8.5 px-3 active:bg-muted"
         >
           초기화
         </Button>
       </div>
-      <div className="py-6">
+      <div className="py-5 border-b">
         <div className="text-lg font-semibold">등장</div>
         {variant === 'desktop' ? (
           <FieldSet>
@@ -70,11 +74,49 @@ export default function AppearedFilter({
                 onPressedChange={() => toggleAppearedGen(gen)}
                 variant={'outline'}
                 key={gen}
-                className="cursor-pointer dark:aria-pressed:bg-input"
+                className="cursor-pointer dark:aria-pressed:bg-muted min-w-18.5"
               >
                 {gen}세대
               </Toggle>
             ))}
+          </div>
+        )}
+      </div>
+      <div className="py-5">
+        <div className="text-lg font-semibold">분류</div>
+        {variant === 'desktop' ? (
+          <FieldSet>
+            <FieldGroup className="gap-y-3 py-4">
+              <Field
+                orientation="horizontal"
+                className={cn('gap-x-2.5 px-1 py-0.5')}
+              >
+                <Checkbox
+                  checked={isChampions}
+                  id={`champions-check`}
+                  name={`champions-check`}
+                  className="cursor-pointer"
+                  onCheckedChange={() => toggleChampions(!!!isChampions)}
+                />
+                <FieldLabel
+                  htmlFor={`champions-check`}
+                  className="text-base font-medium cursor-pointer dark:aria-pressed:bg-muted"
+                >
+                  챔피언스
+                </FieldLabel>
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+        ) : (
+          <div className="flex flex-wrap gap-3 py-3">
+            <Toggle
+              pressed={isChampions}
+              onPressedChange={() => toggleChampions(!!!isChampions)}
+              variant={'outline'}
+              className="cursor-pointer "
+            >
+              챔피언스
+            </Toggle>
           </div>
         )}
       </div>

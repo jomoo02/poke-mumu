@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import {
   getDefaultVgForPoke,
   getAvailableVgsForPoke,
@@ -29,12 +30,15 @@ export default async function MovesSection({ pokeKey }: MovesSectionProps) {
       <SectionTitle>기술</SectionTitle>
       <SectionDescription>배울 수 있는 기술 목록</SectionDescription>
       <SectionContent className="flex flex-col gap-4">
-        <Container
-          pokeKey={pokeKey}
-          defaultVg={defaultVg}
-          availableVgs={availableVgs}
-          initialMoves={initialMoves}
-        />
+        <Suspense>
+          {' '}
+          <Container
+            pokeKey={pokeKey}
+            defaultVg={defaultVg}
+            availableVgs={availableVgs}
+            initialMoves={initialMoves}
+          />
+        </Suspense>
       </SectionContent>
     </Section>
   );

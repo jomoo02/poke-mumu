@@ -66,7 +66,7 @@ export default function PokeCardV2({ poke }: PokeCardProps) {
 
       <div className="flex-1 flex flex-col items-center justify-center px-5 pt-3">
         <div className="flex items-center justify-center">
-          <PokeSprite poke={poke} className="size-20" />
+          <PokeSprite poke={poke} className="size-19" />
         </div>
         <div className="flex flex-col justify-center items-center pt-1.5">
           <div className="text-lg text-center font-medium min-w-0 truncate">

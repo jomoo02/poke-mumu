@@ -67,7 +67,7 @@ export function TypeBadge({
   return (
     <div
       className={cn(
-        'w-20 h-7.5 rounded-lg flex items-center p-1 shadow-sm',
+        'w-20 h-7.5 text-white rounded-lg flex items-center p-1 shadow-sm font-extrabold ',
         size === 'small' ? 'w-18.5 h-7' : '',
         bg,
         shadowColor,
@@ -82,7 +82,7 @@ export function TypeBadge({
       />
       <span
         className={cn(
-          'text-sm text-white font-extrabold text-center flex-1 tracking-wide',
+          'text-sm text-center flex-1 tracking-wide',
           size === 'small' ? 'text-xs' : '',
         )}
       >
@@ -155,7 +155,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'size-7.5 rounded-lg flex items-center justify-center p-1',
+        'size-7.5 rounded-lg flex items-center justify-center p-0.75',
         bg,
         // shadowColor,
         className,
@@ -169,6 +169,51 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
         style={{ width: '100%', height: 'auto' }}
         alt={type.identifier}
       />
+    </div>
+  );
+}
+
+export function TypeText({ type, className }: TypeBadgeProps) {
+  const bgVariants: Record<string, string> = {
+    normal: 'bg-normal',
+    fire: 'bg-fire',
+    water: 'bg-water',
+    grass: 'bg-grass',
+    electric: 'bg-electric',
+    ice: 'bg-ice',
+    fighting: 'bg-fighting',
+    poison: 'bg-poison',
+    ground: 'bg-ground',
+    flying: 'bg-flying',
+    psychic: 'bg-psychic',
+    bug: 'bg-bug',
+    rock: 'bg-rock',
+    ghost: 'bg-ghost',
+    dragon: 'bg-dragon',
+    dark: 'bg-dark',
+    steel: 'bg-steel',
+    fairy: 'bg-fairy',
+    unknown: 'bg-unknown',
+  };
+  const bg = bgVariants[type.identifier] || bgVariants.unknown;
+  const content = type.nameKo;
+  return (
+    <div
+      className={cn(
+        'w-20 h-7.5 rounded-lg flex items-center p-1 shadow-sm',
+
+        bg,
+
+        className,
+      )}
+    >
+      <span
+        className={cn(
+          'text-sm text-white font-extrabold text-center flex-1 tracking-wide',
+        )}
+      >
+        {content}
+      </span>
     </div>
   );
 }

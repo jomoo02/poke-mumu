@@ -3,6 +3,7 @@ import { DotIcon } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
 import type { Ability } from '@/entities/ability/model';
+import { Card, CardContent, CardFooter } from '@/shared/ui/card';
 
 interface AbilityListProps {
   abilities: Ability[];
@@ -11,14 +12,14 @@ interface AbilityListProps {
 export default function AbilityList({ abilities }: AbilityListProps) {
   if (abilities.length === 0) {
     return (
-      <div className="py-4 font-medium text-muted-foreground">
+      <div className="font-medium text-muted-foreground">
         일치하는 특성이 없습니다
       </div>
     );
   }
 
   return (
-    <ul className="flex flex-col divide-y">
+    <ul className=" grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
       {abilities.map((ability) => (
         <li key={ability.identifier}>
           <AbilityItem ability={ability} />
@@ -37,37 +38,43 @@ function AbilityItem({ ability }: AbilityProps) {
     <Link
       href={`/ability/${ability.identifier}`}
       className={cn(
-        'group block ',
-        'outline-none border border-transparent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-        // 'transition-colors duration-100  hover:bg-muted/70 rounded-2xl',
-        'flex gap-3.5 py-3.5',
-        '',
+        'group block h-full',
+        'outline-none border border-transparent focus-visible:ring-[3px] focus-visible:ring-ring/50',
+        'rounded-4xl bg-card hover:bg-accent ',
       )}
     >
-      <div className="flex flex-col flex-1 gap-1.5 w-full">
-        <div id="ability-names" className="flex flex-col gap-0.5">
-          <span className="font-semibold text-lg lg:text-xl group-hover:text-primary transition-colors duration-200">
-            {ability.nameKo}
-          </span>
-          <div className="flex items-center flex-wrap">
-            <span className="truncate">{ability.nameEn}</span>
-            <DotIcon className="size-4.5" />
-            <span className="truncate">{ability.nameJa}</span>
+      <Card className="h-full bg-transparent group-focus-visible:border-ring">
+        <CardContent className="flex-1 gap-3">
+          <div className="flex flex-col gap-0.5">
+            <div className="text-lg font-semibold">{ability.nameKo}</div>
+            <div className="flex items-center flex-wrap text-md font-normal">
+              <span className="truncate">{ability.nameEn}</span>
+              <DotIcon className="size-4.5" />
+              <span className="truncate">{ability.nameJa}</span>
+            </div>
           </div>
-        </div>
-        <p
-          id="ability-flavorText"
-          className={cn(
-            'line-clamp-2 break-keep text-md lg:text-base text-balance text-foreground/70',
-          )}
-        >
-          {ability.flavorText}
-        </p>
-      </div>
-
-      <div className="shrink-0 truncate text-xs font-medium w-fit h-fit border px-2 rounded-xl py-0.5 bg-secondary text-secondary-foreground">
-        {`${ability.gen}세대`}
-      </div>
+          <p
+            id="ability-flavorText"
+            className={cn(
+              'line-clamp-2 sm:line-clamp-3 break-keep flex-1 h-full text-md text-foreground/70',
+            )}
+          >
+            {ability.flavorText}
+          </p>
+        </CardContent>
+        <CardFooter>
+          <div className="flex flex-wrap gap-1.5">
+            <div className="shrink-0 truncate text-xs font-medium w-fit h-fit border px-2 rounded-xl py-0.5 bg-secondary text-secondary-foreground border-transparent">
+              {`${ability.gen}세대`}
+            </div>
+            {ability.isChampions && (
+              <div className="shrink-0 truncate text-xs font-medium w-fit h-fit border px-2 rounded-xl py-0.5 bg-secondary text-secondary-foreground border-transparent">
+                챔피언스
+              </div>
+            )}
+          </div>
+        </CardFooter>
+      </Card>
     </Link>
   );
 }

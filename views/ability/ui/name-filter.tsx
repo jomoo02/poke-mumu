@@ -15,8 +15,8 @@ export default function NameFilter({ onClear, ...props }: NameFilterProps) {
   const placeholder = '맹화, Blaze, もうか';
 
   return (
-    <InputGroup className="w-full md:max-w-md md:w-sm h-10">
-      <InputGroupInput placeholder={placeholder} className="h-10" {...props} />
+    <InputGroup className="w-full md:max-w-md md:w-sm h-11">
+      <InputGroupInput placeholder={placeholder} className="h-11" {...props} />
       <InputGroupAddon>
         <SearchIcon className="size-4.5" />
       </InputGroupAddon>
@@ -24,8 +24,11 @@ export default function NameFilter({ onClear, ...props }: NameFilterProps) {
         <InputGroupButton
           tabIndex={-1}
           onClick={onClear}
+          size={'icon-sm'}
           className={
-            props.value === '' ? 'text-transparent hover:text-transparent' : ''
+            props.value === ''
+              ? 'text-transparent hover:text-transparent hidden'
+              : 'flex'
           }
         >
           <XIcon className="size-5" />

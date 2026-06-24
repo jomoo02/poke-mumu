@@ -8,24 +8,36 @@ const VALID_APPEARED_GENS = new Set([3, 4, 5, 6, 7, 8, 9]);
 export default function useAbilityList(abilities: Ability[]) {
   const { inputValue, setInputValue, deferredInputValue } = useInputValue();
 
-  const { selectedAppearedGens, toggleAppearedGen, resetFilter } = useFilter();
+  const {
+    selectedAppearedGens,
+    toggleAppearedGen,
+    resetFilter,
+
+    isChampions,
+    toggleChampions,
+  } = useFilter();
 
   const filteredAbilities = useMemo(() => {
     const keyword = deferredInputValue.trim().toLowerCase();
 
-    const filtered = abilities.filter(({ nameKo, nameEn, nameJa, gen }) => {
-      const matchesName = [nameKo, nameEn.toLowerCase(), nameJa].some(
-        (v) => v !== null && v.includes(keyword),
-      );
+    const filtered = abilities.filter(
+      ({ nameKo, nameEn, nameJa, gen, isChampions: abilityIsChampions }) => {
+        const matchesName = [nameKo, nameEn.toLowerCase(), nameJa].some(
+          (v) => v !== null && v.includes(keyword),
+        );
 
-      const matchesGen =
-        selectedAppearedGens.size === 0 || selectedAppearedGens.has(gen);
+        const matchesGen =
+          selectedAppearedGens.size === 0 || selectedAppearedGens.has(gen);
 
-      return matchesName && matchesGen;
-    });
+        if (isChampions) {
+          return matchesName && matchesGen && abilityIsChampions;
+        }
+        return matchesName && matchesGen;
+      },
+    );
 
     return filtered.sort((a, b) => a.nameKo.localeCompare(b.nameKo, 'ko'));
-  }, [abilities, deferredInputValue, selectedAppearedGens]);
+  }, [abilities, deferredInputValue, selectedAppearedGens, isChampions]);
 
   return {
     inputValue,
@@ -35,6 +47,9 @@ export default function useAbilityList(abilities: Ability[]) {
     toggleAppearedGen,
     filteredAbilities,
     count: filteredAbilities.length,
+
+    isChampions,
+    toggleChampions,
     appearedGens: [...VALID_APPEARED_GENS],
   };
 }
@@ -60,6 +75,9 @@ function useFilter() {
     return new Set(gens);
   }, [searchParams]);
 
+  const isChampions = searchParams.get('champions') === '1';
+  console.log(isChampions);
+
   const commit = (params: URLSearchParams) => {
     const query = params.toString();
     router.replace(query ? `?${query}` : '?', { scroll: false });
@@ -82,11 +100,22 @@ function useFilter() {
     commit(params);
   };
 
+  const toggleChampions = (on: boolean) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (on) {
+      params.set('champions', '1');
+    } else {
+      params.delete('champions');
+    }
+    commit(params);
+    console.log('toggle', on);
+  };
+
   const resetFilter = () => {
     const params = new URLSearchParams(searchParams.toString());
 
     params.delete('appeared');
-    params.delete('champ');
+    params.delete('champions');
 
     commit(params);
   };
@@ -95,5 +124,8 @@ function useFilter() {
     selectedAppearedGens,
     toggleAppearedGen,
     resetFilter,
+
+    isChampions,
+    toggleChampions,
   };
 }
