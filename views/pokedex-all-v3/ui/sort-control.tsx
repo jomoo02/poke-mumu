@@ -26,13 +26,13 @@ export default function SortControl() {
   const changeKey = (nextKey: string) => {
     const opt = SORT_OPTIONS.find((o) => o.key === nextKey);
     if (!opt) return;
-    update({ sortKey: nextKey, sortDir: opt.defaultDir });
+    update({ sort_key: nextKey, sort_dir: opt.defaultDir });
   };
 
   // 첫 진입 시 URL에 sortKey가 없으면 parseSort가 sortDir을 무시하므로
   // 방향만 바꿀 때도 현재 키를 함께 써준다.
   const toggleDir = () =>
-    update({ sortKey: key, sortDir: dir === 'asc' ? 'desc' : 'asc' });
+    update({ sort_key: key, sort_dir: dir === 'asc' ? 'desc' : 'asc' });
 
   return (
     <div className="flex gap-2">

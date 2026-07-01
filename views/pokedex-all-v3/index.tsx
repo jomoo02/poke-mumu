@@ -29,8 +29,14 @@ export default async function PokedexAllPageViewV3() {
   const types = allType.filter((type) => type.identifier !== 'unknown');
 
   return (
-    <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
-      <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6">전국도감</h1>
+    <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-4 md:px-6 lg:px-8 xl:px-10 3xl:px-2.5">
+      <div className=" mt-4 mb-6">
+        <h1 className="text-4xl font-bold tracking-tight">전국도감</h1>
+        <p className="pt-3 text-foreground/70">
+          H: 체력, A: 공격, B: 방어, C: 특수공격, D: 특수방어, S:스피드
+        </p>
+      </div>
+
       {/* useSearchParams를 쓰는 클라이언트 트리는 Suspense로 감싼다(ISR 보존). */}
       <Suspense fallback={<PokedexSkeleton />}>
         <PokedexView all={pokes} types={types} />

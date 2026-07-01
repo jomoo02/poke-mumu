@@ -11,7 +11,7 @@ function PageContainer({
     <div
       className={cn(
         'max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6',
-        'px-4 2xs:px-5 md:px-8 lg:px-10 3xl:px-2.5',
+        'px-4 md:px-6 lg:px-8 xl:px-10 3xl:px-2.5',
         className,
       )}
     >

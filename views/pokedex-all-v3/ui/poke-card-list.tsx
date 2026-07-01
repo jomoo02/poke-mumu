@@ -1,6 +1,9 @@
+import { cn } from '@/shared/lib/cn';
 import { type NationalPoke } from '../model';
 import PokeCard from './poke-card';
 import PokeCardV2 from './poke-card-v2';
+import PokeCardV3 from './poke-card-v3';
+import PokeCardV4 from './poke-card-v4';
 
 interface PokeCardListProps {
   pokes: NationalPoke[];
@@ -24,15 +27,14 @@ export default function PokeCardList({
 
   return (
     <div className="flex flex-col gap-6">
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {pokes.slice(0, 5).map((poke, idx) => (
-          <PokeCardV2 key={poke.pokeKey} poke={poke} index={idx + 1} />
-        ))}
-      </div> */}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div
+        className={cn(
+          'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6',
+          // 'grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]',
+        )}
+      >
         {pokes.map((poke, idx) => (
-          <PokeCardV2
+          <PokeCardV3
             key={poke.pokeKey}
             poke={poke}
             index={startIndex + idx + 1}

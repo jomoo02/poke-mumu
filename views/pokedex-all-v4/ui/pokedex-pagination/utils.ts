@@ -1,13 +1,7 @@
-// 페이지 번호 윈도잉.
-// 규칙: 첫(1)·마지막(total) 페이지는 항상 표시 + 현재 페이지의 prev/cur/next 표시.
-//   - 시작 근처:  1, 2, 3, …, total
-//   - 중간:       1, …, prev, cur, next, …, total
-//   - 끝 근처:    1, …, total-2, total-1, total
-// 인접 페이지 사이 간격이 2 이상일 때만 ellipsis 삽입.
-export function getPageWindow(
+export const getPageWindow = (
   page: number,
   total: number,
-): (number | 'ellipsis')[] {
+): (number | 'ellipsis')[] => {
   if (total <= 1) return [1];
 
   const pages = new Set<number>([1, total, page - 1, page, page + 1]);
@@ -34,4 +28,4 @@ export function getPageWindow(
   }
 
   return result;
-}
+};

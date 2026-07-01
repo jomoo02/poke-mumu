@@ -1,5 +1,5 @@
-import PokedexAllPageViewV3 from '@/views/pokedex-all-v3';
+import PokedexAllPageViewV4 from '@/views/pokedex-all-v4';
 
 export default function PokedexAllPage() {
-  return <PokedexAllPageViewV3 />;
+  return <PokedexAllPageViewV4 />;
 }

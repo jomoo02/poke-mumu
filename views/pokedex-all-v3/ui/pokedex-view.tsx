@@ -10,6 +10,8 @@ import { usePaginatedPoke } from '../model/use-paginated-poke';
 import SearchInput from './search-input';
 import SortControl from './sort-control';
 import FilterSheet from './filter-sheet';
+import ActiveFilters from './active-filters';
+import FilterContainer from './filter-container';
 import PokeCardList from './poke-card-list';
 import PokePagination from './poke-pagination';
 
@@ -68,7 +70,7 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
     // 모바일에서 먼 거리 smooth 스크롤이 콘텐츠 리플로우로 취소되는 것을 피해
     // 다음 프레임에 문서 최상단으로 스크롤한다.
     requestAnimationFrame(() => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
     });
   };
 
@@ -90,10 +92,19 @@ export default function PokedexView({ all, types }: PokedexViewProps) {
           </div>
           <SortControl />
         </div>
+        <ActiveFilters
+          types={types}
+          selectedTypes={selectedTypes}
+          selectedForms={selectedForms}
+          onRemoveType={toggleType}
+          onRemoveForm={toggleForm}
+        />
         <span className="text-sm text-muted-foreground tabular-nums">
           {total.toLocaleString()}마리
         </span>
       </div>
+
+      <FilterContainer types={types} />
 
       <div className="flex flex-col gap-8">
         <PokeCardList pokes={items} startIndex={startIndex} sortKey={sortKey} />

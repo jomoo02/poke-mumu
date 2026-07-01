@@ -1,4 +1,4 @@
-import { type NationalPoke } from '.';
+import { type NationalPoke } from './poke';
 
 export type SortDir = 'asc' | 'desc';
 
@@ -12,12 +12,32 @@ export interface SortOption {
 // 키마다 기본 방향: 도감번호·이름 = asc, 스탯류 = desc.
 // 라벨/키는 v2 comparators(특수공격/특수방어 등)에 맞춰 정의.
 export const SORT_OPTIONS: readonly SortOption[] = [
-  { key: 'dex', label: '도감번호', defaultDir: 'asc', accessor: (p) => p.dexNumber },
+  {
+    key: 'dex',
+    label: '도감번호',
+    defaultDir: 'asc',
+    accessor: (p) => p.dexNumber,
+  },
   { key: 'name', label: '이름', defaultDir: 'asc', accessor: (p) => p.nameKo },
-  { key: 'total', label: '종족값', defaultDir: 'desc', accessor: (p) => p.total },
+  {
+    key: 'total',
+    label: '종족값',
+    defaultDir: 'desc',
+    accessor: (p) => p.total,
+  },
   { key: 'hp', label: 'HP', defaultDir: 'desc', accessor: (p) => p.hp },
-  { key: 'attack', label: '공격', defaultDir: 'desc', accessor: (p) => p.attack },
-  { key: 'defense', label: '방어', defaultDir: 'desc', accessor: (p) => p.defense },
+  {
+    key: 'attack',
+    label: '공격',
+    defaultDir: 'desc',
+    accessor: (p) => p.attack,
+  },
+  {
+    key: 'defense',
+    label: '방어',
+    defaultDir: 'desc',
+    accessor: (p) => p.defense,
+  },
   {
     key: 'specialAttack',
     label: '특수공격',
@@ -30,7 +50,12 @@ export const SORT_OPTIONS: readonly SortOption[] = [
     defaultDir: 'desc',
     accessor: (p) => p.specialDefense,
   },
-  { key: 'speed', label: '스피드', defaultDir: 'desc', accessor: (p) => p.speed },
+  {
+    key: 'speed',
+    label: '스피드',
+    defaultDir: 'desc',
+    accessor: (p) => p.speed,
+  },
 ] as const;
 
 export const DEFAULT_SORT = { key: 'dex', dir: 'asc' as SortDir };
@@ -44,7 +69,10 @@ const tieBreak = (a: NationalPoke, b: NationalPoke): number => {
 };
 
 // 읽을 때 항상 정규화: sortDir이 없으면 그 키의 defaultDir, 무효 키면 전체 기본값.
-export function parseSort(params: URLSearchParams): { key: string; dir: SortDir } {
+export function parseSort(params: URLSearchParams): {
+  key: string;
+  dir: SortDir;
+} {
   const opt = SORT_OPTIONS.find((o) => o.key === params.get('sort_key'));
   if (!opt) return DEFAULT_SORT;
   const raw = params.get('sort_dir');
