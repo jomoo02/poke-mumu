@@ -28,9 +28,12 @@ export default function useSort() {
 
   const reset = () => update({ sort: null, dir: null });
 
+  const isActive = key !== DEFAULT_SORT_KEY || dir !== DEFAULT_SORT_DIR;
+
   return {
     key,
     dir,
+    isActive,
     options: SORT_OPTIONS,
     currentLabel: getSortLabel(key, dir),
     ascLabel: getSortLabel(key, 'asc'),

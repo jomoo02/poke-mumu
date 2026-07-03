@@ -28,6 +28,7 @@ export default function PokeSortMobile() {
     currentLabel,
     ascLabel,
     descLabel,
+    isActive,
     changeKey,
     changeDir,
     reset,
@@ -37,8 +38,13 @@ export default function PokeSortMobile() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button
-          variant={'secondary'}
-          className=" bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input h-10.5"
+          variant={isActive ? 'default' : 'secondary'}
+          className={cn(
+            'h-10.5 transition-none',
+            isActive
+              ? 'bg-primary hover:bg-primary/70 text-primary-foreground active:bg-primary/70'
+              : 'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
+          )}
         >
           <span>정렬: {currentLabel}</span>
           <ChevronDownIcon className="size-4.5" />

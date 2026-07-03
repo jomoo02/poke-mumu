@@ -24,12 +24,19 @@ export default function FormFilterDesktop() {
   const triggerText =
     selected.length === 0 ? '모습' : `모습: ${getFormLabel()}`;
 
+  const isActive = selected.length > 0;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant={'secondary'}
-          className=" bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input h-10.5"
+          variant={isActive ? 'default' : 'secondary'}
+          className={cn(
+            'h-10.5 transition-none',
+            isActive
+              ? 'bg-primary hover:bg-primary/80 text-primary-foreground active:bg-primary/80'
+              : 'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
+          )}
         >
           <span>{triggerText}</span>
           <ChevronDownIcon className="size-4.5" />

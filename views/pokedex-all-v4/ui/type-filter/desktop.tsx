@@ -26,16 +26,30 @@ export default function TypeFilterDesktop({ types, max = 2 }: TypeFilterProps) {
   const triggerText =
     selected.length === 0 ? '타입' : `타입: ${getTypeNameKo()}`;
 
+  const isActive = selected.length > 0;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
         <Button
+          variant={isActive ? 'default' : 'secondary'}
+          className={cn(
+            'h-10.5 transition-none',
+            isActive
+              ? 'bg-primary hover:bg-primary/70 text-primary-foreground active:bg-primary/70'
+              : 'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
+          )}
+        >
+          <span>{triggerText}</span>
+          <ChevronDownIcon className="size-4.5" />
+        </Button>
+        {/* <Button
           variant={'secondary'}
           className=" bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input h-10.5"
         >
           <span>{triggerText}</span>
           <ChevronDownIcon className="size-4.5" />
-        </Button>
+        </Button> */}
       </PopoverTrigger>
       <PopoverContent align="start" className="z-1 px-0 py-3.5 pb-0 w-58">
         <div className="text-xs py-1 text-muted-foreground px-4">

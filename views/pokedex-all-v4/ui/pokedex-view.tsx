@@ -111,6 +111,11 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
     window.scrollTo({ top: 0 });
   }, [page]);
 
+  const resultText =
+    pokes.length !== total
+      ? `${total.toLocaleString()} of ${pokes.length.toLocaleString()} Pokémon`
+      : `${pokes.length.toLocaleString()} Pokémon`;
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 sm:gap-6">
@@ -136,7 +141,7 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
             aria-live="polite"
             className="text-sm text-foreground/70 shrink-0"
           >
-            {total}마리
+            {resultText}
           </div>
         </div>
       </div>
