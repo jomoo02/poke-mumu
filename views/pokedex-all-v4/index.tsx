@@ -17,7 +17,7 @@ export default async function PokedexAllPageViewV4() {
     <PageContainer>
       <div className="mb-6">
         <h1 className="text-4xl font-bold tracking-tight">전국도감</h1>
-        <p className="pt-4 text-foreground/70">
+        <p className="pt-4 text-foreground/70 text-pretty break-keep">
           H: 체력, A: 공격, B: 방어, C: 특수공격, D: 특수방어, S:스피드
         </p>
       </div>

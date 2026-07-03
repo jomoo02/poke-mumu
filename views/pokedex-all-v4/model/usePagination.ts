@@ -51,12 +51,16 @@ function matchesForm(formIdentifier: string | null, sel: string[]): boolean {
   );
 }
 
-function matchesQuery(poke: NationalPoke, q: string): boolean {
+const stripSpaces = (s: string): string => s.replace(/\s+/g, '');
+
+function matchesQuery(poke: NationalPoke, rawQuery: string): boolean {
+  const q = stripSpaces(rawQuery);
+
   if (!q) {
     return true;
   }
 
-  if (poke.nameKo.includes(q)) {
+  if (stripSpaces(poke.nameKo).includes(q)) {
     return true;
   }
 
@@ -75,13 +79,12 @@ function applyFilterSort(
 ): NationalPoke[] {
   const types = params.getAll('type').filter(Boolean);
   const forms = params.getAll('form').filter(Boolean);
-  const q = query.trim();
 
   const filtered = all.filter(
     (p) =>
       matchesType(p, types) &&
       matchesForm(p.formIdentifier, forms) &&
-      matchesQuery(p, q),
+      matchesQuery(p, query),
   );
 
   return applySort(filtered, params);

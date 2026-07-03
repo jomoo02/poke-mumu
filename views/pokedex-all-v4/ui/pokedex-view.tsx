@@ -13,11 +13,13 @@ import { NavigationProvider, useNavigation } from '../model/navigation';
 import type { NationalPoke } from '../model/poke';
 import SearchInput from './search-input';
 import PokeCardList from './poke-card-list.tsx';
-import { parseSort } from '../model/sort';
+import { DEFAULT_SORT_DIR, DEFAULT_SORT_KEY, parseSort } from '../model/sort';
 import TypeFilter from './type-filter';
 import FormFilter from './form-filter';
 import PokeSort from './poke-sort';
 import PokedexPagination from './pokedex-pagination';
+import { Button } from '@/shared/ui/button';
+import { RotateCwIcon } from 'lucide-react';
 
 interface PokedexViewProps {
   pokes: NationalPoke[];
@@ -34,13 +36,15 @@ export default function PokedexView(props: PokedexViewProps) {
 }
 
 function PokedexViewInner({ pokes, types }: PokedexViewProps) {
-  const { searchParams, update, toggle } = useSearchParamsState();
-  const { input, setInput, deferredInput } = useSearchQuery();
+  const { searchParams, update } = useSearchParamsState();
+  const { input, setInput, deferredInput } = useSearchQuery(
+    searchParams.get('search') ?? '',
+  );
   const { items, page, totalPages, total, startIndex } = usePagination(
     pokes,
     deferredInput,
   );
-  const { key: sortKey } = parseSort(searchParams);
+  const { key: sortKey, dir: sortDir } = parseSort(searchParams);
 
   // 네비게이션(필터·정렬·페이지) 전환만 dim. 검색은 useDeferredValue가 처리하므로 제외.
   // 150ms 이상 지속될 때만 표시해 빠른 전환의 flash를 막는다.
@@ -55,15 +59,24 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
     }
   };
 
-  // 반복 키(type=a&type=b) 형태이므로 getAll로 읽는다.
-  const selectedTypes = searchParams.getAll('type').filter(Boolean);
-  const selectedForms = searchParams.getAll('form').filter(Boolean);
+  // 검색어를 디바운스 + replace로 URL(search)에 반영한다.
+  // 결과는 deferredInput(로컬)로 즉시 필터링하고, URL은 공유·새로고침 복원용.
+  // replace라 타이핑이 히스토리에 쌓이지 않는다.
+  useEffect(() => {
+    const current = searchParams.get('search') ?? '';
+    if (input === current) return; // 초기 mount & 이미 반영된 경우 skip
 
-  const handleTypeToggle = (id: string) => toggle('type', id);
-  const handleTypeReset = () => update({ type: null });
+    const timer = setTimeout(() => update({ search: input || null }), 250);
+    return () => clearTimeout(timer);
+  }, [input, searchParams, update]);
 
-  const handleFormToggle = (id: string) => toggle('form', id);
-  const handleFormReset = () => update({ form: null });
+  // 초기화 버튼 활성 판정용(필터/정렬 중 하나라도 기본값이 아니면).
+  // 반복 키(type=a&type=b)이므로 getAll로 읽는다.
+  const isActive =
+    searchParams.getAll('type').filter(Boolean).length > 0 ||
+    searchParams.getAll('form').filter(Boolean).length > 0 ||
+    sortKey !== DEFAULT_SORT_KEY ||
+    sortDir !== DEFAULT_SORT_DIR;
 
   // 페이지네이션 클릭일 때만 스크롤하도록 의도를 표시한다.
   // (필터로 인한 page 리셋에는 스크롤하지 않기 위함)
@@ -75,6 +88,17 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
       { page: p > 1 ? String(p) : null },
       { resetPage: false, history: 'push' },
     );
+  };
+
+  const handleResetClick = () => {
+    update({ form: null, type: null, sort: null, dir: null });
+  };
+
+  // 빈 상태 회복용: 필터·정렬 + 검색어까지 모두 초기화.
+  // (검색만으로 0개인 경우도 회복되도록 검색 포함)
+  const handleResetAll = () => {
+    setInput('');
+    update({ form: null, type: null, sort: null, dir: null, search: null });
   };
 
   // 새 페이지가 '커밋된 뒤'(page 변경 후)에만 최상단으로 스크롤한다.
@@ -93,20 +117,27 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
         <SearchInput value={input} onChange={handleSearchInputChange} />
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
           <div className="flex gap-2 overflow-auto">
-            <TypeFilter
-              selected={selectedTypes}
-              onToggle={handleTypeToggle}
-              onReset={handleTypeReset}
-              types={types}
-            />
-            <FormFilter
-              selected={selectedForms}
-              onToggle={handleFormToggle}
-              onReset={handleFormReset}
-            />
+            {isActive && (
+              <Button
+                variant={'secondary'}
+                aria-label="필터 및 정렬 초기화"
+                className="size-10.5 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input"
+                onClick={handleResetClick}
+              >
+                <RotateCwIcon className="size-4.5" />
+              </Button>
+            )}
+
+            <TypeFilter types={types} />
+            <FormFilter />
             <PokeSort />
           </div>
-          <div className="text-sm text-foreground/70 shrink-0">{total}마리</div>
+          <div
+            aria-live="polite"
+            className="text-sm text-foreground/70 shrink-0"
+          >
+            {total}마리
+          </div>
         </div>
       </div>
 
@@ -117,7 +148,12 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
         )}
         aria-busy={isDimmed}
       >
-        <PokeCardList pokes={items} startIndex={startIndex} sortKey={sortKey} />
+        <PokeCardList
+          pokes={items}
+          startIndex={startIndex}
+          sortKey={sortKey}
+          onReset={handleResetAll}
+        />
       </div>
 
       <div className="mt-6">

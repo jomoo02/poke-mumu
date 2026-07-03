@@ -71,7 +71,7 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
 
           <div
             className={cn(
-              'text- min-w-0 truncate font-medium',
+              'min-w-0 truncate font-medium',
               isActive('name') && 'text-primary',
             )}
           >

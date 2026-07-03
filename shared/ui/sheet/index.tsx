@@ -71,10 +71,10 @@ function SheetContent({
         {showCloseButton && (
           <SheetPrimitive.Close data-slot="sheet-close" asChild>
             <Button
-              variant="ghost"
-              className="absolute top-3.5 right-3.5 size-10"
+              variant="secondary"
+              className="absolute top-4.75 right-4.75 size-9.5"
             >
-              <XIcon className="size-6" />
+              <XIcon className="size-5" />
               <span className="sr-only">Close</span>
             </Button>
           </SheetPrimitive.Close>
@@ -88,7 +88,7 @@ function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sheet-header"
-      className={cn('flex flex-col gap-0.5 p-5', className)}
+      className={cn('flex flex-col gap-0.5 p-6', className)}
       {...props}
     />
   );
@@ -98,7 +98,7 @@ function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="sheet-footer"
-      className={cn('mt-auto flex flex-col gap-2 p-5', className)}
+      className={cn('mt-auto flex flex-col gap-2 p-6', className)}
       {...props}
     />
   );

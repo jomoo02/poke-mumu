@@ -22,6 +22,7 @@ export default function SearchInput({ value, onChange }: SearchInputProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         autoComplete="off"
+        aria-label="포켓몬 이름 또는 도감 번호 검색"
         placeholder={'포켓몬 이\u200B름 또는 도감 번호'}
       />
       <InputGroupAddon>
@@ -31,6 +32,7 @@ export default function SearchInput({ value, onChange }: SearchInputProps) {
         <InputGroupButton
           tabIndex={-1}
           onClick={() => onChange('')}
+          aria-label="검색어 지우기"
           size="icon-sm"
           className={cn(value === '' ? 'hidden' : 'flex')}
         >
