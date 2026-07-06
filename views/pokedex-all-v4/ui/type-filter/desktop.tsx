@@ -66,26 +66,21 @@ export default function TypeFilterDesktop({ types, max = 2 }: TypeFilterProps) {
                     key={type.identifier}
                     orientation="horizontal"
                     className={cn(
-                      // relative: after를 '이 행' 기준으로 배치(없으면 팝오버 전체로 잡힘).
-                      // isolate: 자체 stacking context 생성 → after:-z-10이 팝오버 배경 뒤로
-                      // 가라앉지 않고 '이 행 콘텐츠 뒤'에만 머묾(배경이 보이게 하는 핵심).
                       'relative isolate h-10 gap-x-2.5',
-                      // 하이라이트를 콘텐츠 뒤(-z-10)에, 좌우로 8px 더 크게.
-                      // -inset-x-2(8px) ≤ 컨테이너 px-3(12px)라 overflow에 안 잘림.
                       'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg',
                       disabled ? '' : 'hover:after:bg-muted',
                     )}
                   >
                     <Checkbox
                       checked={active}
-                      id={`${type.identifier}`}
-                      name={`${type.identifier}`}
+                      id={`type-${type.identifier}`}
+                      name={`type-${type.identifier}`}
                       disabled={disabled}
                       className="cursor-pointer"
                       onCheckedChange={() => toggle(type.identifier)}
                     />
                     <FieldLabel
-                      htmlFor={`${type.identifier}`}
+                      htmlFor={`type-${type.identifier}`}
                       className="font-medium cursor-pointer h-full"
                     >
                       <span className="flex-1 text-md">{type.nameKo}</span>

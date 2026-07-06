@@ -3,12 +3,12 @@ import { Suspense } from 'react';
 import { getAllType } from '@/entities/type/api';
 import { PageContainer } from '@/shared/ui/container';
 
-import { getNationalPokedex } from './api';
-import PokedexView from './ui/pokedex-view';
+import { getAllNationalPoke } from './api';
+import PokedexAllClient from './ui/pokedex-all-client';
 
-export default async function PokedexAllPageViewV4() {
+export default async function PokedexAllPageViewF() {
   const [pokes, allType] = await Promise.all([
-    getNationalPokedex(),
+    getAllNationalPoke(),
     getAllType(),
   ]);
   const types = allType.filter((type) => type.identifier !== 'unknown');
@@ -26,7 +26,7 @@ export default async function PokedexAllPageViewV4() {
         </div>
       </div>
       <Suspense>
-        <PokedexView pokes={pokes} types={types} />
+        <PokedexAllClient pokes={pokes} types={types} />
       </Suspense>
     </PageContainer>
   );

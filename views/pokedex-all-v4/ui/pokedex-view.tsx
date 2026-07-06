@@ -9,7 +9,10 @@ import useSearchParamsState from '../model/useSearchParamsState';
 import usePagination from '../model/usePagination';
 import useSearchQuery from '../model/useSearchQuery';
 import useDelayedFlag from '../model/useDelayedFlag';
-import { NavigationProvider, useNavigation } from '../model/navigation';
+import {
+  NavigationTransitionProvider,
+  useNavigationTransition,
+} from '../model/navigation-transition';
 import type { NationalPoke } from '../model/poke';
 import SearchInput from './search-input';
 import PokeCardList from './poke-card-list.tsx';
@@ -29,9 +32,9 @@ interface PokedexViewProps {
 // Provider 경계. 안쪽 컴포넌트들이 공유 transition(isPending)을 함께 사용한다.
 export default function PokedexView(props: PokedexViewProps) {
   return (
-    <NavigationProvider>
+    <NavigationTransitionProvider>
       <PokedexViewInner {...props} />
-    </NavigationProvider>
+    </NavigationTransitionProvider>
   );
 }
 
@@ -48,7 +51,7 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
 
   // 네비게이션(필터·정렬·페이지) 전환만 dim. 검색은 useDeferredValue가 처리하므로 제외.
   // 150ms 이상 지속될 때만 표시해 빠른 전환의 flash를 막는다.
-  const { isPending } = useNavigation();
+  const { isPending } = useNavigationTransition();
   const isDimmed = useDelayedFlag(isPending, 150);
 
   const handleSearchInputChange = (value: string) => {
@@ -121,7 +124,7 @@ function PokedexViewInner({ pokes, types }: PokedexViewProps) {
       <div className="flex flex-col gap-3 sm:gap-6">
         <SearchInput value={input} onChange={handleSearchInputChange} />
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
-          <div className="flex gap-2 overflow-auto">
+          <div className="flex gap-2 overflow-auto p-1 -m-1">
             {isActive && (
               <Button
                 variant={'secondary'}

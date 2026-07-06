@@ -17,7 +17,7 @@ import {
   SheetTrigger,
 } from '@/shared/ui/sheet';
 
-import useSort from '../../model/useSort';
+import usePokeSortView from './usePokeSortView';
 
 export default function PokeSortMobile() {
   const [open, setOpen] = useState(false);
@@ -26,13 +26,11 @@ export default function PokeSortMobile() {
     dir,
     options,
     currentLabel,
-    ascLabel,
-    descLabel,
     isActive,
-    changeKey,
-    changeDir,
-    reset,
-  } = useSort();
+    changeSortKey,
+    changeSortDir,
+    resetSort,
+  } = usePokeSortView();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -56,21 +54,18 @@ export default function PokeSortMobile() {
           <SheetDescription className="sr-only">정렬 옵션</SheetDescription>
         </SheetHeader>
 
-        {/* 정렬 키: 단일 열 */}
-        <div className="flex flex-col gap-6 px-6 max-h-[50dvh] overflow-auto no-scrollbar flex-1">
-          <div className="">
+        <div className="flex flex-col gap-6 px-6 max-h-[60dvh] overflow-auto no-scrollbar flex-1">
+          <div>
             <div className="text-sm font-medium pb-3 text-foreground/70">
               정렬 방향
             </div>
             <div className="grid grid-cols-2">
               <Button
-                onClick={() => changeDir('asc')}
+                onClick={() => changeSortDir('asc')}
                 aria-pressed={dir === 'asc'}
-                aria-label={ascLabel}
-                title={ascLabel}
                 variant={'outline'}
                 className={cn(
-                  'rounded-lg h-10  border-r rounded-r-none gap-2 cursor-pointer',
+                  'rounded-lg h-10 border-r rounded-r-none gap-2 cursor-pointer',
                   dir === 'asc'
                     ? 'bg-muted dark:bg-input hover:bg-muted dark:hover:bg-input'
                     : 'bg-transparent hover:bg-muted/70',
@@ -80,10 +75,8 @@ export default function PokeSortMobile() {
                 <ArrowUpIcon className="size-4" />
               </Button>
               <Button
-                onClick={() => changeDir('desc')}
+                onClick={() => changeSortDir('desc')}
                 aria-pressed={dir === 'desc'}
-                aria-label={descLabel}
-                title={descLabel}
                 variant={'outline'}
                 className={cn(
                   'rounded-lg h-10 border-l-0 rounded-l-none gap-2 cursor-pointer',
@@ -97,13 +90,14 @@ export default function PokeSortMobile() {
               </Button>
             </div>
           </div>
+
           <div>
             <div className="text-sm font-medium pb-3 text-foreground/70">
               정렬 기준
             </div>
             <RadioGroup
               value={key}
-              onValueChange={changeKey}
+              onValueChange={changeSortKey}
               className="gap-1.5"
             >
               {options.map((option) => (
@@ -129,7 +123,7 @@ export default function PokeSortMobile() {
         <SheetFooter>
           <div className="flex gap-3">
             <Button
-              onClick={reset}
+              onClick={resetSort}
               className="rounded-lg text-base h-12 flex-1/3"
               variant={'outline'}
             >

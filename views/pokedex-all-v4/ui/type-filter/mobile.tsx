@@ -77,14 +77,14 @@ export default function TypeFilterMobile({ types, max = 2 }: TypeFilterProps) {
                   >
                     <Checkbox
                       checked={active}
-                      id={`${type.identifier}`}
-                      name={`${type.identifier}`}
+                      id={`type-${type.identifier}`}
+                      name={`type-${type.identifier}`}
                       disabled={disabled}
                       className="cursor-pointer"
                       onCheckedChange={() => toggle(type.identifier)}
                     />
                     <FieldLabel
-                      htmlFor={`${type.identifier}`}
+                      htmlFor={`type-${type.identifier}`}
                       className="font-medium cursor-pointer h-full"
                     >
                       <span className="flex-1 text-md">{type.nameKo}</span>

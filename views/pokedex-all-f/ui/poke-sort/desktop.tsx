@@ -13,7 +13,7 @@ import { Label } from '@/shared/ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/shared/ui/radio-group';
 
-import useSort from '../../model/useSort';
+import usePokeSortView from './usePokeSortView';
 
 export default function PokeSortDesktop() {
   const {
@@ -21,13 +21,11 @@ export default function PokeSortDesktop() {
     dir,
     options,
     currentLabel,
-    ascLabel,
-    descLabel,
     isActive,
-    changeKey,
-    changeDir,
-    reset,
-  } = useSort();
+    changeSortKey,
+    changeSortDir,
+    resetSort,
+  } = usePokeSortView();
 
   return (
     <Popover>
@@ -46,20 +44,18 @@ export default function PokeSortDesktop() {
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="z-1 px-0 py-3.5 pb-0 w-58">
-        <div className="flex flex-col gap-1 px-4 max-h-80 overflow-auto no-scrollbar">
-          <div className="pb-2 pt-1">
-            {/* <div className="text-sm font-medium text-foreground/70 pb-3">
+        <div className="flex flex-col gap-4 px-4 max-h-80 overflow-auto no-scrollbar">
+          <div className="">
+            <div className="text-xs font-medium text-muted-foreground pb-2.5">
               정렬 방향
-            </div> */}
+            </div>
             <div className="grid grid-cols-2">
               <Button
-                onClick={() => changeDir('asc')}
+                onClick={() => changeSortDir('asc')}
                 aria-pressed={dir === 'asc'}
-                aria-label={ascLabel}
-                title={ascLabel}
                 variant={'outline'}
                 className={cn(
-                  'rounded-lg h-9.5  border-r rounded-r-none gap-1.5 px-3 cursor-pointer',
+                  'rounded-xl h-9.5  border-r rounded-r-none gap-1.5 px-3 cursor-pointer',
                   dir === 'asc'
                     ? 'bg-muted dark:bg-input hover:bg-muted dark:hover:bg-input'
                     : 'bg-transparent hover:bg-muted/70',
@@ -69,13 +65,11 @@ export default function PokeSortDesktop() {
                 <ArrowUpIcon className="size-4" />
               </Button>
               <Button
-                onClick={() => changeDir('desc')}
+                onClick={() => changeSortDir('desc')}
                 aria-pressed={dir === 'desc'}
-                aria-label={descLabel}
-                title={descLabel}
                 variant={'outline'}
                 className={cn(
-                  'rounded-lg h-9.5 border-l-0 rounded-l-none gap-1.5 px-3 cursor-pointer',
+                  'rounded-xl h-9.5 border-l-0 rounded-l-none gap-1.5 px-3 cursor-pointer',
                   dir === 'desc'
                     ? 'bg-muted dark:bg-input hover:bg-muted dark:hover:bg-input'
                     : 'bg-transparent hover:bg-muted/70',
@@ -86,31 +80,42 @@ export default function PokeSortDesktop() {
               </Button>
             </div>
           </div>
-
-          <RadioGroup value={key} onValueChange={changeKey} className="gap-1">
-            {options.map((option) => (
-              <Label
-                key={`sort-${option.key}`}
-                htmlFor={`sort-${option.key}`}
-                className={cn(
-                  'relative isolate flex items-center gap-2.5 h-10 text-md cursor-pointer',
-                  'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg hover:after:bg-muted',
-                )}
-              >
-                <RadioGroupItem id={`sort-${option.key}`} value={option.key} />
-                {option.label}
-              </Label>
-            ))}
-          </RadioGroup>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground pb-2.5">
+              정렬 기준
+            </div>
+            <RadioGroup
+              value={key}
+              onValueChange={changeSortKey}
+              className="gap-1"
+            >
+              {options.map((option) => (
+                <Label
+                  key={`sort-${option.key}`}
+                  htmlFor={`sort-${option.key}`}
+                  className={cn(
+                    'relative isolate flex items-center gap-2.5 h-10 text-md cursor-pointer',
+                    'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg hover:after:bg-muted',
+                  )}
+                >
+                  <RadioGroupItem
+                    id={`sort-${option.key}`}
+                    value={option.key}
+                  />
+                  {option.label}
+                </Label>
+              ))}
+            </RadioGroup>
+          </div>
         </div>
         <div className="border-t px-4">
           <div className="py-1.5">
             <Button
-              onClick={reset}
+              onClick={resetSort}
               variant={'ghost'}
               className="h-8 text-foreground/70 px-2 gap-2 -mx-2"
             >
-              <RotateCwIcon className="size-4" />
+              <RotateCwIcon className="size-3.5" />
               초기화
             </Button>
           </div>

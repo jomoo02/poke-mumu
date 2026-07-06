@@ -17,23 +17,20 @@ import {
   SheetTrigger,
 } from '@/shared/ui/sheet';
 
-import useFormFilter from '../../model/useFormFilter';
+import useFormFilterView from './useFormFilterView';
 
 export default function FormFilterMobile() {
   const [open, setOpen] = useState(false);
-  const { selected, options, toggle, reset } = useFormFilter();
-  const set = new Set(selected);
 
-  const getFormLabel = () => {
-    const names = selected
-      .map((id) => options.find((o) => o.identifier === id)?.label)
-      .filter(Boolean);
-    return names.length > 1 ? names.join(', ') : names.join('');
-  };
+  const {
+    toggleForm,
+    resetForm,
+    checkSelectedForm,
+    isActive,
+    triggerText,
+    formFilterOptions,
+  } = useFormFilterView();
 
-  const triggerText =
-    selected.length === 0 ? '모습' : `모습: ${getFormLabel()}`;
-  const isActive = selected.length > 0;
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
@@ -59,7 +56,7 @@ export default function FormFilterMobile() {
         <div className="flex flex-col px-6 max-h-[60dvh] overflow-auto no-scrollbar flex-1">
           <FieldSet>
             <FieldGroup className="gap-y-1.5">
-              {options.map((form) => (
+              {formFilterOptions.map((form) => (
                 <Field
                   key={form.identifier}
                   orientation="horizontal"
@@ -70,11 +67,11 @@ export default function FormFilterMobile() {
                   )}
                 >
                   <Checkbox
-                    checked={set.has(form.identifier)}
+                    checked={checkSelectedForm(form.identifier)}
                     id={`form-${form.identifier}`}
                     name={`form-${form.identifier}`}
                     className="cursor-pointer"
-                    onCheckedChange={() => toggle(form.identifier)}
+                    onCheckedChange={() => toggleForm(form.identifier)}
                   />
                   <FieldLabel
                     htmlFor={`form-${form.identifier}`}
@@ -91,7 +88,7 @@ export default function FormFilterMobile() {
         <SheetFooter>
           <div className="flex gap-3">
             <Button
-              onClick={reset}
+              onClick={resetForm}
               className="rounded-lg text-base h-12 flex-1/3"
               variant={'outline'}
             >

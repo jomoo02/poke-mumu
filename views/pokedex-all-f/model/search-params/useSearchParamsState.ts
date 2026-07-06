@@ -7,7 +7,12 @@ import { useNavigationTransition } from './navigation-transition';
 
 type Updates = Record<string, string | null>;
 
-export default function useSearchParamsState() {
+interface NavigateOptions {
+  resetPage?: boolean;
+  history?: 'push' | 'replace';
+}
+
+export function useSearchParamsState() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -32,10 +37,7 @@ export default function useSearchParamsState() {
 
   // 스칼라 값(sort, dir 등) 갱신. 같은 키는 항상 하나만 유지된다.
   const update = useCallback(
-    (
-      changes: Updates,
-      opts?: { resetPage?: boolean; history?: 'push' | 'replace' },
-    ) => {
+    (changes: Updates, opts?: NavigateOptions) => {
       const params = new URLSearchParams(searchParams);
 
       for (const [key, value] of Object.entries(changes)) {
@@ -59,11 +61,7 @@ export default function useSearchParamsState() {
   // 켜는 순서대로 뒤에 쌓이고 끄면 해당 항목만 제거된다.
   // 예: type=fighting&form=mega&type=normal&form=alola
   const toggle = useCallback(
-    (
-      key: string,
-      value: string,
-      opts?: { resetPage?: boolean; history?: 'push' | 'replace' },
-    ) => {
+    (key: string, value: string, opts?: NavigateOptions) => {
       const resetPage = opts?.resetPage !== false;
 
       const entries = Array.from(searchParams.entries()).filter(
