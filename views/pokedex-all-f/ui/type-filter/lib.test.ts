@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { getTypeTriggerText, isTypeSelectionFull } from './lib';
+import { getTypeTriggerText } from './lib';
 
 const types = [
   { identifier: 'fire', nameKo: '불꽃' },
@@ -27,19 +27,5 @@ describe('getTypeTriggerText', () => {
 
   it('타입 목록에 없는 identifier는 무시한다', () => {
     expect(getTypeTriggerText(['fire', 'unknown'], types)).toBe('타입: 불꽃');
-  });
-});
-
-describe('isTypeSelectionFull', () => {
-  it('상한 미만이면 false', () => {
-    expect(isTypeSelectionFull(['fire'], 2)).toBe(false);
-  });
-
-  it('상한과 같으면 true', () => {
-    expect(isTypeSelectionFull(['fire', 'water'], 2)).toBe(true);
-  });
-
-  it('상한 초과면 true', () => {
-    expect(isTypeSelectionFull(['fire', 'water', 'grass'], 2)).toBe(true);
   });
 });

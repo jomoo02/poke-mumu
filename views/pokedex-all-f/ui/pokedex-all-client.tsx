@@ -7,6 +7,7 @@ import type { Type } from '@/entities/type/model';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/cn';
 import { useIsMobile } from '@/shared/model/useMobile';
+import { useScrollIntoViewOnClick } from '@/shared/model/useScrollIntoViewOnClick';
 
 import type { NationalPoke } from '../model/poke';
 import {
@@ -46,7 +47,7 @@ export default function PokedexAllClient(props: PokedexAllClientProps) {
 
 function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
   const isMobile = useIsMobile(768);
-  const { searchParams, update } = useSearchParamsState();
+  const { searchParams, setParams } = useSearchParamsState();
   const { key: sortKey, dir: sortDir } = parseSort(searchParams);
 
   const { input, deferredInput, onInputChange, clearSearch } = useSearch();
@@ -69,13 +70,13 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
 
   // 툴바 초기화: 필터/정렬만 (검색은 입력창 X가 담당).
   const handleResetFilters = () => {
-    update({ type: null, form: null, sort: null, dir: null });
+    setParams({ type: null, form: null, sort: null, dir: null });
   };
 
   // 빈 상태 회복: 필터/정렬 + 검색까지 모두 초기화.
   const handleResetAll = () => {
     clearSearch();
-    update({ type: null, form: null, sort: null, dir: null, search: null });
+    setParams({ type: null, form: null, sort: null, dir: null, search: null });
   };
 
   // 페이지네이션 클릭일 때만, 페이지 커밋 후 최상단으로 스크롤.
@@ -83,9 +84,9 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
 
   const goToPage = (nextPage: number) => {
     pendingScrollRef.current = true;
-    update(
+    setParams(
       { page: nextPage > 1 ? String(nextPage) : null },
-      { resetPage: false, history: 'push' },
+      { keepPage: true, history: 'push' },
     );
   };
 
@@ -100,12 +101,22 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
       ? `${total.toLocaleString()} of ${pokes.length.toLocaleString()} Pokémon`
       : `${pokes.length.toLocaleString()} Pokémon`;
 
+  // 모바일: 가로 스크롤 툴바에서 탭한 trigger(pill)를 가운데로 스크롤해 완전히 보이게.
+  const scrollTriggerIntoView = useScrollIntoViewOnClick({
+    enabled: isMobile,
+    inline: 'center',
+    selector: '[data-scroll-item]',
+  });
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 sm:gap-6">
         <SearchInput value={input} onChange={onInputChange} />
-        <div className="flex flex-col sm:flex-row sm:justify-between gap-2 sm:items-center">
-          <div className="flex gap-2 overflow-auto py-1">
+        <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
+          <div
+            className="flex gap-2 overflow-auto p-1 -m-1"
+            onClick={scrollTriggerIntoView}
+          >
             {isActive && (
               <Button
                 variant={'secondary'}
@@ -116,10 +127,9 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
                 <RotateCwIcon className="size-4.5" />
               </Button>
             )}
-
+            <PokeSort isMobile={isMobile} />
             <TypeFilter types={types} isMobile={isMobile} />
             <FormFilter isMobile={isMobile} />
-            <PokeSort isMobile={isMobile} />
           </div>
           <div
             aria-live="polite"
@@ -130,29 +140,35 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
         </div>
       </div>
 
-      {total === 0 ? (
-        <div className="h-50 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-          <p>조건에 맞는 포켓몬이 없습니다.</p>
-          <Button variant="outline" onClick={handleResetAll} className="gap-2">
-            <RotateCwIcon className="size-4" />
-            필터·검색 초기화
-          </Button>
-        </div>
-      ) : (
-        <div
-          className={cn(
-            'transition-opacity duration-200',
-            isDimmed && 'opacity-60',
-          )}
-          aria-busy={isDimmed}
-        >
-          <PokeCardList
-            pokes={items}
-            startIndex={startIndex}
-            sortKey={sortKey}
-          />
-        </div>
-      )}
+      <div className="min-h-50 md:min-h-78">
+        {total === 0 ? (
+          <div className="h-50 md:h-78 flex flex-col items-center justify-center gap-3 text-muted-foreground">
+            <p>조건에 맞는 포켓몬이 없습니다.</p>
+            <Button
+              variant="outline"
+              onClick={handleResetAll}
+              className="gap-2"
+            >
+              <RotateCwIcon className="size-4" />
+              필터·검색 초기화
+            </Button>
+          </div>
+        ) : (
+          <div
+            className={cn(
+              'transition-opacity duration-200',
+              isDimmed && 'opacity-60',
+            )}
+            aria-busy={isDimmed}
+          >
+            <PokeCardList
+              pokes={items}
+              startIndex={startIndex}
+              sortKey={sortKey}
+            />
+          </div>
+        )}
+      </div>
 
       <div className="mt-6">
         <Pagination page={page} totalPages={totalPages} onChange={goToPage} />

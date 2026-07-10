@@ -21,11 +21,11 @@ export default function PokeCardList({
         'grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6',
       )}
     >
-      {pokes.map((poke, idx) => (
+      {pokes.map((poke, index) => (
         <PokeCard
           key={poke.pokeKey}
           poke={poke}
-          index={startIndex + idx + 1}
+          index={startIndex + index + 1}
           sortKey={sortKey}
         />
       ))}

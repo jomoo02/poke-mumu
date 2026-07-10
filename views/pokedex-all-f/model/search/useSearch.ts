@@ -1,6 +1,6 @@
 'use client';
 
-import { useDeferredValue, useEffect, useState } from 'react';
+import { useDeferredValue, useEffect, useState, useRef } from 'react';
 
 import { useSearchParamsState } from '../search-params';
 
@@ -12,16 +12,22 @@ const SEARCH_DEBOUNCE_MS = 250;
 // - onInputChange: 입력 갱신 + 검색 시 페이지 즉시 리셋
 // - 내부: 디바운스 + replace로 URL(search) 동기화 → 공유/새로고침 복원(히스토리 안 쌓임)
 export function useSearch() {
-  const { searchParams, update } = useSearchParamsState();
+  const { searchParams, setParams } = useSearchParamsState();
 
-  // initialValue는 최초 렌더에서만 사용. 이후 URL 변경이 input을 되돌리지 않도록 초기값으로만.
-  const [input, setInput] = useState(() => searchParams.get('search') ?? '');
+  const urlSearch = searchParams.get('search') ?? '';
+
+  // input은 URL(search)의 미러. 타이핑 시 잠깐 input이 앞서고,
+  // 네비게이션으로 URL이 바뀌면 아래 sync effect가 input을 URL로 되돌린다.
+  const [input, setInput] = useState(urlSearch);
+
   const deferredInput = useDeferredValue(input);
+
+  const lastWrittenRef = useRef(urlSearch);
 
   const onInputChange = (value: string) => {
     setInput(value);
     if (searchParams.get('page')) {
-      update({}); // 검색 시 페이지 즉시 리셋
+      setParams({}); // 검색 시 페이지 즉시 리셋
     }
   };
 
@@ -29,15 +35,22 @@ export function useSearch() {
   const clearSearch = () => setInput('');
 
   useEffect(() => {
-    const current = searchParams.get('search') ?? '';
-    if (input === current) return; // 초기 mount & 이미 반영된 경우 skip
+    if (input === urlSearch) return; // 초기 mount & 이미 반영된 경우 skip
 
-    const timer = setTimeout(
-      () => update({ search: input || null }),
-      SEARCH_DEBOUNCE_MS,
-    );
+    const timer = setTimeout(() => {
+      lastWrittenRef.current = input; // ← 추가: 내가 쓴 값 기록
+      setParams({ search: input || null });
+    }, SEARCH_DEBOUNCE_MS);
+
     return () => clearTimeout(timer);
-  }, [input, searchParams, update]);
+  }, [input, urlSearch, setParams]);
+
+  useEffect(() => {
+    if (urlSearch !== lastWrittenRef.current) {
+      lastWrittenRef.current = urlSearch;
+      setInput(urlSearch);
+    }
+  }, [urlSearch]);
 
   return { input, deferredInput, onInputChange, clearSearch };
 }

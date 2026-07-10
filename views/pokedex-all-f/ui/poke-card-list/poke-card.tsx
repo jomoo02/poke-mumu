@@ -41,10 +41,10 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
     { key: 'total', value: total, label: '총합' },
   ];
 
-  const types = [type1, type2].filter((t): t is Type => t !== null);
+  const types = [type1, type2].filter((type): type is Type => type !== null);
 
   // 현재 정렬 키와 일치하는 필드 여부
-  const isActive = (key: string) => key === sortKey;
+  const isSortedBy = (key: string) => key === sortKey;
 
   return (
     <Link
@@ -63,7 +63,7 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
           <div
             className={cn(
               'truncate font-medium tabular-nums text-sm',
-              isActive('dex_number') ? 'text-primary' : 'text-foreground/70',
+              isSortedBy('dex_number') ? 'text-primary' : 'text-foreground/70',
             )}
           >
             {`No.${formatNumber(dexNumber)}`}
@@ -72,7 +72,7 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
           <div
             className={cn(
               'min-w-0 truncate font-medium',
-              isActive('name') && 'text-primary',
+              isSortedBy('name') && 'text-primary',
             )}
           >
             {nameKo}
@@ -103,7 +103,7 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
             <div
               className={cn(
                 'text-sm text-center shrink-0 font-medium',
-                isActive(stat.key)
+                isSortedBy(stat.key)
                   ? 'text-primary'
                   : 'text-foreground/50 dark:text-foreground/70',
               )}
@@ -113,7 +113,7 @@ export default function PokeCard({ poke, index, sortKey }: PokeCardProps) {
             <div
               className={cn(
                 'text-center tabular-nums text-md',
-                isActive(stat.key) && 'text-primary font-medium',
+                isSortedBy(stat.key) && 'text-primary font-medium',
               )}
             >
               {stat.value}

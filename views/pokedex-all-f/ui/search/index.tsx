@@ -20,7 +20,7 @@ export default function SearchInput({ value, onChange }: SearchInputProps) {
     <InputGroup className="max-w-xl mx-auto h-11">
       <InputGroupInput
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         autoComplete="off"
         aria-label="포켓몬 이름 또는 도감 번호 검색"
         placeholder={'포켓몬 이​름 또는 도감 번호'}

@@ -22,7 +22,7 @@ const matchesForm = (form: string | null, selectedForms: string[]): boolean => {
   return form !== null && selectedForms.includes(form);
 };
 
-const stripSpaces = (s: string): string => s.replace(/\s+/g, '');
+const stripSpaces = (text: string): string => text.replace(/\s+/g, '');
 
 const matchesQuery = (poke: NationalPoke, rawQuery: string): boolean => {
   const query = stripSpaces(rawQuery);
@@ -35,27 +35,27 @@ const matchesQuery = (poke: NationalPoke, rawQuery: string): boolean => {
     return true;
   }
 
-  const asNum = Number(query);
+  const numericQuery = Number(query);
 
-  return Number.isInteger(asNum) && poke.dexNumber === asNum;
+  return Number.isInteger(numericQuery) && poke.dexNumber === numericQuery;
 };
 
 // type(AND)·form(OR)·검색·정렬을 합성.
 // type/form은 반복 키(type=a&type=b) 형태이므로 getAll로 읽는다.
 // 검색어만 인자로 받고 나머지(type/form/sort)는 searchParams에서 읽는다.
 export const applyFilterAndSort = (
-  all: NationalPoke[],
+  allPokes: NationalPoke[],
   params: URLSearchParams,
   query: string,
 ): NationalPoke[] => {
   const types = params.getAll('type').filter(Boolean);
   const forms = params.getAll('form').filter(Boolean);
 
-  const filtered = all.filter(
-    (p) =>
-      matchesType(p, types) &&
-      matchesForm(p.formIdentifier, forms) &&
-      matchesQuery(p, query),
+  const filtered = allPokes.filter(
+    (poke) =>
+      matchesType(poke, types) &&
+      matchesForm(poke.formIdentifier, forms) &&
+      matchesQuery(poke, query),
   );
 
   return applySort(filtered, params);

@@ -5,13 +5,16 @@ import { SORT_OPTIONS, type SortDir } from '../../model/poke-sort/config';
 // - sequence(도감번호·이름): "…순" / "…역순"
 // - 알 수 없는 키는 첫 옵션(도감번호)으로 폴백.
 export const getSortLabel = (key: string, dir: SortDir): string => {
-  const option = SORT_OPTIONS.find((o) => o.key === key) ?? SORT_OPTIONS[0];
+  const option =
+    SORT_OPTIONS.find((candidate) => candidate.key === key) ?? SORT_OPTIONS[0];
 
   if (option.kind === 'amount') {
     return dir === 'desc'
-      ? `${option.label} 높은 순`
-      : `${option.label} 낮은 순`;
+      ? `정렬: ${option.label} 높은 순`
+      : `정렬: ${option.label} 낮은 순`;
   }
 
-  return dir === 'asc' ? `${option.label} 순` : `${option.label} 역순`;
+  return dir === 'asc'
+    ? `정렬: ${option.label} 순`
+    : `정렬: ${option.label} 역순`;
 };

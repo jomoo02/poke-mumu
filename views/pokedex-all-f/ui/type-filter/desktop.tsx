@@ -1,17 +1,25 @@
 'use client';
 
-import { ChevronDownIcon, RotateCwIcon } from 'lucide-react';
-
 import type { Type } from '@/entities/type/model';
 import { TypeIcon } from '@/entities/type/ui';
-import { cn } from '@/shared/lib/cn';
-import { Button } from '@/shared/ui/button';
 import { Checkbox } from '@/shared/ui/checkbox';
-import { Field, FieldGroup, FieldLabel, FieldSet } from '@/shared/ui/field';
-import { Popover, PopoverContent, PopoverTrigger } from '@/shared/ui/popover';
 
-import { MAX_SELECTED_TYPES } from '../../model/type-filter';
-import useTypeFilterView from './useTypeFilterView';
+import { MAX_SELECTED_TYPES, useTypeFilter } from '../../model/type-filter';
+import { getTypeTriggerText } from './lib';
+import {
+  ControlPopover,
+  ControlPopoverTrigger,
+  ControlPopoverBody,
+  ControlPopoverHeader,
+  ControlPopoverTitle,
+  ControlPopoverContent,
+  ControlPopoverResetButton,
+  ControlFieldGroup,
+  ControlField,
+  ControlFieldLabel,
+  ControlPopoverContentGroup,
+} from '../control';
+import { useState } from 'react';
 
 interface TypeFilterDesktopProps {
   types: Type[];
@@ -23,82 +31,64 @@ export default function TypeFilterDesktop({
   max = MAX_SELECTED_TYPES,
 }: TypeFilterDesktopProps) {
   const {
-    triggerText,
+    selectedTypes,
+    isSelectedType,
+    isDisabledType,
     isActive,
-    isDisableType,
-    isSelectType,
     toggleType,
     resetType,
-  } = useTypeFilterView(types, max);
+  } = useTypeFilter(max);
+
+  const [open, setOpen] = useState(false);
+
+  const triggerText = getTypeTriggerText(selectedTypes, types);
 
   return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant={isActive ? 'default' : 'secondary'}
-          className={cn(
-            'h-10.5 transition-none',
-            isActive
-              ? 'bg-primary hover:bg-primary/70 text-primary-foreground active:bg-primary/70'
-              : 'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
-          )}
-        >
-          <span>{triggerText}</span>
-          <ChevronDownIcon className="size-4.5" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent align="start" className="z-1 px-0 py-3.5 pb-0 w-58">
-        <div className="text-xs text-muted-foreground px-4">
-          타입 (최대 {max}개)
-        </div>
-        <div className="flex px-4 flex-col gap-1 max-h-80 overflow-auto no-scrollbar">
-          <FieldSet>
-            <FieldGroup className="gap-y-1">
+    <ControlPopover open={open} onOpenChange={setOpen}>
+      <ControlPopoverTrigger isActive={isActive} isOpen={open}>
+        {triggerText}
+      </ControlPopoverTrigger>
+      <ControlPopoverBody columnCount={2}>
+        <ControlPopoverHeader>
+          <ControlPopoverTitle className="flex items-center gap-1">
+            <span>타입</span>
+            <span className="text-xs text-muted-foreground">{`(최대 ${max}개)`}</span>
+          </ControlPopoverTitle>
+          <ControlPopoverResetButton onClick={resetType} isActive={isActive} />
+        </ControlPopoverHeader>
+        <ControlPopoverContent>
+          <ControlPopoverContentGroup>
+            <ControlFieldGroup className="grid-cols-2">
               {types.map((type) => (
-                <Field
+                <ControlField
                   key={type.identifier}
-                  orientation="horizontal"
-                  className={cn(
-                    'relative isolate h-10 gap-x-2.5',
-                    'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg',
-                    isDisableType(type.identifier)
-                      ? ''
-                      : 'hover:after:bg-muted',
-                  )}
+                  className={
+                    isDisabledType(type.identifier)
+                      ? 'hover:after:bg-transparent'
+                      : 'hover:after:bg-muted'
+                  }
                 >
                   <Checkbox
-                    checked={isSelectType(type.identifier)}
+                    checked={isSelectedType(type.identifier)}
                     id={`type-${type.identifier}`}
                     name={`type-${type.identifier}`}
-                    disabled={isDisableType(type.identifier)}
-                    className="cursor-pointer"
+                    disabled={isDisabledType(type.identifier)}
+                    className="cursor-pointer size-5"
                     onCheckedChange={() => toggleType(type.identifier)}
                   />
-                  <FieldLabel
-                    htmlFor={`type-${type.identifier}`}
-                    className="font-medium cursor-pointer h-full"
-                  >
-                    <span className="flex-1 text-md">{type.nameKo}</span>
-                    <TypeIcon type={type} className="size-7 p-0.5 rounded-md" />
-                  </FieldLabel>
-                </Field>
+                  <ControlFieldLabel htmlFor={`type-${type.identifier}`}>
+                    <TypeIcon
+                      type={type}
+                      className="size-6.75 p-0.5 rounded-md"
+                    />
+                    <span className="flex-1">{type.nameKo}</span>
+                  </ControlFieldLabel>
+                </ControlField>
               ))}
-            </FieldGroup>
-          </FieldSet>
-        </div>
-        <div className="border-t px-4">
-          <div className="py-1.5">
-            <Button
-              onClick={resetType}
-              variant={'ghost'}
-              className="h-8 text-foreground/70 px-2 gap-2 -mx-2"
-            >
-              <RotateCwIcon className="size-3.5" />
-              초기화
-            </Button>
-          </div>
-        </div>
-      </PopoverContent>
-    </Popover>
+            </ControlFieldGroup>
+          </ControlPopoverContentGroup>
+        </ControlPopoverContent>
+      </ControlPopoverBody>
+    </ControlPopover>
   );
 }

@@ -8,12 +8,12 @@ import { applyFilterAndSort } from './apply-condition';
 
 export const PAGE_SIZE = 80;
 
-export default function usePagination(all: NationalPoke[], query: string) {
+export default function usePagination(allPokes: NationalPoke[], query: string) {
   const params = useSearchParams();
 
   const filtered = useMemo(
-    () => applyFilterAndSort(all, params, query),
-    [all, params, query],
+    () => applyFilterAndSort(allPokes, params, query),
+    [allPokes, params, query],
   );
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));

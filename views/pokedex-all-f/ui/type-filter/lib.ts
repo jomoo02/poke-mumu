@@ -19,9 +19,3 @@ export const getTypeTriggerText = (
 
   return names.length === 0 ? '타입: 모든 타입' : `타입: ${names.join(', ')}`;
 };
-
-// 선택 개수가 상한(max)에 도달했는지. 도달 시 미선택 항목은 disabled 처리한다.
-export const isTypeSelectionFull = (
-  selectedTypes: string[],
-  max: number,
-): boolean => selectedTypes.length >= max;

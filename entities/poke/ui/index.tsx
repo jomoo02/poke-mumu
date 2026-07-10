@@ -30,7 +30,7 @@ export function PokeSprite({
         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
         src={src}
         // src={'/pokeball.svg'}
-        alt={alt || poke.nameKo}
+        alt={alt || poke.pokeKey}
         fill
         style={{
           objectFit: 'contain',

@@ -20,7 +20,7 @@ export const getPageWindow = (
   }
 
   const sorted = [...pages]
-    .filter((p) => p >= 1 && p <= total)
+    .filter((pageNumber) => pageNumber >= 1 && pageNumber <= total)
     .sort((a, b) => a - b);
 
   // 연속하지 않는(간격 > 1) 구간에 ellipsis 삽입.
