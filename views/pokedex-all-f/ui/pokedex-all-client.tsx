@@ -8,6 +8,7 @@ import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/cn';
 import { useIsMobile } from '@/shared/model/useMobile';
 import { useScrollIntoViewOnClick } from '@/shared/model/useScrollIntoViewOnClick';
+import { useScrollIntoViewOnResize } from '@/shared/model/useScrollIntoViewOnResize';
 
 import type { NationalPoke } from '../model/poke';
 import {
@@ -102,10 +103,17 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
       : `${pokes.length.toLocaleString()} Pokémon`;
 
   // 모바일: 가로 스크롤 툴바에서 탭한 trigger(pill)를 가운데로 스크롤해 완전히 보이게.
+  const toolbarRef = useRef<HTMLDivElement>(null);
   const scrollTriggerIntoView = useScrollIntoViewOnClick({
     enabled: isMobile,
     inline: 'center',
     selector: '[data-scroll-item]',
+  });
+  // 선택으로 trigger 텍스트가 길어져 잘리면, 너비 확정 시 다시 보이게 맞춘다.
+  useScrollIntoViewOnResize(toolbarRef, {
+    enabled: isMobile,
+    selector: '[data-scroll-item]',
+    inline: 'nearest',
   });
 
   return (
@@ -114,6 +122,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
         <SearchInput value={input} onChange={onInputChange} />
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
           <div
+            ref={toolbarRef}
             className="flex gap-2 overflow-auto p-1 -m-1"
             onClick={scrollTriggerIntoView}
           >
@@ -139,6 +148,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
           </div>
         </div>
       </div>
+      <Pagination page={page} totalPages={totalPages} onChange={goToPage} />
 
       <div className="min-h-50 md:min-h-78">
         {total === 0 ? (

@@ -20,8 +20,13 @@ export default function SortModeSelect({
   value,
   onValueChange,
 }: SortModeSelectProps) {
+  const handleValueChange = (sortMode: 'increase' | 'decrease' | null) => {
+    if (sortMode) {
+      onValueChange(sortMode);
+    }
+  };
   return (
-    <Select value={value} onValueChange={onValueChange}>
+    <Select value={value} onValueChange={handleValueChange}>
       <SelectTrigger aria-label="정렬 기준">
         <SelectValue />
       </SelectTrigger>

@@ -85,7 +85,7 @@ export default function TypeFilterMobile({
                   <ControlFieldLabel htmlFor={`type-${type.identifier}`}>
                     <TypeIcon
                       type={type}
-                      className="size-6.75 p-0.5 rounded-md shrink-0"
+                      className="size-7 p-0.5 rounded-md shrink-0"
                     />
                     <span className="flex-1">{type.nameKo}</span>
                   </ControlFieldLabel>

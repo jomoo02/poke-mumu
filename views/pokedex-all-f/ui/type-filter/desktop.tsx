@@ -77,10 +77,7 @@ export default function TypeFilterDesktop({
                     onCheckedChange={() => toggleType(type.identifier)}
                   />
                   <ControlFieldLabel htmlFor={`type-${type.identifier}`}>
-                    <TypeIcon
-                      type={type}
-                      className="size-6.75 p-0.5 rounded-md"
-                    />
+                    <TypeIcon type={type} className="size-7 p-0.5 rounded-md" />
                     <span className="flex-1">{type.nameKo}</span>
                   </ControlFieldLabel>
                 </ControlField>
