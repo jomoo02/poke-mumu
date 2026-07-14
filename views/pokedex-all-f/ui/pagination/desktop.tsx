@@ -1,12 +1,11 @@
 'use client';
 
 import { useLayoutEffect, useRef, useState } from 'react';
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react';
 
 import { Button } from '@/shared/ui/button';
+import { cn } from '@/shared/lib/cn';
 
 import { getPageWindow } from '../../model/pagination';
-import { cn } from '@/shared/lib/cn';
 
 interface PaginationProps {
   page: number;
@@ -15,7 +14,8 @@ interface PaginationProps {
 }
 
 const SLOT = 50; // 번호 버튼(size-11 ≈ 44px) + gap(6px)
-const ARROW_RESERVE = 200; // 이전/다음 버튼 영역 예약
+// 화살표는 상위 index가 렌더하므로 이 번호창 컨테이너엔 예약 폭이 없다.
+const ARROW_RESERVE = 100;
 
 // 폭을 측정해 들어가는 만큼 번호를 노출한다(넓으면 전부, 좁으면 ellipsis).
 export default function DesktopPagination({
@@ -24,6 +24,9 @@ export default function DesktopPagination({
   onChange,
 }: PaginationProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // 초기값은 "전부 보임"으로 가정한다. SSR/최초 페인트가 전체창을 그려,
+  // 넓은 화면에선 측정 후에도 값이 같아 리렌더(깜빡임)가 없다.
+  // 폭이 좁을 때만 useLayoutEffect 측정이 한 번 줄인다.
   const [capacity, setCapacity] = useState(7);
 
   useLayoutEffect(() => {
@@ -47,21 +50,10 @@ export default function DesktopPagination({
   const items = getPageWindow(page, totalPages, capacity);
 
   return (
-    <div ref={containerRef} className="flex items-center justify-center gap-2">
-      <Button
-        variant="ghost"
-        aria-label="이전 페이지"
-        disabled={page <= 1}
-        onClick={() => onChange(page - 1)}
-        className={cn(
-          'h-10.5 pl-3 pr-4.5 shrink-0 cursor-pointer',
-          ' bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
-        )}
-      >
-        <ChevronLeftIcon className="size-4.5" />
-        이전
-      </Button>
-
+    <div
+      ref={containerRef}
+      className="flex items-center justify-center gap-2 flex-1"
+    >
       <div className="flex items-center justify-center gap-1.5 flex-1">
         {items.map((item, index) =>
           item === 'ellipsis' ? (
@@ -93,20 +85,6 @@ export default function DesktopPagination({
           ),
         )}
       </div>
-
-      <Button
-        variant="ghost"
-        aria-label="다음 페이지"
-        disabled={page >= totalPages}
-        onClick={() => onChange(page + 1)}
-        className={cn(
-          'h-10.5 pl-4.5 pr-3 shrink-0 cursor-pointer',
-          'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
-        )}
-      >
-        다음
-        <ChevronRightIcon className="size-4.5" />
-      </Button>
     </div>
   );
 }

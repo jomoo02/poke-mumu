@@ -51,10 +51,7 @@ export default function FormFilterMobile() {
                   className="cursor-pointer"
                   onCheckedChange={() => toggleForm(form.identifier)}
                 />
-                <ControlFieldLabel
-                  htmlFor={`form-${form.identifier}`}
-                  className="font-medium cursor-pointer h-full"
-                >
+                <ControlFieldLabel htmlFor={`form-${form.identifier}`}>
                   <span className="flex-1 text-md">{form.label}</span>
                 </ControlFieldLabel>
               </ControlField>

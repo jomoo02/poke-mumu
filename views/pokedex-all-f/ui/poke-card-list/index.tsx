@@ -1,5 +1,6 @@
 import PokeCard from './poke-card';
 import { type NationalPoke } from '../../model/poke';
+import PokeStatLink from '@/features/poke-link/ui/poke-stat-link';
 
 interface PokeCardListProps {
   pokes: NationalPoke[];
@@ -16,7 +17,7 @@ export default function PokeCardList({
   return (
     <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
       {pokes.map((poke, index) => (
-        <PokeCard
+        <PokeStatLink
           key={poke.pokeKey}
           poke={poke}
           index={startIndex + index + 1}

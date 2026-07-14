@@ -69,9 +69,9 @@ export function PokeLinkDesktop({
         {/* 타입 */}
         {showType && (
           <div className="relative flex justify-center gap-1.5 items-center shrink-0 pt-1.5">
-            <TypeIcon type={type1} className="size-7 rounded-md" />
+            <TypeIcon type={type1} className="size-7 p-0.5 rounded-md" />
             {type2 ? (
-              <TypeIcon type={type2} className="size-7 rounded-md" />
+              <TypeIcon type={type2} className="size-7 p-0.5 rounded-md" />
             ) : (
               <div className="size-7.5" />
             )}

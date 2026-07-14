@@ -11,6 +11,7 @@ export default async function PokedexAllPageViewF() {
     getAllNationalPoke(),
     getAllType(),
   ]);
+
   const types = allType.filter((type) => type.identifier !== 'unknown');
 
   const statLegendLine1 = 'H: 체력, A: 공격, B: 방어,\u00A0';
@@ -18,7 +19,7 @@ export default async function PokedexAllPageViewF() {
 
   return (
     <PageContainer>
-      <div className="mb-6">
+      <div className="mb-4">
         <h1 className="text-4xl font-bold tracking-tight">전국도감</h1>
         <div className="flex pt-4 flex-wrap text-foreground/70">
           <p className=" break-keep text-pretty">{statLegendLine1}</p>
