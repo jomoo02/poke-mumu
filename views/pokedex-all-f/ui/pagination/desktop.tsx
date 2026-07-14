@@ -54,7 +54,7 @@ export default function DesktopPagination({
         disabled={page <= 1}
         onClick={() => onChange(page - 1)}
         className={cn(
-          'h-11 pl-3 pr-4.5 shrink-0 cursor-pointer',
+          'h-10.5 pl-3 pr-4.5 shrink-0 cursor-pointer',
           ' bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
         )}
       >

@@ -11,7 +11,7 @@ const SEARCH_DEBOUNCE_MS = 250;
 // - deferredInput: 리스트 필터링용(렌더 지연으로 타이핑이 안 끊김)
 // - onInputChange: 입력 갱신 + 검색 시 페이지 즉시 리셋
 // - 내부: 디바운스 + replace로 URL(search) 동기화 → 공유/새로고침 복원(히스토리 안 쌓임)
-export function useSearch() {
+export function usePokeSearch() {
   const { searchParams, setParams } = useSearchParamsState();
 
   const urlSearch = searchParams.get('search') ?? '';

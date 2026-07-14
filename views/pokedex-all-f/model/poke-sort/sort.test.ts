@@ -21,29 +21,29 @@ const makePoke = (fields: {
 describe('parseSort', () => {
   it('빈 파라미터 → 기본값(도감번호·오름차순)', () => {
     expect(parseSort(new URLSearchParams())).toEqual({
-      key: DEFAULT_SORT_KEY,
-      dir: DEFAULT_SORT_DIR,
+      sortKey: DEFAULT_SORT_KEY,
+      sortDir: DEFAULT_SORT_DIR,
     });
   });
 
   it('유효한 sort/dir을 읽는다', () => {
     expect(parseSort(new URLSearchParams('sort=attack&dir=desc'))).toEqual({
-      key: 'attack',
-      dir: 'desc',
+      sortKey: 'attack',
+      sortDir: 'desc',
     });
   });
 
   it('무효 키 → 기본 키, dir은 독립적으로 유지', () => {
     expect(parseSort(new URLSearchParams('sort=nope&dir=desc'))).toEqual({
-      key: DEFAULT_SORT_KEY,
-      dir: 'desc',
+      sortKey: DEFAULT_SORT_KEY,
+      sortDir: 'desc',
     });
   });
 
   it('무효 dir → 기본 방향(asc)', () => {
     expect(parseSort(new URLSearchParams('sort=attack&dir=weird'))).toEqual({
-      key: 'attack',
-      dir: 'asc',
+      sortKey: 'attack',
+      sortDir: 'asc',
     });
   });
 });

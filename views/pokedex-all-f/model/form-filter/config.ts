@@ -5,6 +5,4 @@ const FORM_FILTERS = [
   { identifier: 'hisui', label: '히스이의 모습' },
 ] as const;
 
-type FormIdentifier = (typeof FORM_FILTERS)[number]['identifier'];
-
-export { FORM_FILTERS, type FormIdentifier };
+export { FORM_FILTERS };

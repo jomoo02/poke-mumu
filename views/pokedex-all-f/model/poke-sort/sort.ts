@@ -25,19 +25,19 @@ const tieBreak = (pokeA: NationalPoke, pokeB: NationalPoke): number => {
 const parseSort = (
   params: URLSearchParams,
 ): {
-  key: string;
-  dir: SortDir;
+  sortKey: string;
+  sortDir: SortDir;
 } => {
   const matchedOption = SORT_OPTIONS.find(
     (candidate) => candidate.key === params.get('sort'),
   );
-  const key = matchedOption ? matchedOption.key : DEFAULT_SORT_KEY;
+  const sortKey = matchedOption ? matchedOption.key : DEFAULT_SORT_KEY;
 
   const rawDir = params.get('dir');
-  const dir: SortDir =
+  const sortDir: SortDir =
     rawDir === 'asc' || rawDir === 'desc' ? rawDir : DEFAULT_SORT_DIR;
 
-  return { key, dir };
+  return { sortKey, sortDir };
 };
 
 // 원본 복사 후 정렬 + 타이브레이커.
@@ -45,11 +45,11 @@ const applySort = (
   items: NationalPoke[],
   params: URLSearchParams,
 ): NationalPoke[] => {
-  const { key, dir } = parseSort(params);
+  const { sortKey, sortDir } = parseSort(params);
 
-  const option = SORT_OPTIONS.find((candidate) => candidate.key === key)!;
+  const option = SORT_OPTIONS.find((candidate) => candidate.key === sortKey)!;
 
-  const sign = dir === 'asc' ? 1 : -1;
+  const sign = sortDir === 'asc' ? 1 : -1;
 
   return [...items].sort((a, b) => {
     const aValue = option.accessor(a);

@@ -16,16 +16,13 @@ import {
   useNavigationTransition,
   useSearchParamsState,
 } from '../model/search-params';
-import {
-  DEFAULT_SORT_DIR,
-  DEFAULT_SORT_KEY,
-  parseSort,
-} from '../model/poke-sort';
+import { parseSort } from '../model/poke-sort';
+import { isFilterOrSortActive } from '../model/toolbar-active';
 import { usePagination } from '../model/pagination';
-import { useSearch } from '../model/search';
+import { usePokeSearch } from '../model/poke-search';
 import useDelayedFlag from '../model/useDelayedFlag';
 
-import SearchInput from './search';
+import PokeSearchInput from './poke-search';
 import TypeFilter from './type-filter';
 import FormFilter from './form-filter';
 import PokeSort from './poke-sort';
@@ -36,6 +33,9 @@ interface PokedexAllClientProps {
   pokes: NationalPoke[];
   types: Type[];
 }
+
+// 필터/정렬 초기화 시 제거할 파라미터 집합(검색 제외).
+const FILTER_SORT_RESET = { type: null, form: null, sort: null, dir: null };
 
 // Provider 경계. 안쪽 컴포넌트들이 공유 transition(isPending)을 함께 사용한다.
 export default function PokedexAllClient(props: PokedexAllClientProps) {
@@ -49,35 +49,29 @@ export default function PokedexAllClient(props: PokedexAllClientProps) {
 function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
   const isMobile = useIsMobile(768);
   const { searchParams, setParams } = useSearchParamsState();
-  const { key: sortKey, dir: sortDir } = parseSort(searchParams);
+  const { sortKey } = parseSort(searchParams);
 
-  const { input, deferredInput, onInputChange, clearSearch } = useSearch();
+  const { input, deferredInput, onInputChange, clearSearch } = usePokeSearch();
 
-  const { items, page, totalPages, total, startIndex } = usePagination(
-    pokes,
-    deferredInput,
-  );
+  const { pagePokes, page, totalPages, filteredCount, startIndex } =
+    usePagination(pokes, deferredInput);
 
   // 네비게이션 전환만 dim(검색은 useDeferredValue가 처리). 150ms 이상일 때만 표시.
   const { isPending } = useNavigationTransition();
   const isDimmed = useDelayedFlag(isPending, 150);
 
   // 초기화 버튼 활성 판정(필터/정렬 중 하나라도 기본값이 아니면).
-  const isActive =
-    searchParams.getAll('type').filter(Boolean).length > 0 ||
-    searchParams.getAll('form').filter(Boolean).length > 0 ||
-    sortKey !== DEFAULT_SORT_KEY ||
-    sortDir !== DEFAULT_SORT_DIR;
+  const isActive = isFilterOrSortActive(searchParams);
 
   // 툴바 초기화: 필터/정렬만 (검색은 입력창 X가 담당).
   const handleResetFilters = () => {
-    setParams({ type: null, form: null, sort: null, dir: null });
+    setParams(FILTER_SORT_RESET);
   };
 
   // 빈 상태 회복: 필터/정렬 + 검색까지 모두 초기화.
   const handleResetAll = () => {
     clearSearch();
-    setParams({ type: null, form: null, sort: null, dir: null, search: null });
+    setParams({ ...FILTER_SORT_RESET, search: null });
   };
 
   // 페이지네이션 클릭일 때만, 페이지 커밋 후 최상단으로 스크롤.
@@ -98,8 +92,8 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
   }, [page]);
 
   const resultText =
-    pokes.length !== total
-      ? `${total.toLocaleString()} of ${pokes.length.toLocaleString()} Pokémon`
+    pokes.length !== filteredCount
+      ? `${filteredCount.toLocaleString()} of ${pokes.length.toLocaleString()} Pokémon`
       : `${pokes.length.toLocaleString()} Pokémon`;
 
   // 모바일: 가로 스크롤 툴바에서 탭한 trigger(pill)를 가운데로 스크롤해 완전히 보이게.
@@ -119,7 +113,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-3 sm:gap-6">
-        <SearchInput value={input} onChange={onInputChange} />
+        <PokeSearchInput value={input} onChange={onInputChange} />
         <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
           <div
             ref={toolbarRef}
@@ -151,7 +145,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
       <Pagination page={page} totalPages={totalPages} onChange={goToPage} />
 
       <div className="min-h-50 md:min-h-78">
-        {total === 0 ? (
+        {filteredCount === 0 ? (
           <div className="h-50 md:h-78 flex flex-col items-center justify-center gap-3 text-muted-foreground">
             <p>조건에 맞는 포켓몬이 없습니다.</p>
             <Button
@@ -172,7 +166,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
             aria-busy={isDimmed}
           >
             <PokeCardList
-              pokes={items}
+              pokes={pagePokes}
               startIndex={startIndex}
               sortKey={sortKey}
             />

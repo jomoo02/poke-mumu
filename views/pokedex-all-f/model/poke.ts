@@ -11,5 +11,3 @@ export interface NationalPoke extends Poke, Stat {
   formIdentifier: string | null;
   formKo: string | null;
 }
-
-export type PokeFilter = (poke: NationalPoke) => boolean;

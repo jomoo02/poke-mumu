@@ -21,12 +21,18 @@ import {
 } from '../control';
 
 export default function PokeSortDesktop() {
-  const { key, dir, isActive, changeSortKey, changeSortDir, resetSort } =
-    usePokeSort();
+  const {
+    sortKey,
+    sortDir,
+    isActive,
+    changeSortKey,
+    changeSortDir,
+    resetSort,
+  } = usePokeSort();
 
   const [open, setOpen] = useState(false);
 
-  const triggerText = getSortLabel(key, dir);
+  const triggerText = getSortLabel(sortKey, sortDir);
 
   const title = '정렬';
 
@@ -46,7 +52,7 @@ export default function PokeSortDesktop() {
               정렬 기준
             </ControlPopoverContentGroupLabel>
             <ControlRadioGroup
-              value={key}
+              value={sortKey}
               onValueChange={changeSortKey}
               className="grid-cols-2"
             >
@@ -69,7 +75,7 @@ export default function PokeSortDesktop() {
               정렬 방향
             </ControlPopoverContentGroupLabel>
             <ControlRadioGroup
-              value={dir}
+              value={sortDir}
               onValueChange={changeSortDir}
               className="grid-cols-2"
             >

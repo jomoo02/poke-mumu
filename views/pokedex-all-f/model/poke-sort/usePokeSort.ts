@@ -8,7 +8,7 @@ import { type SortDir } from './config';
 export function usePokeSort() {
   const { searchParams, setParams } = useSearchParamsState();
 
-  const { key, dir } = parseSort(searchParams);
+  const { sortKey, sortDir } = parseSort(searchParams);
 
   // 키만 변경(방향 유지). 기본값이면 파라미터 제거로 정규화.
   const changeSortKey = (nextKey: string) => {
@@ -23,11 +23,11 @@ export function usePokeSort() {
 
   const resetSort = () => setParams({ sort: null, dir: null });
 
-  const isActive = key !== DEFAULT_SORT_KEY || dir !== DEFAULT_SORT_DIR;
+  const isActive = sortKey !== DEFAULT_SORT_KEY || sortDir !== DEFAULT_SORT_DIR;
 
   return {
-    key,
-    dir,
+    sortKey,
+    sortDir,
     isActive,
     changeSortKey,
     changeSortDir,

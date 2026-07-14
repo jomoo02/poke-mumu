@@ -1,0 +1,1 @@
+export { usePokeSearch } from './usePokeSearch';

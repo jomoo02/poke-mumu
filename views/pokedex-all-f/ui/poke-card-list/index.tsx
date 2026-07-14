@@ -1,5 +1,3 @@
-import { cn } from '@/shared/lib/cn';
-
 import PokeCard from './poke-card';
 import { type NationalPoke } from '../../model/poke';
 
@@ -16,11 +14,7 @@ export default function PokeCardList({
   sortKey,
 }: PokeCardListProps) {
   return (
-    <div
-      className={cn(
-        'grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6',
-      )}
-    >
+    <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
       {pokes.map((poke, index) => (
         <PokeCard
           key={poke.pokeKey}

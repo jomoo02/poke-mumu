@@ -26,10 +26,16 @@ import { directionItems } from './direction-items';
 
 export default function PokeSortMobile() {
   const [open, setOpen] = useState(false);
-  const { key, dir, isActive, changeSortKey, changeSortDir, resetSort } =
-    usePokeSort();
+  const {
+    sortKey,
+    sortDir,
+    isActive,
+    changeSortKey,
+    changeSortDir,
+    resetSort,
+  } = usePokeSort();
 
-  const currentLabel = getSortLabel(key, dir);
+  const currentLabel = getSortLabel(sortKey, sortDir);
 
   return (
     <ControlSheet open={open} onOpenChange={setOpen}>
@@ -50,7 +56,7 @@ export default function PokeSortMobile() {
             </ControlSheetContentGroupLabel>
             <ControlRadioGroup
               className="grid grid-cols-2 gap-y-1.5"
-              value={key}
+              value={sortKey}
               onValueChange={changeSortKey}
             >
               {SORT_OPTIONS.map((option) => (
@@ -75,7 +81,7 @@ export default function PokeSortMobile() {
             </ControlSheetContentGroupLabel>
 
             <ControlRadioGroup
-              value={dir}
+              value={sortDir}
               onValueChange={changeSortDir}
               className="grid-cols-2 gap-y-1.5"
             >

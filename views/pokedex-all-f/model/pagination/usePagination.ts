@@ -27,10 +27,16 @@ export default function usePagination(allPokes: NationalPoke[], query: string) {
   // 현재 페이지 첫 항목의 전역(0-based) 오프셋. 카드 순번 계산에 사용.
   const startIndex = (page - 1) * PAGE_SIZE;
 
-  const items = useMemo(
+  const pagePokes = useMemo(
     () => filtered.slice(startIndex, startIndex + PAGE_SIZE),
     [filtered, startIndex],
   );
 
-  return { items, page, totalPages, startIndex, total: filtered.length };
+  return {
+    pagePokes,
+    page,
+    totalPages,
+    startIndex,
+    filteredCount: filtered.length,
+  };
 }

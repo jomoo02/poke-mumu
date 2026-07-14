@@ -10,12 +10,15 @@ import {
 } from '@/shared/ui/input-group';
 import { cn } from '@/shared/lib/cn';
 
-interface SearchInputProps {
+interface PokeSearchInputProps {
   value: string;
   onChange: (value: string) => void;
 }
 
-export default function SearchInput({ value, onChange }: SearchInputProps) {
+export default function PokeSearchInput({
+  value,
+  onChange,
+}: PokeSearchInputProps) {
   return (
     <InputGroup className="max-w-xl mx-auto h-11">
       <InputGroupInput
