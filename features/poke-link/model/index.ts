@@ -1,6 +1,6 @@
 import type { Poke } from '@/entities/poke/model';
 import type { Type } from '@/entities/type/model';
-import { type Stat } from '@/entities/stat/model';
+import type { Stat } from '@/entities/stat/model';
 
 interface PokeLinkPoke extends Poke {
   form: string | null;

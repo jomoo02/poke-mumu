@@ -1,6 +1,6 @@
 'use client';
 
-import { Popover as PopoverPrimitive } from 'radix-ui';
+import { Popover as PopoverPrimitive } from '@base-ui/react/popover';
 import { RotateCwIcon } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
@@ -27,11 +27,14 @@ function ControlPopoverTrigger({
   ...props
 }: ControlPopoverTriggerProps) {
   return (
-    <PopoverTrigger {...props} asChild>
-      <ControlTriggerButton isActive={isActive} isOpen={isOpen}>
-        {children}
-      </ControlTriggerButton>
-    </PopoverTrigger>
+    <PopoverTrigger
+      {...props}
+      render={
+        <ControlTriggerButton isActive={isActive} isOpen={isOpen}>
+          {children}
+        </ControlTriggerButton>
+      }
+    ></PopoverTrigger>
   );
 }
 
@@ -70,7 +73,8 @@ function ControlPopoverBody({
   return (
     <PopoverContent
       align="start"
-      className={cn('z-1 px-0 py-4', width, className)}
+      side="bottom"
+      className={cn('px-0 py-4 z-10', width, className)}
     >
       {children}
     </PopoverContent>
@@ -84,7 +88,7 @@ function ControlPopoverContent({
   return (
     <div
       className={cn(
-        'flex px-4 flex-col gap-4 max-h-84 overflow-auto no-scrollbar',
+        'flex px-4 flex-col gap-4 max-h-82 overflow-auto no-scrollbar',
         className,
       )}
     >

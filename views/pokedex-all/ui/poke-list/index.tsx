@@ -1,6 +1,6 @@
 import { RotateCwIcon } from 'lucide-react';
 
-import PokeStatLink from '@/features/poke-link/ui/poke-stat-link';
+import { PokeStatsLink } from '@/features/poke-link/ui';
 import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/cn';
 
@@ -45,7 +45,7 @@ export default function PokeList({
         >
           <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
             {pagePokes.map((poke, index) => (
-              <PokeStatLink
+              <PokeStatsLink
                 key={poke.pokeKey}
                 poke={poke}
                 index={startIndex + index + 1}

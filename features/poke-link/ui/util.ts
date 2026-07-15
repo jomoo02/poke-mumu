@@ -1,25 +1,3 @@
-// export const bgVariants: Record<string, string> = {
-//   normal: 'before:bg-normal/10 dark:before:bg-normal/20',
-//   fire: 'before:bg-fire/10 dark:before:bg-fire/20',
-//   water: 'before:bg-water/10 dark:before:bg-water/20',
-//   grass: 'before:bg-grass/10 dark:before:bg-grass/20',
-//   electric: 'before:bg-electric/10 dark:before:bg-electric/20',
-//   ice: 'before:bg-ice/10 dark:before:bg-ice/20',
-//   fighting: 'before:bg-fighting/10 dark:before:bg-fighting/20',
-//   poison: 'before:bg-poison/10 dark:before:bg-poison/20',
-//   ground: 'before:bg-ground/10 dark:before:bg-ground/20',
-//   flying: 'before:bg-flying/10 dark:before:bg-flying/20',
-//   psychic: 'before:bg-psychic/10 dark:before:bg-psychic/20',
-//   bug: 'before:bg-bug/10 dark:before:bg-bug/20',
-//   rock: 'before:bg-rock/10 dark:before:bg-rock/20',
-//   ghost: 'before:bg-ghost/10 dark:before:bg-ghost/20',
-//   dragon: 'before:bg-dragon/10 dark:before:bg-dragon/20',
-//   dark: 'before:bg-dark/10 dark:before:bg-dark/20',
-//   steel: 'before:bg-steel/10 dark:before:bg-steel/20',
-//   fairy: 'before:bg-fairy/10 dark:before:bg-fairy/20',
-//   unknown: 'before:bg-unknown/10 dark:before:bg-unknown/20',
-// };
-
 export const bgVariants: Record<string, string> = {
   normal: 'bg-normal/10 dark:bg-normal/20',
   fire: 'bg-fire/10 dark:bg-fire/20',

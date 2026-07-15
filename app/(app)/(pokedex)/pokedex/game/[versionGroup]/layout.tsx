@@ -11,14 +11,12 @@ export default async function PokedexGameVersionGroupLayout({
   children,
 }: PokedexGameVersionGroupLayoutProps) {
   return (
-    <>
-      <Suspense>
-        {params.then(({ versionGroup }) => (
-          <PokedexVersionGroupLayout versionGroup={versionGroup} />
-        ))}
-      </Suspense>
-
-      {children}
-    </>
+    <Suspense>
+      {params.then(({ versionGroup }) => (
+        <PokedexVersionGroupLayout versionGroup={versionGroup}>
+          {children}
+        </PokedexVersionGroupLayout>
+      ))}
+    </Suspense>
   );
 }

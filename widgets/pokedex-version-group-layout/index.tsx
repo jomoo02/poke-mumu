@@ -1,27 +1,37 @@
-import { getVersionGroupKo, getRegions } from './api';
+import { PageContainer } from '@/shared/ui/container';
+import { getVersionGroupContent, getRegions } from './api';
 import RegionTab from './ui/region-tab';
 
 interface PokedexVersionGroupLayoutProps {
   versionGroup: string;
+  children: React.ReactNode;
 }
 
 export default async function PokedexVersionGroupLayout({
   versionGroup,
+  children,
 }: PokedexVersionGroupLayoutProps) {
-  const [vesrionGroupKo, regions] = await Promise.all([
-    getVersionGroupKo(versionGroup),
+  const [{ nameKo, description }, regions] = await Promise.all([
+    getVersionGroupContent(versionGroup),
     getRegions(versionGroup),
   ]);
 
   return (
-    <div className="max-w-365 mx-auto pt-12 w-full flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
-      <h1 className="text-4xl font-bold tracking-wide text-balance break-keep">
-        {vesrionGroupKo} 버전 도감
-      </h1>
-
-      <div className="mt-6">
-        {regions && <RegionTab versionGroup={versionGroup} regions={regions} />}
+    <PageContainer>
+      <div>
+        <h1 className="text-4xl font-bold tracking-tight text-balance break-keep">
+          {nameKo} 버전 도감
+        </h1>
+        {description && (
+          <p className="text-foreground/70 whitespace-pre-line text-balance break-keep pt-3">
+            {description}
+          </p>
+        )}
       </div>
-    </div>
+
+      {regions && <RegionTab versionGroup={versionGroup} regions={regions} />}
+
+      {children}
+    </PageContainer>
   );
 }

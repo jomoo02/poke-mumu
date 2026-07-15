@@ -1,6 +1,6 @@
 import { getRegionalDex } from './api';
-
 import PokeList from './ui/poke-list';
+import PokedexGameVersionGroupRegionClient from './ui/pokedex-game-version-group-region-client';
 
 interface PokedexGameVersionGroupRegionPageViewIProps {
   versionGroup: string;
@@ -18,21 +18,20 @@ export default async function PokedexGameVersionGroupRegionPageView({
   }
 
   const { versionGroupKo, regionKo, entries } = regionalDex;
+  const h2Text = `${regionKo} 도감 `;
 
+  const description = `No.${entries[0].dexNumber}  ${entries[0].nameKo} ~ No.${entries.at(-1)?.dexNumber} ${entries.at(-1)?.nameKo}`;
   return (
-    <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
-      <div className="grid gap-6 ">
-        <div className="">
-          <h2 className="flex gap-3 flex-wrap font-bold text-2xl text-balance break-keep">
-            <span className="">{regionKo} 도감</span>
-            <span className="">
-              {`No.${entries[0].dexNumber} ~ ${entries.at(-1)?.dexNumber}`}
-            </span>
-          </h2>
-        </div>
-
-        <PokeList pokes={entries} />
+    <>
+      <div>
+        <h2 className="tracking-tight font-bold text-2xl text-balance break-keep tabular-nums mt-8">
+          {h2Text}
+        </h2>
+        <p className="text-foreground/70 pt-3">{description}</p>
       </div>
-    </div>
+
+      <PokeList pokes={entries} />
+      {/* <PokedexGameVersionGroupRegionClient pokes={entries} /> */}
+    </>
   );
 }

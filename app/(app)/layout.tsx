@@ -18,24 +18,21 @@ export default function MainLayout({ children, breadcrumbs }: MainLayoutProps) {
     <div className=" font-suit [--header-height:calc(--spacing(14))]">
       {/* <MainHeader /> */}
       {/* <main className="flex flex-col flex-1">{children}</main> */}
-      <SidebarProvider className="flex flex-col">
-        <MainHeaderV2 />
-        <div className="flex flex-1">
-          {/* <Suspense>
+
+      <MainHeaderV2 />
+
+      {/* <Suspense>
             <AppSidebar />
           </Suspense> */}
 
-          <SidebarInset>
-            {/* <Suspense>
-              <div className="px-4 sm:px-6 py-4">
-                <Breadcrumb>{breadcrumbs}</Breadcrumb>
-              </div>
-            </Suspense> */}
-
-            <main className="flex flex-1 flex-col  w-full">{children}</main>
-          </SidebarInset>
+      {/* <Suspense>
+        <div className="px-4 sm:px-6 py-4">
+          <Breadcrumb>{breadcrumbs}</Breadcrumb>
         </div>
-      </SidebarProvider>
+      </Suspense> */}
+
+      <main className="flex flex-1 flex-col  w-full">{children}</main>
+
       {/* <div id="ttt" className="sticky top-14 z-60" /> */}
     </div>
   );

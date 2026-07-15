@@ -8,17 +8,13 @@ import { cn } from '@/shared/lib/cn';
 
 import { type PokeLinkStatPoke } from '../../model';
 
-interface PokeStatLinkProps {
+interface PokeStatsLinkProps {
   poke: PokeLinkStatPoke;
   index?: number;
   sortKey: string;
 }
 
-export default function PokeStatLink({
-  poke,
-  index,
-  sortKey,
-}: PokeStatLinkProps) {
+export function PokeStatsLink({ poke, index, sortKey }: PokeStatsLinkProps) {
   const {
     dexNumber,
     nameKo,

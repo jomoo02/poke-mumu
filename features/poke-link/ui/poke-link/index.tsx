@@ -1,14 +1,8 @@
-import Link from 'next/link';
-
-import { PokeSprite } from '@/entities/poke/ui';
-import { formatNumber } from '@/shared/lib/format';
-import { TypeIcon } from '@/entities/type/ui';
 import { cn } from '@/shared/lib/cn';
-
 import type { PokeLinkPoke } from '../../model';
-import { bgVariants } from '../util';
 
 import { PokeLinkDesktop } from './desktop';
+import { PokeLinkMobile } from './mobile';
 
 interface PokeItemProps {
   poke: PokeLinkPoke;
@@ -17,10 +11,11 @@ interface PokeItemProps {
   showForm?: boolean;
 }
 
-export function PokeLink({ ...props }: PokeItemProps) {
+export function PokeLink({ className, ...props }: PokeItemProps) {
   return (
     <>
-      <PokeLinkDesktop {...props} />
+      <PokeLinkMobile className={cn('sm:hidden', className)} {...props} />
+      <PokeLinkDesktop className={cn('hidden sm:flex', className)} {...props} />
     </>
   );
 }

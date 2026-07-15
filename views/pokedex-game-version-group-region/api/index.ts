@@ -71,10 +71,10 @@ export const getRegionalDex = async (versionGroup: string, region: string) => {
   );
 
   return {
+    entries,
     versionGroupKo: data.versionGroup.nameKo,
     regionKo: data.regionKo,
     identifier: data.identifier,
     isPrimary: data.isPrimary,
-    entries,
   };
 };
