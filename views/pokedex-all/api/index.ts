@@ -1,11 +1,14 @@
-import { createClient } from '@/app/shared/lib/supabase/client';
+import { createClient } from '@/shared/lib/supabase/client';
 import { Tables } from '@/types_db';
 
-import { type NationalPoke } from '../model-v2';
+import type { NationalPoke } from '../model/poke';
 
 type NationalPokeDto = Tables<'national_pokedex_with_stat'>;
 
-const adaptNationPokeView = (dto: NationalPokeDto): NationalPoke => {
+const toNumber = (value: number | string | null | undefined): number =>
+  value == null ? 0 : Number(value);
+
+const adaptNationalPoke = (dto: NationalPokeDto): NationalPoke => {
   const type1 =
     dto.type_1_identifier && dto.type_1_name_ko
       ? { identifier: dto.type_1_identifier, nameKo: dto.type_1_name_ko }
@@ -19,24 +22,24 @@ const adaptNationPokeView = (dto: NationalPokeDto): NationalPoke => {
   return {
     type1,
     type2,
-    sortOrder: dto.sort_order!,
-    hp: dto.hp || 0,
-    attack: dto.attack || 0,
-    defense: dto.defense || 0,
-    specialAttack: dto.special_attack || 0,
-    specialDefense: dto.special_defense || 0,
-    speed: dto.speed || 0,
-    total: dto.total || 0,
+    sortOrder: toNumber(dto.sort_order),
+    hp: toNumber(dto.hp),
+    attack: toNumber(dto.attack),
+    defense: toNumber(dto.defense),
+    specialAttack: toNumber(dto.special_attack),
+    specialDefense: toNumber(dto.special_defense),
+    speed: toNumber(dto.speed),
+    total: toNumber(dto.total),
     sprite: dto.sprite!,
     pokeKey: dto.poke_key!,
-    dexNumber: dto.dex_number!,
+    dexNumber: toNumber(dto.dex_number),
     nameKo: dto.name_ko!,
     formIdentifier: dto.form_identifier,
     formKo: dto.form_name_ko,
   };
 };
 
-export const getNationalPokedex = async () => {
+export const getAllNationalPoke = async (): Promise<NationalPoke[]> => {
   'use cache';
 
   const supabase = createClient();
@@ -49,6 +52,7 @@ export const getNationalPokedex = async () => {
 
   if (error) {
     console.error('Supabase error:', error);
+
     throw new Error(
       `Failed to fetch pokedex for national pokedex: ${error.message}`,
     );
@@ -58,5 +62,5 @@ export const getNationalPokedex = async () => {
     return [];
   }
 
-  return data.map(adaptNationPokeView);
+  return data.map(adaptNationalPoke);
 };

@@ -1,25 +1,34 @@
+import { Suspense } from 'react';
+
 import { getAllType } from '@/entities/type/api';
+import { PageContainer } from '@/shared/ui/container';
 
-import { getNationalPokedex } from './api';
-import Container from './ui/container';
+import { getAllNationalPoke } from './api';
+import PokedexAllClient from './ui/pokedex-all-client';
 
-export default async function PokedexAllPageView() {
-  const [nationPokedex, allType] = await Promise.all([
-    getNationalPokedex(),
+export default async function PokedexAllPageViewF() {
+  const [pokes, allType] = await Promise.all([
+    getAllNationalPoke(),
     getAllType(),
   ]);
 
-  // console.log(nationPokedex[0]);
-  const title = '전국도감';
+  const types = allType.filter((type) => type.identifier !== 'unknown');
+
+  const statLegendLine1 = 'H: 체력, A: 공격, B: 방어,\u00A0';
+  const statLegendLine2 = 'C: 특수공격, D: 특수방어, S:스피드';
 
   return (
-    <div className="max-w-365 mx-auto py-12 w-full min-h-svh flex flex-col gap-6 px-5 md:px-8 lg:px-10 3xl:px-2.5">
-      <h1 className="text-4xl font-bold tracking-tight mt-4 mb-6">{title}</h1>
-      <Container
-        pokes={nationPokedex}
-        types={allType.filter((type) => type.identifier !== 'unknown')}
-      />
-      {/* <PokedexProvider pokes={nationPokedex}>1</PokedexProvider> */}
-    </div>
+    <PageContainer>
+      <div className="mb-4">
+        <h1 className="text-4xl font-bold tracking-tight">전국도감</h1>
+        <div className="flex pt-4 flex-wrap text-foreground/70">
+          <p className=" break-keep text-pretty">{statLegendLine1}</p>
+          <p className=" break-keep text-pretty">{statLegendLine2}</p>
+        </div>
+      </div>
+      <Suspense>
+        <PokedexAllClient pokes={pokes} types={types} />
+      </Suspense>
+    </PageContainer>
   );
 }
