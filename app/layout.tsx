@@ -52,10 +52,13 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+// 프로덕션(Vercel)에서는 배포 도메인을 자동 사용, 로컬에서는 NEXT_PUBLIC_BASE_URL.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : (process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000');
+
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL ?? 'http://localhost:3000',
-  ),
+  metadataBase: new URL(siteUrl),
   title: 'Poke MuMu',
   description: 'Poke MuMu',
 };
