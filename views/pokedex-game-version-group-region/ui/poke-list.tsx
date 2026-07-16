@@ -2,7 +2,7 @@
 
 import { cn } from '@/shared/lib/cn';
 import type { RegionalPoke } from '../model/poke';
-import { Fragment } from 'react/jsx-runtime';
+import { Fragment } from 'react';
 import { PokeLinkDesktop, PokeLinkMobile } from '@/features/poke-link/ui';
 
 interface PokeListProps {

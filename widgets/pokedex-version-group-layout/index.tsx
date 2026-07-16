@@ -1,3 +1,5 @@
+import { notFound } from 'next/navigation';
+
 import { PageContainer } from '@/shared/ui/container';
 import { getVersionGroupContent, getRegions } from './api';
 import RegionTab from './ui/region-tab';
@@ -16,6 +18,11 @@ export default async function PokedexVersionGroupLayout({
     getRegions(versionGroup),
   ]);
 
+  // 존재하지 않는 versionGroup이면 지역이 하나도 없다 → 루트 404로.
+  if (!regions || regions.length === 0) {
+    notFound();
+  }
+
   return (
     <PageContainer>
       <div>
@@ -29,7 +36,7 @@ export default async function PokedexVersionGroupLayout({
         )}
       </div>
 
-      {regions && <RegionTab versionGroup={versionGroup} regions={regions} />}
+      <RegionTab versionGroup={versionGroup} regions={regions} />
 
       {children}
     </PageContainer>

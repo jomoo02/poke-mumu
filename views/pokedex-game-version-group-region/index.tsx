@@ -1,6 +1,7 @@
+import { notFound } from 'next/navigation';
+
 import { getRegionalDex } from './api';
 import PokeList from './ui/poke-list';
-import PokedexGameVersionGroupRegionClient from './ui/pokedex-game-version-group-region-client';
 
 interface PokedexGameVersionGroupRegionPageViewIProps {
   versionGroup: string;
@@ -13,14 +14,17 @@ export default async function PokedexGameVersionGroupRegionPageView({
 }: PokedexGameVersionGroupRegionPageViewIProps) {
   const regionalDex = await getRegionalDex(versionGroup, region);
 
-  if (!regionalDex) {
-    return null;
+  if (!regionalDex || regionalDex.entries.length === 0) {
+    notFound();
   }
 
-  const { versionGroupKo, regionKo, entries } = regionalDex;
-  const h2Text = `${regionKo} 도감 `;
+  const { regionKo, entries } = regionalDex;
+  const first = entries[0];
+  const last = entries[entries.length - 1];
 
-  const description = `No.${entries[0].dexNumber}  ${entries[0].nameKo} ~ No.${entries.at(-1)?.dexNumber} ${entries.at(-1)?.nameKo}`;
+  const h2Text = `${regionKo} 도감`;
+  const description = `No.${first.dexNumber} ${first.nameKo} ~ No.${last.dexNumber} ${last.nameKo}`;
+
   return (
     <>
       <div>
@@ -31,7 +35,6 @@ export default async function PokedexGameVersionGroupRegionPageView({
       </div>
 
       <PokeList pokes={entries} />
-      {/* <PokedexGameVersionGroupRegionClient pokes={entries} /> */}
     </>
   );
 }

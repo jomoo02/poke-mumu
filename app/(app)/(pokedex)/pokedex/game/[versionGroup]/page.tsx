@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 
 import { getPrimaryRegion } from '@/widgets/pokedex-version-group-layout/api';
 
@@ -9,9 +9,9 @@ export default async function Page({
 
   const region = await getPrimaryRegion(versionGroup);
 
-  if (region) {
-    redirect(`/pokedex/game/${versionGroup}/${region}`);
+  if (!region) {
+    notFound();
   }
 
-  return null;
+  redirect(`/pokedex/game/${versionGroup}/${region}`);
 }

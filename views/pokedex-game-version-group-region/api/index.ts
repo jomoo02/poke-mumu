@@ -2,6 +2,30 @@ import { createClient } from '@/shared/lib/supabase/client';
 
 import type { RegionalPoke } from '../model/poke';
 
+export const getAllRegionParams = async () => {
+  'use cache';
+
+  const supabase = createClient();
+
+  const { data, error } = await supabase.from('dex_region').select(
+    `
+        identifier,
+        version_group!inner (
+          identifier
+        )
+      `,
+  );
+
+  if (error || !data) {
+    return [];
+  }
+
+  return data.map((row) => ({
+    versionGroup: row.version_group.identifier,
+    region: row.identifier,
+  }));
+};
+
 export const getRegionalDex = async (versionGroup: string, region: string) => {
   'use cache';
 
@@ -11,10 +35,8 @@ export const getRegionalDex = async (versionGroup: string, region: string) => {
     .from('dex_region')
     .select(
       `
-        identifier,
         regionKo:region_ko,
-        isPrimary:is_primary,
-        versionGroup:version_group!inner (
+        version_group!inner (
           identifier,
           nameKo:name_ko
         ),
@@ -72,9 +94,7 @@ export const getRegionalDex = async (versionGroup: string, region: string) => {
 
   return {
     entries,
-    versionGroupKo: data.versionGroup.nameKo,
     regionKo: data.regionKo,
-    identifier: data.identifier,
-    isPrimary: data.isPrimary,
+    versionGroupKo: data.version_group.nameKo,
   };
 };
