@@ -3,26 +3,25 @@
 import { useState } from 'react';
 
 import { Checkbox } from '@/shared/ui/checkbox';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  SheetFooterButton,
+} from '@/shared/ui/sheet';
+import {
+  ControlTriggerButton,
+  ControlField,
+  ControlFieldLabel,
+} from '@/shared/ui/control';
+import { FieldGroup } from '@/shared/ui/field';
 
 import { useFormFilter, formFilterOptions } from '../../model/form-filter';
 import { getFormTriggerText } from './lib';
-import {
-  ControlField,
-  ControlFieldGroup,
-  ControlFieldLabel,
-} from '../control/control-shared';
-import {
-  ControlSheet,
-  ControlSheetBody,
-  ControlSheetCloseButton,
-  ControlSheetContent,
-  ControlSheetDescription,
-  ControlSheetFooter,
-  ControlSheetHeader,
-  ControlSheetResetButton,
-  ControlSheetTitle,
-  ControlSheetTrigger,
-} from '../control/control-sheet';
 
 export default function FormFilterMobile() {
   const [open, setOpen] = useState(false);
@@ -33,17 +32,21 @@ export default function FormFilterMobile() {
   const triggerText = getFormTriggerText(selectedForms, formFilterOptions);
 
   return (
-    <ControlSheet open={open} onOpenChange={setOpen}>
-      <ControlSheetTrigger isActive={isActive} isOpen={open}>
-        {triggerText}
-      </ControlSheetTrigger>
-      <ControlSheetBody>
-        <ControlSheetHeader>
-          <ControlSheetTitle>모습</ControlSheetTitle>
-          <ControlSheetDescription>포켓몬의 특정 모습</ControlSheetDescription>
-        </ControlSheetHeader>
-        <ControlSheetContent>
-          <ControlFieldGroup className="gap-y-1.5">
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger
+        render={
+          <ControlTriggerButton variant={isActive ? 'active' : 'default'}>
+            {triggerText}
+          </ControlTriggerButton>
+        }
+      />
+      <SheetContent side={'bottom'} className="gap-0 max-h-[85dvh]">
+        <SheetHeader>
+          <SheetTitle>모습</SheetTitle>
+          <SheetDescription>포켓몬의 특정 모습</SheetDescription>
+        </SheetHeader>
+        <div className="px-6 overflow-y-auto no-scrollbar">
+          <FieldGroup className="gap-y-1.5">
             {formFilterOptions.map((form) => (
               <ControlField key={form.identifier} className="h-11">
                 <Checkbox
@@ -58,13 +61,25 @@ export default function FormFilterMobile() {
                 </ControlFieldLabel>
               </ControlField>
             ))}
-          </ControlFieldGroup>
-        </ControlSheetContent>
-        <ControlSheetFooter>
-          <ControlSheetResetButton onClick={resetForm} />
-          <ControlSheetCloseButton onClick={() => setOpen(false)} />
-        </ControlSheetFooter>
-      </ControlSheetBody>
-    </ControlSheet>
+          </FieldGroup>
+        </div>
+        <SheetFooter className="flex flex-row">
+          <SheetFooterButton
+            variant={'input'}
+            onClick={resetForm}
+            className="flex-1/3"
+          >
+            초기화
+          </SheetFooterButton>
+          <SheetFooterButton
+            variant="primary"
+            onClick={() => setOpen(false)}
+            className="flex-2/3"
+          >
+            적용하기
+          </SheetFooterButton>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 }

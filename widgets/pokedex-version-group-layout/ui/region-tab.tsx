@@ -22,7 +22,7 @@ export default function RegionTab({ versionGroup, regions }: RegionTabProps) {
 
   return (
     <div className="border-b">
-      <div className=" overflow-auto flex gap-1 p-1 -m-1">
+      <div className="overflow-auto flex gap-1 p-1 -m-1">
         {regions.map((region) => (
           <RegionTabItem
             key={region.identifier}
@@ -51,6 +51,7 @@ function RegionTabItem({ href, className, children }: RegionTabItemProps) {
   return (
     <Link
       href={href}
+      replace
       className={cn(
         'flex items-center px-3 py-2 h-11 gap-x-2 border-b-2 border-transparent relative',
         className,

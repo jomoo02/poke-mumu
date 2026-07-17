@@ -26,7 +26,7 @@ export default function PokeSearchInput({
         onChange={(event) => onChange(event.target.value)}
         autoComplete="off"
         aria-label="포켓몬 이름 또는 도감 번호 검색"
-        placeholder={'포켓몬 이\u200B​름 또는 도감 번호'}
+        placeholder={'포켓몬 이\u200B름 또는 도감 번호'}
       />
       <InputGroupAddon>
         <SearchIcon className="size-4.5" />

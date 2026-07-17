@@ -3,6 +3,7 @@ import { Checkbox } from '@/shared/ui/checkbox';
 import { Button } from '@/shared/ui/button';
 import { Field, FieldGroup, FieldLabel, FieldSet } from '@/shared/ui/field';
 import { Toggle } from '@/shared/ui/toggle';
+import { RotateCwIcon } from 'lucide-react';
 
 interface AppearedFilterProps {
   selectedAppearedGens: Set<number>;
@@ -23,6 +24,7 @@ export default function AppearedFilter({
   toggleChampions,
   variant = 'desktop',
 }: AppearedFilterProps) {
+  const isActive = selectedAppearedGens.size > 0 || isChampions;
   return (
     <div>
       <div
@@ -32,9 +34,11 @@ export default function AppearedFilter({
         <div className="text-xl font-bold">필터</div>
         <Button
           variant={'ghost'}
+          disabled={!isActive}
           onClick={resetFilter}
-          className="text-md h-8.5 px-3 active:bg-muted"
+          className=" h-7.5 -my-0.75 px-2 active:bg-muted rounded-lg gap-1.5 -mx-2"
         >
+          <RotateCwIcon className="size-3.5" />
           초기화
         </Button>
       </div>

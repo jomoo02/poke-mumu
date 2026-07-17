@@ -19,7 +19,7 @@ export default function AbilityList({ abilities }: AbilityListProps) {
   }
 
   return (
-    <ul className=" grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+    <ul className=" grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
       {abilities.map((ability) => (
         <li key={ability.identifier}>
           <AbilityItem ability={ability} />

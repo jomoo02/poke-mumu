@@ -23,14 +23,16 @@ export default function SheetMobile({ children }: SheetMobileProps) {
     <>
       {isMobile && (
         <Sheet>
-          <SheetTrigger asChild>
-            <Button
-              className="size-11 bg-muted hover:bg-muted/50 active:bg-muted/50  dark:active:bg-input dark:hover:bg-input dark:bg-input/70 "
-              variant={'secondary'}
-            >
-              <SlidersHorizontalIcon className="size-4.5" />
-            </Button>
-          </SheetTrigger>
+          <SheetTrigger
+            render={
+              <Button
+                className="size-11 bg-muted hover:bg-muted/50 active:bg-muted/50  dark:active:bg-input dark:hover:bg-input dark:bg-input/70 "
+                variant={'secondary'}
+              >
+                <SlidersHorizontalIcon className="size-4.5" />
+              </Button>
+            }
+          ></SheetTrigger>
           <SheetContent
             showCloseButton={false}
             className="gap-y-0 data-[side=right]:max-w-none data-[side=right]:sm:max-w-sm data-[side=right]:w-full px-5 flex lg:hidden"

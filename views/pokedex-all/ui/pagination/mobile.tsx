@@ -34,9 +34,11 @@ export default function MobilePagination({
     >
       <SelectTrigger
         aria-label="페이지 선택"
+        data-open={open}
         className={cn(
           'w-full min-h-10.5 max-h-10.5',
-          'cursor-pointer bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
+          'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
+          'group',
         )}
       >
         <SelectValue>{`${page} / ${totalPages} Page`}</SelectValue>

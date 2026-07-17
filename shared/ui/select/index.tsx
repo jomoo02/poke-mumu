@@ -48,7 +48,9 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon
-        render={<ChevronDownIcon className="pointer-events-none size-4.5" />}
+        render={
+          <ChevronDownIcon className="pointer-events-none size-4.5 group-data-open:rotate-180 duration-150" />
+        }
       />
     </SelectPrimitive.Trigger>
   );

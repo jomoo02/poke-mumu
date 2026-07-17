@@ -8,7 +8,6 @@ import AppearedFilter from './appeared-filter';
 import useAbilityList from './useAbilityList';
 import AbilityList from './ability-list';
 import SheetMobile from './sheet-mobile';
-import AbilityListV2 from './ability-list-v2';
 
 interface MainContainerProps {
   abilities: Ability[];
@@ -47,7 +46,6 @@ export default function MainContainer({ abilities }: MainContainerProps) {
       </div>
       <div className={cn('flex flex-col gap-y-6 flex-1 pt-1 w-full', '')}>
         <div className="flex flex-col md:flex-row md:justify-between lg:items-center gap-x-3 gap-y-6 sm:gap-y-9">
-          <h2 className="text-2xl font-bold">{count}개의 특성</h2>
           <div className="flex gap-x-2 md:justify-end">
             <NameFilter
               value={inputValue}
@@ -66,8 +64,10 @@ export default function MainContainer({ abilities }: MainContainerProps) {
               />
             </SheetMobile>
           </div>
+          <h2 className="text-base text-foreground/70 font-medium">
+            {count}개의 특성
+          </h2>
         </div>
-        {/* <AbilityListV2 abilities={filteredAbilities} /> */}
         <AbilityList abilities={filteredAbilities} />
       </div>
     </div>

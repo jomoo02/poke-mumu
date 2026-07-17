@@ -30,7 +30,7 @@ export default async function PokedexVersionGroupLayout({
   return (
     <PageContainer>
       <div>
-        <h1 className="text-4xl font-bold tracking-tight text-balance break-keep">
+        <h1 className="text-4xl font-bold tracking-tight text-balance break-keep whitespace-pre-line">
           {nameKo} 버전 도감
         </h1>
         {description && (

@@ -2,25 +2,23 @@
 
 import { useState } from 'react';
 
+import {
+  Popover,
+  PopoverContent,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from '@/shared/ui/popover';
+import {
+  ControlTriggerButton,
+  ControlResetButton,
+  ControlRadioGroupLabel,
+} from '@/shared/ui/control';
+import { RadioGroup, RadioGroupItem } from '@/shared/ui/radio-group';
+
 import { usePokeSort, SORT_OPTIONS } from '../../model/poke-sort';
 import { getSortLabel } from './lib';
 import { directionItems } from './direction-items';
-import {
-  ControlRadioGroup,
-  ControlRadioGroupLabel,
-  ControlRadioGroupItem,
-} from '../control/control-shared';
-import {
-  ControlPopoverResetButton,
-  ControlPopoverTitle,
-  ControlPopoverTrigger,
-  ControlPopover,
-  ControlPopoverContent,
-  ControlPopoverBody,
-  ControlPopoverHeader,
-  ControlPopoverContentGroup,
-  ControlPopoverContentGroupLabel,
-} from '../control/control-popover';
 
 export default function PokeSortDesktop() {
   const {
@@ -39,58 +37,62 @@ export default function PokeSortDesktop() {
   const title = '정렬';
 
   return (
-    <ControlPopover open={open} onOpenChange={setOpen}>
-      <ControlPopoverTrigger isActive={isActive} isOpen={open}>
-        {triggerText}
-      </ControlPopoverTrigger>
-      <ControlPopoverBody columnCount={2}>
-        <ControlPopoverHeader>
-          <ControlPopoverTitle>{title}</ControlPopoverTitle>
-          <ControlPopoverResetButton isActive={isActive} onClick={resetSort} />
-        </ControlPopoverHeader>
-        <ControlPopoverContent>
-          <ControlPopoverContentGroup>
-            <ControlPopoverContentGroupLabel>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger
+        render={
+          <ControlTriggerButton variant={isActive ? 'active' : 'default'}>
+            {triggerText}
+          </ControlTriggerButton>
+        }
+      />
+      <PopoverContent className={'w-114 max-h-100'}>
+        <PopoverHeader className="flex flex-row justify-between">
+          <PopoverTitle>{title}</PopoverTitle>
+          <ControlResetButton onClick={resetSort} disabled={!isActive} />
+        </PopoverHeader>
+        <div className="flex flex-col gap-4 overflow-y-auto no-scrollbar p-2 -m-2">
+          <div className="flex flex-col gap-2">
+            <div className="text-xs text-foreground/70 font-medium">
               정렬 기준
-            </ControlPopoverContentGroupLabel>
-            <ControlRadioGroup
+            </div>
+            <RadioGroup
               value={sortKey}
               onValueChange={changeSortKey}
-              className="grid-cols-2"
+              className="gap-x-6 gap-y-1 grid-cols-2"
             >
               {SORT_OPTIONS.map((option) => (
                 <ControlRadioGroupLabel
                   key={`sort-${option.key}`}
                   htmlFor={`sort-${option.key}`}
                 >
-                  <ControlRadioGroupItem
+                  <RadioGroupItem
                     id={`sort-${option.key}`}
                     value={option.key}
                   />
                   {option.label}
                 </ControlRadioGroupLabel>
               ))}
-            </ControlRadioGroup>
-          </ControlPopoverContentGroup>
-          <ControlPopoverContentGroup>
-            <ControlPopoverContentGroupLabel>
+            </RadioGroup>
+          </div>
+          <div className="flex flex-col gap-2">
+            <div className="text-xs text-foreground/70 font-medium">
               정렬 방향
-            </ControlPopoverContentGroupLabel>
-            <ControlRadioGroup
+            </div>
+            <RadioGroup
               value={sortDir}
               onValueChange={changeSortDir}
-              className="grid-cols-2"
+              className="gap-x-6 gap-y-1 grid-cols-2"
             >
               {directionItems.map((item) => (
                 <ControlRadioGroupLabel key={item.id} htmlFor={item.id}>
-                  <ControlRadioGroupItem id={item.id} value={item.value} />
+                  <RadioGroupItem id={item.id} value={item.value} />
                   {item.content}
                 </ControlRadioGroupLabel>
               ))}
-            </ControlRadioGroup>
-          </ControlPopoverContentGroup>
-        </ControlPopoverContent>
-      </ControlPopoverBody>
-    </ControlPopover>
+            </RadioGroup>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }

@@ -6,7 +6,7 @@ import { Button } from '@/shared/ui/button';
 import { cn } from '@/shared/lib/cn';
 
 import { getPageWindow } from '../../model/pagination';
-import { EllipseIcon, EllipsisIcon } from 'lucide-react';
+import { EllipsisIcon } from 'lucide-react';
 
 interface PaginationProps {
   page: number;
@@ -14,8 +14,11 @@ interface PaginationProps {
   onChange: (page: number) => void;
 }
 
-const SLOT = 48; // 번호 버튼(size-11 ≈ 44px) + gap(6px)
-// 화살표는 상위 index가 렌더하므로 이 번호창 컨테이너엔 예약 폭이 없다.
+// 번호 버튼(size-10.5 = 42px) + gap-1(4px) = 46px이지만, 빽빽하게 차는 걸 피하려고
+// 한 칸을 넉넉히 48px로 잡는다. 실제보다 크게 잡을수록 번호가 덜 노출된다.
+const SLOT = 48;
+// 화살표는 상위 index가 렌더하므로 이 컨테이너 폭에는 포함되지 않는다.
+// 그래도 좌우 화살표에 시각적 여백을 두려고 측정 폭에서 빼둔다.
 const ARROW_RESERVE = 52;
 
 // 폭을 측정해 들어가는 만큼 번호를 노출한다(넓으면 전부, 좁으면 ellipsis).

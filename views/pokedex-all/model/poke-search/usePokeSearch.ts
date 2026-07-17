@@ -36,7 +36,7 @@ export function usePokeSearch() {
     }
 
     const timer = setTimeout(() => {
-      lastWrittenRef.current = input; // ← 추가: 내가 쓴 값 기록
+      lastWrittenRef.current = input;
       setParams({ search: input || null });
     }, SEARCH_DEBOUNCE_MS);
 

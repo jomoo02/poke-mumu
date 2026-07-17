@@ -51,7 +51,7 @@ export default function PokedexToolbar({
   return (
     <div className="flex flex-col gap-3 sm:gap-6">
       <PokeSearchInput value={searchValue} onChange={onSearchChange} />
-      <div className="flex flex-col sm:flex-row sm:justify-between gap-3 sm:items-center">
+      <div className="flex flex-col md:flex-row md:justify-between gap-3 md:items-center">
         <div
           ref={toolbarRef}
           className="flex gap-2 overflow-auto p-1 -m-1"

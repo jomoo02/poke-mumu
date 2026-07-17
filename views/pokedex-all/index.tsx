@@ -6,7 +6,7 @@ import { PageContainer } from '@/shared/ui/container';
 import { getAllNationalPoke } from './api';
 import PokedexAllClient from './ui/pokedex-all-client';
 
-export default async function PokedexAllPageViewF() {
+export default async function PokedexAllPageView() {
   const [pokes, allType] = await Promise.all([
     getAllNationalPoke(),
     getAllType(),
