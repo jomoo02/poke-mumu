@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { getRegionalDex } from './api';
 import PokeList from './ui/poke-list';
 
-interface PokedexGameVersionGroupRegionPageViewIProps {
+interface PokedexGameVersionGroupRegionPageViewProps {
   versionGroup: string;
   region: string;
 }
@@ -11,7 +11,7 @@ interface PokedexGameVersionGroupRegionPageViewIProps {
 export default async function PokedexGameVersionGroupRegionPageView({
   versionGroup,
   region,
-}: PokedexGameVersionGroupRegionPageViewIProps) {
+}: PokedexGameVersionGroupRegionPageViewProps) {
   const regionalDex = await getRegionalDex(versionGroup, region);
 
   if (!regionalDex || regionalDex.entries.length === 0) {

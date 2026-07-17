@@ -6,6 +6,7 @@ import {
   getRegionalDex,
   getAllRegionParams,
 } from '@/views/pokedex-game-version-group-region/api';
+import Loading from './loading';
 
 export async function generateStaticParams() {
   return getAllRegionParams();
@@ -52,14 +53,12 @@ export async function generateMetadata({
 export default async function PokedexGameVersionGroupRegionPage({
   params,
 }: PageProps<'/pokedex/game/[versionGroup]/[region]'>) {
+  const { versionGroup, region } = await params;
+
   return (
-    <Suspense>
-      {params.then(({ versionGroup, region }) => (
-        <PokedexGameVersionGroupRegionPageView
-          versionGroup={versionGroup}
-          region={region}
-        />
-      ))}
-    </Suspense>
+    <PokedexGameVersionGroupRegionPageView
+      versionGroup={versionGroup}
+      region={region}
+    />
   );
 }

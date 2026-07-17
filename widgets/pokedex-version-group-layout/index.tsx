@@ -1,7 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import { PageContainer } from '@/shared/ui/container';
-import { getVersionGroupContent, getRegions } from './api';
+import {
+  getVersionGroupContent,
+  getRegions,
+} from '@/entities/version-group/api';
+
 import RegionTab from './ui/region-tab';
 
 interface PokedexVersionGroupLayoutProps {

@@ -1,5 +1,5 @@
-import PokedexGamePageUI from '@/app/pages/(pokedex)/game';
+import { redirect } from 'next/navigation';
 
-export default function PageGamePage() {
-  return <PokedexGamePageUI />;
+export default function PokedexGamePage() {
+  redirect('/pokedex');
 }

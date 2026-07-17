@@ -1,7 +1,7 @@
 import { createClient } from '@/shared/lib/supabase/client';
 
 export const getVersionGroupContent = async (versionGroup: string) => {
-  // 'use cache';
+  'use cache';
 
   const supabase = createClient();
 
@@ -19,7 +19,7 @@ export const getVersionGroupContent = async (versionGroup: string) => {
     .maybeSingle();
 
   if (error) {
-    console.error(`widgets getVersionGroupContent: ${error.message}`);
+    console.error(`entities getVersionGroupContent: ${error.message}`);
     return { nameKo: '...', description: null };
   }
 
@@ -42,19 +42,18 @@ export const getRegions = async (versionGroup: string) => {
     .from('dex_region')
     .select(
       `
-        versionGroup:version_group!inner (
-          identifier,
-          nameKo:name_ko
-        ),
         regionKo:region_ko,
-        identifier
+        identifier,
+        version_group!inner (
+          identifier
+        )
       `,
     )
     .eq('version_group.identifier', versionGroup)
     .order('order_index', { ascending: true });
 
   if (error) {
-    console.error(`widgents getRegions: ${error.message}`);
+    console.error(`entities getRegions: ${error.message}`);
     return null;
   }
 
@@ -85,7 +84,7 @@ export const getPrimaryRegion = async (versionGroup: string) => {
     .order('order_index', { ascending: true });
 
   if (error) {
-    console.error(`widgets getPrimaryRegion: ${error.message}`);
+    console.error(`entities getPrimaryRegion: ${error.message}`);
     return null;
   }
 

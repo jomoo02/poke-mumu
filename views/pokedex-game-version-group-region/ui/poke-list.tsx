@@ -1,9 +1,11 @@
 'use client';
 
-import { cn } from '@/shared/lib/cn';
-import type { RegionalPoke } from '../model/poke';
 import { Fragment } from 'react';
+
+import { cn } from '@/shared/lib/cn';
 import { PokeLinkDesktop, PokeLinkMobile } from '@/features/poke-link/ui';
+
+import type { RegionalPoke } from '../model/poke';
 
 interface PokeListProps {
   pokes: RegionalPoke[];

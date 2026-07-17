@@ -1,6 +1,6 @@
 import { notFound, redirect } from 'next/navigation';
 
-import { getPrimaryRegion } from '@/widgets/pokedex-version-group-layout/api';
+import { getPrimaryRegion } from '@/entities/version-group/api';
 
 export default async function Page({
   params,
