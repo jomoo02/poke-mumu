@@ -24,7 +24,7 @@ export function AbilityFilterSideBar() {
   return (
     <div className="flex flex-col gap-y-5">
       <div className="flex justify-between items-center">
-        <div className="text-xl font-bold">필터</div>
+        <h2 className="text-xl font-bold">필터</h2>
         <ControlResetButton disabled={!isActive} onClick={resetFilter} />
       </div>
 
@@ -59,13 +59,13 @@ export function AbilityFilterSideBar() {
           <ControlField>
             <Checkbox
               checked={isChampions}
-              id={`champions-check`}
-              name={`champions-check`}
+              id={`champions-check-sidebar`}
+              name={`champions-check-sidebar`}
               className="cursor-pointer"
               onCheckedChange={() => toggleChampions(!isChampions)}
             />
             <ControlFieldLabel
-              htmlFor={`champions-check`}
+              htmlFor={`champions-check-sidebar`}
               className="text-base"
             >
               챔피언스

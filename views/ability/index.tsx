@@ -2,8 +2,11 @@ import { Suspense } from 'react';
 
 import { getAllAbility } from '@/entities/ability/api';
 
-import MainContainer from './ui/main-container';
 import { PageContainer } from '@/shared/ui/container';
+
+import { AbilityFilterSheet, AbilityFilterSideBar } from './ui/ability-filter';
+import AbilitySearch from './ui/ability-search';
+import AbilityList from './ui/ability-list';
 
 export default async function AbilityPageView() {
   const abilities = await getAllAbility();
@@ -19,7 +22,18 @@ export default async function AbilityPageView() {
         </p>
       </div>
       <Suspense>
-        <MainContainer abilities={abilities} />
+        <div className="flex flex-col lg:flex-row lg:mt-8">
+          <section className="mr-10 xl:mr-18 hidden lg:block pr-5 3xl:pr-12 w-70 xl:w-80">
+            <AbilityFilterSideBar />
+          </section>
+          <section className="flex flex-col gap-y-3 w-full">
+            <div className="flex gap-x-2 w-full justify-between">
+              <AbilitySearch />
+              <AbilityFilterSheet />
+            </div>
+            <AbilityList abilities={abilities} />
+          </section>
+        </div>
       </Suspense>
     </PageContainer>
   );

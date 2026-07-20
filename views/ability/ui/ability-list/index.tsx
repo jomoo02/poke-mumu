@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import { DotIcon } from 'lucide-react';
 
@@ -5,27 +7,34 @@ import { cn } from '@/shared/lib/cn';
 import type { Ability } from '@/entities/ability/model';
 import { Card, CardContent, CardFooter } from '@/shared/ui/card';
 
+import useAbilityList from './useAbilityList';
+
 interface AbilityListProps {
   abilities: Ability[];
 }
 
 export default function AbilityList({ abilities }: AbilityListProps) {
-  if (abilities.length === 0) {
-    return (
-      <div className="font-medium text-muted-foreground">
-        일치하는 특성이 없습니다
-      </div>
-    );
-  }
+  const { filteredAbilities } = useAbilityList(abilities);
 
   return (
-    <ul className=" grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
-      {abilities.map((ability) => (
-        <li key={ability.identifier}>
-          <AbilityItem ability={ability} />
-        </li>
-      ))}
-    </ul>
+    <div className="flex flex-col gap-6">
+      <h2 aria-live="polite" className="text-sm text-foreground/70">
+        {filteredAbilities.length}개의 특성
+      </h2>
+      {filteredAbilities.length === 0 ? (
+        <div className="font-medium text-muted-foreground">
+          일치하는 특성이 없습니다
+        </div>
+      ) : (
+        <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+          {filteredAbilities.map((ability) => (
+            <li key={ability.identifier}>
+              <AbilityItem ability={ability} />
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -54,7 +63,6 @@ function AbilityItem({ ability }: AbilityProps) {
             </div>
           </div>
           <p
-            id="ability-flavorText"
             className={cn(
               'line-clamp-2 sm:line-clamp-3 break-keep flex-1 h-full text-md text-foreground/70',
             )}

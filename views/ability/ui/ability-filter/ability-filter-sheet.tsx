@@ -1,5 +1,8 @@
 'use client';
 
+import { SlidersHorizontalIcon } from 'lucide-react';
+import { useState } from 'react';
+
 import {
   ControlField,
   ControlFieldLabel,
@@ -15,14 +18,11 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/shared/ui/sheet';
-
-import useAbilityFilter from './useAbilityFilter';
 import { useIsMobile } from '@/shared/model/useMobile';
-import { SlidersHorizontalIcon } from 'lucide-react';
-import { useState } from 'react';
 import { FieldGroup } from '@/shared/ui/field';
 import { Checkbox } from '@/shared/ui/checkbox';
-import { cn } from '@/shared/lib/cn';
+
+import useAbilityFilter from './useAbilityFilter';
 
 export function AbilityFilterSheet() {
   const {
@@ -36,12 +36,14 @@ export function AbilityFilterSheet() {
   } = useAbilityFilter();
   const [open, setOpen] = useState(false);
   const isMobile = useIsMobile(768);
+
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={
           <ControlTriggerButton
             size={'icon'}
+            className="lg:hidden"
             variant={isActive ? 'active' : 'default'}
           >
             <SlidersHorizontalIcon className="size-4.5" />
@@ -91,13 +93,13 @@ export function AbilityFilterSheet() {
               <ControlField className="h-10.5">
                 <Checkbox
                   checked={isChampions}
-                  id={`champions-check`}
-                  name={`champions-check`}
+                  id={`champions-check-sheet`}
+                  name={`champions-check-sheet`}
                   className="cursor-pointer"
                   onCheckedChange={() => toggleChampions(!isChampions)}
                 />
                 <ControlFieldLabel
-                  htmlFor={`champions-check`}
+                  htmlFor={`champions-check-sheet`}
                   className="text-base"
                 >
                   챔피언스

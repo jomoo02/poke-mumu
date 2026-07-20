@@ -1,20 +1,16 @@
 'use client';
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import {
-  useCallback,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const SEARCH_DEBOUNCE_MS = 100;
 
 // 검색 상태를 한곳에서 관리한다.
-// - input: 즉시 반영되는 입력값 (URL의 search로 초기화)
-// - deferredInput: 목록 필터링용(렌더 지연으로 타이핑이 안 끊김)
+// - input: 입력창에 즉시 반영되는 값 (URL의 search로 초기화)
 // - 내부: 디바운스 + replace로 URL(search) 동기화 → 공유/새로고침 복원(히스토리 안 쌓임)
+//
+// 목록은 이 값을 직접 받지 않고 URL의 search를 읽는다. 즉 필터링은 디바운스 뒤에
+// 반영된다. URL 반영 후 렌더까지는 2~16ms(프로덕션 실측)라 체감 지연은 디바운스 값과 같다.
 export function useAbilitySearch() {
   const router = useRouter();
   const pathname = usePathname();
@@ -23,8 +19,6 @@ export function useAbilitySearch() {
   const urlSearch = searchParams.get('search') ?? '';
 
   const [input, setInput] = useState(urlSearch);
-
-  const deferredInput = useDeferredValue(input);
 
   // 디바운스로 '내가' 써넣은 값. URL→input 역동기화에서
   // 내 쓰기와 외부 변경(뒤로/앞으로 가기)을 구분하는 용도.
@@ -79,5 +73,5 @@ export function useAbilitySearch() {
     }
   }, [urlSearch]);
 
-  return { input, deferredInput, onInputChange, clearSearch };
+  return { input, onInputChange, clearSearch };
 }
