@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 
 import PokedexGameVersionGroupRegionPageView from '@/views/pokedex-game-version-group-region';
@@ -6,7 +5,6 @@ import {
   getRegionalDex,
   getAllRegionParams,
 } from '@/views/pokedex-game-version-group-region/api';
-import Loading from './loading';
 
 export async function generateStaticParams() {
   return getAllRegionParams();
@@ -26,8 +24,8 @@ export async function generateMetadata({
   const first = entries[0];
   const last = entries[entries.length - 1];
 
-  const title = `${regionKo} 도감 · ${versionGroupKo}`;
-  const description = `${versionGroupKo} · ${regionKo} 도감 · No.${first.dexNumber} ${first.nameKo} ~ No.${last.dexNumber} ${last.nameKo}, 총 ${entries.length}종`;
+  const title = `${versionGroupKo} 버전 ${regionKo} 도감`;
+  const description = `${versionGroupKo} 버전 ${regionKo} 도감 · No.${first.dexNumber} ${first.nameKo} ~ No.${last.dexNumber} ${last.nameKo}, 총 ${entries.length}종`;
   const url = `/pokedex/game/${versionGroup}/${region}`;
 
   return {

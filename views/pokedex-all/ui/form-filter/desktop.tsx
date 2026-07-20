@@ -33,7 +33,10 @@ export default function FormFilterDesktop() {
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         render={
-          <ControlTriggerButton variant={isActive ? 'active' : 'default'}>
+          <ControlTriggerButton
+            variant={isActive ? 'active' : 'default'}
+            data-scroll-item
+          >
             {triggerText}
           </ControlTriggerButton>
         }

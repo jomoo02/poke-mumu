@@ -40,7 +40,10 @@ export default function PokeSortMobile() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={
-          <ControlTriggerButton variant={isActive ? 'active' : 'default'}>
+          <ControlTriggerButton
+            variant={isActive ? 'active' : 'default'}
+            data-scroll-item
+          >
             {triggerText}
           </ControlTriggerButton>
         }
