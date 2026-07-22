@@ -53,7 +53,7 @@ function PageLayoutHeaderDescription({
     <p
       data-slot="page-layout-header-description"
       className={cn(
-        'break-keep text-balance text-foreground/70 whitespace-pre-line',
+        'break-keep text-pretty text-foreground/70 ',
         'max-w-[80%]',
         className,
       )}
@@ -75,10 +75,42 @@ function PageLayoutSection({
   );
 }
 
+function PageLayoutSectionTitle({
+  className,
+  ...props
+}: React.ComponentProps<'h2'>) {
+  return (
+    <h2
+      data-slot="page-layout-section"
+      className={cn('text-2xl font-bold tracking-wide break-keep', className)}
+      {...props}
+    />
+  );
+}
+
+function PageLayoutSectionDescription({
+  className,
+  ...props
+}: React.ComponentProps<'p'>) {
+  return (
+    <p
+      data-slot="page-layout-header-description"
+      className={cn(
+        'break-keep text-pretty text-foreground/70 ',
+        'max-w-[80%]',
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
 export {
   PageLayoutContainer,
   PageLayoutHeader,
   PageLayoutHeaderDescription,
   PageLayoutHeaderTitle,
   PageLayoutSection,
+  PageLayoutSectionTitle,
+  PageLayoutSectionDescription,
 };

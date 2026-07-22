@@ -1,19 +1,46 @@
 import { createClient } from '@/shared/lib/supabase/client';
-import type { Type } from '@/app/entities/type/model';
-import type { Poke } from '@/entities/poke/model';
 
-export interface AbilityPoke extends Poke {
-  pokeKey: string;
-  nameKo: string;
-  form: string | null;
-  dexNumber: number;
-  type1: Type;
-  type2: Type | null;
-  sprite: string;
-  isHidden: boolean;
+import type { AbilityPoke } from '../model/poke';
+
+interface AbilityPokeDto {
   slot: number | null;
-  isDefault: boolean;
+  is_hidden: boolean;
+  poke: {
+    dex_number: number;
+    poke_key: string;
+    name_ko: string;
+    form: {
+      name_ko: string;
+    } | null;
+    type1: {
+      identifier: string;
+      nameKo: string;
+    };
+    type2: {
+      identifier: string;
+      nameKo: string;
+    } | null;
+    sprite: string;
+    is_default: boolean;
+  };
 }
+
+const adaptAbilityPoke = (pokeDto: AbilityPokeDto): AbilityPoke => {
+  const { slot, is_hidden, poke } = pokeDto;
+
+  return {
+    form: poke?.form?.name_ko || null,
+    pokeKey: poke.poke_key,
+    nameKo: poke.name_ko,
+    dexNumber: poke.dex_number,
+    type1: poke.type1,
+    type2: poke.type2,
+    sprite: poke.sprite,
+    isDefault: poke.is_default,
+    isHidden: is_hidden,
+    slot: slot,
+  };
+};
 
 export async function getAbilityPokes(
   abilityId: number,
@@ -29,6 +56,7 @@ export async function getAbilityPokes(
       poke:poke_key (
         poke_key,
         name_ko,
+        dex_number,
         form: form_id (
           name_ko
         ),
@@ -41,10 +69,7 @@ export async function getAbilityPokes(
           nameKo:name_ko
         ),
         sprite,
-        is_default,
-        species:species_id (
-          dex_number
-        )
+        is_default
       )
       `,
     )
@@ -60,42 +85,13 @@ export async function getAbilityPokes(
     return [];
   }
 
-  const result: AbilityPoke[] = [];
-
-  for (const row of data) {
-    const poke = row.poke;
-
-    if (!poke || Array.isArray(poke)) continue;
-
-    const species = poke.species;
-
-    if (!species || Array.isArray(species)) continue;
-
-    result.push({
-      form: poke?.form?.name_ko || null,
-      pokeKey: poke.poke_key,
-      nameKo: poke.name_ko,
-      dexNumber: species.dex_number,
-      type1: poke.type1,
-      type2: poke.type2,
-      sprite: poke.sprite,
-      isDefault: poke.is_default,
-      isHidden: row.is_hidden,
-      slot: row.slot,
-    });
-  }
-
-  result.sort((a, b) => {
+  return data.map(adaptAbilityPoke).sort((a, b) => {
     if (a.dexNumber !== b.dexNumber) {
       return a.dexNumber - b.dexNumber;
     }
-
     if (a.isDefault !== b.isDefault) {
       return a.isDefault ? -1 : 1;
     }
-
     return 0;
   });
-
-  return result;
 }

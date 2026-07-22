@@ -25,13 +25,13 @@ export default function PokeList({ pokes }: PokeListProps) {
             poke={poke}
             formatLength={3}
             showForm={false}
-            className="sm:hidden"
+            className="sm:hidden min-w-0"
           />
           <PokeLinkDesktop
             poke={poke}
             formatLength={3}
             showForm={false}
-            className="hidden sm:flex"
+            className="hidden sm:flex min-w-0"
           />
         </Fragment>
       ))}

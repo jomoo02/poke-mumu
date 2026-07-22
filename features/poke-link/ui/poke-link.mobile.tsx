@@ -36,7 +36,7 @@ export function PokeLinkMobile({
           bg,
         )}
       />
-      <div className="flex gap-x-3.5 items-center">
+      <div className="flex gap-x-3.5 items-center w-full">
         <div
           className={cn(
             'bg-muted/50 rounded-2xl p-2',
@@ -45,26 +45,25 @@ export function PokeLinkMobile({
         >
           <PokeSprite poke={poke} className="size-11.5 2xs:size-12" />
         </div>
-        <div className="text-md flex font-medium tabular-nums text-foreground/70">
+        <div className="text-md flex font-medium tabular-nums text-foreground/70 truncate">
           {formatNumber(dexNumber, formatLength)}
         </div>
-        <div className="w-full overflow-hidden p-2 -m-2 flex flex-col justify-center">
+        <div className="flex-1 overflow-hidden p-2 -m-2 flex flex-col justify-center">
           <Link
             href={`/pokedex/${poke.pokeKey}`}
             className={cn(
-              ' truncate outline-none rounded-sm px-1 -mx-1',
+              'truncate outline-none rounded-sm px-1 -mx-1 min-w-0',
               'focus-visible:ring-[3px] focus-visible:ring-ring/50',
               'after:absolute after:-inset-1 after:z-10',
             )}
           >
             {nameKo}
           </Link>
-
           {showForm && (
             <div className="text-foreground/70 text-sm truncate">{form}</div>
           )}
         </div>
-        <div className="grid grid-cols-2 gap-1 items-center shrink-0">
+        <div className="grid grid-cols-2 gap-1 items-center">
           <TypeIcon type={type1} className="size-7 p-0.5 rounded-md " />
 
           {type2 && (
@@ -72,35 +71,6 @@ export function PokeLinkMobile({
           )}
         </div>
       </div>
-
-      {/* <Link
-        href={`/pokedex/${poke.pokeKey}`}
-        className={cn('flex items-center gap-x-3.5')}
-      >
-        <div className="flex gap-x-3.5 z-10 items-center flex-1">
-          <div className="bg-muted/50 rounded-2xl p-2">
-            <PokeSprite poke={poke} className="size-11.5 2xs:size-12" />
-          </div>
-          <div className="text-md flex font-medium tabular-nums text-foreground/70">
-            {formatNumber(dexNumber, formatLength)}
-          </div>
-          <div className="flex flex-col flex-1 overflow-hidden">
-            <div className="font-medium truncate">
-              {nameKo}sdsds;dls;ld;sld;sldls;ds
-            </div>
-            {showForm && (
-              <div className="text-foreground/70 text-sm truncate">{form}</div>
-            )}
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-1 items-center shrink-0">
-          <TypeIcon type={type1} className="size-7 p-0.5 rounded-md " />
-
-          {type2 && (
-            <TypeIcon type={type2} className="size-7 p-0.5 rounded-md" />
-          )}
-        </div>
-      </Link> */}
     </div>
   );
 }
