@@ -1,5 +1,6 @@
 'use client';
 
+import type { CompositionEvent } from 'react';
 import { SearchIcon, XIcon } from 'lucide-react';
 
 import {
@@ -13,20 +14,26 @@ import { cn } from '@/shared/lib/cn';
 interface PokeSearchInputProps {
   value: string;
   onChange: (value: string) => void;
+  /** 한글 조합이 끝났을 때 확정값을 반영한다. */
+  onCompositionEnd: (event: CompositionEvent<HTMLInputElement>) => void;
+  onClear: () => void;
 }
 
 export default function PokeSearchInput({
   value,
   onChange,
+  onCompositionEnd,
+  onClear,
 }: PokeSearchInputProps) {
   return (
     <InputGroup className="max-w-xl mx-auto h-11">
       <InputGroupInput
         value={value}
         onChange={(event) => onChange(event.target.value)}
+        onCompositionEnd={onCompositionEnd}
         autoComplete="off"
         aria-label="포켓몬 이름 또는 도감 번호 검색"
-        placeholder={'포켓몬 이\u200B름 또는 도감 번호'}
+        placeholder={'포켓몬 이​름 또는 도감 번호'}
       />
       <InputGroupAddon>
         <SearchIcon className="size-4.5" />
@@ -34,7 +41,7 @@ export default function PokeSearchInput({
       <InputGroupAddon align="inline-end">
         <InputGroupButton
           tabIndex={-1}
-          onClick={() => onChange('')}
+          onClick={onClear}
           aria-label="검색어 지우기"
           size="icon-sm"
           className={cn(value === '' ? 'hidden' : 'flex')}

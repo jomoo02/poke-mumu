@@ -3,21 +3,27 @@
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useMemo } from 'react';
 
-import { APPEARED_GENS, VALID_APPEARED_GENS } from '../../model/config';
+import {
+  APPEARED_GENS,
+  VALID_APPEARED_GENS,
+  SEARCH_PARAMS,
+} from '../../config';
 
-// 필터는 URL만 조작한다. 목록은 같은 URL을 읽어 스스로 걸러낸다.
 export default function useAbilityFilter() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
 
   const selectedAppearedGens = useMemo(() => {
-    const raw = searchParams.getAll('appeared');
+    const raw = searchParams.getAll(SEARCH_PARAMS.APPEARED);
     const gens = raw.map(Number).filter((n) => VALID_APPEARED_GENS.has(n));
+
     return new Set(gens);
   }, [searchParams]);
 
-  const isChampions = searchParams.get('champions') === '1';
+  const isChampions = searchParams.get(SEARCH_PARAMS.CHAMPIONS) === '1';
+
+  const isActive = selectedAppearedGens.size > 0 || isChampions;
 
   const commit = useCallback(
     (params: URLSearchParams) => {
@@ -45,9 +51,11 @@ export default function useAbilityFilter() {
 
       const params = new URLSearchParams(searchParams.toString());
 
-      params.delete('appeared');
+      params.delete(SEARCH_PARAMS.APPEARED);
 
-      [...next].forEach((g) => params.append('appeared', String(g)));
+      [...next].forEach((g) =>
+        params.append(SEARCH_PARAMS.APPEARED, String(g)),
+      );
 
       commit(params);
     },
@@ -59,9 +67,9 @@ export default function useAbilityFilter() {
       const params = new URLSearchParams(searchParams.toString());
 
       if (on) {
-        params.set('champions', '1');
+        params.set(SEARCH_PARAMS.CHAMPIONS, '1');
       } else {
-        params.delete('champions');
+        params.delete(SEARCH_PARAMS.CHAMPIONS);
       }
 
       commit(params);
@@ -72,13 +80,11 @@ export default function useAbilityFilter() {
   const resetFilter = useCallback(() => {
     const params = new URLSearchParams(searchParams.toString());
 
-    params.delete('appeared');
-    params.delete('champions');
+    params.delete(SEARCH_PARAMS.APPEARED);
+    params.delete(SEARCH_PARAMS.CHAMPIONS);
 
     commit(params);
   }, [searchParams, commit]);
-
-  const isActive = selectedAppearedGens.size > 0 || isChampions;
 
   return {
     selectedAppearedGens,

@@ -34,7 +34,9 @@ export function AbilityFilterSheet() {
     resetFilter,
     gens,
   } = useAbilityFilter();
+
   const [open, setOpen] = useState(false);
+
   const isMobile = useIsMobile(768);
 
   return (
@@ -43,10 +45,11 @@ export function AbilityFilterSheet() {
         render={
           <ControlTriggerButton
             size={'icon'}
-            className="lg:hidden"
+            className="lg:hidden w-auto"
             variant={isActive ? 'active' : 'default'}
           >
-            <SlidersHorizontalIcon className="size-4.5" />
+            <SlidersHorizontalIcon className="size-4.25" />
+            필터
           </ControlTriggerButton>
         }
       />
@@ -83,6 +86,7 @@ export function AbilityFilterSheet() {
               ))}
             </FieldGroup>
           </div>
+
           <div className="hidden group-data-[side=right]:block w-full h-px bg-border my-0.5" />
 
           <div className="flex flex-col gap-2">

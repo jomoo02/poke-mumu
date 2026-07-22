@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, type CompositionEvent } from 'react';
 import { RotateCwIcon } from 'lucide-react';
 
 import type { Type } from '@/entities/type/model';
@@ -17,6 +17,8 @@ import PokeSort from '../poke-sort';
 interface PokedexToolbarProps {
   searchValue: string;
   onSearchChange: (value: string) => void;
+  onSearchCompositionEnd: (event: CompositionEvent<HTMLInputElement>) => void;
+  onSearchClear: () => void;
   types: Type[];
   isActive: boolean;
   onResetFilters: () => void;
@@ -26,6 +28,8 @@ interface PokedexToolbarProps {
 export default function PokedexToolbar({
   searchValue,
   onSearchChange,
+  onSearchCompositionEnd,
+  onSearchClear,
   types,
   isActive,
   onResetFilters,
@@ -50,7 +54,12 @@ export default function PokedexToolbar({
 
   return (
     <div className="flex flex-col gap-3 sm:gap-6">
-      <PokeSearchInput value={searchValue} onChange={onSearchChange} />
+      <PokeSearchInput
+        value={searchValue}
+        onChange={onSearchChange}
+        onCompositionEnd={onSearchCompositionEnd}
+        onClear={onSearchClear}
+      />
       <div className="flex flex-col md:flex-row md:justify-between gap-3 md:items-center">
         <div
           ref={toolbarRef}

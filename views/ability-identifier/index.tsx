@@ -2,6 +2,13 @@ import { DotIcon } from 'lucide-react';
 
 import { PageContainer } from '@/shared/ui/container';
 import { getAbility } from '@/entities/ability/api';
+import {
+  PageLayoutContainer,
+  PageLayoutHeader,
+  PageLayoutHeaderDescription,
+  PageLayoutSection,
+  PageLayoutHeaderTitle,
+} from '@/shared/ui/page-layout';
 
 import { getAbilityPokes } from './api';
 import PokeList from './ui/poke-list';
@@ -22,9 +29,9 @@ export default async function AbilityIdentifierView({
   const pokes = await getAbilityPokes(ability.id);
 
   return (
-    <PageContainer>
-      <div>
-        <h1 className="text-4xl font-bold tracking-tight">{ability.nameKo}</h1>
+    <PageLayoutContainer>
+      <PageLayoutHeader>
+        <PageLayoutHeaderTitle>{ability.nameKo}</PageLayoutHeaderTitle>
         <div className="pt-3 flex items-center text-lg">
           <span>{ability.nameEn}</span>
           <DotIcon className="size-4.5" />
@@ -33,7 +40,7 @@ export default async function AbilityIdentifierView({
         <p className="pt-6 md:max-w-[80%] text-pretty break-keep">
           {ability.flavorText}
         </p>
-      </div>
+      </PageLayoutHeader>
       {ability.gen && (
         <div>
           <h2 className="text-2xl font-bold tracking-wide mt-10">첫 등장</h2>
@@ -41,6 +48,6 @@ export default async function AbilityIdentifierView({
         </div>
       )}
       <PokeList pokes={pokes} abilityName={ability.nameKo} />
-    </PageContainer>
+    </PageLayoutContainer>
   );
 }

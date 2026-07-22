@@ -22,8 +22,8 @@ export default async function PokedexAllPageView() {
       <div className="mb-4">
         <h1 className="text-4xl font-bold tracking-tight">전국도감</h1>
         <div className="flex pt-4 flex-wrap text-foreground/70">
-          <p className=" break-keep text-pretty">{statLegendLine1}</p>
-          <p className=" break-keep text-pretty">{statLegendLine2}</p>
+          <p className="break-keep text-pretty">{statLegendLine1}</p>
+          <p className="break-keep text-pretty">{statLegendLine2}</p>
         </div>
       </div>
       <Suspense>

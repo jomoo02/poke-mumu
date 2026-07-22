@@ -52,7 +52,9 @@ export function AbilityFilterSideBar() {
           ))}
         </FieldGroup>
       </div>
+
       <div className="w-full h-px bg-border" />
+
       <div className="flex flex-col gap-3">
         <div className="text-lg font-semibold">분류</div>
         <FieldGroup>

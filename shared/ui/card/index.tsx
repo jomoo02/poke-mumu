@@ -1,34 +1,49 @@
+import { mergeProps, useRender } from '@base-ui/react';
+import { cva, VariantProps } from 'class-variance-authority';
+
 import { cn } from '@/shared/lib/cn';
 
-type CardVariant = 'bordered' | 'borderless';
+const cardVariants = cva(
+  'rounded-4xl py-5 flex flex-col overflow-hidden gap-5 bg-card border h-full w-full group',
+  {
+    variants: {
+      variant: {
+        default: '',
+        link: 'focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring outline-none hover:bg-accent',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  },
+);
 
 function Card({
-  children,
   className,
-  variant = 'bordered',
-}: {
-  children: React.ReactNode;
-  className?: string;
-  variant?: CardVariant;
-}) {
-  const cardVariantsMap: Record<CardContentVariant, string> = {
-    bordered: 'ring ring-border',
-    borderless: '',
-  };
-
-  const cardVariant = cardVariantsMap[variant];
-
-  return (
-    <div
-      className={cn(
-        'rounded-4xl py-5 flex flex-col overflow-hidden gap-5 bg-card',
-        cardVariant,
-        className,
-      )}
-    >
-      {children}
-    </div>
-  );
+  variant = 'default',
+  render,
+  ...props
+}: useRender.ComponentProps<'div'> & VariantProps<typeof cardVariants>) {
+  return useRender({
+    defaultTagName: 'div',
+    render,
+    props: mergeProps<'div'>(
+      {
+        className: cn(cardVariants({ variant, className })),
+      },
+      props,
+    ),
+  });
+  // return (
+  //   <div
+  //     className={cn(
+  //       'rounded-4xl py-5 flex flex-col overflow-hidden gap-5 bg-card border',
+  //       className,
+  //     )}
+  //   >
+  //     {children}
+  //   </div>
+  // );
 }
 
 function CardHeader({
