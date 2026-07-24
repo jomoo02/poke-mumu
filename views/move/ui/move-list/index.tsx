@@ -51,16 +51,12 @@ interface MoveItemProps {
   move: Move;
 }
 
-const MoveItem = memo(function MoveItem({ move }: MoveItemProps) {
+function MoveItem({ move }: MoveItemProps) {
   return (
     <Card
       variant={'link'}
       render={<Link href={`/move/${move.identifier}`} />}
-      className="h-55.5"
-      // style={{
-      //   contentVisibility: 'auto',
-      //   containIntrinsicSize: 'auto 13.875rem',
-      // }}
+      className="h-50"
     >
       <CardHeader>
         <CardTitle className="flex justify-between items-start gap-x-2">
@@ -86,30 +82,31 @@ const MoveItem = memo(function MoveItem({ move }: MoveItemProps) {
       <CardContent>
         <CardGroup>
           <div className="grid grid-cols-3 gap-3">
-            <div className="flex flex-col gap-0.5">
-              <div className="text-sm font-medium text-foreground/70">위력</div>
-              <div className="text-md tabular-nums">
-                {move.power ? move.power : '-'}
-              </div>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <div className="text-sm font-medium text-foreground/70">
-                명중률
-              </div>
-              <div className="text-md tabular-nums">{move.accuracy ?? '-'}</div>
-            </div>
-            <div className="flex flex-col gap-0.5">
-              <div className="text-sm font-medium text-foreground/70">PP</div>
-              <div className="text-md tabular-nums">{move.pp ?? '-'}</div>
-            </div>
+            <MoveItemValue subject="위력" value={move.power} />
+            <MoveItemValue subject="명중률" value={move.accuracy} />
+            <MoveItemValue subject="PP" value={move.pp} />
           </div>
         </CardGroup>
         <CardGroup>
-          <p className="text-md text-muted-foreground break-keep line-clamp-2">
+          <p className="text-md  text-balance text-muted-foreground break-keep line-clamp-2">
             {move.description}
           </p>
         </CardGroup>
       </CardContent>
     </Card>
   );
-});
+}
+
+interface MoveItemValueProps {
+  subject: string;
+  value: string | number | null;
+}
+
+function MoveItemValue({ subject, value }: MoveItemValueProps) {
+  return (
+    <p className="text-md">
+      <span className="text-foreground/70">{`${subject}: `}</span>
+      <span>{value ? value : '-'}</span>
+    </p>
+  );
+}

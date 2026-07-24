@@ -44,7 +44,7 @@ export default function MobilePagination({
         <SelectValue>{`${page} / ${totalPages} Page`}</SelectValue>
       </SelectTrigger>
       <SelectContent
-        className="no-scrollbar max-h-100"
+        className="no-scrollbar max-h-70"
         // alignItemWithTrigger={false}
       >
         <SelectGroup>

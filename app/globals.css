@@ -322,10 +322,6 @@
     @apply opacity-60 md:opacity-100;
   }
 
-  html {
-    @apply scroll-mt-14;
-  }
-
   ::selection {
     @apply bg-primary text-primary-foreground;
   }
@@ -334,7 +330,9 @@
     @apply bg-background text-foreground font-suit;
   }
 }
-
+html {
+  scroll-padding-top: 56px;
+}
 @utility text-md {
   font-size: var(--font-size-md);
   line-height: var(--line-height-md);

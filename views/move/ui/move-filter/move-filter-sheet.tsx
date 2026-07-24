@@ -89,7 +89,7 @@ export function MoveFilterSheet({
                   />
                   <ControlFieldLabel
                     htmlFor={`type-${type.identifier}-sheet`}
-                    className="text-base flex items-center gap-x-2"
+                    className="text-md flex items-center gap-x-2"
                   >
                     <TypeIcon type={type} className="size-7 p-0.5 rounded-md" />
                     {type.nameKo}
@@ -119,7 +119,7 @@ export function MoveFilterSheet({
                   />
                   <ControlFieldLabel
                     htmlFor={`class-${damageClass.identifier}-sheet`}
-                    className="text-base flex items-center gap-x-2"
+                    className="text-md flex items-center gap-x-2"
                   >
                     <DamageClassIconV2
                       damageClass={damageClass.identifier}

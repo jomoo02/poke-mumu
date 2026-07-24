@@ -69,23 +69,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <html
-        lang="ko"
-        suppressHydrationWarning
-        className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
-      >
-        <body className={`antialiased`}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TooltipProvider>{children}</TooltipProvider>
-          </ThemeProvider>
-        </body>
-      </html>
-    </>
+    <html
+      lang="ko"
+      suppressHydrationWarning
+      className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
+    >
+      <body className={`antialiased`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <TooltipProvider>{children}</TooltipProvider>
+        </ThemeProvider>
+      </body>
+    </html>
   );
 }

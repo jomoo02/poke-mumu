@@ -73,7 +73,7 @@ export default function MoveSort() {
             <SelectItem
               key={option.value}
               value={option.value}
-              className="h-10.5"
+              className="h-10.5 cursor-pointer"
             >
               {option.label}
             </SelectItem>
