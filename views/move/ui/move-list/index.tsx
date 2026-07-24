@@ -34,7 +34,7 @@ export default function MoveList({ moves }: MoveListProps) {
           일치하는 기술이 없습니다
         </div>
       ) : (
-        <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
+        <ul className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 auto-rows-55.5">
           {filteredMoves.map((move) => (
             <li key={move.identifier}>
               <MoveItem move={move} />
@@ -56,6 +56,10 @@ const MoveItem = memo(function MoveItem({ move }: MoveItemProps) {
       variant={'link'}
       render={<Link href={`/move/${move.identifier}`} />}
       className="h-55.5"
+      style={{
+        contentVisibility: 'auto',
+        containIntrinsicSize: 'auto 13.875rem',
+      }}
     >
       <CardHeader>
         <CardTitle className="flex justify-between items-start gap-x-2">
