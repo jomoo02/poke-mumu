@@ -23,7 +23,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
             <AppSidebar />
           </Suspense> */}
 
-      <main className="flex flex-1 flex-col  w-full">{children}</main>
+      <main className="flex flex-1 flex-col w-full">{children}</main>
 
       {/* <div id="ttt" className="sticky top-14 z-60" /> */}
     </div>

@@ -21,5 +21,10 @@ const VALID_SORT_VALUES: ReadonlySet<string> = new Set(
   SORT_OPTIONS.map((option) => option.value),
 );
 
-export { SEARCH_PARAMS, SORT_OPTIONS, DEFAULT_SORT, VALID_SORT_VALUES };
-export type { SortValue };
+export {
+  SEARCH_PARAMS,
+  SORT_OPTIONS,
+  DEFAULT_SORT,
+  VALID_SORT_VALUES,
+  type SortValue,
+};

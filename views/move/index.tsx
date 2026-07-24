@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 
-import { getAllDamageClass } from '@/app/entities/damage-class/api';
+import { getAllDamageClass } from '@/entities/damage-class/api';
 import { getAllRecentMoves } from '@/entities/move/api';
 import { getAllType } from '@/entities/type/api';
 import {
@@ -23,7 +23,7 @@ export default async function MoveView() {
     getAllType(),
     getAllDamageClass(),
   ]);
-  // console.log(searchParams);
+
   const types = allType.filter((type) => type.identifier !== 'unknown');
 
   return (
@@ -34,12 +34,14 @@ export default async function MoveView() {
           모든 기술 목록
         </PageLayoutHeaderDescription>
       </PageLayoutHeader>
-      <Suspense>
-        <div className="flex flex-col lg:flex-row">
-          <PageLayoutSection className="mr-10 xl:mr-18 hidden lg:block pr-4 3xl:pr-8 w-70 xl:w-80 3xl:w-88">
+      <div className="flex flex-col lg:flex-row">
+        <PageLayoutSection className="mr-10 xl:mr-18 hidden lg:block pr-4 3xl:pr-8 w-70 xl:w-80 3xl:w-88">
+          <Suspense>
             <MoveFilterSideBar types={types} damageClasses={damageClasses} />
-          </PageLayoutSection>
-          <PageLayoutSection className="flex flex-col gap-y-3 w-full">
+          </Suspense>
+        </PageLayoutSection>
+        <PageLayoutSection className="flex flex-col gap-y-3 w-full">
+          <Suspense>
             <div className="flex gap-x-2 gap-y-3 w-full flex-col sm:flex-row sm:justify-between">
               <MoveSearch />
               <div className="flex gap-x-2 justify-between">
@@ -47,12 +49,12 @@ export default async function MoveView() {
                 <MoveFilterSheet types={types} damageClasses={damageClasses} />
               </div>
             </div>
-            <Suspense fallback={<MoveListSkeleton count={moves.length} />}>
-              <MoveList moves={moves} />
-            </Suspense>
-          </PageLayoutSection>
-        </div>
-      </Suspense>
+          </Suspense>
+          <Suspense fallback={<MoveListSkeleton count={moves.length} />}>
+            <MoveList moves={moves} />
+          </Suspense>
+        </PageLayoutSection>
+      </div>
     </PageLayoutContainer>
   );
 }

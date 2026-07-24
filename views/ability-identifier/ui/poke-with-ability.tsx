@@ -32,7 +32,7 @@ export default function PokeWithAbility({
           {description}
         </PageLayoutSectionDescription>
       </div>
-      <div className="grid lg:grid-cols-2 gap-x-32 mt-3 gap-y-6">
+      <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-32 mt-3 gap-y-6">
         <PokeList type="normal" pokes={normalPokes} />
         <PokeList type="hidden" pokes={hiddenPokes} />
       </div>
@@ -56,7 +56,7 @@ function PokeList({ type, pokes }: PokeListProps) {
       )}
     >
       <h3 className="text-xl font-semibold">{title}</h3>
-      <div className="flex flex-col gap-4 sm:max-w-lg mx-auto w-full lg:mx-0">
+      <div className="flex flex-col gap-4 sm:max-w-md mx-auto w-full md:mx-0">
         {pokes.map((poke) => (
           <PokeLinkMobile key={poke.pokeKey} poke={poke} />
         ))}

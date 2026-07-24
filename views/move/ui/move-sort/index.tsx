@@ -17,13 +17,11 @@ import {
   DEFAULT_SORT,
   VALID_SORT_VALUES,
 } from '../../config';
-import { useState } from 'react';
 
 export default function MoveSort() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
 
   const raw = searchParams.get(SEARCH_PARAMS.SORT) ?? DEFAULT_SORT;
   const value = VALID_SORT_VALUES.has(raw) ? raw : DEFAULT_SORT;
@@ -49,16 +47,10 @@ export default function MoveSort() {
   };
 
   return (
-    <Select
-      value={value}
-      onValueChange={handleValueChange}
-      // open={open}
-      // onOpenChange={setOpen}
-    >
+    <Select value={value} onValueChange={handleValueChange}>
       <SelectTrigger
         aria-label="정렬 기준"
-        // data-open={open}
-        className="h-10.5 min-h-10.5 max-h-10.5 shrink-0  bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input w-[144px] transition-none"
+        className="h-10.5 min-h-10.5 max-h-10.5 shrink-0 bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input w-36"
       >
         <SelectValue>
           {(current: string) =>

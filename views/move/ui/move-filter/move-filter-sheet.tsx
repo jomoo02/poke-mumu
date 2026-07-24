@@ -3,8 +3,8 @@
 import { SlidersHorizontalIcon } from 'lucide-react';
 import { useState } from 'react';
 
-import { DamageClassIconV2 } from '@/app/entities/damage-class/ui';
-import type { DamageClassEntity } from '@/app/entities/damage-class/model';
+import type { DamageClass } from '@/entities/damage-class/model';
+import { DamageClassIcon } from '@/entities/damage-class/ui';
 import { TypeIcon } from '@/entities/type/ui';
 import type { Type } from '@/entities/type/model';
 import {
@@ -30,7 +30,7 @@ import useMoveFilter from './useMoveFilter';
 
 interface MoveFilterSheetProps {
   types: Type[];
-  damageClasses: DamageClassEntity[];
+  damageClasses: DamageClass[];
 }
 
 export function MoveFilterSheet({
@@ -87,11 +87,8 @@ export function MoveFilterSheet({
                     className="cursor-pointer"
                     onCheckedChange={() => toggleType(type.identifier)}
                   />
-                  <ControlFieldLabel
-                    htmlFor={`type-${type.identifier}-sheet`}
-                    className="text-md flex items-center gap-x-2"
-                  >
-                    <TypeIcon type={type} className="size-7 p-0.5 rounded-md" />
+                  <ControlFieldLabel htmlFor={`type-${type.identifier}-sheet`}>
+                    <TypeIcon type={type} />
                     {type.nameKo}
                   </ControlFieldLabel>
                 </ControlField>
@@ -119,12 +116,8 @@ export function MoveFilterSheet({
                   />
                   <ControlFieldLabel
                     htmlFor={`class-${damageClass.identifier}-sheet`}
-                    className="text-md flex items-center gap-x-2"
                   >
-                    <DamageClassIconV2
-                      damageClass={damageClass.identifier}
-                      className="size-7 p-0.75 rounded-md"
-                    />
+                    <DamageClassIcon damageClass={damageClass} />
                     {damageClass.nameKo}
                   </ControlFieldLabel>
                 </ControlField>

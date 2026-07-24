@@ -115,36 +115,13 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
     unknown: 'bg-unknown dark:bg-unknown/80',
   };
 
-  const shadowVariants: Record<string, string> = {
-    normal: 'shadow-normal/50',
-    fire: 'shadow-fire/50',
-    water: 'shadow-water/50',
-    grass: 'shadow-grass/50',
-    electric: 'shadow-electric/50',
-    ice: 'shadow-ice/50',
-    fighting: 'shadow-fighting/50',
-    poison: 'shadow-poison/50',
-    ground: 'shadow-ground/50',
-    flying: 'shadow-flying/50',
-    psychic: 'shadow-psychic/50',
-    bug: 'shadow-bug/50',
-    rock: 'shadow-rock/50',
-    ghost: 'shadow-ghost/50',
-    dragon: 'shadow-dragon/50',
-    dark: 'shadow-dark/50',
-    steel: 'shadow-steel/50',
-    fairy: 'shadow-fairy/50',
-    unknown: 'shadow-unknown/50',
-  };
-
   const bg = bgVariants[type.identifier] || bgVariants.unknown;
-  const shadowColor = shadowVariants[type.identifier] || shadowVariants.unknown;
 
   if (type.identifier === 'unknown') {
     return (
       <div
         className={cn(
-          'size-7.5 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center text-center',
+          'size-7 text-sm bg-emerald-800 text-white font-extrabold rounded-md p-0.5 flex items-center justify-center text-center',
           className,
         )}
       >
@@ -157,7 +134,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
       className={cn(
         'size-7 rounded-md flex items-center justify-center p-0.5',
         bg,
-        // shadowColor,
+
         className,
       )}
     >
@@ -165,8 +142,6 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
         src={`/type/${type.identifier}.png`}
         width={24}
         height={24}
-        // sizes="100vw"
-        // style={{ width: '100%', height: 'auto' }}
         alt={type.identifier}
       />
     </div>

@@ -1,7 +1,7 @@
 'use client';
 
-import { DamageClassIconV2 } from '@/app/entities/damage-class/ui';
-import type { DamageClassEntity } from '@/app/entities/damage-class/model';
+import type { DamageClass } from '@/entities/damage-class/model';
+import { DamageClassIcon } from '@/entities/damage-class/ui';
 import { TypeIcon } from '@/entities/type/ui';
 import type { Type } from '@/entities/type/model';
 import {
@@ -16,7 +16,7 @@ import useMoveFilter from './useMoveFilter';
 
 interface MoveFilterSideBarProps {
   types: Type[];
-  damageClasses: DamageClassEntity[];
+  damageClasses: DamageClass[];
 }
 
 export function MoveFilterSideBar({
@@ -53,11 +53,8 @@ export function MoveFilterSideBar({
                 className="cursor-pointer"
                 onCheckedChange={() => toggleType(type.identifier)}
               />
-              <ControlFieldLabel
-                htmlFor={`type-${type.identifier}-sidebar`}
-                className="text-md flex items-center gap-x-2.5"
-              >
-                <TypeIcon type={type} className="size-7 p-0.5 rounded-md" />
+              <ControlFieldLabel htmlFor={`type-${type.identifier}-sidebar`}>
+                <TypeIcon type={type} />
                 {type.nameKo}
               </ControlFieldLabel>
             </ControlField>
@@ -83,12 +80,8 @@ export function MoveFilterSideBar({
               />
               <ControlFieldLabel
                 htmlFor={`class-${damageClass.identifier}-sidebar`}
-                className="text-md flex items-center gap-x-2.5"
               >
-                <DamageClassIconV2
-                  damageClass={damageClass.identifier}
-                  className="size-7 p-0.75 rounded-md"
-                />
+                <DamageClassIcon damageClass={damageClass} />
                 {damageClass.nameKo}
               </ControlFieldLabel>
             </ControlField>

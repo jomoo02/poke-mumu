@@ -1,14 +1,10 @@
 'use client';
 
-import { memo } from 'react';
 import Link from 'next/link';
 
-import {
-  DamageClassIconV2,
-  DamageClassIconV3,
-} from '@/app/entities/damage-class/ui';
 import type { Move } from '@/entities/move/model';
-import { TypeIcon, TypeIconV3 } from '@/entities/type/ui';
+import { TypeIcon } from '@/entities/type/ui';
+import { DamageClassIcon } from '@/entities/damage-class/ui';
 import {
   Card,
   CardHeader,
@@ -67,11 +63,12 @@ function MoveItem({ move }: MoveItemProps) {
                 identifier: move.typeIdentifier,
                 nameKo: move.typeNameKo,
               }}
-              className="size-7 p-0.5 rounded-md"
             />
-            <DamageClassIconV2
-              damageClass={move.damageClassIdentifier}
-              className="size-7 p-0.75 rounded-md"
+            <DamageClassIcon
+              damageClass={{
+                identifier: move.damageClassIdentifier,
+                nameKo: move.damageClassNameKo,
+              }}
             />
           </div>
         </CardTitle>
@@ -88,7 +85,7 @@ function MoveItem({ move }: MoveItemProps) {
           </div>
         </CardGroup>
         <CardGroup>
-          <p className="text-md  text-balance text-muted-foreground break-keep line-clamp-2">
+          <p className="text-md text-balance text-muted-foreground break-keep line-clamp-2">
             {move.description}
           </p>
         </CardGroup>
