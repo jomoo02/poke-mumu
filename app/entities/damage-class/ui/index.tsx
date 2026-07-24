@@ -108,7 +108,12 @@ export function DamageClassIconV2({
 }: DamageClassIconProps) {
   if (!damageClass || !isValidDamageClass(damageClass)) {
     return (
-      <div className="size-7.5 rounded-lg border bg-emerald-800 text-white justify-center items-center">
+      <div
+        className={cn(
+          'size-7.5 rounded-lg bg-purple-700 text-white justify-center items-center flex',
+          className,
+        )}
+      >
         ?
       </div>
     );
@@ -141,10 +146,11 @@ export function DamageClassIconV2({
       <Image
         src={src}
         alt={damageClass}
-        width={22}
-        height={17}
         priority
-        style={{ width: 22, height: 17 }}
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{ width: '100%', height: 'auto' }}
       />
     </div>
   );

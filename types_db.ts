@@ -1585,6 +1585,7 @@ export type Database = {
           damage_class_id: number | null
           damage_class_identifier: string | null
           damage_class_name_ko: string | null
+          description: string | null
           generation: number | null
           id: number | null
           identifier: string | null

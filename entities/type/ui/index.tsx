@@ -144,7 +144,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
     return (
       <div
         className={cn(
-          'size-7.5 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center',
+          'size-7.5 text-sm bg-emerald-800 text-white font-extrabold rounded-lg p-1 flex items-center justify-center text-center',
           className,
         )}
       >
@@ -163,6 +163,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
     >
       <Image
         src={`/type/${type.identifier}.png`}
+        priority
         width={0}
         height={0}
         sizes="100vw"
