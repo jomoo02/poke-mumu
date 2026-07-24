@@ -52,13 +52,13 @@ export default function MoveSort() {
     <Select
       value={value}
       onValueChange={handleValueChange}
-      open={open}
-      onOpenChange={setOpen}
+      // open={open}
+      // onOpenChange={setOpen}
     >
       <SelectTrigger
         aria-label="정렬 기준"
-        data-open={open}
-        className="h-10.5 min-h-10.5 max-h-10.5 shrink-0 group bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input w-[144px]"
+        // data-open={open}
+        className="h-10.5 min-h-10.5 max-h-10.5 shrink-0  bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input w-[144px] transition-none"
       >
         <SelectValue>
           {(current: string) =>
@@ -67,7 +67,7 @@ export default function MoveSort() {
           }
         </SelectValue>
       </SelectTrigger>
-      <SelectContent alignItemWithTrigger={false} className="transition-none">
+      <SelectContent>
         <SelectGroup>
           {SORT_OPTIONS.map((option) => (
             <SelectItem

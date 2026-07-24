@@ -15,6 +15,7 @@ import { MoveFilterSheet, MoveFilterSideBar } from './ui/move-filter';
 import MoveSearch from './ui/move-search';
 import MoveSort from './ui/move-sort';
 import MoveList from './ui/move-list';
+import MoveListSkeleton from './ui/move-list/skeleton';
 
 export default async function MoveView() {
   const [moves, allType, damageClasses] = await Promise.all([
@@ -22,7 +23,7 @@ export default async function MoveView() {
     getAllType(),
     getAllDamageClass(),
   ]);
-
+  // console.log(searchParams);
   const types = allType.filter((type) => type.identifier !== 'unknown');
 
   return (
@@ -44,7 +45,9 @@ export default async function MoveView() {
               <MoveSort />
               <MoveFilterSheet types={types} damageClasses={damageClasses} />
             </div>
-            <MoveList moves={moves} />
+            <Suspense fallback={<MoveListSkeleton count={moves.length} />}>
+              <MoveList moves={moves} />
+            </Suspense>
           </PageLayoutSection>
         </div>
       </Suspense>

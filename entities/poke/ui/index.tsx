@@ -35,7 +35,6 @@ export function PokeSprite({
         style={{
           objectFit: 'contain',
         }}
-        priority={priority}
       />
     </div>
   );

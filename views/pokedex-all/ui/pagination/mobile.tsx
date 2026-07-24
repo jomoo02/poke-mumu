@@ -44,8 +44,8 @@ export default function MobilePagination({
         <SelectValue>{`${page} / ${totalPages} Page`}</SelectValue>
       </SelectTrigger>
       <SelectContent
-        className="no-scrollbar max-h-70"
-        alignItemWithTrigger={false}
+        className="no-scrollbar max-h-100"
+        // alignItemWithTrigger={false}
       >
         <SelectGroup>
           {Array.from({ length: totalPages }, (_, index) => index + 1).map(

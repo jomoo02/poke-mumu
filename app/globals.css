@@ -322,6 +322,14 @@
     @apply opacity-60 md:opacity-100;
   }
 
+  html {
+    @apply scroll-mt-14;
+  }
+
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+
   body {
     @apply bg-background text-foreground font-suit;
   }

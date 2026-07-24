@@ -138,7 +138,7 @@ export function DamageClassIconV2({
     <div
       className={cn(
         'relative',
-        'size-7.5 rounded-lg flex justify-center items-center p-1 shadow-sm',
+        'size-7 rounded-md flex justify-center items-center p-0.75',
         bg,
         className,
       )}
@@ -147,11 +147,58 @@ export function DamageClassIconV2({
         src={src}
         alt={damageClass}
         priority
-        width={0}
-        height={0}
-        sizes="100vw"
-        style={{ width: '100%', height: 'auto' }}
+        width={22}
+        height={18}
+        // sizes="100vw"
+        // style={{ width: '100%', height: 'auto' }}
       />
     </div>
+  );
+}
+
+export function DamageClassIconV3({
+  damageClass,
+  className,
+  damageClassEntity,
+}: DamageClassIconProps) {
+  if (!damageClass || !isValidDamageClass(damageClass)) {
+    return (
+      <div
+        className={cn(
+          'size-7 rounded-lg bg-purple-700 text-white justify-center items-center flex',
+          className,
+        )}
+      >
+        ?
+      </div>
+    );
+  }
+
+  const srcMap: Record<DamageClass, string> = {
+    physical: '/damage-class/physical.png',
+    special: '/damage-class/special.png',
+    status: '/damage-class/status.png',
+  };
+
+  const bgMap: Record<DamageClass, string> = {
+    physical: 'bg-orange-500 dark:bg-orange-400',
+    special: 'bg-sky-500',
+    status: 'bg-zinc-500',
+  };
+
+  const bg = bgMap[damageClass];
+  const src = srcMap[damageClass];
+
+  return (
+    <div
+      role="img"
+      aria-label={damageClass}
+      className={cn(
+        'size-7.5 rounded-lg bg-center bg-no-repeat bg-[length:70%]',
+        bgMap[damageClass],
+        className,
+      )}
+      style={{ backgroundImage: `url(/damage-class/${damageClass}.png)` }}
+    />
   );
 }

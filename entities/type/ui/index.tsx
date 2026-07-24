@@ -155,7 +155,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
   return (
     <div
       className={cn(
-        'size-7.5 rounded-lg flex items-center justify-center p-0.75',
+        'size-7 rounded-md flex items-center justify-center p-0.5',
         bg,
         // shadowColor,
         className,
@@ -163,11 +163,10 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
     >
       <Image
         src={`/type/${type.identifier}.png`}
-        priority
-        width={0}
-        height={0}
-        sizes="100vw"
-        style={{ width: '100%', height: 'auto' }}
+        width={24}
+        height={24}
+        // sizes="100vw"
+        // style={{ width: '100%', height: 'auto' }}
         alt={type.identifier}
       />
     </div>
@@ -216,5 +215,49 @@ export function TypeText({ type, className }: TypeBadgeProps) {
         {content}
       </span>
     </div>
+  );
+}
+
+export function TypeIconV3({ type, className }: TypeBadgeProps) {
+  const bgVariants: Record<string, string> = {
+    normal: 'bg-normal dark:bg-normal/80',
+    fire: 'bg-fire dark:bg-fire/80',
+    water: 'bg-water dark:bg-water/80',
+    grass: 'bg-grass dark:bg-grass/80',
+    electric: 'bg-electric dark:bg-electric/80',
+    ice: 'bg-ice dark:bg-ice/80',
+    fighting: 'bg-fighting dark:bg-fighting/80',
+    poison: 'bg-poison dark:bg-poison/80',
+    ground: 'bg-ground dark:bg-ground/80',
+    flying: 'bg-flying dark:bg-flying/80',
+    psychic: 'bg-psychic dark:bg-psychic/80',
+    bug: 'bg-bug dark:bg-bug/80',
+    rock: 'bg-rock dark:bg-rock/80',
+    ghost: 'bg-ghost dark:bg-ghost/80',
+    dragon: 'bg-dragon dark:bg-dragon/80',
+    dark: 'bg-dark dark:bg-dark/80',
+    steel: 'bg-steel dark:bg-steel/80',
+    fairy: 'bg-fairy dark:bg-fairy/80',
+    unknown: 'bg-unknown dark:bg-unknown/80',
+  };
+  const bg = bgVariants[type.identifier] || bgVariants.unknown;
+
+  if (type.identifier === 'unknown') {
+    return (
+      <div className={cn('size-7.5 …기존 물음표 처리…', className)}>?</div>
+    );
+  }
+
+  return (
+    <div
+      role="img"
+      aria-label={type.nameKo}
+      className={cn(
+        'size-7.5 rounded-lg bg-center bg-no-repeat bg-size-[80%]',
+        bg,
+        className,
+      )}
+      style={{ backgroundImage: `url(/type/${type.identifier}.png)` }}
+    />
   );
 }
