@@ -11,24 +11,22 @@ export default function AbilityInfo({ ability }: AbilityInfoProps) {
     : `${ability.gen}세대`;
 
   return (
-    <PageLayoutSection className="flex flex-row gap-x-6 flex-wrap mt-3">
-      <Info title="영문" content={ability.nameEn} />
-      <Info title="일본어" content={ability.nameJa ?? '-'} />
-      <Info title="첫 등장" content={appearedText} />
+    <PageLayoutSection className="">
+      <Info title="첫 등장">{appearedText}</Info>
     </PageLayoutSection>
   );
 }
 
 interface InfoProps {
   title: string;
-  content: string;
+  children: React.ReactNode;
 }
 
-function Info({ title, content }: InfoProps) {
+function Info({ title, children }: InfoProps) {
   return (
     <div className="flex flex-col">
       <div className="text-muted-foreground font-medium text-md">{title}</div>
-      <div className="text-lg">{content}</div>
+      <div className="text-lg">{children}</div>
     </div>
   );
 }

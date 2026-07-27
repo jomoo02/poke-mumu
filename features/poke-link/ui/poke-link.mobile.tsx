@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 import { PokeSprite } from '@/entities/poke/ui';
@@ -13,6 +14,7 @@ interface PokeLinkMobileProps {
   className?: string;
   formatLength?: number;
   showForm?: boolean;
+  dexSuffix?: ReactNode;
 }
 
 export function PokeLinkMobile({
@@ -20,6 +22,7 @@ export function PokeLinkMobile({
   className,
   formatLength = 4,
   showForm = true,
+  dexSuffix,
 }: PokeLinkMobileProps) {
   const { nameKo, form, type1, type2, dexNumber } = poke;
 
@@ -39,14 +42,20 @@ export function PokeLinkMobile({
       <div className="flex gap-x-3.5 items-center w-full">
         <div
           className={cn(
-            'bg-muted/50 rounded-2xl p-2',
+            'bg-muted/70 rounded-2xl p-2',
             'group-hover:bg-transparent',
           )}
         >
           <PokeSprite poke={poke} className="size-11.5 2xs:size-12" />
         </div>
-        <div className="text-md flex font-medium tabular-nums text-foreground/70 truncate">
+        <div
+          className={cn(
+            'text-md flex font-medium tabular-nums text-foreground/70 truncate',
+            dexSuffix && 'flex-col',
+          )}
+        >
           {formatNumber(dexNumber, formatLength)}
+          {dexSuffix}
         </div>
         <div className="flex-1 overflow-hidden p-2 -m-2 flex flex-col justify-center">
           <Link

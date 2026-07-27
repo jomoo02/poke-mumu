@@ -1,5 +1,6 @@
 import MoveIdentifierPageUI from '@/app/pages/move-identifier';
 import { Suspense } from 'react';
+import MoveIdentifierView from '@/views/move-identifier';
 
 export default async function MoveIdentifierPage({
   params,
@@ -7,7 +8,7 @@ export default async function MoveIdentifierPage({
   return (
     <Suspense>
       {params.then(({ identifier }) => (
-        <MoveIdentifierPageUI identifier={identifier} />
+        <MoveIdentifierView identifier={identifier} />
       ))}
     </Suspense>
   );

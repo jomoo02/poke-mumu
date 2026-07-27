@@ -54,3 +54,52 @@ export function DamageClassIcon({
     </div>
   );
 }
+
+export function DamageClassBadge({
+  damageClass,
+  className,
+}: DamageClassIconProps) {
+  const srcMap: Record<string, string> = {
+    physical: '/damage-class/physical.png',
+    special: '/damage-class/special.png',
+    status: '/damage-class/status.png',
+  };
+
+  const bgMap: Record<string, string> = {
+    physical: 'bg-orange-500 dark:bg-orange-400',
+    special: 'bg-sky-500',
+    status: 'bg-zinc-500',
+  };
+
+  const bg = bgMap[damageClass.identifier];
+  const src = srcMap[damageClass.identifier];
+
+  if (!damageClass || !bg || !src) {
+    return (
+      <div
+        className={cn(
+          'w-25 h-8.75 text-white  rounded-4xl flex items-center px-2.5 shadow-xs font-extrabold ',
+          className,
+        )}
+      >
+        ?
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={cn(
+        'relative',
+        'w-25 h-8.75 text-white  rounded-4xl flex items-center px-2.5 shadow-xs font-extrabold ',
+        bg,
+        className,
+      )}
+    >
+      <Image src={src} alt={damageClass.identifier} width={22} height={18} />
+      <span className={cn('text-sm text-center flex-1 tracking-wide')}>
+        {damageClass.nameKo}
+      </span>
+    </div>
+  );
+}

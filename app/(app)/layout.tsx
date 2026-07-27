@@ -13,19 +13,19 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children }: MainLayoutProps) {
   return (
-    <div className=" font-suit [--header-height:calc(--spacing(14))]">
-      {/* <MainHeader /> */}
-      {/* <main className="flex flex-col flex-1">{children}</main> */}
-
+    // <div className=" font-suit [--header-height:calc(--spacing(14))] ">
+    <>
       <MainHeaderV2 />
 
       {/* <Suspense>
             <AppSidebar />
           </Suspense> */}
 
-      <main className="flex flex-1 flex-col w-full">{children}</main>
+      <main className="flex flex-1 flex-col w-full scroll-mt-14">
+        {children}
+      </main>
 
       {/* <div id="ttt" className="sticky top-14 z-60" /> */}
-    </div>
+    </>
   );
 }

@@ -29,9 +29,10 @@ export default async function AbilityIdentifierView({
     <PageLayoutContainer>
       <PageLayoutHeader>
         <PageLayoutHeaderTitle>{ability.nameKo}</PageLayoutHeaderTitle>
-        <PageLayoutHeaderDescription className="text-foreground">
-          {ability.flavorText}
+        <PageLayoutHeaderDescription className="text-foreground text-lg">
+          {`${ability.nameEn} / ${ability.nameJa}`}
         </PageLayoutHeaderDescription>
+        <p className="pt-3 break-keep text-pretty">{ability.flavorText}</p>
       </PageLayoutHeader>
       <AbilityInfo ability={ability} />
       <PokeWithAbility pokes={pokes} ability={ability.nameKo} />

@@ -5,9 +5,9 @@ import {
 } from '@/shared/ui/page-layout';
 import { getObjectParticle } from '@/shared/lib/utils';
 import { PokeLinkMobile } from '@/features/poke-link/ui';
+import { cn } from '@/shared/lib/cn';
 
 import type { AbilityPoke } from '../model/poke';
-import { cn } from '@/shared/lib/cn';
 
 interface PokeWithAbilityProps {
   ability: string;
@@ -32,7 +32,7 @@ export default function PokeWithAbility({
           {description}
         </PageLayoutSectionDescription>
       </div>
-      <div className="grid md:grid-cols-2 gap-x-12 lg:gap-x-32 mt-3 gap-y-6">
+      <div className="grid gap-y-6">
         <PokeList type="normal" pokes={normalPokes} />
         <PokeList type="hidden" pokes={hiddenPokes} />
       </div>
@@ -55,8 +55,8 @@ function PokeList({ type, pokes }: PokeListProps) {
         pokes.length === 0 ? 'opacity-30' : 'opacity-100',
       )}
     >
-      <h3 className="text-xl font-semibold">{title}</h3>
-      <div className="flex flex-col gap-4 sm:max-w-md mx-auto w-full md:mx-0">
+      <h3 className="text-xl font-semibold mt-3">{title}</h3>
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-4 md:gap-y-6">
         {pokes.map((poke) => (
           <PokeLinkMobile key={poke.pokeKey} poke={poke} />
         ))}

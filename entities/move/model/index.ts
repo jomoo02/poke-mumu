@@ -14,3 +14,13 @@ export interface Move {
   damageClassIdentifier: string;
   damageClassNameKo: string;
 }
+
+export interface VersionMove extends Omit<
+  Move,
+  'nameEn' | 'nameJa' | 'identifier' | 'id'
+> {
+  versionGroupId: number;
+  versionGroupNameKo: string;
+  machineType: string | null;
+  machineNumber: number | null;
+}

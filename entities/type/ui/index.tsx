@@ -67,17 +67,17 @@ export function TypeBadge({
   return (
     <div
       className={cn(
-        'w-20 h-7.5 text-white rounded-lg flex items-center p-1 shadow-sm font-extrabold ',
+        'w-25 h-8.75 text-white  rounded-4xl flex items-center px-2.5 shadow-xs font-extrabold ',
         size === 'small' ? 'w-18.5 h-7' : '',
         bg,
-        shadowColor,
+        // shadowColor,
         className,
       )}
     >
       <Image
         src={`/type/${type.identifier}.png`}
-        width={size === 'small' ? 20 : 22}
-        height={size === 'small' ? 20 : 22}
+        width={24}
+        height={24}
         alt={type.identifier}
       />
       <span
