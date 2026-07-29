@@ -96,7 +96,7 @@ function PageLayoutSectionDescription({
     <p
       data-slot="page-layout-header-description"
       className={cn(
-        'break-keep text-pretty text-foreground/70 ',
+        'break-keep text-pretty text-muted-foreground',
         'max-w-[80%]',
         className,
       )}

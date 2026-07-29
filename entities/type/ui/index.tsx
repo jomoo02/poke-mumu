@@ -17,25 +17,25 @@ export function TypeBadge({
   size = 'default',
 }: TypeBadgeProps) {
   const bgVariants: Record<string, string> = {
-    normal: 'bg-normal',
-    fire: 'bg-fire',
-    water: 'bg-water',
-    grass: 'bg-grass',
-    electric: 'bg-electric',
-    ice: 'bg-ice',
-    fighting: 'bg-fighting',
-    poison: 'bg-poison',
-    ground: 'bg-ground',
-    flying: 'bg-flying',
-    psychic: 'bg-psychic',
-    bug: 'bg-bug',
-    rock: 'bg-rock',
-    ghost: 'bg-ghost',
-    dragon: 'bg-dragon',
-    dark: 'bg-dark',
-    steel: 'bg-steel',
-    fairy: 'bg-fairy',
-    unknown: 'bg-unknown',
+    normal: 'bg-normal dark:bg-normal/80',
+    fire: 'bg-fire dark:bg-fire/80',
+    water: 'bg-water dark:bg-water/80',
+    grass: 'bg-grass dark:bg-grass/80',
+    electric: 'bg-electric dark:bg-electric/80',
+    ice: 'bg-ice dark:bg-ice/80',
+    fighting: 'bg-fighting dark:bg-fighting/80',
+    poison: 'bg-poison dark:bg-poison/80',
+    ground: 'bg-ground dark:bg-ground/80',
+    flying: 'bg-flying dark:bg-flying/80',
+    psychic: 'bg-psychic dark:bg-psychic/80',
+    bug: 'bg-bug dark:bg-bug/80',
+    rock: 'bg-rock dark:bg-rock/80',
+    ghost: 'bg-ghost dark:bg-ghost/80',
+    dragon: 'bg-dragon dark:bg-dragon/80',
+    dark: 'bg-dark dark:bg-dark/80',
+    steel: 'bg-steel dark:bg-steel/80',
+    fairy: 'bg-fairy dark:bg-fairy/80',
+    unknown: 'bg-unknown dark:bg-unknown/80',
   };
 
   const shadowVariants: Record<string, string> = {
@@ -73,6 +73,7 @@ export function TypeBadge({
         // shadowColor,
         className,
       )}
+      style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
     >
       <Image
         src={`/type/${type.identifier}.png`}
@@ -83,6 +84,7 @@ export function TypeBadge({
       <span
         className={cn(
           'text-sm text-center flex-1 tracking-wide',
+
           size === 'small' ? 'text-xs' : '',
         )}
       >

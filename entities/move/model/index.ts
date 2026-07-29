@@ -20,6 +20,7 @@ export interface VersionMove extends Omit<
   'nameEn' | 'nameJa' | 'identifier' | 'id'
 > {
   versionGroupId: number;
+  versionGroupIdentifier: string;
   versionGroupNameKo: string;
   machineType: string | null;
   machineNumber: number | null;

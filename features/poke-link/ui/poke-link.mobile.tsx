@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import Link from 'next/link';
 
 import { PokeSprite } from '@/entities/poke/ui';
@@ -14,19 +13,18 @@ interface PokeLinkMobileProps {
   className?: string;
   formatLength?: number;
   showForm?: boolean;
-  dexSuffix?: ReactNode;
 }
 
 export function PokeLinkMobile({
   poke,
   className,
+  showForm = false,
   formatLength = 4,
-  showForm = true,
-  dexSuffix,
 }: PokeLinkMobileProps) {
   const { nameKo, form, type1, type2, dexNumber } = poke;
 
   const bg = bgVariants[type1.identifier];
+  const name = showForm && form ? `${nameKo} (${form})` : nameKo;
 
   return (
     <div className={cn('relative w-full isolate group', className)}>
@@ -46,35 +44,31 @@ export function PokeLinkMobile({
             'group-hover:bg-transparent',
           )}
         >
-          <PokeSprite poke={poke} className="size-11.5 2xs:size-12" />
+          <PokeSprite poke={poke} className="size-12 2xs:size-13" />
         </div>
-        <div
-          className={cn(
-            'text-md flex font-medium tabular-nums text-foreground/70 truncate',
-            dexSuffix && 'flex-col',
-          )}
-        >
-          {formatNumber(dexNumber, formatLength)}
-          {dexSuffix}
-        </div>
+
         <div className="flex-1 overflow-hidden p-2 -m-2 flex flex-col justify-center">
+          <div
+            className={cn(
+              'text-sm flex font-medium tabular-nums text-foreground/70 truncate',
+            )}
+          >
+            No.{formatNumber(dexNumber, formatLength)}
+          </div>
           <Link
             href={`/pokedex/${poke.pokeKey}`}
             className={cn(
-              'truncate outline-none rounded-sm px-1 -mx-1 min-w-0',
+              'truncate outline-none rounded-sm px-1 -mx-1 min-w-0 text-md',
               'focus-visible:ring-[3px] focus-visible:ring-ring/50',
               'after:absolute after:-inset-1 after:z-10',
             )}
           >
-            {nameKo}
+            {name}
           </Link>
-          {showForm && (
-            <div className="text-foreground/70 text-sm truncate">{form}</div>
-          )}
         </div>
+
         <div className="grid grid-cols-2 gap-1 items-center">
           <TypeIcon type={type1} className="size-7 p-0.5 rounded-md " />
-
           {type2 && (
             <TypeIcon type={type2} className="size-7 p-0.5 rounded-md" />
           )}

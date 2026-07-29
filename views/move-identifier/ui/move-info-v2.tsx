@@ -33,10 +33,10 @@ export default function MoveInfoV2({ move }: AbilityInfoProps) {
           />
         </div>
         <div className="flex gap-x-3 flex-wrap gap-y-3">
-          <Info2 title="위력">{power}</Info2>
-          <Info2 title="명중률">{accuracy}</Info2>
-          <Info2 title="PP">{pp}</Info2>
-          {/* <Info2 title="첫 등장">{appearedText}</Info2> */}
+          <Info3 title="위력">{power}</Info3>
+          <Info3 title="명중률">{accuracy}</Info3>
+          <Info3 title="PP">{pp}</Info3>
+          <Info3 title="첫 등장">{appearedText}</Info3>
         </div>
         <div className="text-pretty break-keep">{move.description}</div>
       </div>
@@ -49,6 +49,17 @@ export default function MoveInfoV2({ move }: AbilityInfoProps) {
 interface InfoProps {
   title: string;
   children: React.ReactNode;
+}
+
+function Info3({ title, children }: InfoProps) {
+  return (
+    <div className="flex flex-col bg-muted/70 w-22 border border-transparent h-18.25 gap-0.5 justify-center rounded-xl items-center">
+      <div className="text-foreground/70 text-cenr text-sm font-medium">
+        {title}
+      </div>
+      <div className="text-cenr font-medium">{children}</div>
+    </div>
+  );
 }
 
 function Info2({ title, children }: InfoProps) {
@@ -64,7 +75,7 @@ function Info2({ title, children }: InfoProps) {
 
 function Info({ title, children }: InfoProps) {
   return (
-    <div className="flex gap-2.5 px-4 py-2    rounded-4xl items-center">
+    <div className="flex gap-2.5 px-4 py-2  rounded-4xl items-center">
       <div className="text-foreground/70 text-md font-medium">{`${title}`}</div>
       <div className="font-medium flex-1 text-center text-lg">{children}</div>
     </div>

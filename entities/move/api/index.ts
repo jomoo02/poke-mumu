@@ -146,6 +146,7 @@ interface VersionMoveDto {
   machineNumber: number | null;
   nameKo: string;
   versionGroup: {
+    identifier: string;
     nameKo: string;
     generation: number;
     sortOrder: number;
@@ -163,6 +164,7 @@ interface VersionMoveDto {
 const adaptVersionMove = (move: VersionMoveDto): VersionMove => {
   return {
     versionGroupId: move.versionGroupId,
+    versionGroupIdentifier: move.versionGroup.identifier,
     versionGroupNameKo: move.versionGroup.nameKo,
     generation: move.versionGroup.generation,
     power: move.power,
@@ -198,7 +200,7 @@ export const getVersionMoveHistory = async (
         machineType:machine_type,
         machineNumber:machine_number,
         nameKo:name_ko,
-        versionGroup:version_group!version_move_version_group_id_fkey(nameKo:name_ko, generation, sortOrder:sort_order),
+        versionGroup:version_group!version_move_version_group_id_fkey(identifier, nameKo:name_ko, generation, sortOrder:sort_order),
         type:type!version_move_type_id_fkey(identifier, nameKo:name_ko),
         damageClass:damage_class!version_move_damage_class_id_fkey(identifier, nameKo:name_ko)
       `,

@@ -18,11 +18,10 @@ export function DamageClassIcon({
     special: '/damage-class/special.png',
     status: '/damage-class/status.png',
   };
-
   const bgMap: Record<string, string> = {
-    physical: 'bg-orange-500 dark:bg-orange-400',
-    special: 'bg-sky-500',
-    status: 'bg-zinc-500',
+    physical: 'bg-orange-400 dark:bg-orange-400/80',
+    special: 'bg-sky-400 dark:bg-sky-400/80',
+    status: 'bg-zinc-400 dark:bg-zinc-400/80',
   };
 
   const bg = bgMap[damageClass.identifier];
@@ -35,6 +34,7 @@ export function DamageClassIcon({
           'size-7 rounded-lg bg-purple-700 text-white justify-center items-center flex',
           className,
         )}
+        style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
       >
         ?
       </div>
@@ -66,9 +66,9 @@ export function DamageClassBadge({
   };
 
   const bgMap: Record<string, string> = {
-    physical: 'bg-orange-500 dark:bg-orange-400',
-    special: 'bg-sky-500',
-    status: 'bg-zinc-500',
+    physical: 'bg-orange-400 dark:bg-orange-400/80',
+    special: 'bg-sky-400 dark:bg-sky-400/80',
+    status: 'bg-zinc-400 dark:bg-zinc-400/80',
   };
 
   const bg = bgMap[damageClass.identifier];
@@ -81,6 +81,7 @@ export function DamageClassBadge({
           'w-25 h-8.75 text-white  rounded-4xl flex items-center px-2.5 shadow-xs font-extrabold ',
           className,
         )}
+        style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
       >
         ?
       </div>
@@ -95,6 +96,7 @@ export function DamageClassBadge({
         bg,
         className,
       )}
+      style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
     >
       <Image src={src} alt={damageClass.identifier} width={22} height={18} />
       <span className={cn('text-sm text-center flex-1 tracking-wide')}>

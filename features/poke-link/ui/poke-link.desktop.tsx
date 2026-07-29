@@ -43,7 +43,7 @@ export function PokeLinkDesktop({
           bg,
         )}
       />
-      <div className="relative bg-muted/50 group-hover:bg-transparent duration-250 rounded-4xl p-2 w-full flex justify-center items-center aspect-square">
+      <div className="relative bg-muted/70 group-hover:bg-transparent duration-250 rounded-4xl p-2 w-full flex justify-center items-center aspect-square">
         <PokeSprite poke={poke} className="size-18" alt=" " />
       </div>
 

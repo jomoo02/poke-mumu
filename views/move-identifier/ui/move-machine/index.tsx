@@ -1,23 +1,18 @@
-import { Move, VersionMove } from '@/entities/move/model';
-import { VersionGroupBadge } from '@/entities/version-group/ui/badge';
-import {
-  PageLayoutSection,
-  PageLayoutSectionDescription,
-  PageLayoutSectionTitle,
-} from '@/shared/ui/page-layout';
+import { useMemo } from 'react';
+import { DotIcon } from 'lucide-react';
+
 import {
   Card,
   CardContent,
-  CardGroup,
+  CardDescription,
   CardHeader,
   CardTitle,
 } from '@/shared/ui/card';
 import { cn } from '@/shared/lib/cn';
-import { useMemo } from 'react';
-import { DotIcon, XIcon } from 'lucide-react';
+import type { VersionMove } from '@/entities/move/model';
+import { VersionGroupBadge } from '@/entities/version-group/ui/badge';
 
 interface MoveAppearedProps {
-  move: Move;
   versionMoves: VersionMove[];
   className?: string;
 }
@@ -36,8 +31,8 @@ export type GenerationMachineGroup = {
   generation: number;
   rows: MachineGroup[];
 };
-export default function MoveAppeared({
-  move,
+
+export default function MoveMachine({
   versionMoves,
   className,
 }: MoveAppearedProps) {
@@ -94,52 +89,50 @@ export default function MoveAppeared({
     return result;
   }, [versionMoves]);
 
+  if (machineGroups.length === 0) {
+    return null;
+  }
+
+  const description = '버전별 기술머신, 기술레코드 번호';
+
   return (
     <Card
       className={cn(
         'h-fit',
         className,
-        machineGroups.length === 0 && 'lg:col-span-1 2xl:col-span-1',
+        machineGroups.length < 3 && 'lg:col-span-1 2xl:col-span-1',
       )}
     >
       <CardHeader>
-        <CardTitle>등장</CardTitle>
+        <CardTitle>기술머신</CardTitle>
+        <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <CardGroup>
-          <div className="font-semibold">첫 등장</div>
-          <div className="text-md">{move.generation}세대</div>
-        </CardGroup>
-        <CardGroup>
-          <div className="font-semibold">기술머신</div>
-          {machineGroups.length > 0 ? (
-            <div className="grid lg:grid-cols-2">
-              {machineGroups.flatMap((gen) =>
-                gen.rows.map((row) => (
-                  <div
-                    key={`${gen.generation}-${row.machine}`}
-                    className="py-2 flex flex-col gap-y-2"
-                  >
-                    <div className="flex flex-wrap gap-1.5">
-                      {row.versions.map((v) => (
-                        <VersionGroupBadge
-                          key={v.identifier}
-                          versionGroup={v}
-                        />
-                      ))}
-                    </div>
-                    <div className="text-md flex items-center gap-1">
-                      <DotIcon className="size-4" />
-                      {row.machine}
-                    </div>
-                  </div>
-                )),
-              )}
-            </div>
-          ) : (
-            <XIcon className="size-4.5 text-foreground/70" />
+        <div
+          className={cn(
+            'grid',
+            machineGroups.length < 3 ? 'grid-cols-1' : 'lg:grid-cols-2',
           )}
-        </CardGroup>
+        >
+          {machineGroups.flatMap((gen) =>
+            gen.rows.map((row) => (
+              <div
+                key={`${gen.generation}-${row.machine}`}
+                className="py-2 flex flex-col gap-y-2"
+              >
+                <div className="flex flex-wrap gap-1.5">
+                  {row.versions.map((v) => (
+                    <VersionGroupBadge key={v.identifier} versionGroup={v} />
+                  ))}
+                </div>
+                <div className="text-md flex items-center gap-1">
+                  <DotIcon className="size-4" />
+                  {row.machine}
+                </div>
+              </div>
+            )),
+          )}
+        </div>
       </CardContent>
     </Card>
   );

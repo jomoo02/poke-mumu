@@ -9,12 +9,17 @@ import {
   PageLayoutHeader,
   PageLayoutHeaderDescription,
   PageLayoutHeaderTitle,
+  PageLayoutSection,
+  PageLayoutSectionDescription,
+  PageLayoutSectionTitle,
 } from '@/shared/ui/page-layout';
-import MoveInfo from './ui/move-info';
+
 import MoveLearnPokeList from './ui/move-learn-poke-list';
 import MoveInfoV2 from './ui/move-info-v2';
-import MoveAppeared from './ui/move-appear';
+
 import History from './ui/move-history';
+import MoveMachine from './ui/move-machine';
+import VersionMoveInfo from './ui/version-move';
 
 interface MoveIdentifierViewProps {
   identifier: string;
@@ -44,11 +49,7 @@ export default async function MoveIdentifierView({
         </PageLayoutHeaderDescription>
       </PageLayoutHeader>
       <MoveInfoV2 move={move} />
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <History history={versionMoves} />
-        <MoveAppeared versionMoves={versionMoves} move={move} />
-      </div>
+      <VersionMoveInfo versionMoves={versionMoves} />
       <MoveLearnPokeList
         moveLearnMethods={moveLearnMethods}
         moveLearnPokes={moveLearnPokes}
