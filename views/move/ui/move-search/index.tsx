@@ -10,18 +10,17 @@ import {
 } from '@/shared/ui/input-group';
 import { useSearchParamsInput } from '@/shared/model/search-params-input';
 
+import { SEARCH_PARAMS } from '../../config';
+
 export default function MoveSearch() {
   const placeholder = '냉동빔, Ice Beam, れいとうビーム';
 
-  // 기술이 902개라 URL 커밋마다 목록 전체가 재필터/재정렬된다. 키 입력마다
-  // 커밋하면(debounceMs=0) 그 무거운 동기 리렌더가 IME 조합을 방해해 한글이
-  // 깨진다('고양이' → '고고양이'). 표시값은 즉시 갱신하되 커밋만 뒤로 미룬다.
   const { value, onChange, onCompositionEnd, clear } = useSearchParamsInput({
-    debounceMs: 100,
+    key: SEARCH_PARAMS.SEARCH,
   });
 
   return (
-    <InputGroup className="w-full h-10.5 lg:max-w-md">
+    <InputGroup className="w-full h-10.5 lg:max-w-md flex-1">
       <InputGroupInput
         placeholder={placeholder}
         className="h-10.5"

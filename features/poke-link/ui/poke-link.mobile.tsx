@@ -40,11 +40,11 @@ export function PokeLinkMobile({
       <div className="flex gap-x-3.5 items-center w-full">
         <div
           className={cn(
-            'bg-muted/70 rounded-2xl p-2',
+            'bg-muted/70 rounded-2xl p-1.75',
             'group-hover:bg-transparent',
           )}
         >
-          <PokeSprite poke={poke} className="size-12 2xs:size-13" />
+          <PokeSprite poke={poke} className="size-12 2xs:size-12.5" />
         </div>
 
         <div className="flex-1 overflow-hidden p-2 -m-2 flex flex-col justify-center">

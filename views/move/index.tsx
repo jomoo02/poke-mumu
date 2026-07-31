@@ -42,15 +42,18 @@ export default async function MoveView() {
         </PageLayoutSection>
         <PageLayoutSection className="flex flex-col gap-y-3 w-full">
           <Suspense>
-            <div className="flex gap-x-2 gap-y-3 w-full flex-col sm:flex-row sm:justify-between">
-              <MoveSearch />
-              <div className="flex gap-x-2 justify-between">
-                <MoveSort />
+            <div className="flex gap-x-2 gap-y-3 w-full flex-col lg:flex-row">
+              <div className="flex flex-1 gap-x-2 justify-between">
+                <MoveSearch />
                 <MoveFilterSheet types={types} damageClasses={damageClasses} />
+              </div>
+              <div className="flex justify-end">
+                <MoveSort />
               </div>
             </div>
           </Suspense>
-          <Suspense fallback={<MoveListSkeleton count={moves.length} />}>
+
+          <Suspense fallback={<MoveListSkeleton />}>
             <MoveList moves={moves} />
           </Suspense>
         </PageLayoutSection>

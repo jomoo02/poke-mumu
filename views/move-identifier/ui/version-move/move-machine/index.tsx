@@ -46,7 +46,7 @@ export default function MoveMachine({
             'grid',
             generationMachineGroups.length < 3
               ? 'grid-cols-1'
-              : 'lg:grid-cols-2',
+              : 'lg:grid-cols-1',
           )}
         >
           {generationMachineGroups.flatMap((gen) =>

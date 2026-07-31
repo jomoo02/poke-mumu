@@ -8,8 +8,8 @@ function PageLayoutContainer({
     <div
       data-slot="page-layout-container"
       className={cn(
-        'max-w-360 mx-auto py-14 w-full min-h-svh flex flex-col gap-6',
-        'px-4 md:px-6 lg:px-8 xl:px-10 3xl:px-2.5',
+        'max-w-360 3xl:max-w-[1560px] mx-auto py-14 w-full min-h-svh flex flex-col gap-6',
+        'px-4 md:px-6 lg:px-8 xl:px-12 3xl:px-2.5',
         className,
       )}
       {...props}

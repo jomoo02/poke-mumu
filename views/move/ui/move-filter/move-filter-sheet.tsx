@@ -56,11 +56,11 @@ export function MoveFilterSheet({
         render={
           <ControlTriggerButton
             size={'icon'}
-            className="lg:hidden w-auto"
+            className="sm:w-auto lg:hidden"
             variant={isActive ? 'active' : 'default'}
           >
             <SlidersHorizontalIcon className="size-4.25" />
-            필터
+            <span className="hidden sm:flex">필터</span>
           </ControlTriggerButton>
         }
       />

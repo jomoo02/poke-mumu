@@ -31,7 +31,7 @@ export default function VersionMoveInfo({ versionMoves }: VersionMoveInfo) {
         <History origin={history.origin} changeRows={history.changeRows} />
         <MoveMachine
           generationMachineGroups={moveMachines}
-          className="lg:col-span-2 2xl:col-span-3"
+          // className="lg:col-span-2 2xl:col-span-3"
         />
       </div>
     </PageLayoutSection>
