@@ -31,10 +31,10 @@ export function DamageClassIcon({
     return (
       <div
         className={cn(
-          'size-7 rounded-lg bg-purple-700 text-white justify-center items-center flex',
+          'size-7 rounded-md bg-[#4c1d95] dark:bg-[#4c1d95]/90 text-md text-white justify-center items-center flex text-shadow-sm',
           className,
         )}
-        style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
+        // style={{ textShadow: '0 1px 2px rgb(0 0 0 / 0.45)' }}
       >
         ?
       </div>

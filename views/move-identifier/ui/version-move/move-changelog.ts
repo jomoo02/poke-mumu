@@ -11,7 +11,8 @@ type DiffField =
   | 'pp'
   | 'accuracy'
   | 'typeNameKo'
-  | 'damageClassNameKo';
+  | 'damageClassNameKo'
+  | 'priority';
 
 /** 한 필드의 변경(이전값 → 이후값) */
 export type DiffChange = {
@@ -41,6 +42,7 @@ const DIFF_FIELDS: { field: DiffField; label: string }[] = [
   { field: 'power', label: '위력' },
   { field: 'pp', label: 'PP' },
   { field: 'accuracy', label: '명중률' },
+  { field: 'priority', label: '우선도' },
 ];
 
 /** null/숫자를 표시용 문자열로 변환. 값 없음은 '-' */

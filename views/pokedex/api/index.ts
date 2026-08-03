@@ -48,6 +48,7 @@ export const getGenGroupedPokedexes = async (): Promise<GenGroup[] | null> => {
         )
       `,
     )
+    .neq('identifier', 'champions')
     .order('sort_order');
 
   if (error) {

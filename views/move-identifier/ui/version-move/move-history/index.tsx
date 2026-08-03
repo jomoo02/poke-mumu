@@ -31,13 +31,22 @@ export default function History({ origin, changeRows }: HistoryProps) {
       <CardContent>
         <CardGroup>
           <div className="font-semibold">초기값</div>
-          <div className="p-4 bg-muted/50 rounded-2xl">
-            <MoveItemValue subject="이름" value={origin.nameKo} />
-            <MoveItemValue subject="타입" value={origin.typeNameKo} />
-            <MoveItemValue subject="분류" value={origin.damageClassNameKo} />
-            <MoveItemValue subject="위력" value={origin.power} />
-            <MoveItemValue subject="명중률" value={origin.accuracy} />
-            <MoveItemValue subject="PP" value={origin.pp} />
+          <div>
+            <div className="grid grid-cols-3 gap-2.5">
+              <InitialItemValue
+                subject="이름"
+                value={origin.nameKo}
+                className="col-span-3 "
+              />
+              <InitialItemValue subject="타입" value={origin.typeNameKo} />
+              <InitialItemValue
+                subject="분류"
+                value={origin.damageClassNameKo}
+              />
+              <InitialItemValue subject="위력" value={origin.power} />
+              <InitialItemValue subject="명중률" value={origin.accuracy} />
+              <InitialItemValue subject="PP" value={origin.pp} />
+            </div>
           </div>
         </CardGroup>
         <CardGroup>
@@ -54,10 +63,11 @@ export default function History({ origin, changeRows }: HistoryProps) {
                     nameKo: row.versionGroupNameKo,
                   }}
                 />
-                <div className="bg-muted/50 p-4 rounded-2xl">
+                <div className="bg-muted/70 p-4 rounded-2xl">
                   {row.changes.map((change) => (
                     <MoveItemValue
                       key={change.label}
+                      className="first:pt-0 last:pb-0"
                       subject={change.label}
                       value={
                         <div className="flex gap-2.5 items-center">
@@ -100,9 +110,14 @@ interface MoveItemValueProps {
   className?: string;
 }
 
-function MoveItemValue({ subject, value }: MoveItemValueProps) {
+function MoveItemValue({ subject, value, className }: MoveItemValueProps) {
   return (
-    <div className="flex justify-between gap-x-2.5 border-b py-3 first:pt-0 last:pb-0 last:border-b-0 items-center text-md">
+    <div
+      className={cn(
+        'flex justify-between gap-x-2.5 border-b py-3  last:border-b-0 items-center text-md',
+        className,
+      )}
+    >
       <span className="text-foreground/70">{`${subject}`}</span>
       <span className="font-medium">{value ? value : '-'}</span>
     </div>
@@ -117,3 +132,12 @@ function MoveItemValue({ subject, value }: MoveItemValueProps) {
 //     </p>
 //   );
 // }
+
+function InitialItemValue({ subject, value, className }: MoveItemValueProps) {
+  return (
+    <div className={cn('', className)}>
+      <div className="text-sm text-foreground/70">{subject}</div>
+      <div className="">{value}</div>
+    </div>
+  );
+}

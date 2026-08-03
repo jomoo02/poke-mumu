@@ -13,11 +13,11 @@ export default function MoveInfoV2({ move }: AbilityInfoProps) {
   const power = move.power ? `${move.power}` : '-';
   const accuracy = move.accuracy ? `${move.accuracy}` : '-';
   const pp = move.pp ? `${move.pp}` : '-';
+  const priority = move.priority ?? 0;
 
   return (
     <PageLayoutSection className=" mt-0">
       <div className="flex flex-col gap-6">
-        {' '}
         <div className="flex gap-x-3">
           <TypeBadge
             type={{
@@ -32,10 +32,11 @@ export default function MoveInfoV2({ move }: AbilityInfoProps) {
             }}
           />
         </div>
-        <div className="flex gap-x-3 flex-wrap gap-y-3">
+        <div className="grid grid-cols-3 xs:flex gap-x-3 flex-wrap gap-y-3">
           <Info3 title="위력">{power}</Info3>
           <Info3 title="명중률">{accuracy}</Info3>
           <Info3 title="PP">{pp}</Info3>
+          <Info3 title="우선도">{priority}</Info3>
           <Info3 title="첫 등장">{appearedText}</Info3>
         </div>
         <div className="text-pretty break-keep">{move.description}</div>
@@ -53,7 +54,7 @@ interface InfoProps {
 
 function Info3({ title, children }: InfoProps) {
   return (
-    <div className="flex flex-col bg-muted/70 w-22 border border-transparent h-18.25 gap-0.5 justify-center rounded-xl items-center">
+    <div className="flex flex-col bg-muted/70 xs:w-22 border border-transparent h-18.25 gap-0.5 justify-center rounded-xl items-center">
       <div className="text-foreground/70 text-cenr text-sm font-medium">
         {title}
       </div>

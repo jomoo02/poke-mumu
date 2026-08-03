@@ -17,6 +17,7 @@ interface MoveDto {
   typeNameKo: string | null;
   damageClassIdentifier: string | null;
   damageClassNameKo: string | null;
+  priority: number | null;
 }
 
 const adaptRecentMove = (moveDto: MoveDto): Move => {
@@ -38,6 +39,7 @@ const adaptRecentMove = (moveDto: MoveDto): Move => {
     damageClassIdentifier:
       (moveDto.damageClassIdentifier as string) ?? 'unknown',
     damageClassNameKo: (moveDto.damageClassNameKo as string) ?? '',
+    priority: moveDto.priority ?? 0,
   };
 };
 
@@ -57,6 +59,7 @@ export const getAllRecentMoves = async (): Promise<Move[]> => {
       description,
       power,
       pp,
+      priority,
       accuracy,
       typeIdentifier:type_identifier,
       typeNameKo:type_name_ko,
@@ -93,6 +96,7 @@ export const getRecentMoveByIdentifier = async (
       power,
       pp,
       accuracy,
+      priority,
       typeIdentifier:type_identifier,
       typeNameKo:type_name_ko,
       damageClassIdentifier:damage_class_identifier,
@@ -159,6 +163,7 @@ interface VersionMoveDto {
     identifier: string;
     nameKo: string;
   } | null;
+  priority: number | null;
 }
 
 const adaptVersionMove = (move: VersionMoveDto): VersionMove => {
@@ -178,6 +183,7 @@ const adaptVersionMove = (move: VersionMoveDto): VersionMove => {
     description: move.description,
     machineType: move.machineType,
     machineNumber: move.machineNumber,
+    priority: move.priority ?? 0,
   };
 };
 
@@ -198,6 +204,7 @@ export const getVersionMoveHistory = async (
         accuracy,
         description,
         machineType:machine_type,
+        priority,
         machineNumber:machine_number,
         nameKo:name_ko,
         versionGroup:version_group!version_move_version_group_id_fkey(identifier, nameKo:name_ko, generation, sortOrder:sort_order),

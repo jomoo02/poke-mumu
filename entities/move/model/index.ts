@@ -13,6 +13,7 @@ export interface Move {
   typeNameKo: string;
   damageClassIdentifier: string;
   damageClassNameKo: string;
+  priority: number;
 }
 
 export interface VersionMove extends Omit<

@@ -16,6 +16,7 @@ import MoveSearch from './ui/move-search';
 import MoveSort from './ui/move-sort';
 import MoveList from './ui/move-list';
 import MoveListSkeleton from './ui/move-list/skeleton';
+import ScrollToTopButton from '@/shared/ui/scroll-to-top-button';
 
 export default async function MoveView() {
   const [moves, allType, damageClasses] = await Promise.all([
@@ -58,6 +59,7 @@ export default async function MoveView() {
           </Suspense>
         </PageLayoutSection>
       </div>
+      <ScrollToTopButton />
     </PageLayoutContainer>
   );
 }

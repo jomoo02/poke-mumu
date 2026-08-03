@@ -20,6 +20,8 @@ import MoveInfoV2 from './ui/move-info-v2';
 import History from './ui/move-history';
 import MoveMachine from './ui/move-machine';
 import VersionMoveInfo from './ui/version-move';
+import { getLegendsArceusMove } from './api';
+import LaMove from './ui/la-move';
 
 interface MoveIdentifierViewProps {
   identifier: string;
@@ -34,11 +36,13 @@ export default async function MoveIdentifierView({
     return <div>123</div>;
   }
 
-  const [moveLearnPokes, moveLearnMethods, versionMoves] = await Promise.all([
-    getMoveLearnPokesByVerionGroupId(move.id, 21),
-    getMoveLearnMethod(),
-    getVersionMoveHistory(move.id),
-  ]);
+  const [moveLearnPokes, moveLearnMethods, versionMoves, laMove] =
+    await Promise.all([
+      getMoveLearnPokesByVerionGroupId(move.id, 21),
+      getMoveLearnMethod(),
+      getVersionMoveHistory(move.id),
+      getLegendsArceusMove(move.id),
+    ]);
 
   return (
     <PageLayoutContainer>
@@ -50,6 +54,10 @@ export default async function MoveIdentifierView({
       </PageLayoutHeader>
       <MoveInfoV2 move={move} />
       <VersionMoveInfo versionMoves={versionMoves} />
+      <div className="grid grid-cols-3 gap-6">
+        <LaMove move={laMove} />
+      </div>
+
       <MoveLearnPokeList
         moveLearnMethods={moveLearnMethods}
         moveLearnPokes={moveLearnPokes}
