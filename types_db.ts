@@ -53,6 +53,251 @@ export type Database = {
         };
         Relationships: [];
       };
+      champions_move: {
+        Row: {
+          accuracy: number | null;
+          base_move_id: number | null;
+          created_at: string;
+          damage_class_id: number | null;
+          description: string | null;
+          effect_chance: number | null;
+          id: number;
+          identifier: string;
+          name_en: string | null;
+          name_ja: string | null;
+          name_ko: string | null;
+          power: number | null;
+          pp: number | null;
+          priority: number;
+          target_id: number | null;
+          type_id: number | null;
+        };
+        Insert: {
+          accuracy?: number | null;
+          base_move_id?: number | null;
+          created_at?: string;
+          damage_class_id?: number | null;
+          description?: string | null;
+          effect_chance?: number | null;
+          id?: number;
+          identifier: string;
+          name_en?: string | null;
+          name_ja?: string | null;
+          name_ko?: string | null;
+          power?: number | null;
+          pp?: number | null;
+          priority?: number;
+          target_id?: number | null;
+          type_id?: number | null;
+        };
+        Update: {
+          accuracy?: number | null;
+          base_move_id?: number | null;
+          created_at?: string;
+          damage_class_id?: number | null;
+          description?: string | null;
+          effect_chance?: number | null;
+          id?: number;
+          identifier?: string;
+          name_en?: string | null;
+          name_ja?: string | null;
+          name_ko?: string | null;
+          power?: number | null;
+          pp?: number | null;
+          priority?: number;
+          target_id?: number | null;
+          type_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'champions_move_base_move_id_fkey';
+            columns: ['base_move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_move_base_move_id_fkey';
+            columns: ['base_move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_move_base_move_id_fkey';
+            columns: ['base_move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_base_move_id_fkey';
+            columns: ['base_move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_base_move_id_fkey';
+            columns: ['base_move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_damage_class_id_fkey';
+            columns: ['damage_class_id'];
+            isOneToOne: false;
+            referencedRelation: 'damage_class';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_move_damage_class_id_fkey';
+            columns: ['damage_class_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['damage_class_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_damage_class_id_fkey';
+            columns: ['damage_class_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['damage_class_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_damage_class_id_fkey';
+            columns: ['damage_class_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['damage_class_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_target_id_fkey';
+            columns: ['target_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_target';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_move_type_id_fkey';
+            columns: ['type_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['type_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_type_id_fkey';
+            columns: ['type_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['type_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_type_id_fkey';
+            columns: ['type_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['type_id'];
+          },
+          {
+            foreignKeyName: 'champions_move_type_id_fkey';
+            columns: ['type_id'];
+            isOneToOne: false;
+            referencedRelation: 'type';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      champions_poke_move: {
+        Row: {
+          id: number;
+          move_id: number;
+          poke_key: string;
+        };
+        Insert: {
+          id?: never;
+          move_id: number;
+          poke_key: string;
+        };
+        Update: {
+          id?: never;
+          move_id?: number;
+          poke_key?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'national_pokedex_with_stat';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
+            referencedColumns: ['poke_key'];
+          },
+        ];
+      };
       contest_effect: {
         Row: {
           appeal: number | null;
@@ -156,6 +401,20 @@ export type Database = {
             foreignKeyName: 'dex_entry_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'dex_entry_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'dex_entry_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -164,6 +423,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'dex_entry_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
         ];
@@ -414,6 +680,20 @@ export type Database = {
             foreignKeyName: 'evolution_node_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'evolution_node_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'evolution_node_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -422,6 +702,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'evolution_node_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
         ];
@@ -462,6 +749,7 @@ export type Database = {
           generation: number;
           id: number;
           identifier: string;
+          is_contact: boolean | null;
           legacy_id: number | null;
           name_en: string;
           name_ja: string;
@@ -485,6 +773,7 @@ export type Database = {
           generation: number;
           id?: number;
           identifier: string;
+          is_contact?: boolean | null;
           legacy_id?: number | null;
           name_en: string;
           name_ja: string;
@@ -508,6 +797,7 @@ export type Database = {
           generation?: number;
           id?: number;
           identifier?: string;
+          is_contact?: boolean | null;
           legacy_id?: number | null;
           name_en?: string;
           name_ja?: string;
@@ -614,6 +904,79 @@ export type Database = {
           },
         ];
       };
+      move_change_log: {
+        Row: {
+          created_at: string;
+          field: string;
+          id: number;
+          move_id: number;
+          new_value: string | null;
+          old_value: string | null;
+          version_group_id: number;
+        };
+        Insert: {
+          created_at?: string;
+          field: string;
+          id?: number;
+          move_id: number;
+          new_value?: string | null;
+          old_value?: string | null;
+          version_group_id: number;
+        };
+        Update: {
+          created_at?: string;
+          field?: string;
+          id?: number;
+          move_id?: number;
+          new_value?: string | null;
+          old_value?: string | null;
+          version_group_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'move_change_log_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'move_change_log_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'move_change_log_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_change_log_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_change_log_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_change_log_version_group_id_fkey';
+            columns: ['version_group_id'];
+            isOneToOne: false;
+            referencedRelation: 'version_group';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       move_learn_method: {
         Row: {
           created_at: string;
@@ -640,6 +1003,88 @@ export type Database = {
           name_ko?: string;
         };
         Relationships: [];
+      };
+      move_property: {
+        Row: {
+          id: number;
+          identifier: string;
+          name_en: string | null;
+          name_ko: string | null;
+          sort_order: number | null;
+        };
+        Insert: {
+          id?: number;
+          identifier: string;
+          name_en?: string | null;
+          name_ko?: string | null;
+          sort_order?: number | null;
+        };
+        Update: {
+          id?: number;
+          identifier?: string;
+          name_en?: string | null;
+          name_ko?: string | null;
+          sort_order?: number | null;
+        };
+        Relationships: [];
+      };
+      move_property_map: {
+        Row: {
+          move_id: number;
+          property_id: number;
+        };
+        Insert: {
+          move_id: number;
+          property_id: number;
+        };
+        Update: {
+          move_id?: number;
+          property_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'move_property_map_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'move_property_map_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'move_property_map_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_property_map_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_property_map_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'move_property_map_property_id_fkey';
+            columns: ['property_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_property';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       move_target: {
         Row: {
@@ -712,6 +1157,7 @@ export type Database = {
           height_dm: number | null;
           id: number;
           is_default: boolean;
+          learnset_owner_key: string | null;
           name_en: string;
           name_ja: string;
           name_ko: string;
@@ -739,6 +1185,7 @@ export type Database = {
           height_dm?: number | null;
           id?: number;
           is_default?: boolean;
+          learnset_owner_key?: string | null;
           name_en: string;
           name_ja: string;
           name_ko: string;
@@ -766,6 +1213,7 @@ export type Database = {
           height_dm?: number | null;
           id?: number;
           is_default?: boolean;
+          learnset_owner_key?: string | null;
           name_en?: string;
           name_ja?: string;
           name_ko?: string;
@@ -798,6 +1246,41 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'form';
             referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'poke_learnset_owner_key_fkey';
+            columns: ['learnset_owner_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_learnset_owner_key_fkey';
+            columns: ['learnset_owner_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_learnset_owner_key_fkey';
+            columns: ['learnset_owner_key'];
+            isOneToOne: false;
+            referencedRelation: 'national_pokedex_with_stat';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_learnset_owner_key_fkey';
+            columns: ['learnset_owner_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_learnset_owner_key_fkey';
+            columns: ['learnset_owner_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
+            referencedColumns: ['poke_key'];
           },
           {
             foreignKeyName: 'poke_species_id_fkey';
@@ -901,6 +1384,20 @@ export type Database = {
             foreignKeyName: 'poke_ability_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_ability_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_ability_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -909,6 +1406,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_ability_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
         ];
@@ -940,6 +1444,20 @@ export type Database = {
             foreignKeyName: 'poke_effort_value_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_effort_value_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_effort_value_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -948,6 +1466,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_effort_value_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
           {
@@ -1058,6 +1583,20 @@ export type Database = {
             foreignKeyName: 'poke_move_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -1066,6 +1605,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
           {
@@ -1116,6 +1662,20 @@ export type Database = {
             foreignKeyName: 'poke_stat_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: true;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_stat_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: true;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_stat_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: true;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -1125,6 +1685,71 @@ export type Database = {
             isOneToOne: true;
             referencedRelation: 'poke';
             referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_stat_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: true;
+            referencedRelation: 'poke_learnset';
+            referencedColumns: ['poke_key'];
+          },
+        ];
+      };
+      poke_version_group: {
+        Row: {
+          poke_key: string;
+          version_group_id: number;
+        };
+        Insert: {
+          poke_key: string;
+          version_group_id: number;
+        };
+        Update: {
+          poke_key?: string;
+          version_group_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'poke_version_group_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_version_group_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_version_group_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'national_pokedex_with_stat';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_version_group_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_version_group_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_version_group_version_group_id_fkey';
+            columns: ['version_group_id'];
+            isOneToOne: false;
+            referencedRelation: 'version_group';
+            referencedColumns: ['id'];
           },
         ];
       };
@@ -1452,6 +2077,7 @@ export type Database = {
           description: string;
           effect_chance: number | null;
           id: number;
+          is_usable: boolean;
           machine_number: number | null;
           machine_type: string | null;
           move_id: number;
@@ -1470,6 +2096,7 @@ export type Database = {
           description: string;
           effect_chance?: number | null;
           id?: number;
+          is_usable?: boolean;
           machine_number?: number | null;
           machine_type?: string | null;
           move_id: number;
@@ -1488,6 +2115,7 @@ export type Database = {
           description?: string;
           effect_chance?: number | null;
           id?: number;
+          is_usable?: boolean;
           machine_number?: number | null;
           machine_type?: string | null;
           move_id?: number;
@@ -1607,181 +2235,34 @@ export type Database = {
           },
         ];
       };
-      version_move_champions: {
-        Row: {
-          accuracy: number | null;
-          base_move_id: number | null;
-          created_at: string | null;
-          damage_class_id: number | null;
-          description: string | null;
-          effect_chance: number | null;
-          id: number;
-          identifier: string;
-          name_en: string | null;
-          name_ja: string | null;
-          name_ko: string | null;
-          power: number | null;
-          pp: number | null;
-          priority: number;
-          target_id: number | null;
-          type_id: number | null;
-          version_group_id: number | null;
-        };
-        Insert: {
-          accuracy?: number | null;
-          base_move_id?: number | null;
-          created_at?: string | null;
-          damage_class_id?: number | null;
-          description?: string | null;
-          effect_chance?: number | null;
-          id?: number;
-          identifier: string;
-          name_en?: string | null;
-          name_ja?: string | null;
-          name_ko?: string | null;
-          power?: number | null;
-          pp?: number | null;
-          priority?: number;
-          target_id?: number | null;
-          type_id?: number | null;
-          version_group_id?: number | null;
-        };
-        Update: {
-          accuracy?: number | null;
-          base_move_id?: number | null;
-          created_at?: string | null;
-          damage_class_id?: number | null;
-          description?: string | null;
-          effect_chance?: number | null;
-          id?: number;
-          identifier?: string;
-          name_en?: string | null;
-          name_ja?: string | null;
-          name_ko?: string | null;
-          power?: number | null;
-          pp?: number | null;
-          priority?: number;
-          target_id?: number | null;
-          type_id?: number | null;
-          version_group_id?: number | null;
-        };
-        Relationships: [
-          {
-            foreignKeyName: 'version_move_champions_base_move_id_fkey';
-            columns: ['base_move_id'];
-            isOneToOne: false;
-            referencedRelation: 'move';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_base_move_id_fkey';
-            columns: ['base_move_id'];
-            isOneToOne: false;
-            referencedRelation: 'move_current';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_base_move_id_fkey';
-            columns: ['base_move_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_la_view';
-            referencedColumns: ['move_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_base_move_id_fkey';
-            columns: ['base_move_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_vm_view';
-            referencedColumns: ['move_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_base_move_id_fkey';
-            columns: ['base_move_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_za_view';
-            referencedColumns: ['move_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_damage_class_id_fkey';
-            columns: ['damage_class_id'];
-            isOneToOne: false;
-            referencedRelation: 'damage_class';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_damage_class_id_fkey';
-            columns: ['damage_class_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_la_view';
-            referencedColumns: ['damage_class_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_damage_class_id_fkey';
-            columns: ['damage_class_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_vm_view';
-            referencedColumns: ['damage_class_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_damage_class_id_fkey';
-            columns: ['damage_class_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_za_view';
-            referencedColumns: ['damage_class_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_target_id_fkey';
-            columns: ['target_id'];
-            isOneToOne: false;
-            referencedRelation: 'move_target';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_type_id_fkey';
-            columns: ['type_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_la_view';
-            referencedColumns: ['type_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_type_id_fkey';
-            columns: ['type_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_vm_view';
-            referencedColumns: ['type_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_type_id_fkey';
-            columns: ['type_id'];
-            isOneToOne: false;
-            referencedRelation: 'poke_move_za_view';
-            referencedColumns: ['type_id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_type_id_fkey';
-            columns: ['type_id'];
-            isOneToOne: false;
-            referencedRelation: 'type';
-            referencedColumns: ['id'];
-          },
-          {
-            foreignKeyName: 'version_move_champions_version_group_id_fkey';
-            columns: ['version_group_id'];
-            isOneToOne: false;
-            referencedRelation: 'version_group';
-            referencedColumns: ['id'];
-          },
-        ];
-      };
       version_move_legends_arceus: {
         Row: {
           accuracy_agile: number | null;
           accuracy_standard: number | null;
           accuracy_strong: number | null;
+          action_speed_self_agile: number | null;
+          action_speed_self_standard: number | null;
+          action_speed_self_strong: number | null;
+          action_speed_target_agile: number | null;
+          action_speed_target_standard: number | null;
+          action_speed_target_strong: number | null;
           base_move_id: number | null;
           created_at: string | null;
           damage_class_id: number | null;
           description: string | null;
+          effect_chance_agile: number | null;
+          effect_chance_standard: number | null;
+          effect_chance_strong: number | null;
+          effect_heal_agile: number | null;
+          effect_heal_standard: number | null;
+          effect_heal_strong: number | null;
+          effect_note: string | null;
+          effect_recoil_agile: number | null;
+          effect_recoil_standard: number | null;
+          effect_recoil_strong: number | null;
+          effect_turns_agile: number | null;
+          effect_turns_standard: number | null;
+          effect_turns_strong: number | null;
           id: number;
           identifier: string;
           name_en: string | null;
@@ -1798,10 +2279,29 @@ export type Database = {
           accuracy_agile?: number | null;
           accuracy_standard?: number | null;
           accuracy_strong?: number | null;
+          action_speed_self_agile?: number | null;
+          action_speed_self_standard?: number | null;
+          action_speed_self_strong?: number | null;
+          action_speed_target_agile?: number | null;
+          action_speed_target_standard?: number | null;
+          action_speed_target_strong?: number | null;
           base_move_id?: number | null;
           created_at?: string | null;
           damage_class_id?: number | null;
           description?: string | null;
+          effect_chance_agile?: number | null;
+          effect_chance_standard?: number | null;
+          effect_chance_strong?: number | null;
+          effect_heal_agile?: number | null;
+          effect_heal_standard?: number | null;
+          effect_heal_strong?: number | null;
+          effect_note?: string | null;
+          effect_recoil_agile?: number | null;
+          effect_recoil_standard?: number | null;
+          effect_recoil_strong?: number | null;
+          effect_turns_agile?: number | null;
+          effect_turns_standard?: number | null;
+          effect_turns_strong?: number | null;
           id?: number;
           identifier: string;
           name_en?: string | null;
@@ -1818,10 +2318,29 @@ export type Database = {
           accuracy_agile?: number | null;
           accuracy_standard?: number | null;
           accuracy_strong?: number | null;
+          action_speed_self_agile?: number | null;
+          action_speed_self_standard?: number | null;
+          action_speed_self_strong?: number | null;
+          action_speed_target_agile?: number | null;
+          action_speed_target_standard?: number | null;
+          action_speed_target_strong?: number | null;
           base_move_id?: number | null;
           created_at?: string | null;
           damage_class_id?: number | null;
           description?: string | null;
+          effect_chance_agile?: number | null;
+          effect_chance_standard?: number | null;
+          effect_chance_strong?: number | null;
+          effect_heal_agile?: number | null;
+          effect_heal_standard?: number | null;
+          effect_heal_strong?: number | null;
+          effect_note?: string | null;
+          effect_recoil_agile?: number | null;
+          effect_recoil_standard?: number | null;
+          effect_recoil_strong?: number | null;
+          effect_turns_agile?: number | null;
+          effect_turns_standard?: number | null;
+          effect_turns_strong?: number | null;
           id?: number;
           identifier?: string;
           name_en?: string | null;
@@ -1937,12 +2456,15 @@ export type Database = {
       };
       version_move_legends_za: {
         Row: {
-          base_move_id: number | null;
+          base_move_id: number;
           cooldown: number | null;
           created_at: string;
           damage_class_id: number;
           description: string;
           duration: number | null;
+          effect_chance: number | null;
+          effect_heal: number | null;
+          effect_recoil: number | null;
           frames_exec: number | null;
           frames_wind_up: number | null;
           id: number;
@@ -1963,12 +2485,15 @@ export type Database = {
           za_variant: string;
         };
         Insert: {
-          base_move_id?: number | null;
+          base_move_id: number;
           cooldown?: number | null;
           created_at?: string;
           damage_class_id: number;
           description: string;
           duration?: number | null;
+          effect_chance?: number | null;
+          effect_heal?: number | null;
+          effect_recoil?: number | null;
           frames_exec?: number | null;
           frames_wind_up?: number | null;
           id?: number;
@@ -1989,12 +2514,15 @@ export type Database = {
           za_variant: string;
         };
         Update: {
-          base_move_id?: number | null;
+          base_move_id?: number;
           cooldown?: number | null;
           created_at?: string;
           damage_class_id?: number;
           description?: string;
           duration?: number | null;
+          effect_chance?: number | null;
+          effect_heal?: number | null;
+          effect_recoil?: number | null;
           frames_exec?: number | null;
           frames_wind_up?: number | null;
           id?: number;
@@ -2117,6 +2645,94 @@ export type Database = {
       };
     };
     Views: {
+      champions_learnset: {
+        Row: {
+          move_id: number | null;
+          owner_key: string | null;
+          poke_key: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+        ];
+      };
+      champions_move_learner: {
+        Row: {
+          move_id: number | null;
+          poke: Json | null;
+          poke_key: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'champions_poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+        ];
+      };
       evolution_summary: {
         Row: {
           chain_id: number | null;
@@ -2185,6 +2801,89 @@ export type Database = {
         };
         Relationships: [];
       };
+      poke_learnset: {
+        Row: {
+          detail: string | null;
+          learn_method_id: number | null;
+          level: number | null;
+          move_id: number | null;
+          owner_key: string | null;
+          poke_key: string | null;
+          version_group_id: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'poke_move_learn_method_id_fkey';
+            columns: ['learn_method_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_learn_method';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'poke_move_learn_method_id_fkey';
+            columns: ['learn_method_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['learn_method_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_learn_method_id_fkey';
+            columns: ['learn_method_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['learn_method_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_learn_method_id_fkey';
+            columns: ['learn_method_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['learn_method_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'move_current';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_la_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_vm_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_move_id_fkey';
+            columns: ['move_id'];
+            isOneToOne: false;
+            referencedRelation: 'poke_move_za_view';
+            referencedColumns: ['move_id'];
+          },
+          {
+            foreignKeyName: 'poke_move_version_group_id_fkey';
+            columns: ['version_group_id'];
+            isOneToOne: false;
+            referencedRelation: 'version_group';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       poke_move_la_view: {
         Row: {
           accuracy_agile: number | null;
@@ -2219,6 +2918,20 @@ export type Database = {
             foreignKeyName: 'poke_move_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -2227,6 +2940,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
           {
@@ -2303,6 +3023,20 @@ export type Database = {
             foreignKeyName: 'poke_move_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -2311,6 +3045,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
           {
@@ -2362,6 +3103,20 @@ export type Database = {
             foreignKeyName: 'poke_move_poke_key_fkey';
             columns: ['poke_key'];
             isOneToOne: false;
+            referencedRelation: 'champions_learnset';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'champions_move_learner';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
             referencedRelation: 'national_pokedex_with_stat';
             referencedColumns: ['poke_key'];
           },
@@ -2370,6 +3125,13 @@ export type Database = {
             columns: ['poke_key'];
             isOneToOne: false;
             referencedRelation: 'poke';
+            referencedColumns: ['poke_key'];
+          },
+          {
+            foreignKeyName: 'poke_move_poke_key_fkey';
+            columns: ['poke_key'];
+            isOneToOne: false;
+            referencedRelation: 'poke_learnset';
             referencedColumns: ['poke_key'];
           },
           {

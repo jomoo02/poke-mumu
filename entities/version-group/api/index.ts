@@ -33,7 +33,16 @@ export const getVersionGroupContent = async (versionGroup: string) => {
   };
 };
 
-export const getRegions = async (versionGroup: string) => {
+export interface Region {
+  regionKo: string | null;
+  identifier: string;
+  isPrimary: boolean;
+  versionGroup: { identifier: string };
+}
+
+export const getRegions = async (
+  versionGroup: string,
+): Promise<Region[] | null> => {
   'use cache';
 
   const supabase = createClient();
@@ -44,7 +53,8 @@ export const getRegions = async (versionGroup: string) => {
       `
         regionKo:region_ko,
         identifier,
-        version_group!inner (
+        isPrimary:is_primary,
+        versionGroup:version_group!inner (
           identifier
         )
       `,

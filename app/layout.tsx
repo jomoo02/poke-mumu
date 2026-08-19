@@ -6,6 +6,8 @@ import { ThemeProvider } from './providers/theme';
 import { TooltipProvider } from './shared/ui/tooltip';
 
 import './globals.css';
+import { SidebarProvider } from '@/shared/ui/sidebar';
+import { AppSidebar } from '@/widgets/app-sidebar';
 
 const suit = localFont({
   src: '../public/fonts/SUIT-Variable.woff2',

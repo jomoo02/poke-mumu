@@ -217,21 +217,19 @@ export default function NatureTable() {
   };
 
   return (
-    <div className="overflow-hidden rounded-2xl">
-      <Table>
-        <TableHeader className="[&_tr]:border-b-0">
+    <div className="overflow-hidden rounded-2xl border">
+      <Table className=" border-separate border-spacing-0">
+        <TableHeader>
           <TableRow>
-            <TableHead className=" sticky left-0 z-10 rounded-tl-2xl px-0 py-0 w-30 sm:w-34">
-              <div className="border-b w-30 sm:w-34 bg-zinc-50 dark:bg-zinc-800 h-[46px] px-4" />
-            </TableHead>
+            <TableHead className="sticky left-0 z-10 rounded-tl-2xl w-30 sm:w-34  border-b bg-zinc-50 dark:bg-zinc-800 border-r" />
             {heads.map((head) => (
               <TableHead
                 key={head}
-                className="bg-zinc-50 dark:bg-zinc-800 border-b py-0"
+                className=" border-b bg-zinc-50 dark:bg-zinc-800 last:rounded-tr-2xl px-3.5 md:px-4"
               >
-                <div className="flex items-center gap-1 h-[46px]">
+                <div className="flex items-center gap-0.5 text-sm">
                   {head}
-                  <ChevronsDownIcon className="inline-flex size-5 text-blue-600 dark:text-blue-500" />
+                  <ChevronsDownIcon className="inline-flex size-4.5 text-blue-600 dark:text-blue-500" />
                 </div>
               </TableHead>
             ))}
@@ -239,37 +237,35 @@ export default function NatureTable() {
         </TableHeader>
         <TableBody>
           {NATURE_LIST.map(({ label, natures }, idx) => (
-            <TableRow key={label} className="border-b-0">
-              <TableCell className="bg-card text-md font-medium sticky left-0 z-10 p-0">
-                <div
-                  className={cn(
-                    'flex items-center gap-1 px-4 h-[78px] bg-zinc-50 dark:bg-zinc-800',
-                    idx === NATURE_LIST.length - 1 ? 'border-b-0' : 'border-b ',
-                  )}
-                >
+            <TableRow key={label}>
+              <TableCell
+                className={cn(
+                  'font-medium sticky left-0 z-10 border-b bg-zinc-50 dark:bg-zinc-800 border-r text-sm p-3.5 md:p-4',
+                  idx === NATURE_LIST.length - 1
+                    ? 'border-b-0 first:rounded-bl-2xl'
+                    : '',
+                )}
+              >
+                <div className={cn('flex items-center gap-0.5')}>
                   {label}
-                  <ChevronsUpIcon className="inline-flex size-5 text-red-600 dark:text-red-500" />
+                  <ChevronsUpIcon className="inline-flex size-4.5 text-red-600 dark:text-red-500" />
                 </div>
               </TableCell>
               {natures.map((nature) => (
                 <TableCell
                   key={nature.identifier}
                   className={cn(
-                    ' transition-colors duration-150 p-0',
+                    ' transition-colors duration-150 border-b p-3.5 md:p-4',
+                    idx === NATURE_LIST.length - 1
+                      ? 'border-b-0  last:rounded-br-2xl'
+                      : '',
                     checkSearchNature(nature)
                       ? 'bg-primary/10 dark:bg-primary/70'
                       : 'bg-card',
                   )}
                 >
-                  <div
-                    className={cn(
-                      'h-[78px] px-4 flex flex-col justify-center',
-                      idx === NATURE_LIST.length - 1
-                        ? 'border-b-0'
-                        : 'border-b ',
-                    )}
-                  >
-                    <div>{nature.ko}</div>
+                  <div className={cn(' flex flex-col justify-center')}>
+                    <div className="text-md">{nature.ko}</div>
                     <div className="text-sm text-foreground/70">
                       {nature.en} / {nature.ja}
                     </div>

@@ -1,5 +1,7 @@
-import PokedexVersionGroupLayout from '@/widgets/pokedex-version-group-layout';
 import { Suspense } from 'react';
+
+import { PageLayoutContainer } from '@/shared/ui/page-layout';
+import VersionGroupRegionTab from '@/widgets/version-group-region-tab';
 
 interface PokedexGameVersionGroupLayoutProps {
   params: Promise<{ versionGroup: string }>;
@@ -11,12 +13,13 @@ export default async function PokedexGameVersionGroupLayout({
   children,
 }: PokedexGameVersionGroupLayoutProps) {
   return (
-    <Suspense>
-      {params.then(({ versionGroup }) => (
-        <PokedexVersionGroupLayout versionGroup={versionGroup}>
-          {children}
-        </PokedexVersionGroupLayout>
-      ))}
-    </Suspense>
+    <PageLayoutContainer>
+      <Suspense>
+        {params.then(({ versionGroup }) => (
+          <VersionGroupRegionTab versionGroup={versionGroup} />
+        ))}
+      </Suspense>
+      {children}
+    </PageLayoutContainer>
   );
 }

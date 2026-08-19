@@ -20,6 +20,20 @@ export interface LegendsArceusMove {
   accuracyStandard: number | null;
   accuracyAgile: number | null;
   accuracyStrong: number | null;
+
+  actionSpeedSelfStandard: number | null;
+  actionSpeedSelfAgile: number | null;
+  actionSpeedSelfStrong: number | null;
+  actionSpeedTargetStandard: number | null;
+  actionSpeedTargetAgile: number | null;
+  actionSpeedTargetStrong: number | null;
+  effectChanceStandard: number | null;
+  effectChanceAgile: number | null;
+  effectChanceStrong: number | null;
+  effectTurnsStandard: number | null;
+  effectTurnsAgile: number | null;
+  effectTurnsStrong: number | null;
+  effectNote: string | null;
 }
 
 export const getLegendsArceusMove = async (moveId: number) => {
@@ -41,7 +55,20 @@ export const getLegendsArceusMove = async (moveId: number) => {
         powerStrong:power_strong,
         accuracyStandard:accuracy_standard,
         accuracyAgile:accuracy_agile,
-        accuracyStrong:accuracy_strong
+        accuracyStrong:accuracy_strong,
+        actionSpeedSelfStandard: action_speed_self_standard,
+        actionSpeedSelfAgile: action_speed_self_agile,
+        actionSpeedSelfStrong: action_speed_self_strong,
+        actionSpeedTargetStandard: action_speed_target_standard,
+        actionSpeedTargetAgile: action_speed_target_agile,
+        actionSpeedTargetStrong: action_speed_target_strong,
+        effectChanceStandard: effect_chance_standard,
+        effectChanceAgile: effect_chance_agile,
+        effectChanceStrong: effect_chance_strong,
+        effectTurnsStandard: effect_turns_standard,
+        effectTurnsAgile: effect_turns_agile,
+        effectTurnsStrong: effect_turns_strong,
+        effectNote: effect_note
       `,
     )
     .eq('base_move_id', moveId)

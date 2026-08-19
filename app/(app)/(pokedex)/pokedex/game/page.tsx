@@ -1,5 +1,5 @@
-import { redirect } from 'next/navigation';
+import PokedexGameView from '@/views/(pokedex)/game';
 
-export default function PokedexGamePage() {
-  redirect('/pokedex');
+export default function PokdexGamePage() {
+  return <PokedexGameView />;
 }

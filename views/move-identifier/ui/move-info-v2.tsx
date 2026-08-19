@@ -54,7 +54,7 @@ interface InfoProps {
 
 function Info3({ title, children }: InfoProps) {
   return (
-    <div className="flex flex-col bg-muted/70 xs:w-22 border border-transparent h-18.25 gap-0.5 justify-center rounded-xl items-center">
+    <div className="flex flex-col bg-muted/70 xs:w-24 border border-transparent h-19 gap-0.5 justify-center rounded-xl items-center">
       <div className="text-foreground/70 text-cenr text-sm font-medium">
         {title}
       </div>

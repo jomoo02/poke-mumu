@@ -27,7 +27,7 @@ export default function VersionMoveInfo({ versionMoves }: VersionMoveInfo) {
           버전별 변화와 기술머신 수록 정보
         </PageLayoutSectionDescription>
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         <History origin={history.origin} changeRows={history.changeRows} />
         <MoveMachine
           generationMachineGroups={moveMachines}

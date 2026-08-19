@@ -1,3 +1,7 @@
+'use client';
+
+import { useState } from 'react';
+
 import {
   PageLayoutSection,
   PageLayoutSectionDescription,
@@ -5,9 +9,16 @@ import {
 } from '@/shared/ui/page-layout';
 import { getObjectParticle } from '@/shared/lib/utils';
 import { PokeLinkMobile } from '@/features/poke-link/ui';
-import { cn } from '@/shared/lib/cn';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/shared/ui/card';
 
 import type { AbilityPoke } from '../model/poke';
+import { Button } from '@/shared/ui/button';
 
 interface PokeWithAbilityProps {
   ability: string;
@@ -32,7 +43,7 @@ export default function PokeWithAbility({
           {description}
         </PageLayoutSectionDescription>
       </div>
-      <div className="grid gap-y-6">
+      <div className="grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
         <PokeList type="normal" pokes={normalPokes} />
         <PokeList type="hidden" pokes={hiddenPokes} />
       </div>
@@ -45,22 +56,53 @@ interface PokeListProps {
   pokes: AbilityPoke[];
 }
 
+const SLICE_COUNT = 5;
+
 function PokeList({ type, pokes }: PokeListProps) {
   const title = `${type === 'hidden' ? '숨겨진' : '일반'} 특성(${pokes.length})`;
+  const [open, setOpen] = useState(false);
 
+  const cardTitle = `${title}(${pokes.length})`;
+
+  const group1 = pokes.slice(0, SLICE_COUNT);
+  const group2 = pokes.slice(SLICE_COUNT);
   return (
-    <div
-      className={cn(
-        'flex flex-col gap-6 min-w-0',
-        pokes.length === 0 ? 'opacity-30' : 'opacity-100',
-      )}
-    >
-      <h3 className="text-xl font-semibold mt-3">{title}</h3>
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-6 xl:gap-x-12 gap-y-4 md:gap-y-6">
-        {pokes.map((poke) => (
-          <PokeLinkMobile key={poke.pokeKey} poke={poke} />
+    <Card className="h-fit">
+      <CardHeader>
+        <CardTitle>{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="gap-0">
+        {group1.map((poke) => (
+          <div
+            key={poke.pokeKey}
+            className="border-b py-3 first:pt-0 last:border-b-0 flex flex-col gap-2"
+          >
+            <PokeLinkMobile key={poke.pokeKey} poke={poke} showForm />
+          </div>
         ))}
-      </div>
-    </div>
+        {open && (
+          <>
+            {group2.map((poke) => (
+              <div
+                key={poke.pokeKey}
+                className="border-b py-3 first:pt-0 last:border-b-0 flex flex-col gap-2"
+              >
+                <PokeLinkMobile key={poke.pokeKey} poke={poke} showForm />
+              </div>
+            ))}
+          </>
+        )}
+      </CardContent>
+      {group2.length > 0 && !open && (
+        <CardFooter>
+          <Button
+            onClick={() => setOpen(true)}
+            className="w-full font-semibold"
+          >
+            모두 보기
+          </Button>
+        </CardFooter>
+      )}
+    </Card>
   );
 }

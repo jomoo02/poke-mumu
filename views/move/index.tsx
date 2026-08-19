@@ -36,7 +36,7 @@ export default async function MoveView() {
         </PageLayoutHeaderDescription>
       </PageLayoutHeader>
       <div className="flex flex-col lg:flex-row">
-        <PageLayoutSection className="mr-10 xl:mr-18 hidden lg:block pr-4 3xl:pr-8 w-70 xl:w-80 3xl:w-88">
+        <PageLayoutSection className="mr-10 xl:mr-18 3xl:mr-24 hidden lg:block pr-4 xl:pr-10 3xl:pr-14 min-w-64 xl:min-w-70 3xl:min-w-78">
           <Suspense>
             <MoveFilterSideBar types={types} damageClasses={damageClasses} />
           </Suspense>

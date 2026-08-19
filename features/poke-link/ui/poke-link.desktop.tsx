@@ -25,6 +25,8 @@ export function PokeLinkDesktop({
 
   const bg = bgVariants[type1.identifier];
 
+  const name = showForm && form ? `${nameKo} (${form})` : nameKo;
+
   return (
     <div
       className={cn(
@@ -56,20 +58,20 @@ export function PokeLinkDesktop({
           <Link
             href={`/pokedex/${poke.pokeKey}`}
             className={cn(
-              'truncate outline-none rounded-sm px-1 font-medium',
+              'truncate outline-none rounded-sm font-medium text-md',
               'focus-visible:ring-[3px] focus-visible:ring-ring/50',
               'after:absolute after:-inset-1 after:z-10',
             )}
           >
-            {nameKo}
+            {name}
           </Link>
         </div>
 
-        {showForm && (
+        {/* {showForm && (
           <div className="text-foreground/70 text-sm truncate min-h-5 text-center px-px">
             {form}
           </div>
-        )}
+        )} */}
       </div>
 
       <div className="flex justify-center gap-1 items-center shrink-0 pt-1.5">

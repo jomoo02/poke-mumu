@@ -8,12 +8,20 @@ function PageLayoutContainer({
     <div
       data-slot="page-layout-container"
       className={cn(
-        'max-w-360 3xl:max-w-[1560px] mx-auto py-14 w-full min-h-svh flex flex-col gap-6',
-        'px-4 md:px-6 lg:px-8 xl:px-12 3xl:px-2.5',
+        'mx-auto w-full min-h-svh flex flex-col gap-6',
+        // '2xl:max-w-370',
+        'lg:max-w-[calc(92vw-240px)]',
+        // 'px-4 md:px-6 lg:px-8 xl:px-16 3xl:px-2.5 gap-6 py-14',
+        'px-6 lg:px-5  py-6',
         className,
       )}
       {...props}
-    />
+    >
+      {/* <div
+        className="max-w-6xl mx-auto w-full flex flex-col gap-6"
+        {...props}
+      ></div> */}
+    </div>
   );
 }
 
@@ -82,7 +90,7 @@ function PageLayoutSectionTitle({
   return (
     <h2
       data-slot="page-layout-section"
-      className={cn('text-2xl font-bold tracking-wide break-keep', className)}
+      className={cn('text-xl font-bold tracking-wide break-keep', className)}
       {...props}
     />
   );

@@ -7,6 +7,7 @@ import {
   CardTitle,
 } from '@/shared/ui/card';
 import type { LegendsArceusMove } from '../../api';
+import { cn } from '@/shared/lib/cn';
 
 export default function LaMove({ move }: { move: LegendsArceusMove | null }) {
   if (!move) {
@@ -21,41 +22,60 @@ export default function LaMove({ move }: { move: LegendsArceusMove | null }) {
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <CardGroup className="flex flex-col gap-2.5">
+        <CardGroup className="grid  gap-2.5">
           <Item subject="타입">{move.type?.nameKo}</Item>
           <Item subject="분류">{move.damageClass?.nameKo}</Item>
           <Item subject="PP">{move.pp}</Item>
-        </CardGroup>
-        <CardGroup className="flex flex-col gap-2">
-          <div className="flex gap-4 items-center overflow-hidden">
-            <div className="w-24" />
-            <div className="grid grid-cols-3 flex-1 text-sm">
-              <div />
-              <div className="text-muted-foreground">속공</div>
-              <div className="text-muted-foreground">강공</div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2.5">
-            <Item subject="위력">
-              <div className="grid grid-cols-3 w-full items-center">
-                <div>{move.powerStandard ?? '-'}</div>
-                <div>{move.powerAgile ?? '-'}</div>
-                <div>{move.powerStrong ?? '-'}</div>
-              </div>
-            </Item>
-            <Item subject="명중">
-              <div className="grid grid-cols-3 w-full items-center">
-                <div>{move.accuracyStandard ?? '-'}</div>
-                <div>{move.accuracyAgile ?? '-'}</div>
-                <div>{move.accuracyStrong ?? '-'}</div>
-              </div>
-            </Item>
-          </div>
+          <Item subject="위력">
+            <Item2
+              standard={move.powerStandard}
+              agile={move.powerAgile}
+              strong={move.powerStrong}
+            />
+          </Item>
+          <Item subject="명중">
+            <Item2
+              standard={move.accuracyStandard}
+              agile={move.accuracyAgile}
+              strong={move.accuracyStrong}
+            />
+          </Item>
         </CardGroup>
 
         <CardGroup>
-          <div>추가 효과</div>
-          <div>aditional effect</div>
+          <div className="font-medium">행동 순서</div>
+          <Item subject="자신">
+            <Item2
+              standard={move.actionSpeedSelfStandard}
+              agile={move.actionSpeedSelfAgile}
+              strong={move.actionSpeedSelfStrong}
+            />
+          </Item>
+          <Item subject="상대">
+            <Item2
+              standard={move.actionSpeedTargetStandard}
+              agile={move.actionSpeedTargetAgile}
+              strong={move.actionSpeedTargetStrong}
+            />
+          </Item>
+        </CardGroup>
+        <CardGroup>
+          <div className="font-medium">추가 효과</div>
+          <Item subject="확률">
+            <Item2
+              standard={move.effectChanceStandard}
+              agile={move.effectChanceAgile}
+              strong={move.effectChanceStrong}
+            />
+          </Item>
+          <Item subject="턴">
+            <Item2
+              standard={move.effectTurnsStandard}
+              agile={move.effectTurnsAgile}
+              strong={move.effectTurnsStrong}
+            />
+          </Item>
+          {move.effectNote}
         </CardGroup>
       </CardContent>
     </Card>
@@ -65,16 +85,50 @@ export default function LaMove({ move }: { move: LegendsArceusMove | null }) {
 function Item({
   subject,
   children,
+  className,
 }: {
   subject: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <div className="border rounded-2xl flex gap-4 items-center overflow-hidden ">
-      <div className="text-md text-foreground/70 bg-muted/70 w-24 py-3 rounded-l-2xl flex items-center justify-center">
+    <div
+      className={cn(
+        'border rounded-2xl flex gap-3.5 items-center overflow-hidden',
+        className,
+      )}
+    >
+      <div className="text-sm text-foreground/70 font-medium bg-muted/70 w-20 h-full py-3 rounded-l-2xl flex items-center justify-center">
         {subject}
       </div>
       <div className="text-md flex-1">{children}</div>
+    </div>
+  );
+}
+
+function Item2({
+  standard,
+  agile,
+  strong,
+}: {
+  standard: number | null;
+  agile: number | null;
+  strong: number | null;
+}) {
+  return (
+    <div className="grid grid-cols-3 py-1.75 gap-x-1">
+      <div className="flex flex-col">
+        <div className="text-foreground/70 text-xs">기본</div>
+        {standard ?? '-'}
+      </div>
+      <div className="flex flex-col  ">
+        <div className="text-foreground/70 text-xs">속공</div>
+        {agile ?? '-'}
+      </div>
+      <div className="flex flex-col  ">
+        <div className="text-foreground/70 text-xs">강공</div>
+        {strong ?? '-'}
+      </div>
     </div>
   );
 }

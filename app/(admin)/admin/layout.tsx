@@ -11,7 +11,7 @@ export default function AdminLayout({
   }
 
   return (
-    <div className="min-h-dvh bg-background text-foreground">
+    <div className="min-h-dvh bg-background text-foreground w-full flex-1">
       <Suspense>{children}</Suspense>
     </div>
   );
