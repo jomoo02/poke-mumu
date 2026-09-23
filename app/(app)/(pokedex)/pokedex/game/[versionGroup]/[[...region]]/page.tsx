@@ -1,12 +1,12 @@
+import type { Metadata } from 'next';
+import { Suspense } from 'react';
+
 import PokedexGameVersionGroupRegionView from '@/views/(pokedex)/game-version-group-region';
 import {
   getAllRegionParams,
   getRegionalDex,
 } from '@/views/(pokedex)/game-version-group-region/api';
 import Skeleton from '@/views/(pokedex)/game-version-group-region/ui/skeleton';
-import { notFound } from 'next/navigation'; // 추가
-import type { Metadata } from 'next';
-import { Suspense } from 'react';
 
 export async function generateStaticParams() {
   return getAllRegionParams();
@@ -58,11 +58,7 @@ export default async function PokedexGameVersionGroupRegionPage(
 ) {
   return (
     <Suspense fallback={<Skeleton />}>
-      <PokedexGameVersionGroupRegionView
-        params={props.params}
-        // versionGroup={versionGroup}
-        // region={region?.[0]}
-      />
+      <PokedexGameVersionGroupRegionView params={props.params} />
     </Suspense>
   );
 }

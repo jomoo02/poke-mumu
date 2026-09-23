@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useParams, useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 
 import { Tabs, TabsList, TabsTrigger } from '@/shared/ui/tabs';
 import type { Region } from '@/entities/version-group/api';
@@ -19,21 +19,13 @@ export default function RegionTab({ regions }: RegionTabProps) {
 
   const params = useParams<{ region?: string[] }>();
 
-  const searchParams = useSearchParams();
-
-  const query = searchParams.toString();
-
-  const suffix = query ? `?${query}` : '';
-
   const value = params.region ? params.region[0] : regions[0].identifier;
 
   const tabs = regions.map(
     ({ regionKo, identifier, isPrimary, versionGroup }) => {
-      const pathname = isPrimary
+      const href = isPrimary
         ? `/pokedex/game/${versionGroup.identifier}`
         : `/pokedex/game/${versionGroup.identifier}/${identifier}`;
-
-      const href = `${pathname}${suffix}`;
 
       const content = regionKo;
 

@@ -24,7 +24,7 @@ export type Database = {
           identifier: string;
           is_champions: boolean;
           name_en: string;
-          name_ja: string | null;
+          name_ja: string;
           name_ko: string;
         };
         Insert: {
@@ -36,7 +36,7 @@ export type Database = {
           identifier: string;
           is_champions?: boolean;
           name_en: string;
-          name_ja?: string | null;
+          name_ja: string;
           name_ko: string;
         };
         Update: {
@@ -48,7 +48,7 @@ export type Database = {
           identifier?: string;
           is_champions?: boolean;
           name_en?: string;
-          name_ja?: string | null;
+          name_ja?: string;
           name_ko?: string;
         };
         Relationships: [];
@@ -720,6 +720,7 @@ export type Database = {
           name_en: string;
           name_ja: string;
           name_ko: string;
+          short_ko: string | null;
         };
         Insert: {
           id?: number;
@@ -727,6 +728,7 @@ export type Database = {
           name_en: string;
           name_ja: string;
           name_ko: string;
+          short_ko?: string | null;
         };
         Update: {
           id?: number;
@@ -734,6 +736,7 @@ export type Database = {
           name_en?: string;
           name_ja?: string;
           name_ko?: string;
+          short_ko?: string | null;
         };
         Relationships: [];
       };
@@ -1152,6 +1155,7 @@ export type Database = {
           form_id: number | null;
           gender_rate: number;
           genera_ko: string;
+          generation: number | null;
           growth_rate: string;
           hatch_counter: number | null;
           height_dm: number | null;
@@ -1180,6 +1184,7 @@ export type Database = {
           form_id?: number | null;
           gender_rate: number;
           genera_ko: string;
+          generation?: number | null;
           growth_rate: string;
           hatch_counter?: number | null;
           height_dm?: number | null;
@@ -1208,6 +1213,7 @@ export type Database = {
           form_id?: number | null;
           gender_rate?: number;
           genera_ko?: string;
+          generation?: number | null;
           growth_rate?: string;
           hatch_counter?: number | null;
           height_dm?: number | null;
@@ -2650,6 +2656,35 @@ export type Database = {
           move_id: number | null;
           owner_key: string | null;
           poke_key: string | null;
+          poke: {
+            base_happiness: number;
+            capture_rate: number;
+            created_at: string;
+            dex_number: number;
+            egg_group_1_id: number | null;
+            egg_group_2_id: number | null;
+            evolution_id: number | null;
+            form_id: number | null;
+            gender_rate: number;
+            genera_ko: string;
+            generation: number | null;
+            growth_rate: string;
+            hatch_counter: number | null;
+            height_dm: number | null;
+            id: number;
+            is_default: boolean;
+            learnset_owner_key: string | null;
+            name_en: string;
+            name_ja: string;
+            name_ko: string;
+            poke_key: string;
+            sort_order: number;
+            species_id: number;
+            sprite: string;
+            type_1_id: number;
+            type_2_id: number | null;
+            weight_hg: number | null;
+          } | null;
         };
         Relationships: [
           {
@@ -3196,6 +3231,44 @@ export type Database = {
         Returns: number;
       };
       get_evolution_tree: { Args: { p_chain_id: number }; Returns: Json };
+      poke: {
+        Args: { '': Database['public']['Views']['champions_learnset']['Row'] };
+        Returns: {
+          base_happiness: number;
+          capture_rate: number;
+          created_at: string;
+          dex_number: number;
+          egg_group_1_id: number | null;
+          egg_group_2_id: number | null;
+          evolution_id: number | null;
+          form_id: number | null;
+          gender_rate: number;
+          genera_ko: string;
+          generation: number | null;
+          growth_rate: string;
+          hatch_counter: number | null;
+          height_dm: number | null;
+          id: number;
+          is_default: boolean;
+          learnset_owner_key: string | null;
+          name_en: string;
+          name_ja: string;
+          name_ko: string;
+          poke_key: string;
+          sort_order: number;
+          species_id: number;
+          sprite: string;
+          type_1_id: number;
+          type_2_id: number | null;
+          weight_hg: number | null;
+        };
+        SetofOptions: {
+          from: 'champions_learnset';
+          to: 'poke';
+          isOneToOne: true;
+          isSetofReturn: true;
+        };
+      };
       poke_type_defense: {
         Args: { defender_ids: number[]; target_gen?: number };
         Returns: {

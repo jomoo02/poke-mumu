@@ -66,9 +66,9 @@ export function DamageClassBadge({
   };
 
   const bgMap: Record<string, string> = {
-    physical: 'bg-orange-400 dark:bg-orange-400/80',
-    special: 'bg-sky-400 dark:bg-sky-400/80',
-    status: 'bg-zinc-400 dark:bg-zinc-400/80',
+    physical: 'bg-orange-400/80 dark:bg-orange-400/80',
+    special: 'bg-sky-400/80 dark:bg-sky-400/80',
+    status: 'bg-zinc-400/80 dark:bg-zinc-400/80',
   };
 
   const bg = bgMap[damageClass.identifier];

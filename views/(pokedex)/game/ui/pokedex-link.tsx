@@ -32,7 +32,6 @@ export default function PokedexLink({ versionGroup }: PokedexLinkProps) {
             'focus-visible:ring-2 focus-visible:ring-ring w-fit',
             'after:absolute after:-inset-1 after:z-10',
           )}
-          prefetch={true}
         >
           {versionGroup.nameKo}
         </Link>

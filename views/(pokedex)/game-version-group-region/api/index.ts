@@ -1,4 +1,5 @@
 import { createClient } from '@/shared/lib/supabase/client';
+
 import type { RegionalPoke } from '../model';
 
 export const getAllRegionParams = async () => {
@@ -46,7 +47,8 @@ export const getRegionalDex = async (versionGroup: string, region?: string) => {
             pokeKey:poke_key,
             sprite,
             form: form_id (
-              name_ko
+              identifier,
+              nameKo:name_ko
             ),
             nameKo:name_ko,
             type1: type!type_1_id (
@@ -89,7 +91,7 @@ export const getRegionalDex = async (versionGroup: string, region?: string) => {
   const entries: RegionalPoke[] = data.entries.map(
     ({ poke, regionalDexNumber }) => ({
       dexNumber: Number(regionalDexNumber),
-      form: poke.form?.name_ko ?? null,
+      form: poke.form ?? null,
       pokeKey: poke.pokeKey,
       sprite: poke.sprite,
       nameKo: poke.nameKo,

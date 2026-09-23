@@ -17,6 +17,7 @@ import useDelayedFlag from '../model/useDelayedFlag';
 import PokedexToolbar from './toolbar';
 import Pagination from './pagination';
 import PokeList from './poke-list';
+import PaginationV2 from './pagination-v2';
 
 interface PokedexAllClientProps {
   pokes: NationalPoke[];
@@ -85,7 +86,7 @@ function PokedexAllClientInner({ pokes, types }: PokedexAllClientProps) {
         onResetFilters={handleResetFilters}
         resultText={resultText}
       />
-      <Pagination page={page} totalPages={totalPages} onChange={goToPage} />
+      <PaginationV2 page={page} totalPages={totalPages} onChange={goToPage} />
       <PokeList
         filteredCount={filteredCount}
         isDimmed={isDimmed}

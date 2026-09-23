@@ -1,10 +1,9 @@
+import { Fragment } from 'react';
+
 import { PageLayoutSection } from '@/shared/ui/page-layout';
 import { cn } from '@/shared/lib/cn';
 
-import { DEFAULT_MODE, type PokeListMode } from '../model';
-
 interface SkeletonProps {
-  mode?: PokeListMode;
   count?: number;
 }
 
@@ -21,31 +20,9 @@ function HeaderSkeleton() {
   );
 }
 
-function ModeTabSkeleton() {
+function MobileItemSkeleton() {
   return (
-    <div className="flex justify-end">
-      <div className="h-12 w-28 rounded-2xl bg-muted/50" />
-    </div>
-  );
-}
-
-function GridItemSkeleton() {
-  return (
-    <div className="flex flex-col items-center w-full">
-      <div className="w-full aspect-square rounded-4xl bg-muted/50" />
-      <div className="mt-1.5 w-14 h-5 rounded-md bg-muted/50" />
-      <div className="mt-1 w-16 h-5 rounded-md bg-muted/50" />
-      <div className="mt-1.5 flex justify-center gap-1">
-        <div className="size-7 rounded-md bg-muted/50" />
-        <div className="size-7 rounded-md bg-muted/50" />
-      </div>
-    </div>
-  );
-}
-
-function ListItemSkeleton() {
-  return (
-    <div className="flex gap-x-3.5 items-center w-full">
+    <div className="flex sm:hidden gap-x-3.5 items-center w-full">
       <div className="bg-muted/50 rounded-2xl p-1.75">
         <div className="size-12 2xs:size-12.5 rounded-xl bg-muted/70" />
       </div>
@@ -61,48 +38,39 @@ function ListItemSkeleton() {
   );
 }
 
-function PokeListSkeleton({
-  mode,
-  count,
-}: {
-  mode: PokeListMode;
-  count: number;
-}) {
-  const items = Array.from({ length: count }, (_, i) => i);
-
-  if (mode === 'grid') {
-    return (
-      <div
-        className={cn(
-          'grid gap-6',
-          'md:gap-12 grid-cols-[repeat(auto-fill,minmax(128px,1fr))]',
-        )}
-      >
-        {items.map((i) => (
-          <GridItemSkeleton key={i} />
-        ))}
-      </div>
-    );
-  }
-
+function DesktopItemSkeleton() {
   return (
-    <div className="grid gap-4 max-w-lg mx-auto w-full">
-      {items.map((i) => (
-        <ListItemSkeleton key={i} />
-      ))}
+    <div className="hidden sm:flex sm:flex-col items-center w-full">
+      <div className="w-full aspect-square rounded-4xl bg-muted/50" />
+      <div className="mt-1.5 w-14 h-5 rounded-md bg-muted/50" />
+      <div className="mt-1 w-16 h-5 rounded-md bg-muted/50" />
+      <div className="mt-1.5 flex justify-center gap-1">
+        <div className="size-7 rounded-md bg-muted/50" />
+        <div className="size-7 rounded-md bg-muted/50" />
+      </div>
     </div>
   );
 }
 
-export default function Skeleton({
-  mode = DEFAULT_MODE,
-  count = DEFAULT_COUNT,
-}: SkeletonProps) {
+export default function Skeleton({ count = DEFAULT_COUNT }: SkeletonProps) {
+  const items = Array.from({ length: count }, (_, i) => i);
+
   return (
     <PageLayoutSection className="mt-0 animate-pulse">
       <HeaderSkeleton />
-      <ModeTabSkeleton />
-      <PokeListSkeleton mode={mode} count={count} />
+      <div
+        className={cn(
+          'grid gap-4',
+          'sm:gap-6 md:gap-12 sm:grid-cols-[repeat(auto-fill,minmax(128px,1fr))]',
+        )}
+      >
+        {items.map((i) => (
+          <Fragment key={i}>
+            <MobileItemSkeleton />
+            <DesktopItemSkeleton />
+          </Fragment>
+        ))}
+      </div>
     </PageLayoutSection>
   );
 }

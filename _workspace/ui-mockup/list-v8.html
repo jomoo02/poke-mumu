@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ListV8 목업 — 기술/특성 테이블 (사이드바 포함)</title>
+    <!-- 목업 전용: Tailwind v4 브라우저 빌드. 실제 구현은 프로젝트 토큰(bg-muted 등)을 쓴다. -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  </head>
+  <body class="bg-white text-zinc-900">
+    <!--
+      이 파일은 두 가지 모드로 동작한다.
+      1) 외부 프레임(기본): 뷰포트 너비/사이드바 상태/화면을 고르고 iframe으로 자기 자신을 띄운다.
+      2) ?embed=1: 실제 앱 레이아웃(SidebarProvider + AppSidebar + SidebarInset + AppHeader + PageLayoutContainer) 재현.
+    -->
+    <div id="frame-root" hidden>
+      <div class="sticky top-0 z-10 flex flex-wrap items-center gap-x-4 gap-y-2 border-b bg-zinc-50 px-4 py-2.5 text-sm">
+        <span class="font-bold">목업 컨트롤</span>
+        <label class="flex items-center gap-1.5">화면
+          <select id="ctl-variant" class="h-8 rounded-md border bg-white px-2">
+            <option value="move-nodesc">기술 · 설명 없음</option>
+            <option value="move-desc">기술 · 설명 있음</option>
+            <option value="ability">특성</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-1.5">뷰포트
+          <select id="ctl-width" class="h-8 rounded-md border bg-white px-2">
+            <option value="1920">1920</option>
+            <option value="1440" selected>1440</option>
+            <option value="1280">1280</option>
+            <option value="1180">1180</option>
+            <option value="1100">1100</option>
+            <option value="1024">1024</option>
+            <option value="900">900</option>
+            <option value="768">768 (md)</option>
+            <option value="430">430 (모바일 L)</option>
+            <option value="390">390 (모바일)</option>
+            <option value="360">360 (모바일 S)</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-1.5">사이드바
+          <select id="ctl-sidebar" class="h-8 rounded-md border bg-white px-2">
+            <option value="expanded">펼침 (15rem)</option>
+            <option value="collapsed">아이콘 (3.5rem)</option>
+            <option value="auto">자동 (1280 미만이면 아이콘으로 시작)</option>
+            <option value="youtube">유튜브 (1280 미만: 레일 고정 + 누르면 오버레이)</option>
+          </select>
+        </label>
+        <span id="ctl-info" class="rounded-md bg-white px-2 py-1 font-mono text-xs text-zinc-600 ring-1 ring-zinc-200"></span>
+      </div>
+      <div class="overflow-x-auto bg-zinc-200 p-4">
+        <iframe id="frame" title="목업" class="mx-auto block h-[calc(100svh-5.5rem)] rounded-md bg-white shadow-lg"></iframe>
+      </div>
+    </div>
+
+    <!-- ── 앱 레이아웃 재현 (embed) ── -->
+    <div id="app-root" hidden>
+      <!-- SidebarProvider -->
+      <div class="group/sidebar-wrapper flex min-h-svh w-full [--sidebar-width-icon:3.5rem] [--sidebar-width:15rem]">
+        <!-- Sidebar collapsible="icon" (md 이상에서만, 768px 미만은 사이드바 없음) -->
+        <div id="sidebar" class="group peer hidden text-zinc-900 md:block" data-state="expanded" data-collapsible="">
+          <div class="relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear group-data-[collapsible=icon]:w-(--sidebar-width-icon)"></div>
+          <div class="fixed inset-y-0 left-0 z-30 hidden h-svh w-(--sidebar-width) border-r transition-[width] duration-200 ease-linear group-data-[collapsible=icon]:w-(--sidebar-width-icon) md:flex">
+            <div id="sidebar-nav" class="flex size-full flex-col bg-white"></div>
+          </div>
+        </div>
+
+        <!--
+          유튜브 방식 오버레이 드로어 (md ~ xl 미만에서만 사용)
+          - 레일(아이콘 모드)은 그대로 두고, 트리거를 누르면 펼친 사이드바가 콘텐츠 "위에" 뜬다 → 콘텐츠 폭 불변.
+          - 헤더 행은 AppHeader와 같은 h-13 / px-4 / 트리거 위치로 맞춰, 열려도 트리거가 제자리에 있는 것처럼 보인다.
+          - 닫힘 애니메이션 동안 보이도록 visibility도 transition.
+        -->
+        <div id="sidebar-drawer" data-open="false" class="group/drawer invisible fixed inset-0 z-70 transition-[visibility] duration-200 data-[open=true]:visible">
+          <button data-drawer-close aria-label="메뉴 닫기" tabindex="-1" class="absolute inset-0 bg-black/40 opacity-0 transition-opacity duration-200 group-data-[open=true]/drawer:opacity-100"></button>
+          <div role="dialog" aria-modal="true" aria-label="메뉴" class="absolute inset-y-0 left-0 flex w-(--sidebar-width) -translate-x-full flex-col bg-white shadow-xl transition-transform duration-200 ease-out group-data-[open=true]/drawer:translate-x-0">
+            <div class="flex h-13 shrink-0 items-center gap-1 px-4">
+              <button data-drawer-close aria-label="메뉴 닫기" class="inline-flex size-10 items-center justify-center rounded-xl [@media(hover:hover)]:hover:bg-zinc-100">
+                <svg aria-hidden="true" class="size-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M9 3v18" /></svg>
+              </button>
+              <a href="#" class="ml-1 truncate text-xl font-extrabold">포케무무</a>
+            </div>
+            <div id="drawer-nav"></div>
+          </div>
+        </div>
+
+        <!-- SidebarInset -->
+        <div class="relative flex w-full min-w-0 flex-1 flex-col bg-white">
+          <!-- AppHeader -->
+          <header class="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md">
+            <div class="flex h-13 w-full items-center justify-between gap-1 px-4">
+              <button id="sidebar-trigger" aria-label="Toggle Sidebar" class="hidden size-10 items-center justify-center rounded-xl md:inline-flex [@media(hover:hover)]:hover:bg-zinc-100">
+                <svg aria-hidden="true" class="size-4.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2" /><path d="M9 3v18" /></svg>
+              </button>
+              <a href="#" class="shrink-0 text-lg font-extrabold md:hidden">포케무무</a>
+              <nav aria-label="breadcrumb" class="mr-auto ml-3 flex min-w-0 items-center gap-1.5 text-sm text-zinc-500 md:ml-1">
+                <span>홈</span><span aria-hidden="true">/</span><span id="crumb" class="truncate font-medium text-zinc-900"></span>
+              </nav>
+              <div class="flex items-center gap-x-1">
+                <button aria-label="포켓몬 검색" class="inline-flex size-10 items-center justify-center rounded-xl [@media(hover:hover)]:hover:bg-zinc-100">
+                  <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                </button>
+                <button aria-label="테마 전환" class="inline-flex size-10 items-center justify-center rounded-xl [@media(hover:hover)]:hover:bg-zinc-100">
+                  <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2m-7.07-2.93 1.41-1.41m11.32-11.32 1.41-1.41M2 12h2m16 0h2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41" /></svg>
+                </button>
+              </div>
+            </div>
+          </header>
+
+          <main class="flex-1">
+            <!-- PageLayoutContainer (shared/ui/page-layout 그대로) -->
+            <div class="mx-auto flex min-h-svh w-full max-w-[calc(90rem+4.375vw*2)] flex-col gap-6 px-4 py-6 sm:px-6 md:px-[4.375vw] md:py-12">
+              <div class="flex flex-col gap-3">
+                <h1 id="page-title" class="text-4xl font-bold tracking-tight break-keep"></h1>
+              </div>
+
+              <!-- 툴바 형태만 콘텐츠 폭(@container)에 반응. 테이블은 모든 폭에서 동일 + 넘치면 가로 스크롤 -->
+              <div id="list-container" class="@container flex flex-col gap-6">
+                <!-- ── 넓을 때: 검색 + 필터 Popover (정렬은 열 헤더) ── -->
+                <div class="flex flex-col gap-3 @2xl:flex-row @2xl:items-center">
+                  <div id="search" class="flex h-10.5 flex-1 items-center truncate rounded-full bg-zinc-100 px-4 text-sm text-zinc-400 @2xl:max-w-md"></div>
+                  <div id="filters-desktop" class="hidden items-center gap-2 @2xl:flex"></div>
+                </div>
+
+                <div class="hidden flex-wrap items-center justify-between gap-3 @2xl:flex">
+                  <div id="active-chips" class="flex flex-wrap items-center gap-2"></div>
+                  <span id="count" class="text-sm text-zinc-600"></span>
+                </div>
+
+                <!-- ── 좁을 때: 필터·정렬 sticky 바 (bottom Sheet) ── -->
+                <div class="sticky top-13 z-20 -my-3 flex flex-col gap-2.5 bg-white/85 py-3 backdrop-blur-md @2xl:hidden">
+                  <div class="flex items-center gap-2">
+                    <button id="open-filter" class="inline-flex h-10 shrink-0 items-center gap-2 rounded-full border px-4 text-sm font-medium">
+                      <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M7 12h10M10 18h4" /></svg>
+                      필터 <span id="filter-count" class="min-w-5 rounded-full bg-zinc-900 px-1.5 text-center text-xs text-white empty:hidden"></span>
+                    </button>
+                    <button id="sort-mobile" class="inline-flex h-10 min-w-0 flex-1 items-center justify-between gap-2 rounded-full border px-4 text-sm font-medium">
+                      <span data-sort-label class="truncate"></span>
+                      <svg aria-hidden="true" class="size-4 shrink-0 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5M7 9l5-5 5 5" /></svg>
+                    </button>
+                  </div>
+                  <div id="active-chips-m" class="flex gap-2 overflow-x-auto [scrollbar-width:none] empty:hidden *:shrink-0"></div>
+                </div>
+                <span id="count-m" aria-live="polite" class="-mb-2 text-sm text-zinc-600 @2xl:hidden"></span>
+
+                <!--
+                  ── 넓을 때: 테이블 ──
+                  - 가로 스크롤 컨테이너(overflow-x) 없음 → th의 sticky top-13(AppHeader 아래)이 페이지 스크롤에 붙는다.
+                  - 표시 조건은 콘텐츠 폭 기준 @container. 전환 기준은 모든 화면 공통 @2xl(672px).
+                  - 열 우선순위: 기술·설명 있음은 @4xl(896px) 미만에서 설명 "열"을 숨기고 이름 칸 안에 1줄로 옮긴다.
+                    → 형태(테이블↔리스트) 전환 전에 열부터 줄여서, 사이드바 상태에 따른 형태 변화 구간을 최소화.
+                  - -mx-3 + w-[calc(100%+1.5rem)]: 셀 px-3만큼 바깥으로 빼서 첫 열 텍스트를 제목과 정렬.
+                -->
+                <table id="table" class="-mx-3 hidden w-[calc(100%+1.5rem)] border-separate border-spacing-0 text-sm @2xl:table" aria-labelledby="page-title">
+                  <thead><tr id="thead-row"></tr></thead>
+                  <tbody id="tbody"></tbody>
+                </table>
+
+                <!-- ── 좁을 때: 리스트 (1열, 구분선) ── -->
+                <ul id="list" aria-labelledby="page-title" class="flex flex-col px-3 @2xl:hidden"></ul>
+              </div>
+            </div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 좁을 때 bottom Sheet: 필터 (shared/ui/sheet side="bottom" 가정) ── -->
+    <div id="sheet-filter" hidden class="fixed inset-0 z-60">
+      <button data-close aria-label="닫기" class="absolute inset-0 bg-black/40"></button>
+      <div role="dialog" aria-modal="true" aria-labelledby="sheet-filter-title" class="absolute inset-x-0 bottom-0 flex max-h-[85svh] flex-col rounded-t-3xl bg-white shadow-2xl">
+        <div aria-hidden="true" class="mx-auto mt-2.5 h-1.5 w-10 shrink-0 rounded-full bg-zinc-200"></div>
+        <div class="flex items-center justify-between px-5 pt-2 pb-1">
+          <h2 id="sheet-filter-title" class="text-lg font-bold">필터</h2>
+          <button data-close aria-label="닫기" class="-mr-2 inline-flex size-10 items-center justify-center rounded-xl">
+            <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+          </button>
+        </div>
+        <div id="sheet-filter-body" class="flex min-h-0 flex-1 flex-col gap-6 overflow-y-auto overscroll-contain px-5 pt-2 pb-5"></div>
+        <div class="flex shrink-0 gap-2 border-t px-5 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+          <button id="filter-reset" class="h-12 shrink-0 rounded-full border px-5 text-sm font-medium">초기화</button>
+          <button id="filter-apply" class="h-12 flex-1 rounded-full bg-zinc-900 text-sm font-semibold text-white"></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 좁을 때 bottom Sheet: 정렬 ── -->
+    <div id="sheet-sort" hidden class="fixed inset-0 z-60">
+      <button data-close aria-label="닫기" class="absolute inset-0 bg-black/40"></button>
+      <div role="dialog" aria-modal="true" aria-labelledby="sheet-sort-title" class="absolute inset-x-0 bottom-0 flex flex-col rounded-t-3xl bg-white pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-2xl">
+        <div aria-hidden="true" class="mx-auto mt-2.5 h-1.5 w-10 rounded-full bg-zinc-200"></div>
+        <h2 id="sheet-sort-title" class="px-5 pt-3 pb-2 text-lg font-bold">정렬</h2>
+        <div id="sheet-sort-body" role="radiogroup" aria-labelledby="sheet-sort-title" class="flex flex-col px-2"></div>
+      </div>
+    </div>
+
+    <!-- 행 클릭 결과 표시 (목업 전용: 실제는 router.push) -->
+    <div id="toast" hidden role="status" class="fixed bottom-6 left-1/2 z-70 -translate-x-1/2 rounded-full bg-zinc-900 px-4 py-2 font-mono text-sm text-white shadow-lg"></div>
+
+    <script>
+      const params = new URLSearchParams(location.search);
+      const $ = (id) => document.getElementById(id);
+
+      /* ─────────────── 외부 프레임 ─────────────── */
+      if (!params.has('embed')) {
+        $('frame-root').hidden = false;
+        const saved = new URLSearchParams(location.hash.slice(1));
+        if (saved.get('v')) $('ctl-variant').value = saved.get('v');
+        if (saved.get('w')) $('ctl-width').value = saved.get('w');
+        if (saved.get('s')) $('ctl-sidebar').value = saved.get('s');
+
+        const load = () => {
+          const v = $('ctl-variant').value, w = $('ctl-width').value, s = $('ctl-sidebar').value;
+          history.replaceState(null, '', `#v=${v}&w=${w}&s=${s}`);
+          $('frame').style.width = `${w}px`;
+          $('frame').src = `${location.pathname}?embed=1&variant=${v}&sidebar=${s}`;
+        };
+        ['ctl-variant', 'ctl-width', 'ctl-sidebar'].forEach((id) => $(id).addEventListener('change', load));
+        window.addEventListener('message', (e) => {
+          if (e.data?.type !== 'list-width') return;
+          const { vw, sidebar, sidebarMode, content, stage, overflow } = e.data;
+          $('ctl-info').textContent = `뷰포트 ${vw}px · 사이드바 ${sidebar}px (${sidebarMode}) · 콘텐츠 ${content}px → ${stage}${overflow ? ' ⚠ 넘침' : ''}`;
+        });
+        load();
+      }
+
+      /* ─────────────── 앱 레이아웃 (embed) ─────────────── */
+      if (params.has('embed')) {
+        $('app-root').hidden = false;
+
+        const variant = params.get('variant') || 'move-nodesc';
+        const NAV = [
+          ['도감', '/pokedex', '<path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/>'],
+          ['특성', '/ability', '<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'],
+          ['기술', '/move', '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="2"/>'],
+        ];
+        const activeUrl = variant === 'ability' ? '/ability' : '/move';
+
+        const navList = `
+          <div class="relative flex w-full min-w-0 flex-col p-2">
+            <ul class="flex w-full min-w-0 flex-col gap-1.5">
+              ${NAV.map(([title, url, icon]) => `
+                <li>
+                  <a href="#" title="${title}" ${url === activeUrl ? 'data-active' : ''} class="flex w-full items-center gap-2.5 overflow-hidden rounded-xl px-2.5 py-2.5 text-sm font-medium text-zinc-900/70 group-data-[collapsible=icon]:size-10! group-data-[collapsible=icon]:p-2.5! data-active:bg-zinc-100 data-active:font-semibold data-active:text-zinc-900 [@media(hover:hover)]:hover:bg-zinc-100">
+                    <svg aria-hidden="true" class="size-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">${icon}</svg>
+                    <span class="truncate">${title}</span>
+                  </a>
+                </li>`).join('')}
+            </ul>
+          </div>`;
+
+        // AppSidebar: SidebarHeader(h-14) + NavMain / 드로어는 자체 헤더 + NavMain
+        $('sidebar-nav').innerHTML = `
+          <div class="flex h-14 flex-col justify-center gap-2 p-2">
+            <a href="#" class="flex flex-1 items-center truncate px-2.5 text-xl font-extrabold group-data-[collapsible=icon]:hidden">포케무무</a>
+          </div>${navList}`;
+        $('drawer-nav').innerHTML = navList;
+
+        const setSidebar = (state) => {
+          $('sidebar').dataset.state = state;
+          $('sidebar').dataset.collapsible = state === 'collapsed' ? 'icon' : '';
+        };
+        const sidebarParam = params.get('sidebar') || 'expanded';
+
+        /* ── 유튜브 방식 ──
+           xl(1280) 이상: 일반 사이드바 (펼침/접힘, 콘텐츠를 밀어냄)
+           md ~ xl 미만: 항상 레일(아이콘 모드) + 트리거 누르면 오버레이 드로어 (콘텐츠 폭 고정)
+           md 미만     : 사이드바 없음 */
+        const xl = matchMedia('(min-width: 1280px)');
+        const isYoutube = sidebarParam === 'youtube';
+        const drawerOpen = (open) => {
+          $('sidebar-drawer').dataset.open = open;
+          document.documentElement.style.overflow = open ? 'hidden' : '';
+          if (open) $('sidebar-drawer').querySelector('[data-drawer-close]:not([tabindex])').focus();
+          else $('sidebar-trigger').focus({ preventScroll: true });
+        };
+        $('sidebar-drawer').addEventListener('click', (e) => {
+          if (e.target.closest('[data-drawer-close], a')) drawerOpen(false);
+        });
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && $('sidebar-drawer').dataset.open === 'true') drawerOpen(false);
+        });
+
+        if (isYoutube) {
+          const sync = () => {
+            setSidebar(xl.matches ? 'expanded' : 'collapsed');
+            if (xl.matches && $('sidebar-drawer').dataset.open === 'true') drawerOpen(false);
+          };
+          xl.addEventListener('change', sync);
+          sync();
+        } else {
+          // auto: 첫 진입 시에만 1280 미만이면 아이콘 모드 (실제 구현에서는 cookie 값이 없을 때만 적용)
+          setSidebar(sidebarParam === 'auto' ? (innerWidth < 1280 ? 'collapsed' : 'expanded') : sidebarParam);
+        }
+
+        $('sidebar-trigger').addEventListener('click', () => {
+          if (isYoutube && !xl.matches) return drawerOpen(true);
+          setSidebar($('sidebar').dataset.state === 'expanded' ? 'collapsed' : 'expanded');
+        });
+
+        // 실측 폭을 외부 프레임에 보고
+        const report = () => {
+          const content = Math.round($('list-container').getBoundingClientRect().width);
+          const sidebar = matchMedia('(min-width: 768px)').matches ? Math.round($('sidebar').getBoundingClientRect().width) : 0;
+          const overflow = $('table').offsetWidth > 0 && $('table').scrollWidth > $('table').offsetWidth + 1;
+          const stage =
+            content < 672 ? '리스트 (672px 미만)'
+            : variant !== 'move-desc' ? '테이블'
+            : content < 896 ? '테이블 · 설명은 이름 칸 안 (672~896px)'
+            : '테이블 · 설명 열 (896px 이상)';
+          const sidebarMode =
+            innerWidth < 768 ? '사이드바 없음'
+            : params.get('sidebar') === 'youtube' && innerWidth < 1280 ? '레일 고정 · 트리거=오버레이'
+            : `일반 · 트리거=${$('sidebar').dataset.state === 'expanded' ? '접기' : '펼치기'}`;
+          parent.postMessage({ type: 'list-width', vw: innerWidth, sidebar, sidebarMode, content, stage, overflow }, '*');
+        };
+        new ResizeObserver(report).observe($('list-container'));
+
+        setupPage(variant);
+        report();
+      }
+
+      function setupPage(variant) {
+        const isAbility = variant === 'ability';
+        const withDesc = variant === 'move-desc';
+
+        /* ── 데이터 ── */
+        const TYPE = {
+          노말: 'bg-zinc-400', 불꽃: 'bg-orange-500', 물: 'bg-blue-500', 전기: 'bg-yellow-400 text-zinc-900!',
+          풀: 'bg-green-500', 얼음: 'bg-cyan-400', 격투: 'bg-red-700', 독: 'bg-purple-500', 땅: 'bg-amber-600',
+          고스트: 'bg-indigo-700', 드래곤: 'bg-indigo-500', 페어리: 'bg-pink-400',
+        };
+        const DAMAGE = {
+          물리: 'border-red-300 text-red-700', 특수: 'border-blue-300 text-blue-700', 변화: 'border-zinc-300 text-zinc-600',
+        };
+        const MOVES = [
+          ['용성군', 'Draco Meteor', 'りゅうせいぐん', '드래곤', '특수', 130, 90, 5, '혜성을 하늘에서 상대에게 떨어뜨린다. 사용 후 반동으로 자신의 특수공격이 크게 떨어진다.'],
+          ['인파이트', 'Close Combat', 'インファイト', '격투', '물리', 120, 100, 5, '방어를 버리고 상대의 품에 뛰어들어 공격한다. 자신의 방어와 특수방어가 떨어진다.'],
+          ['기합구슬', 'Focus Blast', 'きあいだま', '격투', '특수', 120, 70, 5, '기합을 높여서 가진 힘을 모두 발사한다. 상대의 특수방어를 떨어뜨릴 때가 있다.'],
+          ['하이드로펌프', 'Hydro Pump', 'ハイドロポンプ', '물', '특수', 110, 80, 5, '대량의 물을 세찬 기세로 상대에게 발사하여 공격한다.'],
+          ['번개', 'Thunder', 'かみなり', '전기', '특수', 110, 70, 10, '강렬한 번개를 상대에게 떨어뜨려서 공격한다. 마비 상태로 만들 때가 있다.'],
+          ['지진', 'Earthquake', 'じしん', '땅', '물리', 100, 100, 10, '지진의 충격으로 자신의 주위에 있는 모든 포켓몬을 공격한다.'],
+          ['문포스', 'Moonblast', 'ムーンフォース', '페어리', '특수', 95, 100, 15, '달의 힘을 빌려서 상대를 공격한다. 상대의 특수공격을 떨어뜨릴 때가 있다.'],
+          ['화염방사', 'Flamethrower', 'かえんほうしゃ', '불꽃', '특수', 90, 100, 15, '상대를 향해 격렬한 불꽃을 발사하여 공격한다. 화상 상태로 만들 때가 있다.'],
+          ['10만볼트', 'Thunderbolt', '10まんボルト', '전기', '특수', 90, 100, 15, '강한 전격을 상대에게 날려 공격한다. 마비 상태로 만들 때가 있다.'],
+          ['냉동빔', 'Ice Beam', 'れいとうビーム', '얼음', '특수', 90, 100, 10, '얼음 빔을 상대에게 발사하여 공격한다. 얼음 상태로 만들 때가 있다.'],
+          ['섀도볼', 'Shadow Ball', 'シャドーボール', '고스트', '특수', 80, 100, 15, '검은 그림자 덩어리를 던져서 공격한다. 상대의 특수방어를 떨어뜨릴 때가 있다.'],
+          ['독찌르기', 'Poison Jab', 'どくづき', '독', '물리', 80, 100, 20, '독이 스며든 촉수나 팔로 상대를 찔러서 공격한다. 독 상태로 만들 때가 있다.'],
+          ['전광석화', 'Quick Attack', 'でんこうせっか', '노말', '물리', 40, 100, 30, '눈에 보이지 않는 빠르기로 상대에게 덤벼든다. 반드시 선제공격할 수 있다.'],
+          ['칼춤', 'Swords Dance', 'つるぎのまい', '노말', '변화', null, null, 20, '싸움의 춤을 추어 기합을 높인다. 자신의 공격을 크게 올린다.'],
+          ['방어', 'Protect', 'まもる', '노말', '변화', null, null, 10, '상대의 공격을 전혀 받지 않게 된다. 연속으로 내면 실패하기 쉬워진다.'],
+        ].map(([ko, en, ja, type, dmg, power, acc, pp, desc]) => ({ ko, en, ja, type, dmg, power, acc, pp, desc }));
+
+        const ABILITIES = [
+          ['가속', 'Speed Boost', 'かそく', 3, '매 턴 스피드가 올라간다.'],
+          ['깨어있기', 'Vital Spirit', 'やるき', 3, '의욕이 넘쳐서 잠듦 상태가 되지 않는다.'],
+          ['맹화', 'Blaze', 'もうか', 3, 'HP가 줄었을 때 불꽃타입 기술의 위력이 올라간다.'],
+          ['불꽃몸', 'Flame Body', 'ほのおのからだ', 3, '뜨거운 몸 때문에 접촉한 상대를 화상 상태로 만들 때가 있다.'],
+          ['타오르는불꽃', 'Flash Fire', 'もらいび', 3, '불꽃타입의 기술을 받으면 불꽃을 받아서 자신이 사용하는 불꽃타입 기술이 강해진다.'],
+          ['적응력', 'Adaptability', 'てきおうりょく', 4, '자신과 같은 타입의 기술 위력이 올라간다.'],
+          ['테크니션', 'Technician', 'テクニシャン', 4, '위력이 약한 기술의 위력을 올려서 공격할 수 있다.'],
+          ['매직가드', 'Magic Guard', 'マジックガード', 4, '공격 이외에는 대미지를 입지 않는다.'],
+          ['멀티스케일', 'Multiscale', 'マルチスケイル', 5, 'HP가 꽉 찼을 때 받는 대미지가 줄어든다.'],
+          ['변환자재', 'Protean', 'へんげんじざい', 6, '자신이 사용하는 기술과 같은 타입으로 변화한다.'],
+          ['강철정신', 'Steely Spirit', 'はがねのせいしん', 8, '같은 편의 강철타입 공격의 위력이 올라간다.'],
+          ['흑요석', 'Obsidian', null, 9, 'nameJa가 없으면 영문명만 표시한다.'],
+        ].map(([ko, en, ja, gen, desc]) => ({ ko, en, ja, gen, desc }));
+
+        const ROWS = isAbility ? ABILITIES : MOVES;
+        const UNIT = isAbility ? '특성' : '기술';
+        const TOTAL = isAbility ? 301 : 912;
+        const BASE_PATH = isAbility ? '/ability' : '/move';
+
+        /* ── 셀 클래스 ── */
+        // 가로 스크롤이 없으므로 sticky 열 불필요 → hover는 tr 배경만 (반투명 bg-muted/50 사용 가능)
+        const cellBase = 'border-b border-zinc-200 px-3 py-3 align-middle group-last/row:border-b-0';
+        const shrink = 'w-px whitespace-nowrap'; // 내용 폭만큼만 차지
+
+        /* ── 열 정의 ── */
+        const COLUMNS = isAbility
+          ? [
+              { key: 'name', label: '이름', sortable: true, className: shrink },
+              { key: 'desc', label: '설명', className: 'min-w-64' },
+              { key: 'gen', label: '세대', sortable: true, align: 'right', className: shrink }, // 맨 오른쪽
+            ]
+          : [
+              // 설명 열이 보일 때(@4xl)만 이름 열을 내용 폭으로 줄이고, 그 전에는 남는 폭을 이름 칸(+설명 1줄)이 차지
+              { key: 'name', label: '이름', sortable: true, className: withDesc ? '@4xl:w-px @4xl:whitespace-nowrap' : '' },
+              { key: 'type', label: '타입', className: shrink },
+              { key: 'dmg', label: '분류', className: shrink },
+              { key: 'power', label: '위력', sortable: true, align: 'right', className: `${shrink} min-w-16` },
+              { key: 'acc', label: '명중', sortable: true, align: 'right', className: `${shrink} min-w-16` },
+              { key: 'pp', label: 'PP', sortable: true, align: 'right', className: `${shrink} min-w-14` },
+              ...(withDesc ? [{ key: 'desc', label: '설명', className: 'min-w-72', visibility: 'hidden @4xl:table-cell' }] : []),
+            ];
+
+        const renderCell = (col, row) => {
+          switch (col.key) {
+            case 'name':
+              return `
+                <div class="flex max-w-64 flex-col gap-0.5">
+                  <a href="${BASE_PATH}/${row.en.toLowerCase().replaceAll(' ', '-')}" class="truncate font-semibold outline-none hover:underline focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-blue-400/50">${row.ko}</a>
+                  <span class="truncate text-xs text-zinc-500">${row.ja ? `${row.en} · ${row.ja}` : row.en}</span>
+                </div>
+                ${withDesc ? `<p class="mt-1 line-clamp-1 break-keep whitespace-normal text-zinc-600 @4xl:hidden">${row.desc}</p>` : ''}`;
+            case 'type':
+              return `<span class="inline-flex h-6 w-14 items-center justify-center rounded-md text-xs font-medium text-white ${TYPE[row.type]}">${row.type}</span>`;
+            case 'dmg':
+              return `<span class="inline-flex h-6 w-11 items-center justify-center rounded-md border text-xs font-medium ${DAMAGE[row.dmg]}">${row.dmg}</span>`;
+            case 'desc':
+              return `<p class="line-clamp-2 break-keep text-zinc-600">${row.desc}</p>`;
+            case 'gen':
+              return `<span class="tabular-nums text-zinc-600">${row.gen}세대</span>`;
+            default:
+              return `<span class="tabular-nums">${row[col.key] ?? '<span class="text-zinc-300">—</span>'}</span>`;
+          }
+        };
+
+        /* ── 정렬 상태 ── */
+        const DEFAULT_DIR = { name: 'asc', gen: 'asc', power: 'desc', acc: 'desc', pp: 'desc' };
+        const sortLabel = ({ key, dir }) =>
+          ({
+            name: dir === 'asc' ? (isAbility ? '가나다순' : '이름 가나다순') : '이름 역순',
+            gen: dir === 'asc' ? '세대 오름차순' : '세대 내림차순',
+            power: dir === 'desc' ? '위력 높은순' : '위력 낮은순',
+            acc: dir === 'desc' ? '명중 높은순' : '명중 낮은순',
+            pp: dir === 'desc' ? 'PP 많은순' : 'PP 적은순',
+          })[key];
+        const SORT_OPTIONS = isAbility
+          ? [{ key: 'name', dir: 'asc' }, { key: 'name', dir: 'desc' }, { key: 'gen', dir: 'asc' }, { key: 'gen', dir: 'desc' }]
+          : [{ key: 'name', dir: 'asc' }, { key: 'power', dir: 'desc' }, { key: 'power', dir: 'asc' }, { key: 'acc', dir: 'desc' }, { key: 'pp', dir: 'desc' }];
+        let sort = isAbility ? { key: 'name', dir: 'asc' } : { key: 'power', dir: 'desc' };
+
+        const sortedRows = () => {
+          const k = sort.key === 'name' ? 'ko' : sort.key;
+          const m = sort.dir === 'asc' ? 1 : -1;
+          return [...ROWS].sort((a, b) => {
+            if (a[k] == null) return 1; // null은 방향과 관계없이 마지막
+            if (b[k] == null) return -1;
+            return (typeof a[k] === 'string' ? a[k].localeCompare(b[k], 'ko') : a[k] - b[k]) * m;
+          });
+        };
+
+        const sortIcon = (active, dir) => `
+          <svg aria-hidden="true" class="size-3.5 ${active ? '' : 'opacity-30'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            ${!active ? '<path d="m7 15 5 5 5-5M7 9l5-5 5 5"/>' : dir === 'asc' ? '<path d="m18 15-6-6-6 6"/>' : '<path d="m6 9 6 6 6-6"/>'}
+          </svg>`;
+
+        const render = () => {
+          $('thead-row').innerHTML = COLUMNS.map((col) => {
+            const active = sort.key === col.key;
+            const alignCls = col.align === 'right' ? 'text-right' : 'text-left';
+            const inner = col.sortable
+              ? `<button data-sort-key="${col.key}" class="-mx-1.5 inline-flex items-center gap-1 rounded-md px-1.5 py-1 ${active ? 'text-zinc-900' : ''} ${col.align === 'right' ? 'flex-row-reverse' : ''} [@media(hover:hover)]:hover:bg-zinc-100">
+                   ${col.label}${sortIcon(active, sort.dir)}
+                 </button>`
+              : col.label;
+            // 헤더 sticky: overflow 컨테이너가 없으므로 페이지 스크롤 기준으로 AppHeader(h-13) 아래에 붙는다
+            return `<th scope="col" ${col.sortable ? `aria-sort="${active ? (sort.dir === 'asc' ? 'ascending' : 'descending') : 'none'}"` : ''}
+                      class="sticky top-13 z-10 h-10 border-b border-zinc-200 bg-white/85 px-3 text-xs font-medium whitespace-nowrap text-zinc-500 backdrop-blur-md ${alignCls} ${col.visibility ?? ''}">${inner}</th>`;
+          }).join('');
+
+          const rows = sortedRows();
+          const hrefOf = (row) => `${BASE_PATH}/${row.en.toLowerCase().replaceAll(' ', '-')}`;
+
+          $('tbody').innerHTML = rows.map((row) => `
+            <tr data-href="${hrefOf(row)}" class="group/row cursor-pointer [@media(hover:hover)]:hover:bg-zinc-50">
+              ${COLUMNS.map((col) => `
+                <td class="${cellBase} ${col.className ?? ''} ${col.visibility ?? ''} ${col.align === 'right' ? 'text-right' : ''}">${renderCell(col, row)}</td>`).join('')}
+            </tr>`).join('');
+
+          /* 좁을 때 리스트: 행 전체 = 이름 링크의 stretched link (router.push 불필요) */
+          const stat = (label, v) =>
+            `<span class="tabular-nums"><span class="text-zinc-500">${label}</span> ${v ?? '<span class="text-zinc-300">—</span>'}</span>`;
+          const dot = '<span aria-hidden="true" class="text-zinc-300">·</span>';
+          $('list').innerHTML = rows.map((row) => `
+            <li class="group relative -mx-3 grid grid-cols-[minmax(0,1fr)_auto] content-start gap-x-3 gap-y-1.5 rounded-2xl px-3 py-4 before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-zinc-200 first:before:hidden [@media(hover:hover)]:hover:bg-zinc-100 [@media(hover:hover)]:hover:before:opacity-0 [@media(hover:hover)]:[li:hover+&]:before:opacity-0">
+              <div class="flex min-w-0 flex-col gap-0.5">
+                <a href="${hrefOf(row)}" class="truncate font-semibold outline-none after:absolute after:inset-0 after:rounded-2xl focus-visible:after:ring-[3px] focus-visible:after:ring-blue-400/50">${row.ko}</a>
+                <span class="truncate text-sm text-zinc-500">${row.ja ? `${row.en} · ${row.ja}` : row.en}</span>
+              </div>
+              ${isAbility
+                ? `<span class="inline-flex h-6 items-center self-start rounded-md border px-2 text-xs tabular-nums text-zinc-600">${row.gen}세대</span>
+                   <p class="col-span-2 line-clamp-2 text-sm break-keep text-zinc-600">${row.desc}</p>`
+                : `<div class="flex items-start gap-1.5 self-start">${renderCell({ key: 'type' }, row)}${renderCell({ key: 'dmg' }, row)}</div>
+                   <div class="col-span-2 flex items-center gap-1.5 text-sm">${stat('위력', row.power)}${dot}${stat('명중', row.acc)}${dot}${stat('PP', row.pp)}</div>
+                   ${withDesc ? `<p class="col-span-2 line-clamp-1 text-sm break-keep text-zinc-600">${row.desc}</p>` : ''}`}
+            </li>`).join('');
+
+          document.querySelectorAll('[data-sort-label]').forEach((el) => (el.textContent = sortLabel(sort)));
+        };
+
+        /* ── 헤더 클릭 정렬 ── */
+        $('thead-row').addEventListener('click', (e) => {
+          const b = e.target.closest('[data-sort-key]');
+          if (!b) return;
+          const key = b.dataset.sortKey;
+          sort = sort.key === key ? { key, dir: sort.dir === 'asc' ? 'desc' : 'asc' } : { key, dir: DEFAULT_DIR[key] };
+          render();
+        });
+
+        /* ── 행 클릭 → 이동 (인터랙티브 요소/텍스트 선택 중에는 무시) ── */
+        const toast = (msg) => {
+          $('toast').textContent = msg;
+          $('toast').hidden = false;
+          clearTimeout(toast.t);
+          toast.t = setTimeout(() => ($('toast').hidden = true), 1500);
+        };
+        $('list').addEventListener('click', (e) => {
+          const link = e.target.closest('a');
+          if (link) { e.preventDefault(); toast(`<Link> ${link.getAttribute('href')}`); }
+        });
+        $('tbody').addEventListener('click', (e) => {
+          const link = e.target.closest('a');
+          if (link) { e.preventDefault(); return toast(`<Link> ${link.getAttribute('href')}`); }
+          if (e.target.closest("button, input, [role='button']")) return;
+          if (window.getSelection()?.toString()) return; // 드래그로 텍스트 선택한 경우
+          const tr = e.target.closest('tr[data-href]');
+          if (tr) toast(`router.push('${tr.dataset.href}')`);
+        });
+
+        /* ── 페이지 텍스트 ── */
+        $('crumb').textContent = $('page-title').textContent = UNIT;
+        $('search').textContent = isAbility ? '맹화, Blaze, もうか' : '화염방사, Flamethrower, かえんほうしゃ';
+        const filterBtn = (label, value) => `
+          <button class="inline-flex h-10 shrink-0 items-center gap-1.5 rounded-full border px-4 text-sm font-medium ${value ? 'border-zinc-900' : ''} [@media(hover:hover)]:hover:bg-zinc-100">
+            ${label}${value ? ` <span class="text-zinc-500">${value}</span>` : ''}
+            <svg aria-hidden="true" class="size-4 text-zinc-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6" /></svg>
+          </button>`;
+        $('filters-desktop').innerHTML = isAbility
+          ? filterBtn('세대', '3세대 외 1')
+          : filterBtn('타입') + filterBtn('분류', '특수 외 1') + filterBtn('세대');
+
+        /* ── 필터 (좁을 때 bottom Sheet) ── */
+        const GENS = Array.from({ length: 9 }, (_, i) => `${i + 1}세대`);
+        const TYPES = ['노말', '불꽃', '물', '전기', '풀', '얼음', '격투', '독', '땅', '비행', '에스퍼', '벌레', '바위', '고스트', '드래곤', '악', '강철', '페어리'];
+        const GROUPS = isAbility
+          ? [['세대', GENS, ['3세대', '4세대'], 'grid-cols-3']]
+          : [
+              ['타입', TYPES, [], 'grid-cols-3 min-[400px]:grid-cols-4'],
+              ['분류', ['물리', '특수', '변화'], ['특수', '물리'], 'grid-cols-3'],
+              ['세대', GENS, [], 'grid-cols-3'],
+            ];
+
+        const lockScroll = (on) => (document.documentElement.style.overflow = on ? 'hidden' : '');
+        const open = (id) => { $(id).hidden = false; lockScroll(true); };
+        const close = (id) => { $(id).hidden = true; lockScroll(false); };
+        ['sheet-filter', 'sheet-sort'].forEach((id) =>
+          $(id).querySelectorAll('[data-close]').forEach((b) => b.addEventListener('click', () => close(id))),
+        );
+
+        $('sheet-filter-body').innerHTML = GROUPS.map(([title, options, selected, cols]) => `
+          <section class="flex flex-col gap-3">
+            <h3 class="text-sm font-semibold">${title}</h3>
+            <div role="group" aria-label="${title}" class="grid gap-2 ${cols}">
+              ${options.map((o) => `
+                <button aria-pressed="${selected.includes(o)}" data-option="${o}" class="h-10 rounded-full border text-sm font-medium aria-pressed:border-zinc-900 aria-pressed:bg-zinc-900 aria-pressed:text-white">${o}</button>`).join('')}
+            </div>
+          </section>`).join('');
+
+        const selected = () => [...$('sheet-filter-body').querySelectorAll('[aria-pressed="true"]')].map((b) => b.dataset.option);
+        const resultCount = () => (selected().length ? Math.max(12, TOTAL - selected().length * 137) : TOTAL);
+        const syncApplyLabel = () => ($('filter-apply').textContent = `${resultCount()}개 결과 보기`);
+        const chipHtml = (label) => `
+          <span class="inline-flex h-8 items-center gap-1 rounded-full bg-zinc-100 pr-1.5 pl-3 text-sm">
+            ${label}
+            <button aria-label="${label} 필터 해제" data-remove="${label}" class="rounded-full p-0.5 text-zinc-500 [@media(hover:hover)]:hover:bg-zinc-200">
+              <svg aria-hidden="true" class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12" /></svg>
+            </button>
+          </span>`;
+        const applyFilters = () => {
+          const s = selected();
+          $('filter-count').textContent = s.length ? String(s.length) : '';
+          $('active-chips').innerHTML = $('active-chips-m').innerHTML = s.map(chipHtml).join('');
+          $('count').textContent = $('count-m').textContent = `${resultCount()}개의 ${UNIT}`;
+        };
+
+        $('sheet-filter-body').addEventListener('click', (e) => {
+          const b = e.target.closest('[data-option]');
+          if (!b) return;
+          b.setAttribute('aria-pressed', b.getAttribute('aria-pressed') !== 'true');
+          syncApplyLabel();
+        });
+        $('filter-reset').addEventListener('click', () => {
+          $('sheet-filter-body').querySelectorAll('[aria-pressed]').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+          syncApplyLabel();
+        });
+        $('filter-apply').addEventListener('click', () => { applyFilters(); close('sheet-filter'); });
+        $('open-filter').addEventListener('click', () => { syncApplyLabel(); open('sheet-filter'); });
+        document.addEventListener('click', (e) => {
+          const r = e.target.closest('[data-remove]');
+          if (!r) return;
+          $('sheet-filter-body').querySelector(`[data-option="${r.dataset.remove}"]`)?.setAttribute('aria-pressed', 'false');
+          applyFilters();
+        });
+
+        /* ── 정렬 (좁을 때 bottom Sheet — 열 헤더와 같은 상태 공유) ── */
+        $('sort-mobile').addEventListener('click', () => {
+          $('sheet-sort-body').innerHTML = SORT_OPTIONS.map((o, i) => {
+            const on = o.key === sort.key && o.dir === sort.dir;
+            return `
+              <button role="radio" aria-checked="${on}" data-sort-index="${i}" class="flex h-13 items-center justify-between rounded-xl px-3 text-left text-base ${on ? 'font-semibold' : ''} [@media(hover:hover)]:hover:bg-zinc-100">
+                ${sortLabel(o)}
+                <svg aria-hidden="true" class="size-5 ${on ? '' : 'invisible'}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5" /></svg>
+              </button>`;
+          }).join('');
+          open('sheet-sort');
+        });
+        $('sheet-sort-body').addEventListener('click', (e) => {
+          const b = e.target.closest('[data-sort-index]');
+          if (!b) return;
+          sort = SORT_OPTIONS[Number(b.dataset.sortIndex)];
+          render();
+          close('sheet-sort');
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key !== 'Escape') return;
+          close('sheet-filter');
+          close('sheet-sort');
+        });
+
+        render();
+        applyFilters();
+      }
+    </script>
+  </body>
+</html>

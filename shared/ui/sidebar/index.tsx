@@ -4,7 +4,7 @@ import * as React from 'react';
 import { mergeProps } from '@base-ui/react/merge-props';
 import { useRender } from '@base-ui/react/use-render';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { PanelLeftIcon } from 'lucide-react';
+import { TextAlignJustifyIcon } from 'lucide-react';
 
 import { cn } from '@/shared/lib/cn';
 import { useIsMobile } from '@/shared/model/useMobile';
@@ -20,12 +20,17 @@ import {
 } from '@/shared/ui/sheet';
 // import { Skeleton } from '@/shared/ui/skeleton';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/shared/ui/tooltip';
+import { usePathname } from 'next/navigation';
 
 const SIDEBAR_COOKIE_NAME = 'sidebar_state';
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
 const SIDEBAR_WIDTH = '15rem';
-const SIDEBAR_WIDTH_MOBILE = '18rem';
-const SIDEBAR_WIDTH_ICON = '3.25rem';
+const SIDEBAR_WIDTH_MOBILE = '15rem';
+const SIDEBAR_WIDTH_ICON = '3.5rem';
+// 유튜브식 미니 레일: 아이콘 + 아래 작은 텍스트가 들어갈 폭
+const SIDEBAR_WIDTH_RAIL = '4.5rem';
+// xl(1280px) 미만은 태블릿(미니 레일 + 오버레이 드로어)으로 본다.
+const SIDEBAR_TABLET_BREAKPOINT = 1280;
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 type SidebarContextProps = {
@@ -35,6 +40,8 @@ type SidebarContextProps = {
   openMobile: boolean;
   setOpenMobile: (open: boolean) => void;
   isMobile: boolean;
+  isTablet: boolean;
+  railMode: boolean;
   toggleSidebar: () => void;
 };
 
@@ -63,6 +70,9 @@ function SidebarProvider({
   onOpenChange?: (open: boolean) => void;
 }) {
   const isMobile = useIsMobile();
+  const isBelowXl = useIsMobile(SIDEBAR_TABLET_BREAKPOINT);
+  // 768 <= width < 1280: 미니 레일 + 오버레이 드로어
+  const isTablet = isBelowXl && !isMobile;
   const [openMobile, setOpenMobile] = React.useState(false);
 
   // This is the internal state of the sidebar.
@@ -85,9 +95,12 @@ function SidebarProvider({
   );
 
   // Helper to toggle the sidebar.
+  // mobile/tablet: 오버레이 드로어(Sheet) 토글, desktop: 펼침 <-> 미니 레일 토글
   const toggleSidebar = React.useCallback(() => {
-    return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
-  }, [isMobile, setOpen, setOpenMobile]);
+    return isMobile || isTablet
+      ? setOpenMobile((open) => !open)
+      : setOpen((open) => !open);
+  }, [isMobile, isTablet, setOpen, setOpenMobile]);
 
   // Adds a keyboard shortcut to toggle the sidebar.
   React.useEffect(() => {
@@ -109,17 +122,39 @@ function SidebarProvider({
   // This makes it easier to style the sidebar with Tailwind classes.
   const state = open ? 'expanded' : 'collapsed';
 
+  // 미니 레일(아이콘 + 아래 작은 텍스트) 표시 여부.
+  // 태블릿은 항상 레일, 데스크톱은 접힌 상태일 때 레일.
+  const railMode = isTablet || (!isMobile && state === 'collapsed');
+
+  const pathname = usePathname();
+
+  React.useEffect(() => {
+    setOpenMobile(false);
+  }, [pathname]);
+
   const contextValue = React.useMemo<SidebarContextProps>(
     () => ({
       state,
       open,
       setOpen,
       isMobile,
+      isTablet,
+      railMode,
       openMobile,
       setOpenMobile,
       toggleSidebar,
     }),
-    [state, open, setOpen, isMobile, openMobile, setOpenMobile, toggleSidebar],
+    [
+      state,
+      open,
+      setOpen,
+      isMobile,
+      isTablet,
+      railMode,
+      openMobile,
+      setOpenMobile,
+      toggleSidebar,
+    ],
   );
 
   return (
@@ -130,11 +165,12 @@ function SidebarProvider({
           {
             '--sidebar-width': SIDEBAR_WIDTH,
             '--sidebar-width-icon': SIDEBAR_WIDTH_ICON,
+            '--sidebar-width-rail': SIDEBAR_WIDTH_RAIL,
             ...style,
           } as React.CSSProperties
         }
         className={cn(
-          'group/sidebar-wrapper flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar',
+          'group/sidebar-wrapper  flex min-h-svh w-full has-data-[variant=inset]:bg-sidebar',
           className,
         )}
         {...props}
@@ -158,7 +194,8 @@ function Sidebar({
   variant?: 'sidebar' | 'floating' | 'inset';
   collapsible?: 'offcanvas' | 'icon' | 'none';
 }) {
-  const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
+  const { isMobile, isTablet, railMode, openMobile, setOpenMobile } =
+    useSidebar();
 
   if (collapsible === 'none') {
     return (
@@ -175,75 +212,81 @@ function Sidebar({
     );
   }
 
-  if (isMobile) {
-    return (
-      <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-        <SheetContent
-          dir={dir}
-          data-sidebar="sidebar"
-          data-slot="sidebar"
-          data-mobile="true"
-          className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-          style={
-            {
-              '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
-            } as React.CSSProperties
-          }
-          side={side}
-        >
-          <SheetHeader className="sr-only">
-            <SheetTitle>Sidebar</SheetTitle>
-            <SheetDescription>Displays the mobile sidebar.</SheetDescription>
-          </SheetHeader>
-          <div className="flex h-full w-full flex-col">{children}</div>
-        </SheetContent>
-      </Sheet>
-    );
-  }
-
-  return (
-    <div
-      className="group peer hidden text-sidebar-foreground md:block"
-      data-state={state}
-      data-collapsible={state === 'collapsed' ? collapsible : ''}
-      data-variant={variant}
-      data-side={side}
-      data-slot="sidebar"
-    >
-      {/* This is what handles the sidebar gap on desktop */}
-      <div
-        data-slot="sidebar-gap"
-        className={cn(
-          'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
-          'group-data-[collapsible=offcanvas]:w-0',
-          'group-data-[side=right]:rotate-180',
-          variant === 'floating' || variant === 'inset'
-            ? 'group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4)))]'
-            : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
-        )}
-      />
-      <div
-        data-slot="sidebar-container"
-        data-side={side}
-        className={cn(
-          'fixed inset-y-0 z-10 hidden h-svh w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=left]:group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)] data-[side=right]:right-0 data-[side=right]:group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)] md:flex',
-          // Adjust the padding for floating and inset variants.
-          variant === 'floating' || variant === 'inset'
-            ? 'p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)+(--spacing(4))+2px)]'
-            : 'group-data-[collapsible=icon]:w-(--sidebar-width-icon) group-data-[side=left]:border-r group-data-[side=right]:border-l',
-          className,
-        )}
-        {...props}
+  // 모바일/태블릿에서 사용하는 오버레이 드로어(Sheet)
+  const drawer = (
+    <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+      <SheetContent
+        dir={dir}
+        data-sidebar="sidebar"
+        data-slot="sidebar"
+        data-mobile="true"
+        className="w-(--sidebar-width) bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
+        style={
+          {
+            '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
+          } as React.CSSProperties
+        }
+        side={side}
       >
-        <div
-          data-sidebar="sidebar"
-          data-slot="sidebar-inner"
-          className="flex size-full flex-col bg-sidebar group-data-[variant=floating]:rounded-lg group-data-[variant=floating]:shadow-sm group-data-[variant=floating]:ring-1 group-data-[variant=floating]:ring-sidebar-border"
-        >
+        <SheetHeader className="sr-only">
+          <SheetTitle>Sidebar</SheetTitle>
+          <SheetDescription>Displays the mobile sidebar.</SheetDescription>
+        </SheetHeader>
+        <div data-drawer="" className="flex h-full w-full flex-col">
           {children}
         </div>
+      </SheetContent>
+    </Sheet>
+  );
+
+  // 모바일(<768): 오버레이 드로어만
+  if (isMobile) {
+    return drawer;
+  }
+
+  const mode = railMode ? 'rail' : 'expanded';
+
+  // 태블릿(768~1279): 지속 미니 레일 + 오버레이 드로어
+  // 데스크톱(>=1280): 지속 사이드바(펼침 <-> 미니 레일)
+  return (
+    <>
+      <div
+        className="group peer hidden text-sidebar-foreground md:block"
+        data-mode={mode}
+        data-variant={variant}
+        data-side={side}
+        data-slot="sidebar"
+      >
+        {/* This is what handles the sidebar gap on desktop */}
+        <div
+          data-slot="sidebar-gap"
+          className={cn(
+            'relative w-(--sidebar-width) bg-transparent transition-[width] duration-200 ease-linear',
+            'group-data-[side=right]:rotate-180',
+            'group-data-[mode=rail]:w-(--sidebar-width-rail)',
+          )}
+        />
+        <div
+          data-slot="sidebar-container"
+          data-side={side}
+          className={cn(
+            'fixed top-(--header-height) z-10 hidden h-[calc(100svh-var(--header-height))] w-(--sidebar-width) transition-[left,right,width] duration-200 ease-linear data-[side=left]:left-0 data-[side=right]:right-0 md:flex',
+            'group-data-[mode=rail]:w-(--sidebar-width-rail) group-data-[side=left]:border-r group-data-[side=right]:border-l',
+            className,
+          )}
+          {...props}
+        >
+          <div
+            data-sidebar="sidebar"
+            data-slot="sidebar-inner"
+            className="flex size-full flex-col bg-sidebar"
+          >
+            {children}
+          </div>
+        </div>
       </div>
-    </div>
+      {isTablet && drawer}
+    </>
   );
 }
 
@@ -267,7 +310,8 @@ function SidebarTrigger({
       }}
       {...props}
     >
-      <PanelLeftIcon className="cn-rtl-flip size-4.5" />
+      <TextAlignJustifyIcon className="size-5" />
+      {/* <PanelLeftIcon className="cn-rtl-flip size-4.5" /> */}
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   );
@@ -380,7 +424,10 @@ function SidebarGroup({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="sidebar-group"
       data-sidebar="group"
-      className={cn('relative flex w-full min-w-0 flex-col p-2', className)}
+      className={cn(
+        'relative flex w-full min-w-0 flex-col p-3 group-data-[mode=rail]:px-2',
+        className,
+      )}
       {...props}
     />
   );
@@ -471,7 +518,7 @@ function SidebarMenuItem({ className, ...props }: React.ComponentProps<'li'>) {
 }
 
 const sidebarMenuButtonVariants = cva(
-  'peer/menu-button group/menu-button flex w-full font-medium items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:font-semibold data-active:text-sidebar-accent-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate',
+  'peer/menu-button group/menu-button flex w-full font-medium items-center gap-2.5 overflow-hidden rounded-lg px-3 py-2.5 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[mode=rail]:flex-col group-data-[mode=rail]:gap-1 group-data-[mode=rail]:px-1 group-data-[mode=rail]:py-3 group-data-[mode=rail]:h-auto group-data-[mode=rail]:rounded-lg group-data-[mode=rail]:text-center group-data-[mode=rail]:text-[10px] group-data-[mode=rail]:leading-tight group-data-[mode=rail]:[&>span:last-child]:w-full hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-sidebar-accent data-active:font-semibold data-active:text-sidebar-accent-foreground [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate',
   {
     variants: {
       variant: {
@@ -505,7 +552,6 @@ function SidebarMenuButton({
     isActive?: boolean;
     tooltip?: string | React.ComponentProps<typeof TooltipContent>;
   } & VariantProps<typeof sidebarMenuButtonVariants>) {
-  const { isMobile, state } = useSidebar();
   const comp = useRender({
     defaultTagName: 'button',
     props: mergeProps<'button'>(
@@ -536,12 +582,7 @@ function SidebarMenuButton({
   return (
     <Tooltip>
       {comp}
-      <TooltipContent
-        side="right"
-        align="center"
-        hidden={state !== 'collapsed' || isMobile}
-        {...tooltip}
-      />
+      <TooltipContent side="right" align="center" hidden {...tooltip} />
     </Tooltip>
   );
 }

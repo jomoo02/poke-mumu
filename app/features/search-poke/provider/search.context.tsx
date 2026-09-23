@@ -65,8 +65,6 @@ function SearchProvider({ children }: { children: React.ReactNode }) {
     [isInputEmpty, data, localPokeList],
   );
 
-  const deferredSearchResult = useDeferredValue(searchResult);
-
   const [activeIndex, setActiveIndex] = useState<number>(
     searchResult.length > 0 ? 0 : -1,
   );

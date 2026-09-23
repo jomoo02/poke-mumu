@@ -1,0 +1,75 @@
+import Image from 'next/image';
+
+import { cn } from '@/app/shared/lib/cn';
+
+import type { Poke } from '../model';
+import { getPokeArtworkSrc, getPokeSpriteSrc } from '../lib';
+
+interface PokeSpriteProps {
+  poke: Poke;
+  className?: string;
+  alt?: string;
+  priority?: boolean;
+}
+
+export function PokeSprite({
+  poke,
+  className,
+  alt,
+  priority = false,
+}: PokeSpriteProps) {
+  const { sprite } = poke;
+
+  if (!sprite) {
+    return <div className={cn('w-14 h-14 bg-muted', className)} />;
+  }
+  const src = getPokeSpriteSrc(sprite);
+  return (
+    <div className={cn('w-14 h-14 relative', className)}>
+      <Image
+        placeholder="blur"
+        blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
+        // src={src}
+        src="/pokeball.svg"
+        alt={alt || poke.pokeKey}
+        className=" aspect-square"
+        fill
+        style={{
+          objectFit: 'contain',
+        }}
+      />
+    </div>
+  );
+}
+
+export function PokeArtwork({
+  poke,
+  className,
+  priority = true,
+}: PokeSpriteProps) {
+  const { sprite } = poke;
+
+  if (!sprite) {
+    return <div className="size-80 bg-muted" />;
+  }
+
+  const src = getPokeArtworkSrc(sprite);
+  const alt = poke.nameKo;
+
+  return (
+    <div className={cn('w-80 h-80 relative', className)}>
+      <Image
+        placeholder="blur"
+        blurDataURL="/pokeball.svg"
+        // src={src}
+        src="/pokeball.svg"
+        alt={alt}
+        fill
+        style={{
+          objectFit: 'contain',
+        }}
+        priority={priority}
+      />
+    </div>
+  );
+}

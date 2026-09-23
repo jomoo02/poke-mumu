@@ -1,31 +1,29 @@
 'use client';
 
-import { SidebarInset, SidebarProvider } from '@/shared/ui/sidebar';
-import { AppSidebar } from '@/widgets/app-sidebar';
-import MainHeader from '../widgets/main-header';
-
-// import { SidebarInset, SidebarProvider } from '@/app/shared/ui/sidebar';
-// import { AppSidebar } from '../widgets/app-sidebar';
 import React, { Suspense } from 'react';
-import MainHeaderV2 from '../widgets/main-header-v2';
-import AppHeader from '@/widgets/app-header';
+
+import { SidebarInset, SidebarProvider } from '@/_shared/ui/sidebar';
+import AppHeader from '@/_app/app-header';
+import AppSidebar from '@/_app/app-sidebar';
 
 interface MainLayoutProps {
   children: React.ReactNode;
-  breadcrumb: React.ReactNode;
 }
 
-export default function MainLayout({ children, breadcrumb }: MainLayoutProps) {
+export default function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="font-suit [--header-height:calc(--spacing(14))]">
-      <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset>
-          <AppHeader>{breadcrumb}</AppHeader>
-          <div />
-          <main>{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
+      <Suspense>
+        <SidebarProvider className="flex-col">
+          <AppHeader />
+          <div className="flex w-full min-h-0 flex-1">
+            <AppSidebar />
+            <SidebarInset className="min-w-0">
+              <main className="flex-1">{children}</main>
+            </SidebarInset>
+          </div>
+        </SidebarProvider>
+      </Suspense>
     </div>
   );
 }

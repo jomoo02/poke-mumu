@@ -1,0 +1,1 @@
+export { usePokeListFilter } from './usePokeListFilter';

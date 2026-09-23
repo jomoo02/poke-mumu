@@ -1,5 +1,3 @@
-import type { PokeLinkPoke } from '@/features/poke-link/model';
+import type { PokeLinkPoke } from '@/features/poke-link-v2/model';
 
 export type RegionalPoke = PokeLinkPoke;
-
-export { POKE_LIST_MODE, DEFAULT_MODE, type PokeListMode } from './mode';

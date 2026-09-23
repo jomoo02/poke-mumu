@@ -77,8 +77,8 @@ export function TypeBadge({
     >
       <Image
         src={`/type/${type.identifier}.png`}
-        width={24}
-        height={24}
+        width={22}
+        height={22}
         alt={type.identifier}
       />
       <span
@@ -144,6 +144,7 @@ export function TypeIcon({ type, className }: TypeBadgeProps) {
         src={`/type/${type.identifier}.png`}
         width={24}
         height={24}
+        className="aspect-square"
         alt={type.identifier}
       />
     </div>

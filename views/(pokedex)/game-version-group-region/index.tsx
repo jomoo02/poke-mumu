@@ -8,7 +8,6 @@ import {
 
 import { getRegionalDex } from './api';
 import PokeList from './ui/poke-list';
-import ModeTab from './ui/mode-tab';
 
 export default async function PokedexGameVersionGroupRegionView({
   params,
@@ -32,13 +31,12 @@ export default async function PokedexGameVersionGroupRegionView({
 
   return (
     <PageLayoutSection className="mt-0">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <PageLayoutSectionTitle>{sectionTitle}</PageLayoutSectionTitle>
         <PageLayoutSectionDescription>
           {description}
         </PageLayoutSectionDescription>
       </div>
-      <ModeTab />
       <PokeList pokes={entries} />
     </PageLayoutSection>
   );

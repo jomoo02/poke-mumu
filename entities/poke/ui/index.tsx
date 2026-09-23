@@ -28,8 +28,8 @@ export function PokeSprite({
       <Image
         placeholder="blur"
         blurDataURL="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
-        src={src}
-        // src={'/pokeball.svg'}
+        // src={src}
+        src={'/pokeball.svg'}
         alt={alt || poke.pokeKey}
         fill
         style={{
@@ -56,7 +56,6 @@ export function PokeArtwork({
 
   return (
     <div className={cn('w-80 h-80 relative', className)}>
-      {/* <div className="absolute inset-0 blur-3xl opacity-20 rounded-full scale-75 bg-grass" /> */}
       <Image
         placeholder="blur"
         blurDataURL="/pokeball.svg"

@@ -12,6 +12,7 @@ const controlTriggerButtonVariant = cva('transition-none group', {
     variant: {
       default:
         'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input text-foreground aria-expanded:bg-input/70 dark:aria-expanded:bg-input',
+
       active:
         'bg-primary hover:bg-primary/80 text-primary-foreground active:bg-primary/80 aria-expanded:bg-primary/80 dark:aria-expanded:bg-primary/80',
     },

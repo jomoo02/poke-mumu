@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 
 import { ThemeProvider } from './providers/theme';
-import { TooltipProvider } from './shared/ui/tooltip';
 
 import './globals.css';
-import { SidebarProvider } from '@/shared/ui/sidebar';
-import { AppSidebar } from '@/widgets/app-sidebar';
+
+import { cn } from '@/src/shared/lib/cn';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
 const suit = localFont({
   src: '../public/fonts/SUIT-Variable.woff2',
@@ -74,7 +75,13 @@ export default function RootLayout({
     <html
       lang="ko"
       suppressHydrationWarning
-      className={`${eliceDxNeolit.variable} ${suite.variable} ${suit.variable}`}
+      className={cn(
+        eliceDxNeolit.variable,
+        suite.variable,
+        suit.variable,
+        'font-sans',
+        inter.variable,
+      )}
     >
       <body className={`antialiased`}>
         <ThemeProvider
@@ -83,7 +90,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <TooltipProvider>{children}</TooltipProvider>
+          {children}
         </ThemeProvider>
       </body>
     </html>

@@ -36,13 +36,12 @@ export default function ScrollToTopButton() {
       size={'icon-lg'}
       onClick={handleClick}
       className={cn(
-        'fixed flex-col bottom-5 right-5 transition-all duration-300 items-center justify-center',
+        'fixed flex-col bottom-4.75 right-4.75 transition-all duration-300 items-center justify-center',
         visible
           ? 'opacity-100 translate-x-0 pointer-events-auto'
           : 'opacity-0 translate-x-4 pointer-events-none',
         'z-20 size-11.5 rounded-full',
         'bg-[#71717a] dark:bg-[#52525b] hover:bg-[#3f3f46] dark:hover:bg-[#71717a]',
-        // 'hover:bg-input bg-input/70 dark:bg-input/70 dark:hover:bg-input',
       )}
     >
       <ArrowUpIcon className="size-5 text-white" />

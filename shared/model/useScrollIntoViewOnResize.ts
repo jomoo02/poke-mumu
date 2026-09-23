@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, type RefObject } from 'react';
+import { useCallback, useEffect, useRef, type RefObject } from 'react';
 
 interface ScrollIntoViewOnResizeOptions {
   /** 관찰할 대상을 고르는 CSS 셀렉터. 기본 'button'. */
@@ -32,13 +32,37 @@ export function useScrollIntoViewOnResize(
     behavior = 'auto',
   }: ScrollIntoViewOnResizeOptions = {},
 ) {
+  // 세워지면 '다음 리사이즈 배치 1회'의 스크롤을 건너뛴다 (reset 등 의도적 억제용).
+  const skipRef = useRef(false);
+
   useEffect(() => {
     const container = containerRef.current;
+
     if (!enabled || !container || typeof ResizeObserver === 'undefined') return;
 
     // 관찰 시작 시 요소마다 1회 발화되는 초기 콜백은 스킵(로드 시 스크롤 방지).
     const seen = new WeakSet<Element>();
+
+    // --- 이전 코드 (모든 리사이즈에 스크롤 → reset 시 점프 발생) ---
+    // const observer = new ResizeObserver((entries) => {
+    //   for (const entry of entries) {
+    //     if (!seen.has(entry.target)) {
+    //       seen.add(entry.target);
+    //       continue;
+    //     }
+    //     entry.target.scrollIntoView({ inline, block, behavior });
+    //   }
+    // });
+
     const observer = new ResizeObserver((entries) => {
+      // 억제 플래그가 세워져 있으면 이번 배치는 스크롤하지 않고 소모한다.
+      // (reset은 한 커밋 → 한 리사이즈 배치라 '다음 1회'로 정확히 잡힌다.)
+      if (skipRef.current) {
+        skipRef.current = false;
+        for (const entry of entries) seen.add(entry.target); // seen 상태만 갱신
+        return;
+      }
+
       for (const entry of entries) {
         if (!seen.has(entry.target)) {
           seen.add(entry.target);
@@ -51,4 +75,11 @@ export function useScrollIntoViewOnResize(
     container.querySelectorAll(selector).forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, [containerRef, selector, enabled, inline, block, behavior]);
+
+  // reset 직전에 호출 → reset이 유발한 리사이즈 스크롤만 억제.
+  const suppressNextResizeScroll = useCallback(() => {
+    skipRef.current = true;
+  }, []);
+
+  return { suppressNextResizeScroll };
 }

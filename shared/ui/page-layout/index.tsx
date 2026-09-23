@@ -10,18 +10,15 @@ function PageLayoutContainer({
       className={cn(
         'mx-auto w-full min-h-svh flex flex-col gap-6',
         // '2xl:max-w-370',
-        'lg:max-w-[calc(92vw-240px)]',
-        // 'px-4 md:px-6 lg:px-8 xl:px-16 3xl:px-2.5 gap-6 py-14',
-        'px-6 lg:px-5  py-6',
+        // 'md:max-w-[calc(100vw-240px)] lg:max-w-[calc(94vw-240px)] lg:w-360',
+        'max-w-[calc(90rem+4.375vw*2)] md:px-[4.375vw] pt-3 py-12',
+        'px-4 sm:px-6 ',
+        //         'p-6 ',
+
         className,
       )}
       {...props}
-    >
-      {/* <div
-        className="max-w-6xl mx-auto w-full flex flex-col gap-6"
-        {...props}
-      ></div> */}
-    </div>
+    ></div>
   );
 }
 
@@ -104,7 +101,7 @@ function PageLayoutSectionDescription({
     <p
       data-slot="page-layout-header-description"
       className={cn(
-        'break-keep text-pretty text-muted-foreground',
+        'break-keep text-pretty text-foreground/70',
         'max-w-[80%]',
         className,
       )}
