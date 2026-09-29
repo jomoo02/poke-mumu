@@ -7,7 +7,7 @@ import {
   PageLayoutHeaderTitle,
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
-import { getAllAbilityDetail } from '@/_entities/ability/api';
+import { getAllAbilityDetail } from '@/_entities/ability/index.server';
 
 import AbilityViewClient from './ui/view-client';
 import AbilitySearch from './ui/ability-search';

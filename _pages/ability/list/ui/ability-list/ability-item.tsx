@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 import { cn } from '@/_shared/lib/cn';
-import type { AbilityDetail } from '@/_entities/ability/model';
-import { getAbilityHref, getAbilitySubName } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
+import { getAbilityHref, getAbilitySubName } from '@/_entities/ability';
 
 import AppearedBadge from '../appeared-badge';
 

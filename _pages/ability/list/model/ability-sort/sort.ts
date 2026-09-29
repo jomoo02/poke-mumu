@@ -1,4 +1,4 @@
-import type { AbilityDetail } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
 
 const SORT_KEYS = ['name', 'appearance'] as const;
 

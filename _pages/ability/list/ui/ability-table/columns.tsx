@@ -1,5 +1,5 @@
-import type { AbilityDetail } from '@/_entities/ability/model';
 import { Skeleton, SkeletonLine } from '@/_shared/ui/skeleton';
+import type { AbilityDetail } from '@/_entities/ability';
 
 import type { TableColumn } from '../data-table';
 import type { SortKey } from '../../model/ability-sort';

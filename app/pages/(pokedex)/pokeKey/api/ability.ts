@@ -42,6 +42,8 @@ export const getAbilitiesByPokeKey = async (
       `,
     )
     .eq('poke_key', pokeKey)
+    // TODO: _pages 이관 시 조건부 특성(테라스탈 등)을 poke-ability 그룹으로 표시. 그전까지는 일반 특성에 섞이지 않게 제외
+    .is('condition', null)
     .order('is_hidden', { ascending: true })
     .order('slot', { ascending: true, nullsFirst: false });
 

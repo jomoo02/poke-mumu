@@ -1,4 +1,4 @@
-import type { AbilityDetail } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
 
 import AbilityItem from './ability-item';
 

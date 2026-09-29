@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import { paginate } from '@/_shared/lib/pagination';
-import type { AbilityDetail } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
 
 import { filterAbilities } from './ability-search';
 import { sortAbilities, useAbilitySort } from './ability-sort';

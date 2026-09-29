@@ -5,7 +5,7 @@ import {
   getAbilityHref,
   getAbilitySubName,
   type AbilityDetail,
-} from '@/_entities/ability/model';
+} from '@/_entities/ability';
 
 interface AbilityNameCellProps {
   ability: AbilityDetail;

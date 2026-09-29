@@ -1,8 +1,5 @@
 import { cn } from '@/_shared/lib/cn';
-import {
-  getAbilityAppeared,
-  type AbilityDetail,
-} from '@/_entities/ability/model';
+import { getAbilityAppeared, type AbilityDetail } from '@/_entities/ability';
 
 interface AppearedBadgeProps {
   ability: AbilityDetail;

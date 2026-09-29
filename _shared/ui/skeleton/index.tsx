@@ -5,7 +5,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
   return (
     <div
       data-slot="skeleton"
-      className={cn('animate-pulse rounded-md bg-muted', className)}
+      className={cn('animate-pulse rounded-sm bg-muted', className)}
       {...props}
     />
   );
@@ -16,7 +16,7 @@ function Skeleton({ className, ...props }: React.ComponentProps<'div'>) {
 function SkeletonLine({ className }: { className?: string }) {
   return (
     <div data-slot="skeleton-line" className="flex h-lh items-center">
-      <Skeleton className={cn('h-[0.75em]', className)} />
+      <Skeleton className={cn('h-[0.85em]', className)} />
     </div>
   );
 }

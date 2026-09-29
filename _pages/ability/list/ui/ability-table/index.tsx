@@ -1,6 +1,6 @@
 'use client';
 
-import type { AbilityDetail } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
 
 import DataTable from '../data-table';
 import { useAbilitySort } from '../../model/ability-sort';

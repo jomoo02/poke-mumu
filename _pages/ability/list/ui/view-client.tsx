@@ -1,6 +1,6 @@
 'use client';
 
-import type { AbilityDetail } from '@/_entities/ability/model';
+import type { AbilityDetail } from '@/_entities/ability';
 
 import AbilityTable from './ability-table';
 import AbilityPagination from './ability-pagination';
