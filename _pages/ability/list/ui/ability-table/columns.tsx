@@ -1,7 +1,7 @@
 import { Skeleton, SkeletonLine } from '@/_shared/ui/skeleton';
+import type { TableColumn } from '@/_shared/ui/data-table';
 import type { AbilityDetail } from '@/_entities/ability';
 
-import type { TableColumn } from '../data-table';
 import type { SortKey } from '../../model/ability-sort';
 import AppearedBadge from '../appeared-badge';
 import AbilityNameCell from './ability-name-cell';

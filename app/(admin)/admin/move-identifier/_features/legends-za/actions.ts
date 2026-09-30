@@ -16,7 +16,7 @@ const ZA_VERSION_GROUP_ID = 22;
 /**
  * version_move_legends_za 삽입/수정(변형별). (base_move_id, za_variant) 유니크
  * 제약이 없어 존재확인 후 UPDATE / INSERT 분기.
- * legacy_move_id = move.legacy_id + 변형 오프셋(base 0 / plus 1000 / rogue 2000) 자동 계산.
+ * legacy_move_id = move.move_number + 변형 오프셋(base 0 / plus 1000 / rogue 2000) 자동 계산.
  */
 export async function upsertLegendsZa(
   input: LegendsZaUpsertInput,
@@ -29,18 +29,18 @@ export async function upsertLegendsZa(
   const d = parsed.data;
   const supabase = createAdminClient();
 
-  // base move 의 legacy_id 조회 → legacy_move_id 계산
+  // base move 의 move_number(공식 기술 번호) 조회 → legacy_move_id 계산
   const { data: moveRow, error: moveError } = await supabase
     .from('move')
-    .select('legacy_id')
+    .select('move_number')
     .eq('id', d.baseMoveId)
     .single();
   if (moveError || !moveRow) {
     return fail({ _: `base move 조회 실패: ${moveError?.message ?? 'not found'}` });
   }
-  const legacyBase = Number((moveRow as { legacy_id: number | null }).legacy_id);
+  const legacyBase = Number((moveRow as { move_number: number | null }).move_number);
   if (!Number.isFinite(legacyBase)) {
-    return fail({ _: 'base move 의 legacy_id 가 없어 legacy_move_id 를 계산할 수 없습니다.' });
+    return fail({ _: 'base move 의 move_number 가 없어 legacy_move_id 를 계산할 수 없습니다.' });
   }
   const legacyMoveId = legacyBase + ZA_LEGACY_OFFSET[d.zaVariant];
 

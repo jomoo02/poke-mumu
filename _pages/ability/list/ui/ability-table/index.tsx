@@ -2,7 +2,7 @@
 
 import type { AbilityDetail } from '@/_entities/ability';
 
-import DataTable from '../data-table';
+import { DataTable } from '@/_shared/ui/data-table';
 import { useAbilitySort } from '../../model/ability-sort';
 import { ABILITY_COLUMNS } from './columns';
 

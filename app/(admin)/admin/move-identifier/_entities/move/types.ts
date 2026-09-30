@@ -18,7 +18,7 @@ export interface MoveMaster {
   targetId: number | null;
   description: string | null;
   isContact: boolean | null;
-  legacyId: number | null;
+  moveNumber: number | null;
 }
 
 /** move_change_log 행. PK는 대리키 id(신규행은 undefined). */
@@ -121,7 +121,7 @@ export interface LegendsZaRow {
   id?: number;
   zaVariant: ZaVariant;
   baseMoveId: number;
-  /** move.legacy_id + {base:0,plus:1000,rogue:2000}. 삽입 시 자동 계산. */
+  /** move.move_number + {base:0,plus:1000,rogue:2000}. 삽입 시 자동 계산. */
   legacyMoveId: number;
   identifier: string;
   nameKo: string;

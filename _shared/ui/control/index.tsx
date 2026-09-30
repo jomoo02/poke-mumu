@@ -5,9 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/_shared/ui/button';
 import { cn } from '@/_shared/lib/cn';
 import { Label } from '@/_shared/ui/label';
-
-// 구 shared/ui/control 에서 새 트리가 쓰는 컴포넌트만 옮겼다.
-// ControlField, ControlFieldLabel 은 field 가 _shared 에 없어 필요해질 때 옮긴다.
+import { Field, FieldLabel } from '@/_shared/ui/field';
 
 const controlTriggerButtonVariant = cva('transition-none group', {
   variants: {
@@ -53,6 +51,42 @@ function ControlTriggerButton({
         />
       )}
     </Button>
+  );
+}
+
+function ControlField({
+  className,
+  children,
+  ...props
+}: React.ComponentProps<'div'>) {
+  return (
+    <Field
+      orientation={'horizontal'}
+      className={cn(
+        'gap-x-2.5 h-10 flex cursor-pointer text-md',
+        'relative isolate',
+        'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg hover:after:bg-muted',
+        className,
+      )}
+      {...props}
+    >
+      {children}
+    </Field>
+  );
+}
+
+function ControlFieldLabel({
+  className,
+  ...props
+}: React.ComponentProps<typeof Label>) {
+  return (
+    <FieldLabel
+      className={cn(
+        'font-medium cursor-pointer h-full text-md gap-2.5 flex-1 pr-2 -mr-2',
+        className,
+      )}
+      {...props}
+    />
   );
 }
 
@@ -108,4 +142,10 @@ function ControlResetButton({
   );
 }
 
-export { ControlTriggerButton, ControlRadioGroupLabel, ControlResetButton };
+export {
+  ControlTriggerButton,
+  ControlField,
+  ControlFieldLabel,
+  ControlRadioGroupLabel,
+  ControlResetButton,
+};

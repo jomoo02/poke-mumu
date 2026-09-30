@@ -30,7 +30,7 @@ export async function fetchMoveEditorData(
   const { data: masterRow, error: masterError } = await supabase
     .from('move')
     .select(
-      'id, identifier, name_ko, name_en, name_ja, type_id, damage_class_id, power, pp, accuracy, priority, effect_chance, target_id, description, is_contact, legacy_id',
+      'id, identifier, name_ko, name_en, name_ja, type_id, damage_class_id, power, pp, accuracy, priority, effect_chance, target_id, description, is_contact, move_number',
     )
     .eq('identifier', identifier)
     .maybeSingle();

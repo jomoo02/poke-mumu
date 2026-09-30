@@ -24,3 +24,4 @@ export {
 
 // ui
 export { TypeIcon } from './ui/type-icon';
+export { TypeIconLabel } from './ui/type-icon-label';

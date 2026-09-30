@@ -146,8 +146,8 @@ export function LegendsZaSection({
   }
 
   const legacyPreview =
-    master.legacyId !== null
-      ? master.legacyId + ZA_LEGACY_OFFSET[active]
+    master.moveNumber !== null
+      ? master.moveNumber + ZA_LEGACY_OFFSET[active]
       : null;
 
   function save() {
@@ -266,7 +266,7 @@ export function LegendsZaSection({
           <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
             <Badge tone="info">version_group 22 (고정)</Badge>
             <Badge>
-              legacy_move_id: {legacyPreview ?? '계산불가(legacy_id 없음)'}
+              legacy_move_id: {legacyPreview ?? '계산불가(move_number 없음)'}
             </Badge>
           </div>
 

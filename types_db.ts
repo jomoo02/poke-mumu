@@ -753,7 +753,7 @@ export type Database = {
           id: number;
           identifier: string;
           is_contact: boolean | null;
-          legacy_id: number | null;
+          move_number: number | null;
           name_en: string;
           name_ja: string;
           name_ko: string;
@@ -777,7 +777,7 @@ export type Database = {
           id?: number;
           identifier: string;
           is_contact?: boolean | null;
-          legacy_id?: number | null;
+          move_number?: number | null;
           name_en: string;
           name_ja: string;
           name_ko: string;
@@ -801,7 +801,7 @@ export type Database = {
           id?: number;
           identifier?: string;
           is_contact?: boolean | null;
-          legacy_id?: number | null;
+          move_number?: number | null;
           name_en?: string;
           name_ja?: string;
           name_ko?: string;
@@ -2795,6 +2795,7 @@ export type Database = {
           generation: number | null;
           id: number | null;
           identifier: string | null;
+          move_number: number | null;
           name_en: string | null;
           name_ja: string | null;
           name_ko: string | null;

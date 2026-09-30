@@ -1,4 +1,4 @@
-import { DataTableSkeleton } from '../data-table';
+import { DataTableSkeleton } from '@/_shared/ui/data-table';
 import { ABILITY_COLUMNS } from './columns';
 
 interface AbilityTableSkeletonProps {

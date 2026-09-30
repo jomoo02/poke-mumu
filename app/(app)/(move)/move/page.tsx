@@ -1,10 +1,5 @@
-import MoveView from '@/views/(move)/move';
-import { Suspense } from 'react';
+import MoveListPage from '@/_pages/move/list';
 
-export default function MovePage() {
-  return (
-    <Suspense>
-      <MoveView />
-    </Suspense>
-  );
+export default function Page() {
+  return <MoveListPage />;
 }

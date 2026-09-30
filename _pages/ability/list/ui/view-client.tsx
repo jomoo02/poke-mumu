@@ -1,12 +1,13 @@
 'use client';
 
+import { PaginationNav } from '@/_shared/ui/pagination';
 import type { AbilityDetail } from '@/_entities/ability';
 
 import AbilityTable from './ability-table';
-import AbilityPagination from './ability-pagination';
 import AbilityList from './ability-list';
 import AbilitySort from './ability-sort';
 import { useAbilityList } from '../model/use-ability-list';
+import { SEARCH_PARAMS_KEY } from '../config/search-params';
 
 interface AbilityViewClientProps {
   abilities: AbilityDetail[];
@@ -42,9 +43,10 @@ export default function AbilityViewClient({
             <AbilityList abilities={pageAbilities} />
           </section>
           {/* 1페이지뿐이어도 표시한다. 검색 중 결과 수가 바뀔 때 레이아웃이 흔들리지 않게 */}
-          <AbilityPagination
+          <PaginationNav
             page={page}
             totalPages={totalPages}
+            paramName={SEARCH_PARAMS_KEY.page}
             className="mt-3"
           />
         </>

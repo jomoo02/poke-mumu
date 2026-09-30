@@ -18,8 +18,8 @@ export function PokeSprite({
   className,
   priority = false,
 }: PokeSpriteProps) {
-  const src = getPokeSpriteSrc(poke);
-  // const src = '/pokeball.svg';
+  // const src = getPokeSpriteSrc(poke);
+  const src = '/pokeball.svg';
 
   return (
     <div className={cn('relative size-14', className)}>

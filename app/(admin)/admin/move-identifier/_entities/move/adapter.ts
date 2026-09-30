@@ -30,7 +30,7 @@ export interface MoveDbRow {
   target_id: number | string | null;
   description: string | null;
   is_contact: boolean | null;
-  legacy_id: number | string | null;
+  move_number: number | string | null;
 }
 
 export function adaptMaster(row: MoveDbRow): MoveMaster {
@@ -50,7 +50,7 @@ export function adaptMaster(row: MoveDbRow): MoveMaster {
     targetId: toNullableNumber(row.target_id),
     description: row.description,
     isContact: row.is_contact ?? null,
-    legacyId: toNullableNumber(row.legacy_id),
+    moveNumber: toNullableNumber(row.move_number),
   };
 }
 
