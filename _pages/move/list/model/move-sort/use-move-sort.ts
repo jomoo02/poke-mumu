@@ -51,7 +51,7 @@ export function useMoveSort() {
     });
   };
 
-  // 테이블 헤더용: 같은 컬럼이면 방향 반전, 다른 컬럼이면 그 기준의 첫 방향부터
+  // 테이블 헤더·정렬 메뉴 공용: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
   const toggleSort = (nextKey: SortKey) => {
     if (nextKey === sortState.sort) {
       setSort({
@@ -62,22 +62,6 @@ export function useMoveSort() {
     }
     setSort({ sort: nextKey, order: getInitialOrder(nextKey) });
   };
-
-  // 모바일 정렬 기준 라디오: 헤더와 같은 규칙으로 그 기준의 첫 방향부터.
-  // 이미 고른 기준이면 방향을 유지한다
-  const setSortKey = (nextKey: SortKey) => {
-    if (nextKey === sortState.sort) {
-      return;
-    }
-    setSort({ sort: nextKey, order: getInitialOrder(nextKey) });
-  };
-
-  // 모바일 방향 토글: 기준은 그대로 두고 방향만 뒤집는다
-  const toggleOrder = () =>
-    setSort({
-      sort: sortState.sort,
-      order: sortState.order === 'asc' ? 'desc' : 'asc',
-    });
 
   const resetSort = () => {
     // 이미 기본 정렬이면 URL을 건드리지 않는다 (page 리셋 방지)
@@ -95,8 +79,6 @@ export function useMoveSort() {
     sortState,
     isActive,
     toggleSort,
-    setSortKey,
-    toggleOrder,
     resetSort,
   };
 }

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { filterMovesByKeyword } from './move-search';
-import { makeMove, names } from './move-fixture';
+import { makeMove, names } from './move.fixture';
 
 describe('filterMovesByKeyword', () => {
   const moves = [

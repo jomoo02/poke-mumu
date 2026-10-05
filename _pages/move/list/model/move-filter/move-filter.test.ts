@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { filterMoves, parseMoveFilter } from './move-filter';
-import { makeMove, names } from '../move-fixture';
+import { makeMove, names } from '../move.fixture';
 
 describe('parseMoveFilter', () => {
   it('유효한 identifier만 남긴다', () => {

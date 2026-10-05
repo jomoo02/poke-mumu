@@ -1,6 +1,6 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import {
   useDeferredValue,
   useEffect,
@@ -32,13 +32,14 @@ interface UseSearchParamsInputOptions {
  *
  * - `value`는 로컬 state다. 키 입력과 동기적으로 갱신되므로 제어 입력이어도
  *   React가 IME 조합(한글·일본어)에 개입하지 않는다. URL 값을 그대로 `value`로
- *   쓰면 라우터 왕복이 비동기라 조합 중 값이 덮어써져 `ㄱㅏㄴㅏ`처럼 깨진다.
+ *   쓰면 URL 반영과 입력이 어긋날 때 조합 중 값이 덮어써져 `ㄱㅏㄴㅏ`처럼 깨진다.
  *   대신 URL이 밖에서 바뀌면(재진입·뒤로가기) effect로 입력창을 URL에 맞춘다.
  * - `deferredValue`는 디바운스를 쓰면서도 URL을 기다리지 않고 즉시 필터링하려는
  *   소비처를 위한 것이다. URL을 읽어 거르는 곳에서는 쓸 필요가 없다.
  * - `clear`는 대기 중인 타이머를 취소하고 즉시 URL을 쓴다. 리셋을 디바운스에
  *   위임하면 모바일 백그라운드 스로틀링이나 타이머 기아로 URL에 반영되지 않는다.
  *
+ * URL은 history API로 바꾼다(서버 요청 없이 useSearchParams에 바로 반영. useSearchParamsState 참고).
  * 쿼리가 비면 pathname만 남긴다(`?` 꼬리를 붙이지 않는다).
  * 캐시 컴포넌트에서 첫 진입 경로와 문자열이 정확히 같아야 하기 때문이다.
  */
@@ -48,7 +49,6 @@ export function useSearchParamsInput({
   resetKeys = [],
   maxWaitMs,
 }: UseSearchParamsInputOptions = {}) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -80,9 +80,11 @@ export function useSearchParamsInput({
 
     const query = params.toString();
 
-    router.replace(query ? `${pathname}?${query}` : pathname, {
-      scroll: false,
-    });
+    window.history.replaceState(
+      null,
+      '',
+      query ? `${pathname}?${query}` : pathname,
+    );
   };
 
   // flushOnExit: 탭이 백그라운드로 갈 때 대기 중인 커밋을 강제 실행한다.

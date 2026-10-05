@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  ChevronDownIcon,
-  ChevronsUpDownIcon,
-  ChevronUpIcon,
-} from 'lucide-react';
+import { ArrowDownIcon, ArrowUpDownIcon, ArrowUpIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
@@ -18,7 +14,7 @@ import {
 } from './table-layout';
 
 const ARIA_SORT = { asc: 'ascending', desc: 'descending' } as const;
-const SORT_ICON = { asc: ChevronUpIcon, desc: ChevronDownIcon } as const;
+const SORT_ICON = { asc: ArrowUpIcon, desc: ArrowDownIcon } as const;
 
 interface DataTableHeaderProps<Row, K extends string> {
   columns: readonly TableColumn<Row, K>[];
@@ -79,7 +75,7 @@ function SortableHead<K extends string>({
 }: SortableHeadProps<K>) {
   // 이 컬럼이 활성 정렬이면 방향, 아니면 null
   const order = sortState.sort === sortKey ? sortState.order : null;
-  const Icon = order ? SORT_ICON[order] : ChevronsUpDownIcon;
+  const Icon = order ? SORT_ICON[order] : ArrowUpDownIcon;
 
   return (
     <div
@@ -93,7 +89,7 @@ function SortableHead<K extends string>({
         onClick={() => onSort(sortKey)}
         className={cn(
           '-mx-2.5 h-9 rounded-lg px-2.5',
-          order && 'text-foreground',
+          order && 'font-semibold text-primary-text hover:text-primary-text',
         )}
       >
         {label}

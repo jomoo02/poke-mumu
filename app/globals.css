@@ -15,6 +15,8 @@
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.555 0.163 48.998);
   --primary-foreground: oklch(0.987 0.022 95.277);
+  /* 배경 없이 글자로 쓰는 강조색 (선택된 정렬 등): amber-700 */
+  --primary-text: oklch(0.555 0.163 48.998);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
@@ -72,6 +74,8 @@
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.473 0.137 46.201);
   --primary-foreground: oklch(0.987 0.022 95.277);
+  /* 다크 --primary(amber-800)는 글자로 쓰면 어두워 묻히므로 밝은 amber-600 */
+  --primary-text: oklch(0.666 0.179 58.318);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -243,6 +247,7 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);

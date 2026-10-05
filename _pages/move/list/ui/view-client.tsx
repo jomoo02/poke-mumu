@@ -30,12 +30,12 @@ export default function MoveViewClient({
     <div className="flex flex-col gap-6">
       <MoveToolbar types={types} damageClasses={damageClasses} />
 
-      {/* 목록 머리 줄: 개수 + 정렬. lg 이상은 테이블 헤더로 정렬하므로 버튼을 숨긴다 */}
+      {/* 목록 머리 줄: 개수 + 정렬. lg 이상도 버튼을 보여 현재 정렬을 글자로 알린다 (테이블 헤더로도 정렬 가능) */}
       <div className="flex flex-wrap items-center justify-between gap-6">
         <p aria-live="polite" className="text-sm text-foreground/70">
           {totalCount}개의 기술
         </p>
-        <div className="lg:hidden">
+        <div>
           <MoveSort />
         </div>
       </div>

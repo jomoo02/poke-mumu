@@ -1,16 +1,6 @@
-import { TYPE_IDENTIFIERS } from '@/_entities/type';
-import { DAMAGE_CLASS_IDENTIFIERS } from '@/_entities/damage-class';
 import type { Move } from '@/_entities/move';
 
-const SORT_KEYS = [
-  'moveNumber',
-  'name',
-  'type',
-  'damageClass',
-  'power',
-  'accuracy',
-  'pp',
-] as const;
+const SORT_KEYS = ['moveNumber', 'name', 'power', 'accuracy', 'pp'] as const;
 
 type SortKey = (typeof SORT_KEYS)[number];
 
@@ -29,29 +19,20 @@ const DEFAULT_SORT: MoveSort = { sort: 'moveNumber', order: 'asc' };
 const isSameSort = (a: MoveSort, b: MoveSort) =>
   a.sort === b.sort && a.order === b.order;
 
-const koCollator = new Intl.Collator('ko');
+// 한국어 정렬 규칙(CLDR): 숫자 → 한글 → 영어.
+// numeric: 숫자를 글자가 아닌 값으로 비교한다 ('3연화살'이 '1000만볼트'보다 앞)
+const koCollator = new Intl.Collator('ko', { numeric: true });
 
 const compareNameKo = (a: Move, b: Move) =>
   koCollator.compare(a.nameKo, b.nameKo);
 
 // 정렬 기준값. null은 값이 없다는 뜻이며 방향과 무관하게 맨 뒤로 보낸다
 // - 번호는 게임 공식 기술 번호
-// - 타입·분류는 게임 표시 순서의 인덱스
 // - 명중 null(필중기·변화기)도 다른 null과 같이 맨 뒤
 const getSortValue = (move: Move, sort: SortKey): number | null => {
   switch (sort) {
     case 'moveNumber':
       return move.moveNumber;
-    case 'type':
-      return (TYPE_IDENTIFIERS as readonly string[]).indexOf(
-        move.type.identifier,
-      );
-    case 'damageClass':
-      return move.damageClass
-        ? (DAMAGE_CLASS_IDENTIFIERS as readonly string[]).indexOf(
-            move.damageClass.identifier,
-          )
-        : null;
     case 'power':
       return move.power;
     case 'accuracy':

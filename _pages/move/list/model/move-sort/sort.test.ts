@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { sortMoves, type MoveSort } from './sort';
-import { makeMove, names } from '../move-fixture';
+import { makeMove, names } from '../move.fixture';
 
 const sortNames = (...args: Parameters<typeof sortMoves>) =>
   names(sortMoves(...args));
@@ -56,58 +56,22 @@ describe('sortMoves', () => {
         '냉동빔',
       ]);
     });
-  });
 
-  describe('타입', () => {
-    const moves = [
-      makeMove({ nameKo: '파도타기', type: 'water' }),
-      makeMove({ nameKo: '화염방사', type: 'fire' }),
-      makeMove({ nameKo: '몸통박치기', type: 'normal' }),
-      makeMove({ nameKo: '불꽃세례', type: 'fire' }),
-    ];
+    it('숫자 → 한글 → 영어, 숫자는 값 크기로 비교', () => {
+      const mixed = [
+        makeMove({ nameKo: 'V제너레이트' }),
+        makeMove({ nameKo: '1000만볼트' }),
+        makeMove({ nameKo: '냉동빔' }),
+        makeMove({ nameKo: '3연화살' }),
+        makeMove({ nameKo: '10만볼트' }),
+      ];
 
-    it('asc: 게임 표시 순서(노말 → 불꽃 → 물), 같은 타입은 가나다순', () => {
-      expect(sortNames(moves, asc('type'))).toEqual([
-        '몸통박치기',
-        '불꽃세례',
-        '화염방사',
-        '파도타기',
-      ]);
-    });
-
-    it('desc: 역순, 같은 타입은 이름도 역순', () => {
-      expect(sortNames(moves, desc('type'))).toEqual([
-        '파도타기',
-        '화염방사',
-        '불꽃세례',
-        '몸통박치기',
-      ]);
-    });
-  });
-
-  describe('분류', () => {
-    const moves = [
-      makeMove({ nameKo: '칼춤', damageClass: 'status' }),
-      makeMove({ nameKo: '다이번', damageClass: null }),
-      makeMove({ nameKo: '화염방사', damageClass: 'special' }),
-      makeMove({ nameKo: '플레어드라이브', damageClass: 'physical' }),
-    ];
-
-    it('asc: 물리 → 특수 → 변화, 분류 없음은 맨 뒤', () => {
-      expect(sortNames(moves, asc('damageClass'))).toEqual([
-        '플레어드라이브',
-        '화염방사',
-        '칼춤',
-        '다이번',
-      ]);
-    });
-
-    it('desc: 변화 → 특수 → 물리, 분류 없음은 여전히 맨 뒤', () => {
-      expect(sortNames(moves, desc('damageClass'))).toEqual([
-        '칼춤',
-        '화염방사',
-        '플레어드라이브',
-        '다이번',
+      expect(sortNames(mixed, asc('name'))).toEqual([
+        '3연화살',
+        '10만볼트',
+        '1000만볼트',
+        '냉동빔',
+        'V제너레이트',
       ]);
     });
   });

@@ -68,7 +68,6 @@ export const MOVE_COLUMNS: readonly TableColumn<Move, SortKey>[] = [
     header: '타입',
     width: 'minmax(64px,1fr)',
     align: 'center',
-    sortKey: 'type',
     cell: (move) => <TypeIconLabel type={move.type} />,
     skeleton: ICON_LABEL_SKELETON,
   },
@@ -77,7 +76,6 @@ export const MOVE_COLUMNS: readonly TableColumn<Move, SortKey>[] = [
     header: '분류',
     width: 'minmax(64px,1fr)',
     align: 'center',
-    sortKey: 'damageClass',
     // Z·다이맥스 기술은 분류가 없다
     cell: (move) =>
       move.damageClass ? (

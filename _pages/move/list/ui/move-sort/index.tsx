@@ -1,20 +1,36 @@
-import SortKeyDesktop from './sort-key-desktop';
-import SortKeyMobile from './sort-key-mobile';
-import SortOrderToggle from './sort-order-toggle';
+'use client';
 
-// [정렬 기준 ▾][방향 토글]
-// 기준 목록은 md(768px) 이상 popover, 미만 sheet.
-// JS(matchMedia)로 고르면 첫 렌더가 항상 popover라 모바일에서 트리거가 한 번 교체되므로 CSS로 나눈다
+import { SortMenu } from '@/_shared/ui/sort-menu';
+
+import {
+  SORT_OPTIONS,
+  getOrderText,
+  getSortLabel,
+  useMoveSort,
+} from '../../model/move-sort';
+
+// [위력 높은 순 ▾] → md 미만 시트, md 이상 드롭다운 (lg 이상은 테이블 헤더가 정렬)
+// 처음 고른 기준은 그 기준의 기본 방향, 선택된 기준을 다시 누르면 방향만 뒤집는다 (헤더와 같은 규칙)
 export default function MoveSort() {
+  const { sortState, isActive, toggleSort, resetSort } = useMoveSort();
+
+  const { sort, order } = sortState;
+
+  const nextOrder = order === 'asc' ? 'desc' : 'asc';
+
   return (
-    <div className="flex gap-2">
-      <div className="hidden md:block">
-        <SortKeyDesktop />
-      </div>
-      <div className="md:hidden">
-        <SortKeyMobile />
-      </div>
-      <SortOrderToggle />
-    </div>
+    <SortMenu
+      options={SORT_OPTIONS}
+      selected={{
+        key: sort,
+        orderText: getOrderText(sort, order),
+        sortLabel: getSortLabel(sortState),
+        nextSortLabel: getSortLabel({ sort, order: nextOrder }),
+      }}
+      onSelect={toggleSort}
+      onReset={resetSort}
+      isActive={isActive}
+      hint="선택한 기준을 다시 누르면 반대로 정렬돼요"
+    />
   );
 }
