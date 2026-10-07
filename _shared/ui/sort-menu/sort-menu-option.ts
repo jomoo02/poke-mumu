@@ -4,15 +4,15 @@ interface SortMenuOption<K extends string> {
   label: string;
 }
 
-// 지금 선택된 정렬. 글자는 기준마다 어법이 달라 쓰는 쪽이 만들어 넘긴다
-interface SortMenuSelected<K extends string> {
-  key: K;
-  // 목록의 선택된 줄 아래 방향 글자 (예: '높은 순', '가나다순')
-  orderText: string;
-  // 트리거·스크린리더에 쓰는 지금 정렬 (예: '위력 높은 순', '이름순')
+// 지금 정렬 방향. 화면엔 화살표만 보이고, 이름은 스크린리더용.
+// 이름은 기준마다 어법이 달라 쓰는 쪽이 만들어 넘긴다
+interface SortMenuOrder {
+  // 지금 정렬 이름 (예: '위력 높은 순', '이름순')
   sortLabel: string;
-  // 선택된 기준을 다시 누르면 바뀔 정렬 (스크린리더 안내용)
+  // 화살표: 오름차순 ↑, 내림차순 ↓ (표 머리글과 같은 규칙)
+  direction: 'asc' | 'desc';
+  // 방향 칸을 누르면 바뀔 정렬 이름 (예: '위력 낮은 순')
   nextSortLabel: string;
 }
 
-export type { SortMenuOption, SortMenuSelected };
+export type { SortMenuOption, SortMenuOrder };

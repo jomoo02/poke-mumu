@@ -35,8 +35,6 @@ export function useMoveSort() {
 
   const sortState = useMemo<MoveSort>(() => ({ sort, order }), [sort, order]);
 
-  const isActive = !isSameSort(sortState, DEFAULT_SORT);
-
   const setSort = (next: MoveSort) => {
     // 같은 정렬을 다시 고르면 page도 유지한다
     if (isSameSort(next, sortState)) {
@@ -51,7 +49,7 @@ export function useMoveSort() {
     });
   };
 
-  // 테이블 헤더·정렬 메뉴 공용: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
+  // 테이블 헤더: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
   const toggleSort = (nextKey: SortKey) => {
     if (nextKey === sortState.sort) {
       setSort({
@@ -63,22 +61,27 @@ export function useMoveSort() {
     setSort({ sort: nextKey, order: getInitialOrder(nextKey) });
   };
 
-  const resetSort = () => {
-    // 이미 기본 정렬이면 URL을 건드리지 않는다 (page 리셋 방지)
-    if (!isActive) {
-      return;
-    }
+  // 정렬 메뉴 기준 칸: 다른 기준이면 그 기준의 첫 방향부터, 같은 기준이면 그대로
+  const selectKey = (nextKey: SortKey) => {
+    setSort({
+      sort: nextKey,
+      order:
+        nextKey === sortState.sort ? sortState.order : getInitialOrder(nextKey),
+    });
+  };
 
-    setParams({
-      [SEARCH_PARAMS_KEY.sort]: null,
-      [SEARCH_PARAMS_KEY.order]: null,
+  // 정렬 메뉴 방향 칸: 기준은 두고 방향만 반전
+  const toggleOrder = () => {
+    setSort({
+      sort: sortState.sort,
+      order: sortState.order === 'asc' ? 'desc' : 'asc',
     });
   };
 
   return {
     sortState,
-    isActive,
     toggleSort,
-    resetSort,
+    selectKey,
+    toggleOrder,
   };
 }
