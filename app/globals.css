@@ -19,6 +19,9 @@
   --primary-foreground: oklch(0.987 0.022 95.277);
   /* 배경 없이 글자로 쓰는 강조색 (선택된 정렬 등): amber-700 */
   --primary-text: oklch(0.555 0.163 48.998);
+  /* 선택 상태(켜진 필터·배지·선택된 정렬)의 무채색 강조. 라이트는 반전 */
+  --selected: var(--foreground);
+  --selected-foreground: var(--background);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
@@ -78,6 +81,9 @@
   --primary-foreground: oklch(0.987 0.022 95.277);
   /* 다크 --primary(amber-800)는 글자로 쓰면 어두워 묻히므로 밝은 amber-600 */
   --primary-text: oklch(0.666 0.179 58.318);
+  /* 다크는 순백 대신 살짝 낮춘 밝기로 눈부심을 줄인다 */
+  --selected: #f1f1f1;
+  --selected-foreground: #0f0f0f;
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -250,6 +256,8 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-text: var(--primary-text);
+  --color-selected: var(--selected);
+  --color-selected-foreground: var(--selected-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);

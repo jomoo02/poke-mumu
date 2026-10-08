@@ -25,7 +25,7 @@ export function DamageClassIcon({
     <div
       aria-hidden={decorative || undefined}
       className={cn(
-        'size-7 rounded-md flex items-center justify-center p-0.75 shrink-0',
+        'size-7 rounded-sm flex items-center justify-center p-0.75 shrink-0',
         color.solid,
         className,
       )}

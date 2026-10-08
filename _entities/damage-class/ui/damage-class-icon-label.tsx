@@ -14,9 +14,9 @@ export function DamageClassIconLabel({
   className,
 }: DamageClassIconLabelProps) {
   return (
-    <div className={cn('flex flex-col items-center gap-1', className)}>
+    <div className={cn('flex flex-col items-center gap-1.5', className)}>
       <DamageClassIcon damageClass={damageClass} decorative />
-      <span className="max-w-full truncate text-xs text-foreground/70">
+      <span className="max-w-full truncate text-sm font-medium text-foreground/70">
         {damageClass.nameKo}
       </span>
     </div>

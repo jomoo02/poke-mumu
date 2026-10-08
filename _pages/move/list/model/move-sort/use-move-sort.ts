@@ -1,37 +1,21 @@
 'use client';
 
 import { useMemo } from 'react';
+import { useQueryStates } from 'nuqs';
 
-import {
-  useSearchParamsState,
-  useSingleParam,
-} from '@/_shared/lib/search-params';
+import { isSameSort, type MoveSort, type SortKey } from './move-sort';
+import { getInitialOrder } from './option';
+import { moveSearchParams } from '../search-params';
 
-import {
-  DEFAULT_SORT,
-  SORT_KEYS,
-  SORT_ORDERS,
-  isSameSort,
-  type MoveSort,
-  type SortKey,
-  type SortOrder,
-} from './sort';
-import { getInitialOrder } from './sort-option';
-import { PAGE_RESET_KEYS, SEARCH_PARAMS_KEY } from '../../config/search-params';
+const PARSERS = {
+  sort: moveSearchParams.sort,
+  order: moveSearchParams.order,
+  page: moveSearchParams.page,
+};
 
 export function useMoveSort() {
-  // 읽기 전용(value만 사용). 쓰기는 아래 setParams 한 곳에서 sort·order를 함께 처리한다
-  const { value: sort } = useSingleParam<SortKey>(SEARCH_PARAMS_KEY.sort, {
-    defaultValue: DEFAULT_SORT.sort,
-    validValues: SORT_KEYS,
-  });
-
-  const { value: order } = useSingleParam<SortOrder>(SEARCH_PARAMS_KEY.order, {
-    defaultValue: DEFAULT_SORT.order,
-    validValues: SORT_ORDERS,
-  });
-
-  const { setParams } = useSearchParamsState({ resetKeys: PAGE_RESET_KEYS });
+  // 기본 정렬(번호순)은 URL에 쓰지 않는다 (moveSearchParams의 기본값)
+  const [{ sort, order }, setParams] = useQueryStates(PARSERS);
 
   const sortState = useMemo<MoveSort>(() => ({ sort, order }), [sort, order]);
 
@@ -41,12 +25,7 @@ export function useMoveSort() {
       return;
     }
 
-    setParams({
-      [SEARCH_PARAMS_KEY.sort]:
-        next.sort === DEFAULT_SORT.sort ? null : next.sort,
-      [SEARCH_PARAMS_KEY.order]:
-        next.order === DEFAULT_SORT.order ? null : next.order,
-    });
+    setParams({ sort: next.sort, order: next.order, page: null });
   };
 
   // 테이블 헤더: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터

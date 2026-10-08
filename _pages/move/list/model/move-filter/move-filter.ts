@@ -1,30 +1,48 @@
-import { TYPE_IDENTIFIERS } from '@/_entities/type';
-import { DAMAGE_CLASS_IDENTIFIERS } from '@/_entities/damage-class';
 import type { Move } from '@/_entities/move';
+import type { Facet } from '@/_shared/lib/facet-param';
+
+import { FILTERABLE_DAMAGE_CLASSES, FILTERABLE_TYPES } from './option';
+import { FILTER_GROUP } from '../../config/move-list';
 
 interface MoveFilter {
   types: string[];
   damageClasses: string[];
+  // 유효한 선택을 고른 순서대로 (트리거는 그룹별 첫 값을 보여준다)
+  selections: Facet[];
 }
 
-// 기술에는 unknown 타입이 없어 필터 선택지에서도 뺀다
-const FILTERABLE_TYPES: readonly string[] = TYPE_IDENTIFIERS.filter(
-  (identifier) => identifier !== 'unknown',
-);
+// URL 그룹 이름은 사용자 입력이라 객체 대신 Map으로 찾는다 (constructor 같은 키 방지)
+const VALID_VALUES = new Map<string, readonly string[]>([
+  [FILTER_GROUP.type, FILTERABLE_TYPES],
+  [FILTER_GROUP.damageClass, FILTERABLE_DAMAGE_CLASSES],
+]);
 
-const FILTERABLE_DAMAGE_CLASSES: readonly string[] = DAMAGE_CLASS_IDENTIFIERS;
+// URL 선택 중 아는 그룹의 유효한 identifier만 중복 없이, 고른 순서대로 남긴다
+const parseMoveFilter = (facets: readonly Facet[]): MoveFilter => {
+  const seen = new Set<string>();
 
-// URL 값 중 유효한 identifier만 중복 없이 남긴다
-const pickValid = (raw: readonly string[], valid: readonly string[]) =>
-  [...new Set(raw)].filter((value) => valid.includes(value));
+  const selections = facets.filter(({ group, value }) => {
+    const id = `${group}.${value}`;
 
-const parseMoveFilter = (
-  rawTypes: readonly string[],
-  rawDamageClasses: readonly string[],
-): MoveFilter => ({
-  types: pickValid(rawTypes, FILTERABLE_TYPES),
-  damageClasses: pickValid(rawDamageClasses, FILTERABLE_DAMAGE_CLASSES),
-});
+    if (seen.has(id) || !VALID_VALUES.get(group)?.includes(value)) {
+      return false;
+    }
+
+    seen.add(id);
+    return true;
+  });
+
+  const valuesOf = (group: string) =>
+    selections
+      .filter((facet) => facet.group === group)
+      .map(({ value }) => value);
+
+  return {
+    types: valuesOf(FILTER_GROUP.type),
+    damageClasses: valuesOf(FILTER_GROUP.damageClass),
+    selections,
+  };
+};
 
 /**
  * 같은 필터 안에서는 OR, 타입과 분류 사이는 AND. 선택이 비면 조건 없음.
@@ -32,7 +50,7 @@ const parseMoveFilter = (
  */
 const filterMoves = (
   moves: Move[],
-  { types, damageClasses }: MoveFilter,
+  { types, damageClasses }: Pick<MoveFilter, 'types' | 'damageClasses'>,
 ): Move[] => {
   if (types.length === 0 && damageClasses.length === 0) {
     return moves;

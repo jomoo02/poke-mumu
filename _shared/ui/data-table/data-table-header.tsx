@@ -89,7 +89,8 @@ function SortableHead<K extends string>({
         onClick={() => onSort(sortKey)}
         className={cn(
           '-mx-2.5 h-9 rounded-lg px-2.5',
-          order && 'font-semibold text-primary-text hover:text-primary-text',
+          // 굵기는 그대로(font-medium) 두고, 지금 정렬 중인 헤더만 글자를 진하게
+          order && 'text-foreground hover:text-foreground',
         )}
       >
         {label}

@@ -33,10 +33,10 @@ const HALF_CLASS = cn(
   'relative h-10 gap-1.5 border border-border text-sm font-medium text-foreground transition-none focus-visible:z-10',
   // 정렬은 주소(URL)를 바꾸므로 두 칸 모두 링크처럼 손가락 커서
   'cursor-pointer',
-  'bg-transparent dark:bg-input/30',
-  '[@media(hover:hover)]:hover:bg-muted dark:[@media(hover:hover)]:hover:bg-input/50',
-  'active:bg-muted dark:active:bg-input/50',
-  'aria-expanded:bg-muted dark:aria-expanded:bg-input/50',
+  'bg-transparent dark:bg-input/50',
+  '[@media(hover:hover)]:hover:bg-muted dark:[@media(hover:hover)]:hover:bg-input/70',
+  'active:bg-muted dark:active:bg-input/70',
+  'aria-expanded:bg-muted dark:aria-expanded:bg-input/70',
 );
 
 // 한 덩어리 [정렬: 기준 ▾ │ ↓]. 각 칸은 자기 것만 보여 준다 (한쪽을 눌러 다른 쪽 글자가 바뀌지 않게)

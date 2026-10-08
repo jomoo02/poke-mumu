@@ -33,7 +33,7 @@ export function SortKeySelect<K extends string>({
     <Select value={selectedKey} onValueChange={handleValueChange}>
       {/* 트리거는 버튼 덩어리의 왼쪽 칸 그대로 (셰브론 포함) */}
       <SelectPrimitive.Trigger render={trigger} />
-      <SelectContent aria-label="정렬 기준" className="w-44" sideOffset={6}>
+      <SelectContent aria-label="정렬 기준" className="w-44">
         {options.map((option) => (
           // 고르면 주소(URL)가 바뀌므로 링크처럼 손가락 커서
           <SelectItem

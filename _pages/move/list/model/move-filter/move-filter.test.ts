@@ -4,23 +4,54 @@ import { filterMoves, parseMoveFilter } from './move-filter';
 import { makeMove, names } from '../move.fixture';
 
 describe('parseMoveFilter', () => {
-  it('유효한 identifier만 남긴다', () => {
-    expect(
-      parseMoveFilter(['fire', 'xxx', 'unknown'], ['special', 'magic']),
-    ).toEqual({ types: ['fire'], damageClasses: ['special'] });
-  });
+  const facet = (group: string, value: string) => ({ group, value });
 
-  it('중복을 제거한다', () => {
-    expect(parseMoveFilter(['fire', 'fire'], ['status', 'status'])).toEqual({
-      types: ['fire'],
-      damageClasses: ['status'],
+  it('그룹별로 나누고 고른 순서를 selections에 남긴다', () => {
+    const facets = [
+      facet('type', 'fire'),
+      facet('damageClass', 'physical'),
+      facet('type', 'grass'),
+    ];
+
+    expect(parseMoveFilter(facets)).toEqual({
+      types: ['fire', 'grass'],
+      damageClasses: ['physical'],
+      selections: facets,
     });
   });
 
-  it('빈 값은 조건 없음', () => {
-    expect(parseMoveFilter([''], [''])).toEqual({
+  it('모르는 그룹, 유효하지 않은 identifier는 뺀다', () => {
+    expect(
+      parseMoveFilter([
+        facet('type', 'xxx'),
+        facet('type', 'unknown'),
+        facet('damageClass', 'magic'),
+        facet('color', 'red'),
+        facet('constructor', 'fire'),
+        facet('type', 'fire'),
+      ]),
+    ).toEqual({
+      types: ['fire'],
+      damageClasses: [],
+      selections: [facet('type', 'fire')],
+    });
+  });
+
+  it('중복은 처음 자리만 남긴다', () => {
+    expect(
+      parseMoveFilter([
+        facet('type', 'fire'),
+        facet('damageClass', 'status'),
+        facet('type', 'fire'),
+      ]).selections,
+    ).toEqual([facet('type', 'fire'), facet('damageClass', 'status')]);
+  });
+
+  it('선택이 없으면 조건 없음', () => {
+    expect(parseMoveFilter([])).toEqual({
       types: [],
       damageClasses: [],
+      selections: [],
     });
   });
 });

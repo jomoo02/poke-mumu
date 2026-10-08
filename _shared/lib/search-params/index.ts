@@ -7,8 +7,6 @@ export type {
 
 export { useSingleParam } from './useSingleParam';
 
-export { useMultiSelectParam } from './useMultiSelectParam';
-
 export {
   type UseSearchParamsInputOptions,
   useSearchParamsInput,

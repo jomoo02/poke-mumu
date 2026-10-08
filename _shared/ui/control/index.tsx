@@ -5,7 +5,6 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { Button } from '@/_shared/ui/button';
 import { cn } from '@/_shared/lib/cn';
 import { Label } from '@/_shared/ui/label';
-import { Field, FieldLabel } from '@/_shared/ui/field';
 
 const controlTriggerButtonVariant = cva('transition-none group', {
   variants: {
@@ -15,6 +14,10 @@ const controlTriggerButtonVariant = cva('transition-none group', {
 
       active:
         'bg-primary hover:bg-primary/80 text-primary-foreground active:bg-primary/80 aria-expanded:bg-primary/80 dark:aria-expanded:bg-primary/80',
+
+      // 선택 상태는 무채색(--selected, globals.css). primary는 주요 행동에만
+      selected:
+        'bg-selected text-selected-foreground hover:bg-selected/85 aria-expanded:bg-selected/85',
     },
     size: {
       // _shared Button 기본 gap(1.5)이 구 Button(2.5)과 달라 기존 간격을 명시한다
@@ -51,42 +54,6 @@ function ControlTriggerButton({
         />
       )}
     </Button>
-  );
-}
-
-function ControlField({
-  className,
-  children,
-  ...props
-}: React.ComponentProps<'div'>) {
-  return (
-    <Field
-      orientation={'horizontal'}
-      className={cn(
-        'gap-x-2.5 h-10 flex cursor-pointer text-md',
-        'relative isolate',
-        'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg hover:after:bg-muted',
-        className,
-      )}
-      {...props}
-    >
-      {children}
-    </Field>
-  );
-}
-
-function ControlFieldLabel({
-  className,
-  ...props
-}: React.ComponentProps<typeof Label>) {
-  return (
-    <FieldLabel
-      className={cn(
-        'font-medium cursor-pointer h-full text-md gap-2.5 flex-1 pr-2 -mr-2',
-        className,
-      )}
-      {...props}
-    />
   );
 }
 
@@ -142,10 +109,4 @@ function ControlResetButton({
   );
 }
 
-export {
-  ControlTriggerButton,
-  ControlField,
-  ControlFieldLabel,
-  ControlRadioGroupLabel,
-  ControlResetButton,
-};
+export { ControlTriggerButton, ControlRadioGroupLabel, ControlResetButton };
