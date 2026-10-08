@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono, Inter } from 'next/font/google';
 import localFont from 'next/font/local';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 
 import { ThemeProvider } from './providers/theme';
 
@@ -93,7 +94,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          {/* URL 쿼리 상태(nuqs). 어댑터 자체는 searchParams를 읽지 않아 정적 셸에 영향이 없다 */}
+          <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
       </body>
     </html>
