@@ -1,43 +1,39 @@
 import { PageLayoutSection } from '@/_shared/ui/page-layout';
 import { Skeleton, SkeletonLine } from '@/_shared/ui/skeleton';
 
-import AbilityListSkeleton from './ability-list/skeleton';
-import AbilityTableSkeleton from './ability-table/skeleton';
+import AbilityCardsSkeleton from './results/ability-cards/skeleton';
+import AbilityTableSkeleton from './results/ability-table/skeleton';
 
 // 화면을 채울 만큼만 그린다(실제 한 페이지는 PAGE_SIZE개)
 const TABLE_ROW_COUNT = 10;
-const LIST_ITEM_COUNT = 6;
+const CARD_COUNT = 6;
 
-// list/index.tsx의 AbilityListContent(검색 + view-client)와 같은 구조로 자리를 잡는다
-export default function AbilityListContentSkeleton() {
+// index.tsx의 AbilityListContent(ability-list-view)와 같은 구조·크기로 자리를 잡는다
+export default function AbilityListSkeleton() {
   return (
-    <>
-      <PageLayoutSection className="mt-3">
-        <span role="status" className="sr-only">
-          특성 목록을 불러오는 중
-        </span>
-        {/* AbilitySearch: InputGroup h-11 */}
-        <Skeleton aria-hidden="true" className="h-11 w-full rounded-4xl" />
-      </PageLayoutSection>
+    <PageLayoutSection className="mt-2">
+      <span role="status" className="sr-only">
+        특성 목록을 불러오는 중
+      </span>
+      <div aria-hidden="true" className="flex flex-col gap-6">
+        {/* 검색(h-10.5) */}
+        <Skeleton className="h-10.5 w-full rounded-4xl" />
 
-      <PageLayoutSection className="mt-0">
-        <div aria-hidden="true" className="flex flex-col gap-6">
-          <div className="flex flex-wrap items-center justify-between gap-6">
-            <div className="text-sm">
-              <SkeletonLine className="w-20" />
-            </div>
-            {/* AbilitySort 트리거: h-10.5 */}
-            <Skeleton className="h-10.5 w-28 rounded-4xl lg:hidden" />
+        {/* results-header: 전체 N개 + 정렬 메뉴 [정렬: 특성번호 ▾ │ ↑](h-10) */}
+        <div className="flex items-center justify-between gap-6">
+          <div className="text-sm">
+            <SkeletonLine className="w-16" />
           </div>
-
-          <section className="hidden w-full lg:block">
-            <AbilityTableSkeleton rowCount={TABLE_ROW_COUNT} />
-          </section>
-          <section className="-mt-2 lg:hidden">
-            <AbilityListSkeleton count={LIST_ITEM_COUNT} />
-          </section>
+          <Skeleton className="h-10 w-45 rounded-4xl" />
         </div>
-      </PageLayoutSection>
-    </>
+
+        <section className="hidden w-full lg:block">
+          <AbilityTableSkeleton rowCount={TABLE_ROW_COUNT} />
+        </section>
+        <section className="-mt-2 lg:hidden">
+          <AbilityCardsSkeleton count={CARD_COUNT} />
+        </section>
+      </div>
+    </PageLayoutSection>
   );
 }

@@ -1,16 +1,16 @@
 import type { AbilityDetail } from '@/_entities/ability';
 
-import AbilityItem from './ability-item';
+import AbilityCard from './ability-card';
 
-interface AbilityListProps {
+interface AbilityCardsProps {
   abilities: AbilityDetail[];
 }
 
-export default function AbilityList({ abilities }: AbilityListProps) {
+export default function AbilityCards({ abilities }: AbilityCardsProps) {
   return (
     <ul>
       {abilities.map((ability) => (
-        <AbilityItem key={ability.identifier} ability={ability} />
+        <AbilityCard key={ability.identifier} ability={ability} />
       ))}
     </ul>
   );

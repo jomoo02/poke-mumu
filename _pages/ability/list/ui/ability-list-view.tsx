@@ -1,56 +1,29 @@
 'use client';
 
-import { PaginationNav } from '@/_shared/ui/pagination';
 import type { AbilityDetail } from '@/_entities/ability';
 
-import AbilityTable from './ability-table';
-import AbilityList from './ability-list';
-import AbilitySort from './ability-sort';
-import { useAbilityList } from '../model/use-ability-list';
-import { SEARCH_PARAMS_KEY } from '../config/search-params';
+import AbilitySearchInput from './ability-search-input';
+import AbilityResults from './results';
+import { useAbilityResults } from '../model/use-ability-results';
 
-interface AbilityViewClientProps {
+interface AbilityListViewProps {
   abilities: AbilityDetail[];
 }
 
-export default function AbilityViewClient({
-  abilities,
-}: AbilityViewClientProps) {
+// 위: 검색 / 아래: 결과(개수·정렬, 테이블·카드, 페이지네이션)
+export default function AbilityListView({ abilities }: AbilityListViewProps) {
   const { pageAbilities, page, totalPages, totalCount } =
-    useAbilityList(abilities);
+    useAbilityResults(abilities);
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-wrap items-center justify-between gap-6">
-        <p aria-live="polite" className="text-sm text-foreground/70">
-          {totalCount}개의 특성
-        </p>
-        <div className="lg:hidden">
-          <AbilitySort />
-        </div>
-      </div>
-
-      {totalCount === 0 ? (
-        <p className="py-6 font-medium text-muted-foreground">
-          일치하는 특성이 없습니다
-        </p>
-      ) : (
-        <>
-          <section className="lg:block hidden w-full">
-            <AbilityTable abilities={pageAbilities} />
-          </section>
-          <section className="lg:hidden -mt-2">
-            <AbilityList abilities={pageAbilities} />
-          </section>
-          {/* 1페이지뿐이어도 표시한다. 검색 중 결과 수가 바뀔 때 레이아웃이 흔들리지 않게 */}
-          <PaginationNav
-            page={page}
-            totalPages={totalPages}
-            paramName={SEARCH_PARAMS_KEY.page}
-            className="mt-3"
-          />
-        </>
-      )}
+      <AbilitySearchInput />
+      <AbilityResults
+        abilities={pageAbilities}
+        page={page}
+        totalPages={totalPages}
+        totalCount={totalCount}
+      />
     </div>
   );
 }

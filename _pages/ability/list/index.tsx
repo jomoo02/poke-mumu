@@ -9,9 +9,8 @@ import {
 } from '@/_shared/ui/page-layout';
 import { getAllAbilityDetail } from '@/_entities/ability/index.server';
 
-import AbilityViewClient from './ui/view-client';
-import AbilitySearch from './ui/ability-search';
-import AbilityListContentSkeleton from './ui/content-skeleton';
+import AbilityListView from './ui/ability-list-view';
+import AbilityListSkeleton from './ui/ability-list-skeleton';
 
 // 제목·설명은 상수라 Suspense 밖에서 바로 그린다
 export default function AbilityListPage() {
@@ -23,7 +22,7 @@ export default function AbilityListPage() {
           모든 특성 목록
         </PageLayoutHeaderDescription>
       </PageLayoutHeader>
-      <Suspense fallback={<AbilityListContentSkeleton />}>
+      <Suspense fallback={<AbilityListSkeleton />}>
         <AbilityListContent />
       </Suspense>
     </PageLayoutContainer>
@@ -35,13 +34,8 @@ async function AbilityListContent() {
   const abilities = await getAllAbilityDetail();
 
   return (
-    <>
-      <PageLayoutSection className="mt-3">
-        <AbilitySearch />
-      </PageLayoutSection>
-      <PageLayoutSection className="mt-0">
-        <AbilityViewClient abilities={abilities} />
-      </PageLayoutSection>
-    </>
+    <PageLayoutSection className="mt-2">
+      <AbilityListView abilities={abilities} />
+    </PageLayoutSection>
   );
 }

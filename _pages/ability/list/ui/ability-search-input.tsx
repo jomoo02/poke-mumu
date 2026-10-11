@@ -1,30 +1,43 @@
 'use client';
 
+import { useRef } from 'react';
 import { SearchIcon, XIcon } from 'lucide-react';
 
+import { cn } from '@/_shared/lib/cn';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '@/_shared/ui/input-group';
-import { useSearchParamsInput } from '@/_shared/lib/search-params';
+import { useSearchInput } from '@/_shared/lib/search-input';
 
-import { PAGE_RESET_KEYS, SEARCH_PARAMS_KEY } from '../../config/search-params';
+import { useAbilitySearch } from '../model/ability-search';
 
-export default function AbilitySearch() {
+interface AbilitySearchInputProps {
+  className?: string;
+}
+
+export default function AbilitySearchInput({
+  className,
+}: AbilitySearchInputProps) {
   const placeholder = '맹화, Blaze, もうか';
 
-  const { value, onChange, onCompositionEnd, clear } = useSearchParamsInput({
-    key: SEARCH_PARAMS_KEY.search,
-    resetKeys: PAGE_RESET_KEYS,
+  const { keyword, setKeyword } = useAbilitySearch();
+
+  const { value, onChange, onCompositionEnd, clear } = useSearchInput({
+    value: keyword,
+    onCommit: setKeyword,
   });
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <InputGroup className="w-full h-11">
+    <InputGroup className={cn('w-full h-10.5', className)}>
       <InputGroupInput
+        ref={inputRef}
         placeholder={placeholder}
-        className="h-11"
+        className="h-10.5"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={onCompositionEnd}
@@ -35,14 +48,17 @@ export default function AbilitySearch() {
         <SearchIcon className="size-4.5" aria-hidden />
       </InputGroupAddon>
       <InputGroupAddon align={'inline-end'}>
+        {/* 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}
         <InputGroupButton
-          tabIndex={-1}
-          onClick={clear}
+          onClick={() => {
+            clear();
+            inputRef.current?.focus();
+          }}
           aria-label="검색어 지우기"
           size={'icon-sm'}
-          className={value === '' ? ' hidden' : 'flex'}
+          className={value === '' ? 'hidden' : 'flex'}
         >
-          <XIcon className="size-5" />
+          <XIcon className="size-5" aria-hidden />
         </InputGroupButton>
       </InputGroupAddon>
     </InputGroup>

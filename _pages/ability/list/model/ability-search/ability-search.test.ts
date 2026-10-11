@@ -1,23 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import type { AbilityDetail } from '@/_entities/ability/model';
-
 import { filterAbilities } from './ability-search';
-
-const makeAbility = (
-  fields: Partial<AbilityDetail> & Pick<AbilityDetail, 'nameKo'>,
-): AbilityDetail => ({
-  id: 0,
-  identifier: fields.nameKo,
-  flavorText: '',
-  nameEn: '',
-  nameJa: '',
-  gen: 1,
-  isChampions: false,
-  ...fields,
-});
-
-const names = (list: AbilityDetail[]) => list.map((a) => a.nameKo);
+import { makeAbility, names } from '../ability.fixture';
 
 describe('filterAbilities', () => {
   const abilities = [
@@ -63,9 +47,9 @@ describe('filterAbilities', () => {
   });
 
   it('자모 분리형(NFD) 검색어도 찾는다', () => {
-    expect(names(filterAbilities(abilities, '맹화'.normalize('NFD')))).toEqual(
-      ['맹화'],
-    );
+    expect(names(filterAbilities(abilities, '맹화'.normalize('NFD')))).toEqual([
+      '맹화',
+    ]);
   });
 
   it('일치하는 항목이 없으면 빈 배열', () => {

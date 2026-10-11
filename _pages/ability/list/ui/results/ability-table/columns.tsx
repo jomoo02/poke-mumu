@@ -2,12 +2,28 @@ import { Skeleton, SkeletonLine } from '@/_shared/ui/skeleton';
 import type { TableColumn } from '@/_shared/ui/data-table';
 import type { AbilityDetail } from '@/_entities/ability';
 
-import type { SortKey } from '../../model/ability-sort';
+import type { SortKey } from '../../../model/ability-sort';
 import AppearedBadge from '../appeared-badge';
 import AbilityNameCell from './ability-name-cell';
 
+// - #: 식별용이라 늘리지 않고 고정. 세 자리 번호 + 헤더 버튼 (기술 목록과 같은 폭)
 // skeleton은 각 cell과 같은 글꼴 크기·간격을 써서 로딩 전후 행 높이를 맞춘다
 export const ABILITY_COLUMNS: readonly TableColumn<AbilityDetail, SortKey>[] = [
+  {
+    id: 'abilityNumber',
+    header: '#',
+    width: '64px',
+    sortKey: 'abilityNumber',
+    cell: (ability) => (
+      <span className="text-md tabular-nums">{ability.abilityNumber}</span>
+    ),
+    // 폭은 세 자리 숫자 정도
+    skeleton: (
+      <div className="text-md">
+        <SkeletonLine className="w-7" />
+      </div>
+    ),
+  },
   {
     id: 'name',
     header: '이름',

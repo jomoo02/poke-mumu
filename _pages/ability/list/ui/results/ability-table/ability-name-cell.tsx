@@ -18,7 +18,7 @@ export default function AbilityNameCell({ ability }: AbilityNameCellProps) {
       <Link
         href={getAbilityHref(ability)}
         className={cn(
-          'truncate font-semibold outline-none',
+          'truncate font-medium outline-none',
           'focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50',
           'after:absolute after:inset-0 after:rounded-2xl',
         )}

@@ -1,34 +1,33 @@
 import { describe, it, expect } from 'vitest';
 
-import { DEFAULT_SORT } from './sort';
-import {
-  SORT_OPTIONS,
-  getSortById,
-  getSortId,
-  getSortLabel,
-} from './sort-option';
+import { SORT_KEYS } from './ability-sort';
+import { SORT_OPTIONS, getSortLabel } from './option';
 
-describe('getSortId / getSortById', () => {
-  it('모든 옵션이 id ↔ 정렬 객체로 왕복 변환된다', () => {
-    for (const option of SORT_OPTIONS) {
-      const sort = { sort: option.sort, order: option.order };
-
-      expect(getSortId(sort)).toBe(option.id);
-      expect(getSortById(option.id)).toEqual(sort);
-    }
-  });
-
-  it('알 수 없는 id는 기본 정렬로 되돌린다', () => {
-    expect(getSortById('hp-asc')).toEqual(DEFAULT_SORT);
-    expect(getSortById('')).toEqual(DEFAULT_SORT);
+describe('SORT_OPTIONS', () => {
+  it('모든 정렬 키가 옵션을 가진다', () => {
+    expect(SORT_OPTIONS.map((option) => option.key)).toEqual([...SORT_KEYS]);
   });
 });
 
 describe('getSortLabel', () => {
-  it('정렬 기준과 방향에 맞는 라벨', () => {
-    expect(getSortLabel({ sort: 'name', order: 'asc' })).toBe('이름 순서');
+  it('번호: 번호순 / 번호 역순', () => {
+    expect(getSortLabel({ sort: 'abilityNumber', order: 'asc' })).toBe(
+      '번호순',
+    );
+    expect(getSortLabel({ sort: 'abilityNumber', order: 'desc' })).toBe(
+      '번호 역순',
+    );
+  });
+
+  it('이름: 이름순 / 이름 역순', () => {
+    expect(getSortLabel({ sort: 'name', order: 'asc' })).toBe('이름순');
+    expect(getSortLabel({ sort: 'name', order: 'desc' })).toBe('이름 역순');
+  });
+
+  it('등장: 등장순 / 등장 역순', () => {
+    expect(getSortLabel({ sort: 'appearance', order: 'asc' })).toBe('등장순');
     expect(getSortLabel({ sort: 'appearance', order: 'desc' })).toBe(
-      '등장 반대순서',
+      '등장 역순',
     );
   });
 });
