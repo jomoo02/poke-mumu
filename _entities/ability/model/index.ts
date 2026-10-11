@@ -6,6 +6,8 @@ interface Ability {
 }
 
 interface AbilityDetail extends Ability {
+  // 게임 공식 특성 번호 (Bulbapedia #). 빈 번호가 있다
+  abilityNumber: number;
   nameEn: string;
   nameJa: string;
   gen: number;

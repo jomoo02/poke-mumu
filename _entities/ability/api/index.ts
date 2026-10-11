@@ -15,6 +15,7 @@ export const getAbilityDetail = async (
       `
       id,
       identifier,
+      abilityNumber:ability_number,
       nameKo:name_ko,
       nameEn:name_en,
       nameJa:name_ja,
@@ -42,6 +43,7 @@ export const getAllAbilityDetail = async (): Promise<AbilityDetail[]> => {
     `
       id,
       identifier,
+      abilityNumber:ability_number,
       nameKo:name_ko,
       nameEn:name_en,
       nameJa:name_ja,

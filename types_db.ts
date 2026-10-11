@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       ability: {
         Row: {
+          ability_number: number;
           created_at: string;
           description: string | null;
           flavor_text: string;
@@ -28,6 +29,7 @@ export type Database = {
           name_ko: string;
         };
         Insert: {
+          ability_number: number;
           created_at?: string;
           description?: string | null;
           flavor_text: string;
@@ -40,6 +42,7 @@ export type Database = {
           name_ko: string;
         };
         Update: {
+          ability_number?: number;
           created_at?: string;
           description?: string | null;
           flavor_text?: string;
