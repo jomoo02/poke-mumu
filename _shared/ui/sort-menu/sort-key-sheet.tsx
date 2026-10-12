@@ -75,22 +75,21 @@ export function SortKeySheet<K extends string>({
                     aria-current={active ? 'true' : undefined}
                     onClick={() => handleSelect(option.key)}
                     className={cn(
-                      'relative isolate grid h-10.5 w-full cursor-pointer grid-cols-[1fr_1.25rem] justify-normal gap-x-2.5 rounded-none border-0 px-0 text-left text-foreground',
-                      // 버튼 자체 배경·링은 끄고, 전체 줄 호버·포커스 배경은 양옆으로 bleed
+                      'relative isolate grid h-11 w-full cursor-pointer grid-cols-[1fr_1.25rem] justify-normal gap-x-2.5 rounded-none border-0 px-0 text-left font-normal text-foreground',
+                      // 버튼 자체 배경·링은 끄고, 전체 줄 호버 배경·포커스 링은 양옆으로 bleed
                       'hover:bg-transparent focus-visible:ring-0 dark:hover:bg-transparent',
                       'after:absolute after:inset-y-0 after:-inset-x-2.5 after:-z-10 after:rounded-lg',
                       'focus-visible:after:ring-3 focus-visible:after:ring-ring/50',
-                      // 배경은 bleed되는 ::after에, 글자색은 버튼에 (이름은 버튼 색을 물려받는다).
-                      // 열 때 선택된 항목에 포커스가 가므로(initialFocus) 처음엔 그 줄이 강조된다
+                      // 호버 배경은 bleed되는 ::after에, 글자색은 버튼에 (이름은 버튼 색을 물려받는다)
                       '[@media(hover:hover)]:hover:after:bg-accent [@media(hover:hover)]:hover:text-accent-foreground',
-                      'focus:after:bg-accent focus:text-accent-foreground',
+                      // 포커스는 배경 없이 굵기로만 (셀렉트와 달리). 모바일에서 처음 열 때
+                      // 선택된 줄(initialFocus)이 호버처럼 칠해져 보이지 않게 한다
+                      'focus:font-semibold focus:text-accent-foreground',
                     )}
                   >
-                    {/* 선택은 체크와 처음 포커스 배경으로만 알린다. 굵기·색은 다른 항목과 같다 */}
-                    <span className="text-md leading-6 font-medium">
-                      {option.label}
-                    </span>
-                    <span aria-hidden className="text-selected">
+                    {/* 선택은 체크로 알리고, 열 때는 포커스가 가 굵게 시작한다. 색은 다른 항목과 같다 */}
+                    <span className="text-md leading-6">{option.label}</span>
+                    <span aria-hidden className="text-foreground">
                       {active && (
                         <CheckIcon className="size-4.5" strokeWidth={2.5} />
                       )}

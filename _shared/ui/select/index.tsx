@@ -119,7 +119,8 @@ function SelectLabel({
 }
 
 // [이름 ········ ✓] 선택된 항목은 체크로만 표시한다(굵기·색은 다른 항목과 같다).
-// 열면 선택된 항목에 포커스가 가 강조(bg-accent)된 채로 시작해 현재 위치를 함께 보여 준다.
+// 포커스된 항목은 배경(bg-accent)과 굵기(font-semibold)로 강조한다.
+// 열면 선택된 항목에 포커스가 가 강조된 채로 시작해 현재 위치를 함께 보여 준다.
 // 마우스를 올리면 그 항목으로 포커스가 옮겨져 focus:만으로 hover·키보드를 모두 처리한다. 체크 자리는 늘 비워 둬서 이름 위치가 흔들리지 않는다
 function SelectItem({
   className,
@@ -130,8 +131,8 @@ function SelectItem({
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        'grid h-10 w-full cursor-default grid-cols-[1fr_1.25rem] items-center gap-x-2.5 rounded-lg px-2.5 text-sm font-medium text-foreground outline-none select-none',
-        'focus:bg-accent focus:text-accent-foreground',
+        'grid h-10 w-full cursor-default grid-cols-[1fr_1.25rem] items-center gap-x-2.5 rounded-lg px-2.5 text-sm font-normal text-foreground outline-none select-none',
+        'focus:bg-accent focus:text-accent-foreground focus:font-semibold',
         'data-disabled:pointer-events-none data-disabled:opacity-50',
         className,
       )}
@@ -140,7 +141,7 @@ function SelectItem({
       <SelectPrimitive.ItemText className="whitespace-nowrap">
         {children}
       </SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator className="flex items-center justify-center text-selected">
+      <SelectPrimitive.ItemIndicator className="flex items-center justify-center text-foreground">
         <CheckIcon aria-hidden className="size-4.5" strokeWidth={2.5} />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>

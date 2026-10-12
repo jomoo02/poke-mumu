@@ -15,7 +15,7 @@ export default function AbilityCardsSkeleton({
         <li
           key={index}
           className={cn(
-            'relative -mx-3 flex flex-col gap-4 px-3 py-4',
+            'relative -mx-3 flex flex-col gap-5 px-3 py-5',
             'before:absolute before:inset-x-3 before:top-0 before:h-px before:bg-border first:before:hidden',
           )}
         >

@@ -38,7 +38,7 @@ export default function MoveCard({ move }: MoveCardProps) {
 
         {/* 왼쪽 이름 두 줄, 오른쪽 타입·분류(아이콘 아래 이름) */}
         <div className="flex items-start justify-between gap-4">
-          <div className="flex min-w-0 flex-col gap-0.5">
+          <div className="flex min-w-0 flex-col gap-1">
             <Link
               href={href}
               className={cn(

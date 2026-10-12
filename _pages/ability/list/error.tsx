@@ -8,7 +8,6 @@ import { Button } from '@/_shared/ui/button';
 import {
   PageLayoutContainer,
   PageLayoutHeader,
-  PageLayoutHeaderDescription,
   PageLayoutHeaderTitle,
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
@@ -33,9 +32,6 @@ export default function AbilityListError({
     <PageLayoutContainer>
       <PageLayoutHeader>
         <PageLayoutHeaderTitle>특성</PageLayoutHeaderTitle>
-        <PageLayoutHeaderDescription>
-          모든 특성 목록
-        </PageLayoutHeaderDescription>
       </PageLayoutHeader>
       <PageLayoutSection className="mt-3">
         <div role="alert" className="flex flex-col items-start gap-1 py-6">

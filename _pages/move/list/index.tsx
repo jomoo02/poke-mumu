@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import {
   PageLayoutContainer,
   PageLayoutHeader,
-  PageLayoutHeaderDescription,
   PageLayoutHeaderTitle,
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
@@ -15,15 +14,12 @@ import MoveListView from './ui/move-list-view';
 import MoveListSkeleton from './ui/move-list-skeleton';
 import { toFilterDamageClasses, toFilterTypes } from './model/move-filter';
 
-// 제목·설명은 상수라 Suspense 밖에서 바로 그린다
+// 제목은 상수라 Suspense 밖에서 바로 그린다
 export default function MoveListPage() {
   return (
     <PageLayoutContainer>
       <PageLayoutHeader>
         <PageLayoutHeaderTitle>기술</PageLayoutHeaderTitle>
-        {/* <PageLayoutHeaderDescription>
-          모든 기술 목록
-        </PageLayoutHeaderDescription> */}
       </PageLayoutHeader>
       <Suspense fallback={<MoveListSkeleton />}>
         <MoveListContent />

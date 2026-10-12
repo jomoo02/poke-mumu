@@ -32,7 +32,7 @@ export default function AbilityCard({ ability }: AbilityCardProps) {
           #{ability.abilityNumber}
         </span>
 
-        <div className="flex flex-col gap-0.5">
+        <div className="flex flex-col gap-1">
           <div className="flex justify-between gap-4">
             <Link
               href={href}

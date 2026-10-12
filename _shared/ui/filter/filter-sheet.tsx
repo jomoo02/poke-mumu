@@ -71,7 +71,7 @@ export function FilterSheet({
       />
       <SheetContent
         side="bottom"
-        className="gap-0 data-[side=bottom]:h-[80dvh]"
+        className="gap-0 data-[side=bottom]:h-[85dvh]"
       >
         <SheetHeader className="pb-2">
           <SheetTitle>필터</SheetTitle>
