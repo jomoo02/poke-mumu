@@ -88,15 +88,19 @@ function SortableHead<K extends string>({
         variant="ghost"
         onClick={() => onSort(sortKey)}
         className={cn(
-          '-mx-2.5 h-9 rounded-lg px-2.5',
-          // 굵기는 그대로(font-medium) 두고, 지금 정렬 중인 헤더만 글자를 진하게
-          order && 'text-foreground hover:text-foreground',
+          '-mx-2.5 h-9 rounded-lg px-2.5 group',
+
+          order && 'text-foreground hover:text-foreground font-semibold',
         )}
       >
         {label}
         <Icon
           aria-hidden="true"
-          className={cn('size-4', !order && 'opacity-50')}
+          className={cn(
+            'size-4',
+            !order &&
+              'text-foreground/50 group-hover:text-foreground transition-colors',
+          )}
         />
       </Button>
     </div>
