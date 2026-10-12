@@ -7,7 +7,9 @@ import {
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
 import { getAllMove } from '@/_entities/move/index.server';
+import { TypeIconPreload } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
+import { DamageClassIconPreload } from '@/_entities/damage-class';
 import { getAllDamageClass } from '@/_entities/damage-class/index.server';
 
 import MoveListView from './ui/move-list-view';
@@ -18,6 +20,9 @@ import { toFilterDamageClasses, toFilterTypes } from './model/move-filter';
 export default function MoveListPage() {
   return (
     <PageLayoutContainer>
+      {/* 필터·정렬·페이지 이동으로 처음 나타나는 아이콘이 깜빡이지 않게 전부 미리 받는다 */}
+      <TypeIconPreload />
+      <DamageClassIconPreload />
       <PageLayoutHeader>
         <PageLayoutHeaderTitle>기술</PageLayoutHeaderTitle>
       </PageLayoutHeader>

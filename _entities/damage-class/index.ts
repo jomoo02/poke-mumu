@@ -14,3 +14,7 @@ export { getDamageClassColor } from './model/damage-class-color';
 // ui
 export { DamageClassIcon } from './ui/damage-class-icon';
 export { DamageClassIconLabel } from './ui/damage-class-icon-label';
+export {
+  DamageClassIconPreload,
+  preloadDamageClassIcons,
+} from './ui/damage-class-icon-preload';
