@@ -21,6 +21,8 @@ interface DataTableHeaderProps<Row, K extends string> {
   sortState: SortState<K>;
   onSort: (sortKey: K) => void;
   className?: string;
+  // 가상화 테이블: 일부 행만 그리므로 행 순번을 알린다 (머리글 = 1)
+  rowIndex?: number;
 }
 
 export default function DataTableHeader<Row, K extends string>({
@@ -28,14 +30,20 @@ export default function DataTableHeader<Row, K extends string>({
   sortState,
   onSort,
   className,
+  rowIndex,
 }: DataTableHeaderProps<Row, K>) {
   return (
-    <div role="row" className={cn(HEADER_ROW_CLASS, className)}>
+    <div
+      role="row"
+      aria-rowindex={rowIndex}
+      className={cn(HEADER_ROW_CLASS, className)}
+    >
       {columns.map((column) =>
         column.sortKey ? (
           <SortableHead
             key={column.id}
             label={column.header}
+            ariaLabel={column.headerLabel}
             sortKey={column.sortKey}
             align={column.align ?? 'left'}
             sortState={sortState}
@@ -50,7 +58,14 @@ export default function DataTableHeader<Row, K extends string>({
               CELL_ALIGN_CLASS[column.align ?? 'left'],
             )}
           >
-            {column.header}
+            {column.headerLabel ? (
+              <>
+                <span aria-hidden>{column.header}</span>
+                <span className="sr-only">{column.headerLabel}</span>
+              </>
+            ) : (
+              column.header
+            )}
           </div>
         ),
       )}
@@ -60,6 +75,8 @@ export default function DataTableHeader<Row, K extends string>({
 
 interface SortableHeadProps<K extends string> {
   label: string;
+  // 있으면 버튼의 접근 이름 (화면 글자 label 대신)
+  ariaLabel?: string;
   sortKey: K;
   align: ColumnAlign;
   sortState: SortState<K>;
@@ -68,6 +85,7 @@ interface SortableHeadProps<K extends string> {
 
 function SortableHead<K extends string>({
   label,
+  ariaLabel,
   sortKey,
   align,
   sortState,
@@ -87,9 +105,9 @@ function SortableHead<K extends string>({
         type="button"
         variant="ghost"
         onClick={() => onSort(sortKey)}
+        aria-label={ariaLabel}
         className={cn(
           '-mx-2.5 h-9 rounded-lg px-2.5 group',
-
           order && 'text-foreground hover:text-foreground font-semibold',
         )}
       >

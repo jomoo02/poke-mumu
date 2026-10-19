@@ -16,6 +16,8 @@ interface DataTableSkeletonProps<Row, K extends string> {
   columns: readonly TableColumn<Row, K>[];
   rowCount: number;
   className?: string;
+  // DataTable의 rowClassName과 같은 값
+  rowClassName?: string;
 }
 
 // 헤더 라벨은 상수라 글자로 보여주고, 셀만 column.skeleton으로 채운다
@@ -23,6 +25,7 @@ function DataTableSkeleton<Row, K extends string>({
   columns,
   rowCount,
   className,
+  rowClassName,
 }: DataTableSkeletonProps<Row, K>) {
   return (
     <div
@@ -30,7 +33,7 @@ function DataTableSkeleton<Row, K extends string>({
       className={cn('w-full', className)}
       style={getTableColsStyle(columns)}
     >
-      <div className={cn(HEADER_ROW_CLASS, GRID_ROW_CLASS)}>
+      <div className={cn(HEADER_ROW_CLASS, GRID_ROW_CLASS, rowClassName)}>
         {/* 정렬 버튼 없이 라벨만 두므로 일반 헤더와 같은 정렬 클래스를 쓴다 */}
         {columns.map((column) => (
           <div
@@ -51,7 +54,10 @@ function DataTableSkeleton<Row, K extends string>({
       </div>
       <div className="flex flex-col">
         {Array.from({ length: rowCount }, (_, index) => (
-          <div key={index} className={cn(BODY_ROW_CLASS, GRID_ROW_CLASS)}>
+          <div
+            key={index}
+            className={cn(BODY_ROW_CLASS, GRID_ROW_CLASS, rowClassName)}
+          >
             {columns.map((column) => (
               <div
                 key={column.id}

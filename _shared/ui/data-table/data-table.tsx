@@ -14,6 +14,8 @@ interface DataTableProps<Row, K extends string> {
   sortState: SortState<K>;
   onSort: (sortKey: K) => void;
   className?: string;
+  // 헤더·행 grid에 덧붙일 클래스 (예: 열이 많아 간격을 줄일 때 'gap-3')
+  rowClassName?: string;
 }
 
 function DataTable<Row, K extends string>({
@@ -23,6 +25,7 @@ function DataTable<Row, K extends string>({
   sortState,
   onSort,
   className,
+  rowClassName,
 }: DataTableProps<Row, K>) {
   return (
     <div
@@ -34,7 +37,7 @@ function DataTable<Row, K extends string>({
         columns={columns}
         sortState={sortState}
         onSort={onSort}
-        className={GRID_ROW_CLASS}
+        className={cn(GRID_ROW_CLASS, rowClassName)}
       />
       <div role="rowgroup" className="flex flex-col">
         {rows.map((row) => (
@@ -42,7 +45,7 @@ function DataTable<Row, K extends string>({
             key={getRowKey(row)}
             row={row}
             columns={columns}
-            className={GRID_ROW_CLASS}
+            className={cn(GRID_ROW_CLASS, rowClassName)}
           />
         ))}
       </div>

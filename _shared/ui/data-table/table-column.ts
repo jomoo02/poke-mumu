@@ -12,6 +12,8 @@ interface SortState<K extends string> {
 interface TableColumn<Row, K extends string> {
   id: string;
   header: string;
+  // 화면엔 줄인 header를 보여줄 때 스크린리더가 읽을 전체 이름 (예: '특공' → '특수공격')
+  headerLabel?: string;
   // grid 트랙 값 (예: 'minmax(0,2fr)', '112px')
   width: string;
   // 셀·헤더 내용의 가로 정렬 (기본 'left')

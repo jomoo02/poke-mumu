@@ -59,6 +59,8 @@ export function useMoveSort() {
 
   return {
     sortState,
+    // 기준·방향을 한 번에 (표형 정렬 시트)
+    setSort,
     toggleSort,
     selectKey,
     toggleOrder,
