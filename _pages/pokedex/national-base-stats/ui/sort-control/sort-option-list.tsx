@@ -28,21 +28,21 @@ export interface SortPanelProps {
   onSelectOrder: (order: SortOrder) => void;
 }
 
-type SortChoicesPlace = 'sheet' | 'popover';
+type SortOptionListPlace = 'sheet' | 'popover';
 
 // radio 줄 높이·줄 간격. 시트는 터치 목표 44px, 팝오버는 마우스·태블릿이라 조금 촘촘하게
-const CHOICE_CLASS: Record<SortChoicesPlace, string> = {
+const CHOICE_CLASS: Record<SortOptionListPlace, string> = {
   sheet: 'h-11',
   popover: 'h-10.5',
 };
 
-const CHOICE_GROUP_CLASS: Record<SortChoicesPlace, string> = {
+const CHOICE_GROUP_CLASS: Record<SortOptionListPlace, string> = {
   sheet: 'gap-y-1.5',
   popover: 'gap-y-1',
 };
 
-interface SortChoicesProps extends SortPanelProps {
-  place: SortChoicesPlace;
+interface SortOptionListProps extends SortPanelProps {
+  place: SortOptionListPlace;
   // 순서 칸이 보여 줄 정렬 (useSortPanel)
   shownOrderSort: PokeSort;
   close: () => void;
@@ -55,7 +55,7 @@ interface SortChoicesProps extends SortPanelProps {
  * - 정렬 순서: radio 2열 (기준과 같은 모양, 글자만). 구분선으로 기준과 나눈다
  * 문구는 model(sort-option)이 정한다. 닫기는 터치·클릭·Space·Enter에서만 한다 (getChoiceCloseHandlers)
  */
-export default function SortChoices({
+export default function SortOptionList({
   sortState,
   shownOrderSort,
   onSelectKey,
@@ -63,7 +63,7 @@ export default function SortChoices({
   close,
   place,
   className,
-}: SortChoicesProps) {
+}: SortOptionListProps) {
   const choiceCloseHandlers = getChoiceCloseHandlers(close);
 
   const idPrefix = useId();

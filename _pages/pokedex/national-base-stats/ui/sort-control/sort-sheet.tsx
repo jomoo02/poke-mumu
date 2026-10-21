@@ -11,7 +11,10 @@ import {
   SheetTrigger,
 } from '@/_shared/ui/sheet';
 
-import SortChoices, { SORT_TITLE, type SortPanelProps } from './sort-choices';
+import SortOptionList, {
+  SORT_TITLE,
+  type SortPanelProps,
+} from './sort-option-list';
 import SortTrigger from './sort-trigger';
 import { useSortPanel } from './use-sort-panel';
 
@@ -33,7 +36,7 @@ export default function SortSheet({
           <SheetTitle>{SORT_TITLE}</SheetTitle>
         </SheetHeader>
         <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar px-6">
-          <SortChoices
+          <SortOptionList
             sortState={sortState}
             shownOrderSort={shownOrderSort}
             onSelectKey={onSelectKey}

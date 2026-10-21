@@ -2,7 +2,10 @@
 
 import { Popover, PopoverContent, PopoverTrigger } from '@/_shared/ui/popover';
 
-import SortChoices, { SORT_TITLE, type SortPanelProps } from './sort-choices';
+import SortOptionList, {
+  SORT_TITLE,
+  type SortPanelProps,
+} from './sort-option-list';
 import SortTrigger from './sort-trigger';
 import { useSortPanel } from './use-sort-panel';
 
@@ -27,7 +30,7 @@ export default function SortPopover({
       {/* 버튼이 결과 줄 오른쪽 끝이라 오른쪽을 맞춘다.
           제목 없이 소제목(정렬 기준·순서)만 둔다. 접근 이름은 aria-label */}
       <PopoverContent align="end" aria-label={SORT_TITLE} className="w-108 p-6">
-        <SortChoices
+        <SortOptionList
           sortState={sortState}
           shownOrderSort={shownOrderSort}
           onSelectKey={onSelectKey}

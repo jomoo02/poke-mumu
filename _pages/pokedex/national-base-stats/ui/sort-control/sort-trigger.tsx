@@ -6,7 +6,7 @@ import { Button } from '@/_shared/ui/button';
 
 import { getSortLabel, type PokeSort } from '../../model/poke-sort';
 
-import { SORT_TITLE } from './sort-choices';
+import { SORT_TITLE } from './sort-option-list';
 
 interface SortTriggerProps extends ComponentProps<'button'> {
   sortState: PokeSort;
