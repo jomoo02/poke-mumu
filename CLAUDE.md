@@ -41,7 +41,8 @@ FSD v2.1 기반. 이관 중이며 새 코드는 `_` 레이어에 작성한다.
 
 - `index.ts`: 클라이언트에서도 안전한 public API (model, ui)
 - `index.server.ts`: `import 'server-only'` + 서버 전용 api (`'use cache'` 조회)
-- 테스트가 있는 파일만 폴더로 묶는다: `x/x.ts`, `x/x.test.ts`, `x/index.ts`
+- model·lib: 테스트가 있는 파일만 폴더로 묶는다: `x/x.ts`, `x/x.test.ts`, `x/index.ts`
+- ui: 함께 쓰는 컴포넌트 묶음은 테스트가 없어도 폴더로 묶을 수 있다
 - 파일 이름은 도메인 이름으로 짓는다 (`types.ts`, `utils.ts` 대신 `poke-label.ts`)
 - 여러 테스트가 함께 쓰는 테스트용 데이터 생성 함수는 `x.fixture.ts`로 짓고 테스트에서만 import한다
   (예: `_pages/move/list/model/move.fixture.ts`)

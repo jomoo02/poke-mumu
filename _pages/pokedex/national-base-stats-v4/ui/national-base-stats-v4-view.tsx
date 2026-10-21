@@ -8,6 +8,7 @@ import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/b
 import PokeToolbar from './poke-toolbar';
 import ResultsEmpty from './results-empty';
 import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
+import SortControl from '@/_pages/pokedex/national-base-stats/ui/sort-control';
 import FullStatTable from './stat-table/full-stat-table';
 import VirtualStatTable from './stat-table/virtual-stat-table';
 import { useAllPokeResults } from '../model/use-all-poke-results';
@@ -67,12 +68,15 @@ export default function NationalBaseStatsV4View({
         ref={sectionRef}
         className="@container flex w-full flex-col gap-4"
       >
-        <ResultsHeader
-          totalCount={totalCount}
-          sortState={sortState}
-          onSelectSortKey={selectKey}
-          onSelectSortOrder={selectOrder}
-        />
+        <ResultsHeader totalCount={totalCount}>
+          {/* 넓은 본문(@5xl)은 테이블 머리글로 정렬해 숨긴다. md 미만은 시트, 이상은 팝오버 */}
+          <SortControl
+            sortState={sortState}
+            onSelectKey={selectKey}
+            onSelectOrder={selectOrder}
+            className="@5xl:hidden"
+          />
+        </ResultsHeader>
         {totalCount === 0 ? (
           <ResultsEmpty
             otherLanguageMatches={otherLanguageMatches}

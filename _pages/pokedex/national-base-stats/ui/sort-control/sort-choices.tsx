@@ -1,0 +1,152 @@
+'use client';
+
+import { useId } from 'react';
+
+import { cn } from '@/_shared/lib/cn';
+import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
+import { ControlRadioGroupLabel } from '@/_shared/ui/control';
+import { RadioGroup, RadioGroupItem } from '@/_shared/ui/radio-group';
+
+import {
+  SORT_OPTIONS,
+  SORT_ORDERS,
+  getOrderChoices,
+  type PokeSort,
+  type SortKey,
+  type SortOrder,
+} from '../../model/poke-sort';
+
+// 시트 제목·팝오버 접근 이름·버튼 접근 이름 앞말
+export const SORT_TITLE = '정렬';
+
+// 시트·팝오버가 받는 값 (SortControl이 그대로 넘긴다)
+export interface SortPanelProps {
+  sortState: PokeSort;
+  // 기준: 다른 기준이면 그 기준의 첫 방향부터
+  onSelectKey: (key: SortKey) => void;
+  // 방향 (기준은 그대로)
+  onSelectOrder: (order: SortOrder) => void;
+}
+
+type SortChoicesPlace = 'sheet' | 'popover';
+
+// radio 줄 높이·줄 간격. 시트는 터치 목표 44px, 팝오버는 마우스·태블릿이라 조금 촘촘하게
+const CHOICE_CLASS: Record<SortChoicesPlace, string> = {
+  sheet: 'h-11',
+  popover: 'h-10.5',
+};
+
+const CHOICE_GROUP_CLASS: Record<SortChoicesPlace, string> = {
+  sheet: 'gap-y-1.5',
+  popover: 'gap-y-1',
+};
+
+interface SortChoicesProps extends SortPanelProps {
+  place: SortChoicesPlace;
+  // 순서 칸이 보여 줄 정렬 (useSortPanel)
+  shownOrderSort: PokeSort;
+  close: () => void;
+  className?: string;
+}
+
+/**
+ * 시트·팝오버 본문
+ * - 정렬 기준: radio 2열 (SORT_OPTIONS 순서)
+ * - 정렬 순서: radio 2열 (기준과 같은 모양, 글자만). 구분선으로 기준과 나눈다
+ * 문구는 model(sort-option)이 정한다. 닫기는 터치·클릭·Space·Enter에서만 한다 (getChoiceCloseHandlers)
+ */
+export default function SortChoices({
+  sortState,
+  shownOrderSort,
+  onSelectKey,
+  onSelectOrder,
+  close,
+  place,
+  className,
+}: SortChoicesProps) {
+  const choiceCloseHandlers = getChoiceCloseHandlers(close);
+
+  const idPrefix = useId();
+  const keyTitleId = `${idPrefix}-key`;
+  const orderTitleId = `${idPrefix}-order`;
+
+  // 값은 unknown으로 오므로 알려진 기준·순서일 때만 넘긴다
+  const handleKeyChange = (value: unknown) => {
+    const option = SORT_OPTIONS.find((candidate) => candidate.key === value);
+    if (option) {
+      onSelectKey(option.key);
+    }
+  };
+
+  const handleOrderChange = (value: unknown) => {
+    const order = SORT_ORDERS.find((candidate) => candidate === value);
+    if (order) {
+      onSelectOrder(order);
+    }
+  };
+
+  return (
+    <div className={cn('flex flex-col gap-y-6', className)}>
+      <section className="flex flex-col gap-y-1.5">
+        <h3 id={keyTitleId} className="text-sm font-medium text-foreground/70">
+          정렬 기준
+        </h3>
+        <RadioGroup
+          aria-labelledby={keyTitleId}
+          value={sortState.sort}
+          onValueChange={handleKeyChange}
+          className={cn('grid-cols-2 gap-x-6', CHOICE_GROUP_CLASS[place])}
+        >
+          {SORT_OPTIONS.map(({ key, label }) => {
+            const id = `${idPrefix}-key-${key}`;
+
+            return (
+              <ControlRadioGroupLabel
+                key={key}
+                htmlFor={id}
+                {...choiceCloseHandlers}
+                className={CHOICE_CLASS[place]}
+              >
+                <RadioGroupItem id={id} value={key} />
+                {label}
+              </ControlRadioGroupLabel>
+            );
+          })}
+        </RadioGroup>
+      </section>
+
+      <div aria-hidden className="h-px bg-border" />
+
+      <section className="flex flex-col gap-y-1.5">
+        <h3
+          id={orderTitleId}
+          className="text-sm font-medium text-foreground/70"
+        >
+          정렬 순서
+        </h3>
+        <RadioGroup
+          aria-labelledby={orderTitleId}
+          value={shownOrderSort.order}
+          onValueChange={handleOrderChange}
+          className={cn('grid-cols-2 gap-x-6', CHOICE_GROUP_CLASS[place])}
+        >
+          {getOrderChoices(shownOrderSort.sort).map(({ order, label }) => {
+            const id = `${idPrefix}-order-${order}`;
+
+            return (
+              <ControlRadioGroupLabel
+                key={order}
+                htmlFor={id}
+                {...choiceCloseHandlers}
+                className={CHOICE_CLASS[place]}
+              >
+                <RadioGroupItem id={id} value={order} />
+                {label}
+              </ControlRadioGroupLabel>
+            );
+          })}
+        </RadioGroup>
+      </section>
+    </div>
+  );
+}
