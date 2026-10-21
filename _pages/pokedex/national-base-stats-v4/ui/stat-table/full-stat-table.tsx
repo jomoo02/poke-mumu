@@ -5,6 +5,8 @@ import { memo, useRef } from 'react';
 import { cn } from '@/_shared/lib/cn';
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
+import type { NameLanguage } from '../../model/name-language';
+
 import StatTableHead from './stat-table-head';
 import StatTableRow from './stat-table-row';
 import { PENDING_BODY_CLASS, type StatTableProps } from './stat-table-props';
@@ -30,6 +32,7 @@ export default function FullStatTable({
   pokes,
   sortState,
   shownSortState,
+  language,
   isPending,
   onSort,
 }: StatTableProps) {
@@ -60,7 +63,7 @@ export default function FullStatTable({
           isPending && PENDING_BODY_CLASS,
         )}
       >
-        <StatTableRows pokes={pokes} />
+        <StatTableRows pokes={pokes} language={language} />
       </div>
     </div>
   );
@@ -68,11 +71,15 @@ export default function FullStatTable({
 
 interface StatTableRowsProps {
   pokes: BaseStatsPoke[];
+  language: NameLanguage;
 }
 
 // 머리글·흐림만 바뀌는 렌더(조건을 바꾼 직후)에선 행 목록을 건너뛴다
 const StatTableRows = memo(function StatTableRows({
   pokes,
+  language,
 }: StatTableRowsProps) {
-  return pokes.map((poke) => <StatTableRow key={poke.pokeKey} poke={poke} />);
+  return pokes.map((poke) => (
+    <StatTableRow key={poke.pokeKey} poke={poke} language={language} />
+  ));
 });

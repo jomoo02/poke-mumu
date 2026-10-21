@@ -4,67 +4,102 @@ import { useDeferredValue, useMemo } from 'react';
 
 // 정리 전까지 전국도감 종족값(_pages/pokedex/national-base-stats)의 모델을 그대로 쓴다
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import {
-  filterPokesByKeyword,
-  usePokeSearch,
-} from '@/_pages/pokedex/national-base-stats/model/poke-search';
+import { usePokeSearch } from '@/_pages/pokedex/national-base-stats/model/poke-search';
 import {
   filterPokes,
   usePokeFilter,
 } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+import { usePokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+
 import {
-  sortPokes,
-  usePokeSort,
-} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+  countMatchesInOtherLanguages,
+  filterPokesByNameKeyword,
+  sortPokesByLanguage,
+  useNameLanguage,
+} from './name-language';
 
 /**
- * 포켓몬 목록 파생: 검색 → 필터 → 정렬. 기존 usePokeResults에서 페이지 슬라이스만 뺐다.
+ * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬. 기존 usePokeResults에서 페이지 슬라이스만 뺐다.
  *
  * 목록은 조건의 지연 값(useDeferredValue)으로 계산한다. 조건이 바뀌면
  * 1) 먼저 머리글 화살표·결과 줄처럼 가벼운 부분만 새 조건으로 그려 바로 화면에 내고 (isPending: true)
- * 2) 전체 행(약 1,250개)은 뒤에서 다시 그린다. 그사이 입력이 또 오면 버리고 새로 시작한다
- * 그래서 누른 뒤 첫 반응은 행 수와 관계없이 바로 보인다 (pokemondb가 정렬 전에 표를 흐리게 그리는 것과 같은 효과)
+ * 2) 행은 뒤에서 다시 그린다. 그사이 입력이 또 오면 버리고 새로 시작한다
  */
 export function useAllPokeResults(pokes: BaseStatsPoke[]) {
   const { keyword } = usePokeSearch();
 
   const { filter } = usePokeFilter();
 
-  const { sortState, toggleSort } = usePokeSort();
+  const { sortState, setSort, toggleSort, selectKey } = usePokeSort();
 
-  // 조건 셋을 한 값으로 묶어 함께 미룬다 (각각 미루면 서로 다른 시점의 조건이 섞일 수 있다)
+  const { language, setLanguage } = useNameLanguage();
+
+  // 조건을 한 값으로 묶어 함께 미룬다 (각각 미루면 서로 다른 시점의 조건이 섞일 수 있다)
   const query = useMemo(
-    () => ({ keyword, filter, sortState }),
-    [keyword, filter, sortState],
+    () => ({ keyword, filter, sortState, language }),
+    [keyword, filter, sortState, language],
   );
 
   const deferredQuery = useDeferredValue(query);
 
   const isPending = query !== deferredQuery;
 
-  // 각 단계를 memo해야 다음 단계의 의존성이 안정된다
-  const searched = useMemo(
-    () => filterPokesByKeyword(pokes, deferredQuery.keyword),
-    [pokes, deferredQuery.keyword],
+  // 각 단계를 memo해야 다음 단계의 의존성이 안정된다.
+  // 필터를 먼저 해, 검색 결과가 없을 때 다른 언어 안내도 필터가 걸린 목록에서 센다
+  const filtered = useMemo(
+    () => filterPokes(pokes, deferredQuery.filter),
+    [pokes, deferredQuery.filter],
   );
 
-  const filtered = useMemo(
-    () => filterPokes(searched, deferredQuery.filter),
-    [searched, deferredQuery.filter],
+  const searched = useMemo(
+    () =>
+      filterPokesByNameKeyword(
+        filtered,
+        deferredQuery.keyword,
+        deferredQuery.language,
+      ),
+    [filtered, deferredQuery.keyword, deferredQuery.language],
   );
 
   const sorted = useMemo(
-    () => sortPokes(filtered, deferredQuery.sortState),
-    [filtered, deferredQuery.sortState],
+    () =>
+      sortPokesByLanguage(
+        searched,
+        deferredQuery.sortState,
+        deferredQuery.language,
+      ),
+    [searched, deferredQuery.sortState, deferredQuery.language],
+  );
+
+  // 결과가 없을 때만 센다: 고른 언어로는 없지만 다른 언어 이름으로는 찾히는 수
+  const otherLanguageMatches = useMemo(
+    () =>
+      sorted.length === 0
+        ? countMatchesInOtherLanguages(
+            filtered,
+            deferredQuery.keyword,
+            deferredQuery.language,
+          )
+        : [],
+    [sorted.length, filtered, deferredQuery.keyword, deferredQuery.language],
   );
 
   return {
     pokes: sorted,
-    // 지금 고른 정렬 (머리글·번호 정렬 버튼)
+    // 지금 고른 정렬 (머리글·정렬 시트)
     sortState,
     // 지금 보이는 행의 정렬 (정렬 중인 열 칠하기)
     shownSortState: deferredQuery.sortState,
+    // 지금 보이는 행의 이름 언어
+    shownLanguage: deferredQuery.language,
     isPending,
+    // 넓은 본문 머리글: 같은 기준이면 방향 반전
     toggleSort,
+    // 정렬 시트: 기준 칸(그 기준의 첫 방향부터) / 방향 칸
+    selectKey,
+    setSort,
+    language,
+    setLanguage,
+    otherLanguageMatches,
   };
 }

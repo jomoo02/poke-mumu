@@ -17,6 +17,8 @@ const POKE_SELECT = `
   form:form_id(
     identifier,
     nameKo:name_ko,
+    nameEn:name_en,
+    nameJa:name_ja,
     shortKo:short_ko
   ),
   type1:type!type_1_id(

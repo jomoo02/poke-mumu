@@ -1,4 +1,5 @@
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { NameLanguage } from '../../model/name-language';
 import type {
   PokeSort,
   SortKey,
@@ -12,6 +13,8 @@ export interface StatTableProps {
   sortState: PokeSort;
   // 지금 보이는 행의 정렬 (정렬 중인 열 칠하기)
   shownSortState: PokeSort;
+  // 지금 보이는 행의 이름 언어
+  language: NameLanguage;
   // 새 조건의 행을 아직 그리는 중
   isPending: boolean;
   onSort: (sortKey: SortKey) => void;

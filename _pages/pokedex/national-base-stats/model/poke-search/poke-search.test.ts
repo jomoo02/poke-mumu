@@ -15,7 +15,13 @@ describe('filterPokesByKeyword', () => {
       nameKo: '나옹',
       nameEn: 'Meowth',
       dexNumber: 52,
-      form: { identifier: 'galar', nameKo: '가라르의 모습', shortKo: '가라르' },
+      form: {
+        identifier: 'galar',
+        nameKo: '가라르의 모습',
+        nameEn: 'Galarian',
+        nameJa: 'ガラルのすがた',
+        shortKo: '가라르',
+      },
     }),
     makePoke({ nameKo: '라이츄', nameEn: 'Raichu', dexNumber: 26 }),
   ];

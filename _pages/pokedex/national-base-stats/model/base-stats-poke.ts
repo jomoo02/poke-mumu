@@ -1,4 +1,4 @@
-import type { Poke } from '@/_entities/poke';
+import type { Poke, PokeForm } from '@/_entities/poke';
 
 interface BaseStats {
   hp: number;
@@ -11,8 +11,15 @@ interface BaseStats {
   total: number;
 }
 
+// 폼 + 영문·일본어 이름 (이름 표기 언어가 영어·일본어일 때 '이름 (폼)'으로 붙인다. 예: Meowth (Galarian))
+interface BaseStatsPokeForm extends PokeForm {
+  nameEn: string;
+  nameJa: string;
+}
+
 // 포켓몬 + 검색(영문·일본어 이름)·정렬(폼 순서)·종족값
 interface BaseStatsPoke extends Poke {
+  form: BaseStatsPokeForm | null;
   nameEn: string;
   nameJa: string;
   // 같은 도감 번호 안에서의 폼 순서 (기본 폼 1)
@@ -52,6 +59,6 @@ const STAT_SHORT_LABEL: Record<StatKey, string> = {
   specialDefense: '특방',
 };
 
-export type { BaseStats, BaseStatsPoke, StatKey };
+export type { BaseStats, BaseStatsPoke, BaseStatsPokeForm, StatKey };
 
 export { STAT_KEYS, STAT_LABEL, STAT_SHORT_LABEL };
