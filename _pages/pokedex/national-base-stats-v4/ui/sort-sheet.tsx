@@ -24,7 +24,7 @@ import type {
   SortOrder,
 } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
 
-import { getChoiceCloseHandlers } from './choice-close-handlers';
+import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
 
 // 기준 순서 (2열): [도감번호 | 이름] [HP | 공격] [방어 | 특수공격] [특수방어 | 스피드] [총합]
 // 능력치는 게임 표시 순서, 총합은 끝 (카드 칸·테이블 열과 같은 순서)

@@ -1,5 +1,3 @@
-'use client';
-
 import { useLayoutEffect } from 'react';
 
 const STORAGE_PREFIX = 'poke-mumu:scroll:';
@@ -53,6 +51,7 @@ export function useReloadScrollRestoration() {
 
       if (isRestorableLoad()) {
         const saved = readSavedScroll();
+
         if (saved > 0) {
           window.scrollTo({ top: saved });
           // 가상화(virtual-core)는 구독할 때 위치를 읽지 않고 scroll 이벤트로만 안다.

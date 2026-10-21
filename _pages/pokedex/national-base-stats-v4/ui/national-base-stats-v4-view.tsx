@@ -11,9 +11,9 @@ import ResultsHeader from './results-header';
 import FullStatTable from './stat-table/full-stat-table';
 import VirtualStatTable from './stat-table/virtual-stat-table';
 import { useAllPokeResults } from '../model/use-all-poke-results';
-import { useIsWideContainer } from '../model/use-is-wide-container';
+import { useIsWideContainer } from '@/_pages/pokedex/national-base-stats/lib/use-is-wide-container';
 import { useListMode } from '../model/use-list-mode';
-import { useReloadScrollRestoration } from '../model/use-reload-scroll-restoration';
+import { useReloadScrollRestoration } from '@/_pages/pokedex/national-base-stats/lib/use-reload-scroll-restoration';
 
 interface NationalBaseStatsV4ViewProps {
   pokes: BaseStatsPoke[];

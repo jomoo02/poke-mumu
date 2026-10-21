@@ -1,5 +1,3 @@
-'use client';
-
 import { useLayoutEffect, useState, type RefObject } from 'react';
 
 // @5xl (64rem = 1024px). 테이블·카드를 나누는 컨테이너 쿼리와 같은 값
@@ -15,6 +13,7 @@ export function useIsWideContainer(ref: RefObject<HTMLElement | null>) {
 
   useLayoutEffect(() => {
     const element = ref.current;
+
     if (!element) {
       return;
     }
@@ -22,7 +21,9 @@ export function useIsWideContainer(ref: RefObject<HTMLElement | null>) {
     const read = () => setIsWide(element.clientWidth >= WIDE_MIN_WIDTH);
 
     read();
+
     const resizeObserver = new ResizeObserver(read);
+
     resizeObserver.observe(element);
 
     return () => resizeObserver.disconnect();

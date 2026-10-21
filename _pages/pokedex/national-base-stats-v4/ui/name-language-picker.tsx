@@ -26,7 +26,7 @@ import {
   SheetTrigger,
 } from '@/_shared/ui/sheet';
 
-import { getChoiceCloseHandlers } from './choice-close-handlers';
+import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
 import {
   NAME_LANGUAGES,
   NAME_LANGUAGE_LABEL,
