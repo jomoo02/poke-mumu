@@ -7,9 +7,9 @@ import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import { FilterPopover, focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 import type { Type } from '@/_entities/type';
-import { usePokeFilter } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+import { usePokeFilter } from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
 // 정리 전까지 기존 툴바의 필터 그룹 구성을 그대로 쓴다
-import { usePokeFilterGroups } from '@/_pages/pokedex/national-base-stats/ui/toolbar/use-poke-filter-groups';
+import { usePokeFilterGroups } from '@/_pages/pokedex/national-base-stats-v0/ui/toolbar/use-poke-filter-groups';
 
 import PokeSearchBar from './poke-search-bar';
 import type { NameLanguage } from '../model/name-language';

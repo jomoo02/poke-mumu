@@ -4,9 +4,9 @@ import type { TableColumn } from '@/_shared/ui/data-table';
 import type {
   BaseStatsPoke,
   StatKey,
-} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import type { SortKey } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
-import { POKE_COLUMNS } from '@/_pages/pokedex/national-base-stats/ui/results/poke-table/columns';
+} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+import type { SortKey } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+import { POKE_COLUMNS } from '@/_pages/pokedex/national-base-stats-v0/ui/results/poke-table/columns';
 
 /*
  * 레이아웃. 화면 폭이 아닌 본문 폭(@container, @5xl = 1024px)으로 나눈다

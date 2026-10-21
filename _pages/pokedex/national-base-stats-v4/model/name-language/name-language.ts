@@ -1,8 +1,8 @@
 import { getPokeName } from '@/_entities/poke';
 import { createSearchMatcher } from '@/_shared/lib/search';
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import type { PokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
-import { sortPokes } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+import type { PokeSort } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+import { sortPokes } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
 
 /*
  * 이름 표기 언어. 고른 언어 하나가 목록의 이름 표시·검색 대상·이름순 정렬을 함께 정한다

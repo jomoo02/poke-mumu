@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import {
   makePoke,
   names,
-} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
+} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke.fixture';
 
 import {
   countMatchesInOtherLanguages,

@@ -5,11 +5,11 @@ import { Button } from '@/_shared/ui/button';
 import {
   STAT_LABEL,
   type StatKey,
-} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
 import type {
   PokeSort,
   SortKey,
-} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+} from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
 
 import {
   CELL_ALIGN_CLASS,

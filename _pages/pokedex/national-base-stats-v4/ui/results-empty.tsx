@@ -3,7 +3,7 @@
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 // 정리 전까지 전국도감 종족값의 빈 상태를 그대로 쓴다
-import PokeEmpty from '@/_pages/pokedex/national-base-stats/ui/results/poke-empty';
+import PokeEmpty from '@/_pages/pokedex/national-base-stats-v0/ui/results/poke-empty';
 
 import {
   NAME_LANGUAGE_LABEL,

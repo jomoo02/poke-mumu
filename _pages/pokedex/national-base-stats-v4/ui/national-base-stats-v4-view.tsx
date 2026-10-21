@@ -3,7 +3,7 @@
 import { useRef } from 'react';
 
 import type { Type } from '@/_entities/type';
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
 
 import PokeToolbar from './poke-toolbar';
 import ResultsEmpty from './results-empty';
