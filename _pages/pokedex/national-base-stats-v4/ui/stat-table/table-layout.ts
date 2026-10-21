@@ -4,8 +4,8 @@ import type { TableColumn } from '@/_shared/ui/data-table';
 import type {
   BaseStatsPoke,
   StatKey,
-} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
-import type { SortKey } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { SortKey } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 import { POKE_COLUMNS } from '@/_pages/pokedex/national-base-stats-v0/ui/results/poke-table/columns';
 
 /*

@@ -1,7 +1,7 @@
 import type { Facet } from '@/_shared/lib/facet-param';
 import { getPokeTypes } from '@/_entities/poke';
 
-import type { BaseStatsPoke } from '../base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 import { FILTERABLE_TYPES } from './option';
 import {
   FILTER_GROUP,

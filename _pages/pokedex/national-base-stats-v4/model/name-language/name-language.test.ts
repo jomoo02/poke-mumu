@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import {
   makePoke,
   names,
-} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke.fixture';
+} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
 
 import {
   countMatchesInOtherLanguages,
@@ -133,13 +133,13 @@ describe('countMatchesInOtherLanguages', () => {
 });
 
 describe('sortPokesByLanguage', () => {
-  it('이름순은 고른 언어의 이름으로, 같은 이름(폼)은 방향과 무관하게 기본 순서', () => {
+  it('이름순은 고른 언어의 이름으로, 같은 이름(폼)은 기본 순서, desc는 동점도 거꾸로', () => {
     expect(
       keys(sortPokesByLanguage(pokes, { sort: 'name', order: 'asc' }, 'en')),
     ).toEqual(['meowth', 'meowth-galar', 'pikachu', 'raichu']);
     expect(
       keys(sortPokesByLanguage(pokes, { sort: 'name', order: 'desc' }, 'en')),
-    ).toEqual(['raichu', 'pikachu', 'meowth', 'meowth-galar']);
+    ).toEqual(['raichu', 'pikachu', 'meowth-galar', 'meowth']);
   });
 
   it('한국어 이름순·다른 기준은 기존 정렬과 같다', () => {

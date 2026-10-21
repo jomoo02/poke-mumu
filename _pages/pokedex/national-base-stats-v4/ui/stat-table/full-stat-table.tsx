@@ -3,7 +3,7 @@
 import { memo, useRef } from 'react';
 
 import { cn } from '@/_shared/lib/cn';
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
 import type { NameLanguage } from '../../model/name-language';
 

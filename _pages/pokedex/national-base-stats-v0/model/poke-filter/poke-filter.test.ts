@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { filterPokes, parsePokeFilter } from './poke-filter';
-import { makePoke, names } from '../base-stats-poke.fixture';
+import { makePoke, names } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
 
 const facet = (group: string, value: string) => ({ group, value });
 

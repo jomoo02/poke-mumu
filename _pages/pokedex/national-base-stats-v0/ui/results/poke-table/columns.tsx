@@ -7,8 +7,8 @@ import {
   STAT_SHORT_LABEL,
   type BaseStatsPoke,
   type StatKey,
-} from '../../../model/base-stats-poke';
-import type { SortKey } from '../../../model/poke-sort';
+} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { SortKey } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 import StatValue from '../stat-value';
 import PokeTypes from '../poke-types';
 import PokeDexCell from './poke-dex-cell';

@@ -9,7 +9,7 @@ import {
   STAT_SHORT_LABEL,
   type BaseStatsPoke,
   type StatKey,
-} from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
 import {
   getNameByLanguage,

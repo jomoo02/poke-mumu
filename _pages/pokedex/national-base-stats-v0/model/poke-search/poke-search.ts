@@ -1,6 +1,6 @@
 import { createSearchMatcher } from '@/_shared/lib/search';
 
-import type { BaseStatsPoke } from '../base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
 // 숫자만 입력하면 도감 번호로 찾는다 ('25', '025' → 피카추와 그 폼들)
 const DEX_NUMBER_PATTERN = /^\d+$/;

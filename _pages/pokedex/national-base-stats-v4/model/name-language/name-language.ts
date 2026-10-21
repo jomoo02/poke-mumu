@@ -1,8 +1,8 @@
 import { getPokeName } from '@/_entities/poke';
 import { createSearchMatcher } from '@/_shared/lib/search';
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
-import type { PokeSort } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
-import { sortPokes } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { PokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+import { sortPokes } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 
 /*
  * 이름 표기 언어. 고른 언어 하나가 목록의 이름 표시·검색 대상·이름순 정렬을 함께 정한다
@@ -109,9 +109,7 @@ const filterPokesByNameKeyword = (
   const dexNumber = getDexNumberKeyword(keyword);
   const matches = createNameMatcher(keyword, language);
 
-  return pokes.filter(
-    (poke) => poke.dexNumber === dexNumber || matches(poke),
-  );
+  return pokes.filter((poke) => poke.dexNumber === dexNumber || matches(poke));
 };
 
 /**
@@ -148,7 +146,7 @@ const compareDexOrder = (a: BaseStatsPoke, b: BaseStatsPoke) =>
 
 /**
  * 정렬. 이름순은 고른 언어의 이름(폼을 붙이지 않은 이름)으로, 나머지는 기존 정렬(sortPokes) 그대로.
- * 이름이 같으면(같은 포켓몬의 폼) 방향과 무관하게 기본 정렬 순서로
+ * 이름이 같으면(같은 포켓몬의 폼) 기본 정렬 순서로, 동점도 방향을 따라 뒤집는다 (sortPokes와 같다)
  */
 const sortPokesByLanguage = (
   pokes: readonly BaseStatsPoke[],
@@ -166,8 +164,8 @@ const sortPokesByLanguage = (
 
   return [...pokes].sort(
     (a, b) =>
-      collator.compare(getName(a), getName(b)) * direction ||
-      compareDexOrder(a, b),
+      (collator.compare(getName(a), getName(b)) || compareDexOrder(a, b)) *
+      direction,
   );
 };
 

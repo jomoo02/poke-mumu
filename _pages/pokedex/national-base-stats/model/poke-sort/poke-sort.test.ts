@@ -51,16 +51,16 @@ describe('sortPokes', () => {
     ]);
   });
 
-  it('도감 번호 desc: 같은 번호의 폼은 뒤집지 않는다', () => {
+  it('도감 번호 desc: 같은 번호의 폼도 거꾸로', () => {
     expect(sortKeys(pokes, desc('dexNumber'))).toEqual([
-      'meowth',
       'meowth-galar',
+      'meowth',
       'pikachu',
       'bulbasaur',
     ]);
   });
 
-  it('이름: 가나다순, 같은 이름은 기본 정렬 순서', () => {
+  it('이름 asc: 가나다순, 같은 이름은 기본 정렬 순서', () => {
     expect(sortKeys(pokes, asc('name'))).toEqual([
       'meowth',
       'meowth-galar',
@@ -69,10 +69,19 @@ describe('sortPokes', () => {
     ]);
   });
 
-  it('능력치 desc: 같은 값은 방향과 무관하게 번호순', () => {
-    expect(sortKeys(pokes, desc('speed'))).toEqual([
+  it('이름 desc: 같은 이름은 기본 정렬의 반대 순서', () => {
+    expect(sortKeys(pokes, desc('name'))).toEqual([
       'pikachu',
+      'bulbasaur',
+      'meowth-galar',
       'meowth',
+    ]);
+  });
+
+  it('능력치 desc: 같은 값은 번호 반대순', () => {
+    expect(sortKeys(pokes, desc('speed'))).toEqual([
+      'meowth',
+      'pikachu',
       'bulbasaur',
       'meowth-galar',
     ]);
@@ -85,5 +94,13 @@ describe('sortPokes', () => {
       'pikachu',
       'meowth',
     ]);
+  });
+
+  it('desc는 asc를 정확히 뒤집은 목록이다 (동점 포함)', () => {
+    for (const sort of ['dexNumber', 'name', 'speed'] as const) {
+      expect(sortKeys(pokes, desc(sort))).toEqual(
+        sortKeys(pokes, asc(sort)).reverse(),
+      );
+    }
   });
 });

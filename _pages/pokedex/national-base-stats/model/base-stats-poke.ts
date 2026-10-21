@@ -7,7 +7,6 @@ interface BaseStats {
   specialAttack: number;
   specialDefense: number;
   speed: number;
-  // 여섯 능력치의 합 (종족값)
   total: number;
 }
 
@@ -17,7 +16,6 @@ interface BaseStatsPokeForm extends PokeForm {
   nameJa: string;
 }
 
-// 포켓몬 + 검색(영문·일본어 이름)·정렬(폼 순서)·종족값
 interface BaseStatsPoke extends Poke {
   form: BaseStatsPokeForm | null;
   nameEn: string;
@@ -29,30 +27,30 @@ interface BaseStatsPoke extends Poke {
 
 type StatKey = keyof BaseStats;
 
-// 테이블·리스트에 보여주는 순서: 종족값 → 게임 표시 순서
+// 보여주는 순서: 게임 표시 순서(HP … 스피드) → 총합
+// (테이블 열·카드 칸·정렬 시트 모두 이 순서)
 const STAT_KEYS = [
-  'total',
   'hp',
   'attack',
   'defense',
   'specialAttack',
   'specialDefense',
   'speed',
+  'total',
 ] as const satisfies readonly StatKey[];
 
-// 정렬 메뉴·스크린리더에 쓰는 이름
+// 줄이지 않은 이름: 정렬 시트·결과 줄 정렬 버튼·데스크탑 테이블 머리글·스크린리더
 const STAT_LABEL: Record<StatKey, string> = {
-  // 여섯 능력치의 합. 화면 이름은 '총합' (뱃지·머리글·정렬 이름)
-  total: '총합',
   hp: 'HP',
   attack: '공격',
   defense: '방어',
   specialAttack: '특수공격',
   specialDefense: '특수방어',
   speed: '스피드',
+  total: '총합',
 };
 
-// 테이블 머리글·리스트처럼 폭이 좁은 곳에 쓰는 이름 (게임 커뮤니티에서 흔히 쓰는 줄임말)
+// 줄인 이름: 모바일 카드의 능력치 칸처럼 폭이 좁은 곳 (게임 커뮤니티에서 흔히 쓰는 줄임말)
 const STAT_SHORT_LABEL: Record<StatKey, string> = {
   ...STAT_LABEL,
   specialAttack: '특공',

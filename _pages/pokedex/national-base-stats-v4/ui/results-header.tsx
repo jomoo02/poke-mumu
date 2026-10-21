@@ -1,7 +1,7 @@
 import type {
   PokeSort,
   SortKey,
-} from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 
 import SortSheet from './sort-sheet';
 

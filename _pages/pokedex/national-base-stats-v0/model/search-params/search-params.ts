@@ -3,7 +3,7 @@ import { parseAsString, parseAsStringLiteral } from 'nuqs/server';
 import { parseAsFacets } from '@/_shared/lib/facet-param';
 import { parseAsPage } from '@/_shared/lib/pagination';
 
-import { DEFAULT_SORT, SORT_KEYS, SORT_ORDERS } from '../poke-sort/poke-sort';
+import { DEFAULT_SORT, SORT_KEYS, SORT_ORDERS } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 
 /**
  * 전국도감(종족값)의 URL 상태 정의. 객체 키가 곧 URL 키다.

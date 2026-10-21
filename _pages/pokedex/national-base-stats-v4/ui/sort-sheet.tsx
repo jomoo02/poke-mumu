@@ -17,12 +17,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/_shared/ui/sheet';
-import { STAT_LABEL } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+import { STAT_LABEL } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 import type {
   PokeSort,
   SortKey,
   SortOrder,
-} from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 
 import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
 

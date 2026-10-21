@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { filterPokesByKeyword } from './poke-search';
-import { makePoke, names } from '../base-stats-poke.fixture';
+import { makePoke, names } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
 
 describe('filterPokesByKeyword', () => {
   const pokes = [

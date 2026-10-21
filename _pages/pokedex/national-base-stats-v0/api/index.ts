@@ -1,6 +1,6 @@
 import { createClient } from '@/_shared/lib/supabase/client';
 
-import type { BaseStatsPoke } from '../model/base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
 // PostgREST가 한 번에 돌려주는 최대 행 수 (Supabase 기본 max-rows).
 // 포켓몬(폼 포함)은 이보다 많아 나눠 받는다

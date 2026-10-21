@@ -3,13 +3,13 @@
 import { useDeferredValue, useMemo } from 'react';
 
 // 정리 전까지 전국도감 종족값(_pages/pokedex/national-base-stats)의 모델을 그대로 쓴다
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats-v0/model/base-stats-poke';
+import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 import { usePokeSearch } from '@/_pages/pokedex/national-base-stats-v0/model/poke-search';
 import {
   filterPokes,
   usePokeFilter,
 } from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
-import { usePokeSort } from '@/_pages/pokedex/national-base-stats-v0/model/poke-sort';
+import { usePokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 
 import {
   countMatchesInOtherLanguages,
