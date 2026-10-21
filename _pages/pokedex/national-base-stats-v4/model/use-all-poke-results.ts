@@ -30,7 +30,7 @@ export function useAllPokeResults(pokes: BaseStatsPoke[]) {
 
   const { filter } = usePokeFilter();
 
-  const { sortState, setSort, toggleSort, selectKey } = usePokeSort();
+  const { sortState, toggleSort, selectKey, selectOrder } = usePokeSort();
 
   const { language, setLanguage } = useNameLanguage();
 
@@ -97,7 +97,7 @@ export function useAllPokeResults(pokes: BaseStatsPoke[]) {
     toggleSort,
     // 정렬 시트: 기준 칸(그 기준의 첫 방향부터) / 방향 칸
     selectKey,
-    setSort,
+    selectOrder,
     language,
     setLanguage,
     otherLanguageMatches,

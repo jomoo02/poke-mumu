@@ -3,7 +3,12 @@
 import { useMemo } from 'react';
 import { useQueryStates } from 'nuqs';
 
-import { isSameSort, type PokeSort, type SortKey } from './poke-sort';
+import {
+  isSameSort,
+  type PokeSort,
+  type SortKey,
+  type SortOrder,
+} from './poke-sort';
 import { getInitialOrder } from './sort-option';
 import { pokeSearchParams } from '../search-params';
 
@@ -48,11 +53,15 @@ export function usePokeSort() {
     });
   };
 
+  // 정렬 시트 순서 칸: 기준은 두고 방향만
+  const selectOrder = (nextOrder: SortOrder) => {
+    setSort({ sort: sortState.sort, order: nextOrder });
+  };
+
   return {
     sortState,
-    // 기준·방향을 한 번에 (정렬 시트 순서 칸)
-    setSort,
     toggleSort,
     selectKey,
+    selectOrder,
   };
 }

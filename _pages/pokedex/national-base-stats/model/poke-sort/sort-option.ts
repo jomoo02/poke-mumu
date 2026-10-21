@@ -46,18 +46,16 @@ const SORT_OPTIONS: readonly SortOption[] = [
     orderLabel: { asc: '이름순', desc: '이름 반대순' },
     sortLabel: { asc: '이름순', desc: '이름 반대순' },
   },
-  ...STAT_KEYS.map(
-    (key): SortOption => ({
-      key,
-      label: STAT_LABEL[key],
-      kind: 'amount',
-      orderLabel: AMOUNT_ORDER_LABEL,
-      sortLabel: {
-        desc: `${STAT_LABEL[key]} ${AMOUNT_ORDER_LABEL.desc}`,
-        asc: `${STAT_LABEL[key]} ${AMOUNT_ORDER_LABEL.asc}`,
-      },
-    }),
-  ),
+  ...STAT_KEYS.map((key): SortOption => ({
+    key,
+    label: STAT_LABEL[key],
+    kind: 'amount',
+    orderLabel: AMOUNT_ORDER_LABEL,
+    sortLabel: {
+      desc: `${STAT_LABEL[key]} ${AMOUNT_ORDER_LABEL.desc}`,
+      asc: `${STAT_LABEL[key]} ${AMOUNT_ORDER_LABEL.asc}`,
+    },
+  })),
 ];
 
 const getSortOption = (key: SortKey): SortOption =>

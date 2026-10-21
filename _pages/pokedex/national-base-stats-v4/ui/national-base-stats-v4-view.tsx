@@ -7,7 +7,7 @@ import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/b
 
 import PokeToolbar from './poke-toolbar';
 import ResultsEmpty from './results-empty';
-import ResultsHeader from './results-header';
+import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
 import FullStatTable from './stat-table/full-stat-table';
 import VirtualStatTable from './stat-table/virtual-stat-table';
 import { useAllPokeResults } from '../model/use-all-poke-results';
@@ -34,7 +34,7 @@ export default function NationalBaseStatsV4View({
     isPending,
     toggleSort,
     selectKey,
-    setSort,
+    selectOrder,
     language,
     setLanguage,
     otherLanguageMatches,
@@ -71,7 +71,7 @@ export default function NationalBaseStatsV4View({
           totalCount={totalCount}
           sortState={sortState}
           onSelectSortKey={selectKey}
-          onSelectSort={setSort}
+          onSelectSortOrder={selectOrder}
         />
         {totalCount === 0 ? (
           <ResultsEmpty
