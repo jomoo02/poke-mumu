@@ -37,7 +37,6 @@ export default function SortPopover({
           onSelectOrder={onSelectOrder}
           close={close}
           place="popover"
-          className="gap-y-4"
         />
       </PopoverContent>
     </Popover>
