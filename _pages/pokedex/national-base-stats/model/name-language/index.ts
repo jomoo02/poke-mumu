@@ -9,3 +9,4 @@ export {
   getBaseName,
   getFormName,
 } from './name-language';
+export { useNameLanguage } from './use-name-language';

@@ -12,6 +12,7 @@ describe('pokeSearchParams', () => {
       filter: [],
       sort: 'dexNumber',
       order: 'asc',
+      lang: 'ko',
     });
   });
 
@@ -27,6 +28,11 @@ describe('pokeSearchParams', () => {
       sort: 'dexNumber',
       order: 'asc',
     });
+  });
+
+  it('이름 언어. 잘못된 값은 기본값(한국어)', () => {
+    expect(load('?lang=ja').lang).toBe('ja');
+    expect(load('?lang=fr').lang).toBe('ko');
   });
 
   it('filter는 URL 순서대로', () => {
