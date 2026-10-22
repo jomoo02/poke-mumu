@@ -46,10 +46,10 @@ const ROW_HEIGHT = { narrow: 137, wide: 69 } as const;
 // 테이블 루트에 둔다 (@container 안이어야 한다)
 const ROW_HEIGHT_VARS_CLASS = '[--row-h:137px] @5xl:[--row-h:69px]';
 
-// @5xl 이상 열 너비. # 열은 번호·스프라이트 두 칸으로 나눈다:
-// 좁은 본문에선 스프라이트가 번호와 떨어져(번호는 이름 위) 있어, 같은 요소를 쓰려면 넓은 본문에서도 따로 칸이어야 한다
-// - 번호: 셀 왼쪽 패딩 14 + 네 자리 숫자(text-md) 약 40 / 스프라이트: size-12.5
-const DEX_TRACKS = '56px 50px';
+// @5xl 이상 열 너비. 도감번호 열 하나를 스프라이트·번호 두 칸으로 나눈다 (머리글은 두 칸에 걸친다):
+// 좁은 본문에선 번호가 타일과 이름 사이의 따로 된 칸이라, 같은 요소를 쓰려면 넓은 본문에서도 따로 칸이어야 한다
+// - 스프라이트: 열 왼쪽 여백 14 + size-12.5(50) / 번호: 네 자리 숫자(text-md) 약 40 + 여유 4 (이미지에 8px로 붙인다)
+const DEX_TRACKS = '64px 44px';
 
 // 능력치 열 최소 폭. 머리글이 줄이지 않은 이름(특수공격 ▴▾, 버튼 약 85px)이라 두 열을 넓히고,
 // 머리글이 짧은 열(HP·총합·공격·방어·스피드)에서 그만큼 줄여 합계(564px)는 기존과 같게 둔다
@@ -68,17 +68,19 @@ const isStatColumnId = (id: string): id is StatKey => id in STAT_MIN_WIDTH;
 
 // 열 순서는 이 페이지의 순서(INFO → STAT_COLUMNS, 총합이 끝)를 따른다 (POKE_COLUMNS는 총합이 앞)
 const TABLE_VARS = {
-  '--table-cols': [...INFO_COLUMNS, ...STAT_COLUMNS].map((column) => {
-    if (column.id === 'dexNumber') {
-      return DEX_TRACKS;
-    }
-    return isStatColumnId(column.id)
-      ? `minmax(${STAT_MIN_WIDTH[column.id]}px,0.75fr)`
-      : column.width;
-  }).join(' '),
+  '--table-cols': [...INFO_COLUMNS, ...STAT_COLUMNS]
+    .map((column) => {
+      if (column.id === 'dexNumber') {
+        return DEX_TRACKS;
+      }
+      return isStatColumnId(column.id)
+        ? `minmax(${STAT_MIN_WIDTH[column.id]}px,0.75fr)`
+        : column.width;
+    })
+    .join(' '),
 } as CSSProperties;
 
-// @5xl 미만 윗줄: [스프라이트 타일 | No.번호 / 이름 | 타입] (/pokedex/national 모바일 행과 같은 모양)
+// @5xl 미만 윗줄: [스프라이트 타일 | 번호 | 이름 / 모습 | 타입]
 // @5xl 이상에선 display: contents로 풀려 안의 스프라이트·번호·이름·타입이 그대로 grid의 칸이 된다
 // (같은 요소를 두 레이아웃이 함께 쓴다)
 const NARROW_TOP_CLASS =
@@ -95,8 +97,7 @@ const TABLE_GROUP_CLASS = 'group/table';
 const SORTED_CELL_CLASS: Record<StatKey, string> = {
   total:
     '@max-5xl:group-data-[sort=total]/table:font-semibold @max-5xl:group-data-[sort=total]/table:text-primary-text @max-5xl:group-data-[sort=total]/table:*:text-primary-text',
-  hp:
-    '@max-5xl:group-data-[sort=hp]/table:font-semibold @max-5xl:group-data-[sort=hp]/table:text-primary-text @max-5xl:group-data-[sort=hp]/table:*:text-primary-text',
+  hp: '@max-5xl:group-data-[sort=hp]/table:font-semibold @max-5xl:group-data-[sort=hp]/table:text-primary-text @max-5xl:group-data-[sort=hp]/table:*:text-primary-text',
   attack:
     '@max-5xl:group-data-[sort=attack]/table:font-semibold @max-5xl:group-data-[sort=attack]/table:text-primary-text @max-5xl:group-data-[sort=attack]/table:*:text-primary-text',
   defense:

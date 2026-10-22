@@ -25,7 +25,8 @@ export function useScrollToTableTop<T>(
       return;
     }
 
-    const headerHeight = parseFloat(getComputedStyle(scope).scrollMarginTop) || 0;
+    const headerHeight =
+      parseFloat(getComputedStyle(scope).scrollMarginTop) || 0;
     const tableTop =
       scope.getBoundingClientRect().top + window.scrollY - headerHeight;
 

@@ -139,10 +139,7 @@ export default function VirtualStatTable({
       <div
         ref={bodyRef}
         role="rowgroup"
-        className={cn(
-          'relative isolate',
-          isPending && PENDING_BODY_CLASS,
-        )}
+        className={cn('relative isolate', isPending && PENDING_BODY_CLASS)}
         style={{ height: `calc(${pokes.length} * var(--row-h))` }}
       >
         {virtualizer.getVirtualItems().map((item) => (
