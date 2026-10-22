@@ -5,10 +5,7 @@ import { Button } from '@/_shared/ui/button';
 // 정리 전까지 전국도감 종족값의 빈 상태를 그대로 쓴다
 import PokeEmpty from '@/_pages/pokedex/national-base-stats-v0/ui/results/poke-empty';
 
-import {
-  NAME_LANGUAGE_LABEL,
-  type NameLanguage,
-} from '../model/name-language';
+import { getNameLanguageLabel, type NameLanguage } from '../model/name-language';
 
 interface ResultsEmptyProps {
   // 고른 언어로는 없지만 다른 언어 이름으로 찾히는 수 (찾히는 언어만)
@@ -35,7 +32,7 @@ export default function ResultsEmpty({
       {otherLanguageMatches.map(({ language, count }) => (
         <div key={language} className="mt-2 flex flex-col items-start gap-3">
           <p className="text-sm text-muted-foreground">
-            {NAME_LANGUAGE_LABEL[language]} 이름으로는 {count}마리가 있어요
+            {getNameLanguageLabel(language)} 이름으로는 {count}마리가 있어요
           </p>
           <Button
             variant="secondary"
@@ -46,7 +43,7 @@ export default function ResultsEmpty({
               '[@media(hover:hover)]:hover:bg-input/70 dark:[@media(hover:hover)]:hover:bg-input',
             )}
           >
-            {NAME_LANGUAGE_LABEL[language]}로 보기
+            {getNameLanguageLabel(language)}로 보기
           </Button>
         </div>
       ))}

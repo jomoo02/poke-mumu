@@ -1,10 +1,16 @@
-export type { NameLanguage } from './name-language';
+export type {
+  NameLanguage,
+  NameLanguageOption,
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 export {
   NAME_LANGUAGES,
   NAME_LANGUAGE_OPTIONS,
-  NAME_LANGUAGE_LABEL,
+  getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
-  getNameByLanguage,
+  getBaseName,
+  getFormName,
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
+export {
   filterPokesByNameKeyword,
   countMatchesInOtherLanguages,
   sortPokesByLanguage,

@@ -8,7 +8,6 @@ import {
 import {
   countMatchesInOtherLanguages,
   filterPokesByNameKeyword,
-  getNameByLanguage,
   sortPokesByLanguage,
 } from './name-language';
 
@@ -54,24 +53,6 @@ const pokes = [
 ];
 
 const keys = (list: typeof pokes) => list.map((poke) => poke.pokeKey);
-
-describe('getNameByLanguage', () => {
-  it('언어별 이름. 폼은 약칭이 있을 때만 괄호로 붙인다', () => {
-    expect(getNameByLanguage(pokes[3], 'ko')).toBe('나옹 (가라르)');
-    expect(getNameByLanguage(pokes[3], 'en')).toBe('Meowth (Galarian)');
-    expect(getNameByLanguage(pokes[3], 'ja')).toBe('ニャース (ガラルのすがた)');
-    expect(getNameByLanguage(pokes[0], 'en')).toBe('Pikachu');
-  });
-
-  it('이름에 폼이 들어간 경우(약칭 없음)는 붙이지 않는다', () => {
-    const mega = makePoke({
-      nameKo: '메가리자몽X',
-      nameEn: 'Mega Charizard X',
-      form: { ...GALAR, shortKo: null },
-    });
-    expect(getNameByLanguage(mega, 'en')).toBe('Mega Charizard X');
-  });
-});
 
 describe('filterPokesByNameKeyword', () => {
   it('고른 언어의 이름으로만 찾는다', () => {

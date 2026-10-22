@@ -15,7 +15,7 @@ import { usePokeSearch } from '@/_pages/pokedex/national-base-stats-v0/model/pok
 
 import NameLanguagePicker from './name-language-picker';
 import {
-  NAME_LANGUAGE_LABEL,
+  getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
   type NameLanguage,
 } from '../model/name-language';
@@ -27,9 +27,9 @@ interface PokeSearchBarProps {
 }
 
 /**
- * [한국어 ⌄ │ 피카츄, 25            ✕]
+ * [한국어 ⌄ │ 포켓몬 이름 또는 도감번호로 검색  ✕]
  * 고른 이름 언어로만 찾으므로 언어 버튼을 검색창 왼쪽 칸에 둔다 (전화번호의 국가 코드처럼 '이 검색창의 언어').
- * 안내 글자도 그 언어의 예시로 바뀐다. 도감 번호는 언어와 상관없이 찾는다.
+ * 도감 번호는 언어와 상관없이 찾는다.
  * 바탕은 한 덩어리, 포커스 링은 입력 칸(구분선 오른쪽)에만 둔다 (언어 버튼은 자기 링이 따로 있다)
  */
 export default function PokeSearchBar({
@@ -65,14 +65,14 @@ export default function PokeSearchBar({
       >
         <InputGroupInput
           ref={inputRef}
-          placeholder={SEARCH_PLACEHOLDER[language]}
+          placeholder={SEARCH_PLACEHOLDER}
           lang={language}
           className="h-full pl-3.5"
           value={value}
           onChange={(event) => onChange(event.target.value)}
           onCompositionEnd={onCompositionEnd}
           autoComplete="off"
-          aria-label={`포켓몬 검색 (${NAME_LANGUAGE_LABEL[language]} 이름·도감 번호)`}
+          aria-label={`포켓몬 검색 (${getNameLanguageLabel(language)} 이름·도감 번호)`}
         />
         <InputGroupAddon align={'inline-end'}>
           {/* 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}

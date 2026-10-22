@@ -11,7 +11,11 @@ import {
   type StatKey,
 } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
-import type { NameLanguage } from '../../model/name-language';
+import {
+  getBaseName,
+  getFormName,
+  type NameLanguage,
+} from '../../model/name-language';
 
 import {
   NARROW_GRID_CLASS,
@@ -43,25 +47,6 @@ interface StatTableRowProps {
  * (::after는 행을 기준으로 놓여 이름 칸의 말줄임(overflow: hidden)에 잘리지 않는다)
  * 정렬 중인 열은 테이블 루트의 data-sort를 CSS가 읽어 칠하므로, 정렬을 바꿔도 이 행은 다시 그려지지 않는다
  */
-// 이름 / 모습 (폼 정식 이름: 가라르의 모습 · Galarian · ガラルのすがた).
-// 모습은 약칭이 있는 폼(shortKo)에만 붙인다. 메가진화처럼 이름에 폼이 이미 들어간 경우는 없다
-// (3단계에서 name-language model로 옮긴다)
-const getBaseName = (poke: BaseStatsPoke, language: NameLanguage) =>
-  language === 'ko'
-    ? poke.nameKo
-    : language === 'en'
-      ? poke.nameEn
-      : poke.nameJa;
-
-const getFormName = (poke: BaseStatsPoke, language: NameLanguage) =>
-  !poke.form?.shortKo
-    ? null
-    : language === 'ko'
-      ? poke.form.nameKo
-      : language === 'en'
-        ? poke.form.nameEn
-        : poke.form.nameJa;
-
 function StatTableRow({ poke, language, style, rowIndex }: StatTableRowProps) {
   const formName = getFormName(poke, language);
 

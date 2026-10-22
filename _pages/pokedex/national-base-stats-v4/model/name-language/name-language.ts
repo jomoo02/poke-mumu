@@ -1,66 +1,13 @@
-import { getPokeName } from '@/_entities/poke';
 import { createSearchMatcher } from '@/_shared/lib/search';
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 import type { PokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
 import { sortPokes } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+import {
+  NAME_LANGUAGES,
+  type NameLanguage,
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 
-/*
- * 이름 표기 언어. 고른 언어 하나가 목록의 이름 표시·검색 대상·이름순 정렬을 함께 정한다
- * (예전엔 세 언어로 찾고 한글로만 보여 줘서, 영어로 찾으면 다른 이름이 나와 헷갈렸다)
- */
-
-const NAME_LANGUAGES = ['ko', 'en', 'ja'] as const;
-
-type NameLanguage = (typeof NAME_LANGUAGES)[number];
-
-const DEFAULT_NAME_LANGUAGE: NameLanguage = 'ko';
-
-// 고르는 목록의 이름과 그 언어로 쓴 예시 (예시가 곧 설명이다)
-const NAME_LANGUAGE_OPTIONS: readonly {
-  value: NameLanguage;
-  label: string;
-  example: string;
-}[] = [
-  { value: 'ko', label: '한국어', example: '피카츄' },
-  { value: 'en', label: '영어', example: 'Pikachu' },
-  { value: 'ja', label: '일본어', example: 'ピカチュウ' },
-];
-
-const NAME_LANGUAGE_LABEL: Record<NameLanguage, string> = {
-  ko: '한국어',
-  en: '영어',
-  ja: '일본어',
-};
-
-// 검색창 안내 글자 (이름 예시 + 도감 번호)
-const SEARCH_PLACEHOLDER: Record<NameLanguage, string> = {
-  ko: '피카츄, 25',
-  en: 'Pikachu, 25',
-  ja: 'ピカチュウ, 25',
-};
-
-/**
- * 고른 언어의 이름. 폼은 한국어와 같은 경우에만(약칭이 있을 때) '이름 (폼)'으로 붙인다.
- * 영어·일본어는 약칭이 없어 폼 정식 명칭을 쓴다 (나옹 (가라르) / Meowth (Galarian) / ニャース (ガラルのすがた)).
- * 메가진화처럼 이름에 폼이 이미 들어간 경우는 붙이지 않는다 (메가리자몽X / Mega Charizard X)
- */
-const getNameByLanguage = (
-  poke: Pick<BaseStatsPoke, 'nameKo' | 'nameEn' | 'nameJa' | 'form'>,
-  language: NameLanguage,
-): string => {
-  if (language === 'ko') {
-    return getPokeName(poke);
-  }
-
-  const name = language === 'en' ? poke.nameEn : poke.nameJa;
-  const form = poke.form;
-
-  if (!form?.shortKo) {
-    return name;
-  }
-
-  return `${name} (${language === 'en' ? form.nameEn : form.nameJa})`;
-};
+// 정의·이름 함수는 정식 slice로 옮겼다. 검색은 3-3(poke-search), 정렬은 3-4(poke-sort)에서 옮긴다
 
 // 히라가나 → 가타카나. 일본어 이름은 가타카나라 히라가나로 쳐도 찾히게 양쪽을 맞춘다 (ぴかちゅう → ピカチュウ)
 const toKatakana = (text: string) =>
@@ -169,15 +116,7 @@ const sortPokesByLanguage = (
   );
 };
 
-export type { NameLanguage };
-
 export {
-  NAME_LANGUAGES,
-  DEFAULT_NAME_LANGUAGE,
-  NAME_LANGUAGE_OPTIONS,
-  NAME_LANGUAGE_LABEL,
-  SEARCH_PLACEHOLDER,
-  getNameByLanguage,
   filterPokesByNameKeyword,
   countMatchesInOtherLanguages,
   sortPokesByLanguage,

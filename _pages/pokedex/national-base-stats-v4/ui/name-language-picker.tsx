@@ -29,7 +29,7 @@ import {
 import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
 import {
   NAME_LANGUAGES,
-  NAME_LANGUAGE_LABEL,
+  getNameLanguageLabel,
   NAME_LANGUAGE_OPTIONS,
   type NameLanguage,
 } from '../model/name-language';
@@ -125,7 +125,7 @@ function PickerTrigger({ language, className, ...props }: PickerTriggerProps) {
   return (
     <button
       type="button"
-      aria-label={`${TITLE}: ${NAME_LANGUAGE_LABEL[language]}`}
+      aria-label={`${TITLE}: ${getNameLanguageLabel(language)}`}
       className={cn(
         'flex h-full shrink-0 cursor-pointer items-center gap-1.5 rounded-l-4xl pr-3 pl-3.5 text-sm font-medium text-foreground outline-none',
         'focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:ring-inset',
@@ -135,7 +135,7 @@ function PickerTrigger({ language, className, ...props }: PickerTriggerProps) {
       {...props}
     >
       <LanguagesIcon aria-hidden className="size-4 text-foreground/70" />
-      {NAME_LANGUAGE_LABEL[language]}
+      {getNameLanguageLabel(language)}
       <ChevronDownIcon aria-hidden className="size-3.5 text-foreground/70" />
     </button>
   );
