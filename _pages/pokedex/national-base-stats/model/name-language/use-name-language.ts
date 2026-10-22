@@ -1,5 +1,3 @@
-'use client';
-
 import { useQueryStates } from 'nuqs';
 
 import type { NameLanguage } from './name-language';

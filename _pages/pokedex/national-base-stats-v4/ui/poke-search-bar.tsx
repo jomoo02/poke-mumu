@@ -11,7 +11,7 @@ import {
   InputGroupInput,
 } from '@/_shared/ui/input-group';
 import { useSearchInput } from '@/_shared/lib/search-input';
-import { usePokeSearch } from '@/_pages/pokedex/national-base-stats-v0/model/poke-search';
+import { usePokeSearch } from '@/_pages/pokedex/national-base-stats/model/poke-search';
 
 import NameLanguagePicker from './name-language-picker';
 import {

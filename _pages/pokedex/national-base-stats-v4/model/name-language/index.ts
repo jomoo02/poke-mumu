@@ -11,8 +11,4 @@ export {
   getFormName,
   useNameLanguage,
 } from '@/_pages/pokedex/national-base-stats/model/name-language';
-export {
-  filterPokesByNameKeyword,
-  countMatchesInOtherLanguages,
-  sortPokesByLanguage,
-} from './name-language';
+export { sortPokesByLanguage } from './name-language';

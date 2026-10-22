@@ -1,15 +1,8 @@
 import { describe, it, expect } from 'vitest';
 
-import {
-  makePoke,
-  names,
-} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
+import { makePoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke.fixture';
 
-import {
-  countMatchesInOtherLanguages,
-  filterPokesByNameKeyword,
-  sortPokesByLanguage,
-} from './name-language';
+import { sortPokesByLanguage } from './name-language';
 
 const GALAR = {
   identifier: 'galar',
@@ -53,65 +46,6 @@ const pokes = [
 ];
 
 const keys = (list: typeof pokes) => list.map((poke) => poke.pokeKey);
-
-describe('filterPokesByNameKeyword', () => {
-  it('고른 언어의 이름으로만 찾는다', () => {
-    expect(names(filterPokesByNameKeyword(pokes, '츄', 'ko'))).toEqual([
-      '피카츄',
-      '라이츄',
-    ]);
-    expect(filterPokesByNameKeyword(pokes, 'pika', 'ko')).toEqual([]);
-    expect(keys(filterPokesByNameKeyword(pokes, 'PIKA', 'en'))).toEqual([
-      'pikachu',
-    ]);
-    expect(filterPokesByNameKeyword(pokes, '피카', 'en')).toEqual([]);
-  });
-
-  it('폼 이름도 그 언어로 찾는다', () => {
-    expect(keys(filterPokesByNameKeyword(pokes, '가라르', 'ko'))).toEqual([
-      'meowth-galar',
-    ]);
-    expect(keys(filterPokesByNameKeyword(pokes, 'galarian', 'en'))).toEqual([
-      'meowth-galar',
-    ]);
-  });
-
-  it('일본어는 히라가나로 쳐도 가타카나 이름이 찾힌다', () => {
-    expect(keys(filterPokesByNameKeyword(pokes, 'ぴかちゅう', 'ja'))).toEqual([
-      'pikachu',
-    ]);
-    expect(keys(filterPokesByNameKeyword(pokes, 'ガラル', 'ja'))).toEqual([
-      'meowth-galar',
-    ]);
-  });
-
-  it('도감 번호는 언어와 상관없이 찾는다 (앞의 0 무시, 일부는 안 됨)', () => {
-    expect(keys(filterPokesByNameKeyword(pokes, '025', 'en'))).toEqual([
-      'pikachu',
-    ]);
-    expect(filterPokesByNameKeyword(pokes, '2', 'ja')).toEqual([]);
-  });
-
-  it('검색어가 비면 전부', () => {
-    expect(filterPokesByNameKeyword(pokes, ' ', 'en')).toHaveLength(4);
-  });
-});
-
-describe('countMatchesInOtherLanguages', () => {
-  it('다른 언어에서 찾히는 수 (찾히는 언어만)', () => {
-    expect(countMatchesInOtherLanguages(pokes, 'chu', 'ko')).toEqual([
-      { language: 'en', count: 2 },
-    ]);
-    expect(countMatchesInOtherLanguages(pokes, '나옹', 'en')).toEqual([
-      { language: 'ko', count: 2 },
-    ]);
-  });
-
-  it('도감 번호·빈 검색어는 세지 않는다', () => {
-    expect(countMatchesInOtherLanguages(pokes, '25', 'ko')).toEqual([]);
-    expect(countMatchesInOtherLanguages(pokes, '', 'ko')).toEqual([]);
-  });
-});
 
 describe('sortPokesByLanguage', () => {
   it('이름순은 고른 언어의 이름으로, 같은 이름(폼)은 기본 순서, desc는 동점도 거꾸로', () => {
