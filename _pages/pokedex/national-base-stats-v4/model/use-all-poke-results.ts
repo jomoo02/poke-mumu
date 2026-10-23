@@ -94,7 +94,7 @@ export function useAllPokeResults(pokes: BaseStatsPoke[]) {
     // 정렬 시트: 기준 칸(그 기준의 첫 방향부터) / 방향 칸
     selectKey,
     selectOrder,
-    language,
+    // 빈 결과의 '다른 언어로 보기'
     setLanguage,
     otherLanguageMatches,
   };

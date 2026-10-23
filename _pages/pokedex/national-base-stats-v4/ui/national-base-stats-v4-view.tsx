@@ -36,7 +36,6 @@ export default function NationalBaseStatsV4View({
     toggleSort,
     selectKey,
     selectOrder,
-    language,
     setLanguage,
     otherLanguageMatches,
   } = useAllPokeResults(pokes);
@@ -58,11 +57,7 @@ export default function NationalBaseStatsV4View({
 
   return (
     <div className="flex flex-col gap-6">
-      <PokeToolbar
-        types={types}
-        language={language}
-        onLanguageChange={setLanguage}
-      />
+      <PokeToolbar types={types} />
       {/* 10열이라 화면 폭이 아닌 본문 폭(@5xl)으로 테이블·2줄 행을 나눈다 */}
       <section
         ref={sectionRef}

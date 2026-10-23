@@ -31,8 +31,9 @@ const getNameLanguageOption = (language: NameLanguage): NameLanguageOption =>
 const getNameLanguageLabel = (language: NameLanguage): string =>
   getNameLanguageOption(language).label;
 
-// 검색창 안내 글자 (언어와 상관없이 같다)
-const SEARCH_PLACEHOLDER = '도감번호 또는 이름으로 검색';
+// 검색창 안내 글자 (언어와 상관없이 같다).
+// '이'와 '름' 사이에 폭 없는 공백(U+200B): iOS Safari가 '이름'을 보고 키보드 위에 연락처 자동 완성을 띄우는 것을 막는다
+const SEARCH_PLACEHOLDER = '도감번호 또는 이\u200B름으로 검색';
 
 // 세 언어 이름을 가진 것 (포켓몬·폼)
 type LocalizedNames = Pick<BaseStatsPoke, 'nameKo' | 'nameEn' | 'nameJa'>;

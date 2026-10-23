@@ -11,23 +11,16 @@ import { usePokeFilter } from '@/_pages/pokedex/national-base-stats-v0/model/pok
 // 정리 전까지 기존 툴바의 필터 그룹 구성을 그대로 쓴다
 import { usePokeFilterGroups } from '@/_pages/pokedex/national-base-stats-v0/ui/toolbar/use-poke-filter-groups';
 
-import PokeSearchBar from './poke-search-bar';
-import type { NameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
+import PokeSearchBar from '@/_pages/pokedex/national-base-stats/ui/toolbar/poke-search-bar';
 
 interface PokeToolbarProps {
   types: Type[];
-  language: NameLanguage;
-  onLanguageChange: (language: NameLanguage) => void;
 }
 
 // 1줄: [한 ⌄ │ 🔍 검색]
 // 2줄: [타입 ▾] │ [↻ 초기화]      ← md 이상. 초기화는 필터가 켜졌을 때만
 // TODO: md 미만 필터는 /pokedex/national처럼 칩 줄로 다시 만든다 (그전까지 좁은 화면엔 필터가 없다)
-export default function PokeToolbar({
-  types,
-  language,
-  onLanguageChange,
-}: PokeToolbarProps) {
+export default function PokeToolbar({ types }: PokeToolbarProps) {
   const groups = usePokeFilterGroups(types);
 
   const { isActive, reset } = usePokeFilter();
@@ -45,7 +38,7 @@ export default function PokeToolbar({
 
   return (
     <div ref={rootRef} className="flex flex-col gap-4">
-      <PokeSearchBar language={language} onLanguageChange={onLanguageChange} />
+      <PokeSearchBar />
       <div className="hidden shrink-0 gap-3 md:flex md:items-center">
         {groups.map((group) => (
           <FilterPopover

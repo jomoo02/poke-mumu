@@ -4,40 +4,42 @@ import { useRef } from 'react';
 import { XIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
+import { useSearchInput } from '@/_shared/lib/search-input';
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
 } from '@/_shared/ui/input-group';
-import { useSearchInput } from '@/_shared/lib/search-input';
-import { usePokeSearch } from '@/_pages/pokedex/national-base-stats/model/poke-search';
 
-import NameLanguageControl from '@/_pages/pokedex/national-base-stats/ui/name-language-control';
 import {
-  getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
+  getNameLanguageLabel,
+  useNameLanguage,
   type NameLanguage,
-} from '@/_pages/pokedex/national-base-stats/model/name-language';
+} from '../../model/name-language';
+import { usePokeSearch } from '../../model/poke-search';
+import NameLanguageControl from '../name-language-control';
+
+// 입력창 접근 이름. 안내 글자와 같은 순서·표기에, 찾는 이름의 언어를 더한다
+const getSearchInputLabel = (language: NameLanguage) =>
+  `포켓몬 검색 (도감번호·${getNameLanguageLabel(language)} 이름)`;
 
 interface PokeSearchBarProps {
-  language: NameLanguage;
-  onLanguageChange: (language: NameLanguage) => void;
   className?: string;
 }
 
 /**
- * [한국어 ⌄ │ 포켓몬 이름 또는 도감번호로 검색  ✕]
+ * [한국어 ⌄ │ 도감번호 또는 이름으로 검색  ✕]
  * 고른 이름 언어로만 찾으므로 언어 버튼을 검색창 왼쪽 칸에 둔다 (전화번호의 국가 코드처럼 '이 검색창의 언어').
  * 도감 번호는 언어와 상관없이 찾는다.
+ * 검색어·언어 모두 URL 상태라 부모에게서 받지 않고 훅으로 읽는다.
  * 바탕은 한 덩어리, 포커스 링은 입력 칸(구분선 오른쪽)에만 둔다 (언어 버튼은 자기 링이 따로 있다)
  */
-export default function PokeSearchBar({
-  language,
-  onLanguageChange,
-  className,
-}: PokeSearchBarProps) {
+export default function PokeSearchBar({ className }: PokeSearchBarProps) {
   const { keyword, setKeyword } = usePokeSearch();
+
+  const { language, setLanguage } = useNameLanguage();
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
     value: keyword,
@@ -49,16 +51,15 @@ export default function PokeSearchBar({
   return (
     <div
       className={cn(
-        'flex h-10.5 w-full items-stretch rounded-4xl bg-input/50 dark:bg-input/70',
+        'flex h-11 w-full items-stretch rounded-4xl bg-input/50 dark:bg-input/70',
         className,
       )}
     >
-      <NameLanguageControl language={language} onChange={onLanguageChange} />
-      {/* 위아래 끝까지 닿는 구분선 */}
-      <span aria-hidden className="w-px shrink-0 bg-foreground/10" />
+      <NameLanguageControl language={language} onChange={setLanguage} />
+
       <InputGroup
         className={cn(
-          'h-full min-w-0 flex-1 rounded-l-none',
+          'h-11 min-w-0 flex-1 rounded-l-none',
           // 바탕은 바깥 덩어리가 칠한다
           'bg-transparent dark:bg-transparent',
         )}
@@ -67,14 +68,14 @@ export default function PokeSearchBar({
           ref={inputRef}
           placeholder={SEARCH_PLACEHOLDER}
           lang={language}
-          className="h-full pl-3.5"
+          className="h-full"
           value={value}
           onChange={(event) => onChange(event.target.value)}
           onCompositionEnd={onCompositionEnd}
           autoComplete="off"
-          aria-label={`포켓몬 검색 (${getNameLanguageLabel(language)} 이름·도감 번호)`}
+          aria-label={getSearchInputLabel(language)}
         />
-        <InputGroupAddon align={'inline-end'}>
+        <InputGroupAddon align="inline-end" className="h-full">
           {/* 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}
           <InputGroupButton
             onClick={() => {
@@ -82,7 +83,7 @@ export default function PokeSearchBar({
               inputRef.current?.focus();
             }}
             aria-label="검색어 지우기"
-            size={'icon-sm'}
+            size="icon-sm"
             className={value === '' ? 'hidden' : 'flex'}
           >
             <XIcon className="size-5" aria-hidden />
