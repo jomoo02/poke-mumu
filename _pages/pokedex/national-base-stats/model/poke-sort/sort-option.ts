@@ -70,7 +70,7 @@ const getInitialOrder = (key: SortKey): SortOrder =>
   ORDERS_BY_KIND[getSortOption(key).kind][0];
 
 // 정렬 시트의 순서 칸 두 개 (첫 방향이 왼쪽)
-const getOrderChoices = (
+const getOrderOptions = (
   key: SortKey,
 ): readonly { order: SortOrder; label: string }[] => {
   const option = getSortOption(key);
@@ -83,4 +83,4 @@ const getOrderChoices = (
 
 export type { SortOption };
 
-export { SORT_OPTIONS, getSortLabel, getInitialOrder, getOrderChoices };
+export { SORT_OPTIONS, getSortLabel, getInitialOrder, getOrderOptions };

@@ -11,10 +11,8 @@ import {
   SheetTrigger,
 } from '@/_shared/ui/sheet';
 
-import SortOptionList, {
-  SORT_TITLE,
-  type SortPanelProps,
-} from './sort-option-list';
+import SortOptionList from './sort-option-list';
+import { SORT_TITLE, type SortPanelProps } from './sort-panel';
 import SortTrigger from './sort-trigger';
 import { useSortPanel } from './use-sort-panel';
 

@@ -14,7 +14,7 @@ export {
   SORT_OPTIONS,
   getSortLabel,
   getInitialOrder,
-  getOrderChoices,
+  getOrderOptions,
 } from './sort-option';
 
 export { usePokeSort } from './use-poke-sort';

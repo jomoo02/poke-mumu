@@ -7,7 +7,7 @@ import type { KeyboardEvent, MouseEvent } from 'react';
  * - 키보드로는 Space(고르기)·Enter(다 골랐음)에서 닫는다
  * 이미 고른 항목을 눌러도 닫힌다 (값이 같아 onValueChange는 오지 않지만 click은 온다)
  */
-export const getChoiceCloseHandlers = (close: () => void) => ({
+export const getCloseOnSelectHandlers = (close: () => void) => ({
   onClick: (event: MouseEvent) => {
     if (event.detail > 0) {
       close();

@@ -4,7 +4,7 @@ import { SORT_KEYS } from './poke-sort';
 import {
   SORT_OPTIONS,
   getInitialOrder,
-  getOrderChoices,
+  getOrderOptions,
   getSortLabel,
 } from './sort-option';
 
@@ -55,16 +55,16 @@ describe('getInitialOrder', () => {
   });
 });
 
-describe('getOrderChoices', () => {
+describe('getOrderOptions', () => {
   it('순서형: 오름차순이 왼쪽, 시트에선 번호로 줄인다', () => {
-    expect(getOrderChoices('dexNumber')).toEqual([
+    expect(getOrderOptions('dexNumber')).toEqual([
       { order: 'asc', label: '번호순' },
       { order: 'desc', label: '번호 반대순' },
     ]);
   });
 
   it('수치형: 높은 순이 왼쪽, 기준 이름 없이', () => {
-    expect(getOrderChoices('attack')).toEqual([
+    expect(getOrderOptions('attack')).toEqual([
       { order: 'desc', label: '높은 순' },
       { order: 'asc', label: '낮은 순' },
     ]);

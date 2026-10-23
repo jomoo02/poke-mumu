@@ -129,5 +129,5 @@
 - 결과 줄 정렬 버튼의 접근 이름에 "정렬"이 읽히는지 확인 (안 되면 aria-label).
 - v4가 기존 slice 내부를 import하는 FSD 위반 정리 (정식 slice 하나로).
 - 비교용 코드 삭제: `?list=full`, 종족값 v1~v3, 기술 list-v2·v3, 쓰지 않는 정렬 시트.
-- 이름 언어 선택·정렬 시트·`getChoiceCloseHandlers`를 특성·기술에서도 쓰므로 `_features`·`_shared`로 옮긴다.
+- 이름 언어 선택·정렬 시트·`getCloseOnSelectHandlers`를 특성·기술에서도 쓰므로 `_features`·`_shared`로 옮긴다.
 - 목록이 서버 HTML에 없어 상세 링크가 크롤링되지 않는다 → `app/sitemap.ts`.

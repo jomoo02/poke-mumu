@@ -3,40 +3,28 @@
 import { useId } from 'react';
 
 import { cn } from '@/_shared/lib/cn';
-import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
+import { getCloseOnSelectHandlers } from '@/_shared/lib/close-on-select-handler';
 import { ControlRadioGroupLabel } from '@/_shared/ui/control';
 import { RadioGroup, RadioGroupItem } from '@/_shared/ui/radio-group';
 
 import {
   SORT_OPTIONS,
   SORT_ORDERS,
-  getOrderChoices,
+  getOrderOptions,
   type PokeSort,
-  type SortKey,
-  type SortOrder,
 } from '../../model/poke-sort';
 
-// 시트 제목·팝오버 접근 이름·버튼 접근 이름 앞말
-export const SORT_TITLE = '정렬';
-
-// 시트·팝오버가 받는 값 (SortControl이 그대로 넘긴다)
-export interface SortPanelProps {
-  sortState: PokeSort;
-  // 기준: 다른 기준이면 그 기준의 첫 방향부터
-  onSelectKey: (key: SortKey) => void;
-  // 방향 (기준은 그대로)
-  onSelectOrder: (order: SortOrder) => void;
-}
+import type { SortPanelProps } from './sort-panel';
 
 type SortOptionListPlace = 'sheet' | 'popover';
 
 // radio 줄 높이·줄 간격. 시트는 터치 목표 44px, 팝오버는 마우스·태블릿이라 조금 촘촘하게
-const CHOICE_CLASS: Record<SortOptionListPlace, string> = {
+const OPTION_ROW_CLASS: Record<SortOptionListPlace, string> = {
   sheet: 'h-11',
   popover: 'h-10.5',
 };
 
-const CHOICE_GROUP_CLASS: Record<SortOptionListPlace, string> = {
+const OPTION_GAP_CLASS: Record<SortOptionListPlace, string> = {
   sheet: 'gap-y-1.5',
   popover: 'gap-y-1',
 };
@@ -53,7 +41,7 @@ interface SortOptionListProps extends SortPanelProps {
  * 시트·팝오버 본문
  * - 정렬 기준: radio 2열 (SORT_OPTIONS 순서)
  * - 정렬 순서: radio 2열 (기준과 같은 모양, 글자만). 구분선으로 기준과 나눈다
- * 문구는 model(sort-option)이 정한다. 닫기는 터치·클릭·Space·Enter에서만 한다 (getChoiceCloseHandlers)
+ * 문구는 model(sort-option)이 정한다. 닫기는 터치·클릭·Space·Enter에서만 한다 (getCloseOnSelectHandlers)
  */
 export default function SortOptionList({
   sortState,
@@ -64,7 +52,7 @@ export default function SortOptionList({
   place,
   className,
 }: SortOptionListProps) {
-  const choiceCloseHandlers = getChoiceCloseHandlers(close);
+  const closeOnSelectHandlers = getCloseOnSelectHandlers(close);
 
   const idPrefix = useId();
   const keyTitleId = `${idPrefix}-key`;
@@ -95,7 +83,7 @@ export default function SortOptionList({
           aria-labelledby={keyTitleId}
           value={sortState.sort}
           onValueChange={handleKeyChange}
-          className={cn('grid-cols-2 gap-x-6', CHOICE_GROUP_CLASS[place])}
+          className={cn('grid-cols-2 gap-x-6', OPTION_GAP_CLASS[place])}
         >
           {SORT_OPTIONS.map(({ key, label }) => {
             const id = `${idPrefix}-key-${key}`;
@@ -104,8 +92,8 @@ export default function SortOptionList({
               <ControlRadioGroupLabel
                 key={key}
                 htmlFor={id}
-                {...choiceCloseHandlers}
-                className={CHOICE_CLASS[place]}
+                {...closeOnSelectHandlers}
+                className={OPTION_ROW_CLASS[place]}
               >
                 <RadioGroupItem id={id} value={key} />
                 {label}
@@ -128,17 +116,17 @@ export default function SortOptionList({
           aria-labelledby={orderTitleId}
           value={shownOrderSort.order}
           onValueChange={handleOrderChange}
-          className={cn('grid-cols-2 gap-x-6', CHOICE_GROUP_CLASS[place])}
+          className={cn('grid-cols-2 gap-x-6', OPTION_GAP_CLASS[place])}
         >
-          {getOrderChoices(shownOrderSort.sort).map(({ order, label }) => {
+          {getOrderOptions(shownOrderSort.sort).map(({ order, label }) => {
             const id = `${idPrefix}-order-${order}`;
 
             return (
               <ControlRadioGroupLabel
                 key={order}
                 htmlFor={id}
-                {...choiceCloseHandlers}
-                className={CHOICE_CLASS[place]}
+                {...closeOnSelectHandlers}
+                className={OPTION_ROW_CLASS[place]}
               >
                 <RadioGroupItem id={id} value={order} />
                 {label}

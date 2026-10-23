@@ -26,7 +26,7 @@ import {
   SheetTrigger,
 } from '@/_shared/ui/sheet';
 
-import { getChoiceCloseHandlers } from '@/_shared/lib/choice-close-handler';
+import { getCloseOnSelectHandlers } from '@/_shared/lib/close-on-select-handler';
 import {
   NAME_LANGUAGES,
   getNameLanguageLabel,
@@ -153,7 +153,7 @@ function NameLanguageOptions({
 }: NameLanguageOptionsProps) {
   const idPrefix = useId();
 
-  const choiceCloseHandlers = getChoiceCloseHandlers(close);
+  const closeOnSelectHandlers = getCloseOnSelectHandlers(close);
 
   // 값은 unknown으로 오므로 알려진 언어일 때만 넘긴다
   const handleValueChange = (value: unknown) => {
@@ -177,7 +177,7 @@ function NameLanguageOptions({
           <ControlRadioGroupLabel
             key={value}
             htmlFor={id}
-            {...choiceCloseHandlers}
+            {...closeOnSelectHandlers}
             className="h-11"
           >
             <RadioGroupItem id={id} value={value} />

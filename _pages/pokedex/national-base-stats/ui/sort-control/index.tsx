@@ -2,7 +2,7 @@
 
 import { cn } from '@/_shared/lib/cn';
 
-import type { SortPanelProps } from './sort-option-list';
+import type { SortPanelProps } from './sort-panel';
 import SortPopover from './sort-popover';
 import SortSheet from './sort-sheet';
 
