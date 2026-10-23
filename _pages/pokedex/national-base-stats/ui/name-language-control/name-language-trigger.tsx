@@ -25,7 +25,7 @@ export function NameLanguageTrigger({
       variant={'ghost'}
       className={cn(
         'h-full shrink-0 cursor-pointer rounded-r-none',
-        'bg-transparent hover:bg-transparent pr-3',
+        'bg-transparent hover:bg-transparent gap-2 pr-3',
         className,
       )}
       {...props}
