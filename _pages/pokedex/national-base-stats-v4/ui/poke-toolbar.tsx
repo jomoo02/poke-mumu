@@ -12,7 +12,7 @@ import { usePokeFilter } from '@/_pages/pokedex/national-base-stats-v0/model/pok
 import { usePokeFilterGroups } from '@/_pages/pokedex/national-base-stats-v0/ui/toolbar/use-poke-filter-groups';
 
 import PokeSearchBar from './poke-search-bar';
-import type { NameLanguage } from '../model/name-language';
+import type { NameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 interface PokeToolbarProps {
   types: Type[];

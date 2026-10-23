@@ -17,6 +17,8 @@ describe('sortPokes', () => {
     makePoke({
       pokeKey: 'meowth-galar',
       nameKo: '나옹',
+      nameEn: 'Meowth',
+      nameJa: 'ニャース',
       dexNumber: 52,
       sortOrder: 3,
       stats: { speed: 40 },
@@ -24,12 +26,16 @@ describe('sortPokes', () => {
     makePoke({
       pokeKey: 'pikachu',
       nameKo: '피카츄',
+      nameEn: 'Pikachu',
+      nameJa: 'ピカチュウ',
       dexNumber: 25,
       stats: { speed: 90 },
     }),
     makePoke({
       pokeKey: 'meowth',
       nameKo: '나옹',
+      nameEn: 'Meowth',
+      nameJa: 'ニャース',
       dexNumber: 52,
       sortOrder: 1,
       stats: { speed: 90 },
@@ -37,6 +43,8 @@ describe('sortPokes', () => {
     makePoke({
       pokeKey: 'bulbasaur',
       nameKo: '이상해씨',
+      nameEn: 'Bulbasaur',
+      nameJa: 'フシギダネ',
       dexNumber: 1,
       stats: { speed: 45 },
     }),
@@ -96,11 +104,51 @@ describe('sortPokes', () => {
     ]);
   });
 
-  it('desc는 asc를 정확히 뒤집은 목록이다 (동점 포함)', () => {
-    for (const sort of ['dexNumber', 'name', 'speed'] as const) {
-      expect(sortKeys(pokes, desc(sort))).toEqual(
-        sortKeys(pokes, asc(sort)).reverse(),
-      );
+  it('영어 이름순: 영어 이름으로, 같은 이름은 기본 정렬 순서', () => {
+    expect(sortKeys(pokes, asc('name'), 'en')).toEqual([
+      'bulbasaur',
+      'meowth',
+      'meowth-galar',
+      'pikachu',
+    ]);
+  });
+
+  it('영어 이름순은 대소문자·악센트를 무시한다 (같은 이름은 기본 정렬 순서)', () => {
+    const flabebe = [
+      makePoke({
+        pokeKey: 'b',
+        nameKo: '플라베베',
+        nameEn: 'Flabebe',
+        dexNumber: 669,
+        sortOrder: 2,
+      }),
+      makePoke({
+        pokeKey: 'a',
+        nameKo: '플라베베',
+        nameEn: 'flabébé',
+        dexNumber: 669,
+        sortOrder: 1,
+      }),
+    ];
+    expect(sortKeys(flabebe, asc('name'), 'en')).toEqual(['a', 'b']);
+  });
+
+  it('일본어 이름순: 오십음도 순', () => {
+    expect(sortKeys(pokes, asc('name'), 'ja')).toEqual([
+      'meowth',
+      'meowth-galar',
+      'pikachu',
+      'bulbasaur',
+    ]);
+  });
+
+  it('desc는 asc를 정확히 뒤집은 목록이다 (동점 포함, 모든 언어)', () => {
+    for (const language of ['ko', 'en', 'ja'] as const) {
+      for (const sort of ['dexNumber', 'name', 'speed'] as const) {
+        expect(sortKeys(pokes, desc(sort), language)).toEqual(
+          sortKeys(pokes, asc(sort), language).reverse(),
+        );
+      }
     }
   });
 });

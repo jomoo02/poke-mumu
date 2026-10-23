@@ -32,7 +32,7 @@ import {
   getNameLanguageLabel,
   NAME_LANGUAGE_OPTIONS,
   type NameLanguage,
-} from '../model/name-language';
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 const TITLE = '이름 언어';
 const DESCRIPTION = '이름 표시와 검색에 쓰여요';

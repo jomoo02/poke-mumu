@@ -15,7 +15,7 @@ import {
   getBaseName,
   getFormName,
   type NameLanguage,
-} from '../../model/name-language';
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 import {
   NARROW_GRID_CLASS,

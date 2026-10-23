@@ -18,7 +18,7 @@ import {
   getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
   type NameLanguage,
-} from '../model/name-language';
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 interface PokeSearchBarProps {
   language: NameLanguage;

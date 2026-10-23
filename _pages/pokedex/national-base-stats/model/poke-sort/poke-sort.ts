@@ -1,4 +1,8 @@
 import { STAT_KEYS, type BaseStatsPoke } from '../base-stats-poke';
+import {
+  getLocalizedName,
+  type NameLanguage,
+} from '../name-language/name-language';
 
 const SORT_KEYS = ['dexNumber', 'name', ...STAT_KEYS] as const;
 
@@ -19,20 +23,31 @@ const DEFAULT_SORT: PokeSort = { sort: 'dexNumber', order: 'asc' };
 const isSameSort = (a: PokeSort, b: PokeSort) =>
   a.sort === b.sort && a.order === b.order;
 
-// 한국어 정렬 규칙(CLDR): 숫자 → 한글 → 영어
-const koCollator = new Intl.Collator('ko', { numeric: true });
+// 이름순 정렬 규칙 (CLDR). 고른 이름 언어의 규칙으로 비교한다
+const NAME_COLLATOR: Record<NameLanguage, Intl.Collator> = {
+  // 숫자 → 한글 → 영어
+  ko: new Intl.Collator('ko', { numeric: true }),
+  // 대소문자·악센트 무시 (Flabébé = Flabebe)
+  en: new Intl.Collator('en', { numeric: true, sensitivity: 'base' }),
+  // 오십음도 순
+  ja: new Intl.Collator('ja', { numeric: true }),
+};
 
 // 한 기준으로 오름차순 비교. 같은 번호·이름의 폼끼리는 0 (순서는 sortPokes의 동점 처리가 정한다)
 const compareBy = (
   a: BaseStatsPoke,
   b: BaseStatsPoke,
   sort: SortKey,
+  language: NameLanguage,
 ): number => {
   switch (sort) {
     case 'dexNumber':
       return a.dexNumber - b.dexNumber;
     case 'name':
-      return koCollator.compare(a.nameKo, b.nameKo);
+      return NAME_COLLATOR[language].compare(
+        getLocalizedName(a, language),
+        getLocalizedName(b, language),
+      );
     default:
       return a.stats[sort] - b.stats[sort];
   }
@@ -48,11 +63,13 @@ const compareDexOrder = (a: BaseStatsPoke, b: BaseStatsPoke) =>
 const sortPokes = (
   pokes: readonly BaseStatsPoke[],
   { sort, order }: PokeSort,
+  language: NameLanguage = 'ko',
 ): BaseStatsPoke[] => {
   const direction = order === 'asc' ? 1 : -1;
 
   return [...pokes].sort(
-    (a, b) => (compareBy(a, b, sort) || compareDexOrder(a, b)) * direction,
+    (a, b) =>
+      (compareBy(a, b, sort, language) || compareDexOrder(a, b)) * direction,
   );
 };
 

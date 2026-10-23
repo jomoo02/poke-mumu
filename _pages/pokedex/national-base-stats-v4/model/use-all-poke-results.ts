@@ -13,9 +13,11 @@ import {
   filterPokes,
   usePokeFilter,
 } from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
-import { usePokeSort } from '@/_pages/pokedex/national-base-stats/model/poke-sort';
-
-import { sortPokesByLanguage, useNameLanguage } from './name-language';
+import {
+  sortPokes,
+  usePokeSort,
+} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+import { useNameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 /**
  * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬. 기존 usePokeResults에서 페이지 슬라이스만 뺐다.
@@ -61,12 +63,7 @@ export function useAllPokeResults(pokes: BaseStatsPoke[]) {
   );
 
   const sorted = useMemo(
-    () =>
-      sortPokesByLanguage(
-        searched,
-        deferredQuery.sortState,
-        deferredQuery.language,
-      ),
+    () => sortPokes(searched, deferredQuery.sortState, deferredQuery.language),
     [searched, deferredQuery.sortState, deferredQuery.language],
   );
 

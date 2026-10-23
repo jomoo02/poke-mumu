@@ -5,7 +5,10 @@ import { Button } from '@/_shared/ui/button';
 // 정리 전까지 전국도감 종족값의 빈 상태를 그대로 쓴다
 import PokeEmpty from '@/_pages/pokedex/national-base-stats-v0/ui/results/poke-empty';
 
-import { getNameLanguageLabel, type NameLanguage } from '../model/name-language';
+import {
+  getNameLanguageLabel,
+  type NameLanguage,
+} from '@/_pages/pokedex/national-base-stats/model/name-language';
 
 interface ResultsEmptyProps {
   // 고른 언어로는 없지만 다른 언어 이름으로 찾히는 수 (찾히는 언어만)
