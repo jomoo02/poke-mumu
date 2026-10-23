@@ -15,27 +15,13 @@ interface NameLanguageOption {
   value: NameLanguage;
   // 언어 이름 (선택 목록·트리거·검색창 접근 이름·빈 결과 안내)
   label: string;
-  // 그 언어로 쓴 예시 이름 (예시가 곧 설명이다)
-  example: string;
 }
 
 // 배열 순서가 선택 목록의 순서다
 const NAME_LANGUAGE_OPTIONS: readonly NameLanguageOption[] = [
-  {
-    value: 'ko',
-    label: '한국어',
-    example: '피카츄',
-  },
-  {
-    value: 'en',
-    label: '영어',
-    example: 'Pikachu',
-  },
-  {
-    value: 'ja',
-    label: '일본어',
-    example: 'ピカチュウ',
-  },
+  { value: 'ko', label: '한국어' },
+  { value: 'en', label: '영어' },
+  { value: 'ja', label: '일본어' },
 ];
 
 const getNameLanguageOption = (language: NameLanguage): NameLanguageOption =>

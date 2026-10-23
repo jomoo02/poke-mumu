@@ -13,7 +13,7 @@ import {
 import { useSearchInput } from '@/_shared/lib/search-input';
 import { usePokeSearch } from '@/_pages/pokedex/national-base-stats/model/poke-search';
 
-import NameLanguagePicker from './name-language-picker';
+import NameLanguageControl from '@/_pages/pokedex/national-base-stats/ui/name-language-control';
 import {
   getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
@@ -53,7 +53,7 @@ export default function PokeSearchBar({
         className,
       )}
     >
-      <NameLanguagePicker language={language} onChange={onLanguageChange} />
+      <NameLanguageControl language={language} onChange={onLanguageChange} />
       {/* 위아래 끝까지 닿는 구분선 */}
       <span aria-hidden className="w-px shrink-0 bg-foreground/10" />
       <InputGroup
