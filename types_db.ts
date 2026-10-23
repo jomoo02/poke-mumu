@@ -720,25 +720,31 @@ export type Database = {
         Row: {
           id: number;
           identifier: string;
+          kind: string;
           name_en: string;
           name_ja: string;
           name_ko: string;
+          region: string | null;
           short_ko: string | null;
         };
         Insert: {
           id?: number;
           identifier: string;
+          kind?: string;
           name_en: string;
           name_ja: string;
           name_ko: string;
+          region?: string | null;
           short_ko?: string | null;
         };
         Update: {
           id?: number;
           identifier?: string;
+          kind?: string;
           name_en?: string;
           name_ja?: string;
           name_ko?: string;
+          region?: string | null;
           short_ko?: string | null;
         };
         Relationships: [];
