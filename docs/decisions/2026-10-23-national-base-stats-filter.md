@@ -19,6 +19,8 @@
   - `kind` + `region` (text+check → enum, 2026-10-23 적용 후 되돌림): 허용 값은 한 곳(enum)에서 정해지지만
     라벨이 코드에 남고 언어별 라벨을 코드 상수로 관리해야 한다
 - 대가: TS 타입이 string(유니온 아님), URL 검증·필터가 서버에서 받은 선택지 목록에 의존한다
+- 위치: 지금은 이 페이지(`model/form-group.ts`, `api` getFormGroups). /pokedex/national을 `_pages`로 이관할 때
+  `_entities/poke`로 올린다 (실제 사용처가 둘이 되는 시점에 모양을 정한다)
 
 ### URL
 - 한 키에 `그룹.값`: `?filter=type.fire_form.alola_gen.1` (고른 순서 유지)
