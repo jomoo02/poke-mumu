@@ -1,9 +1,6 @@
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import type { NameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
-import type {
-  PokeSort,
-  SortKey,
-} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+import type { BaseStatsPoke } from '../../model/base-stats-poke';
+import type { NameLanguage } from '../../model/name-language';
+import type { PokeSort, SortKey } from '../../model/poke-sort';
 
 // 전체 그리기·가상화 테이블 공통 props
 export interface StatTableProps {

@@ -3,9 +3,9 @@
 import { memo, useRef } from 'react';
 
 import { cn } from '@/_shared/lib/cn';
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 
-import type { NameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
+import type { BaseStatsPoke } from '../../model/base-stats-poke';
+import type { NameLanguage } from '../../model/name-language';
 
 import StatTableHead from './stat-table-head';
 import StatTableRow from './stat-table-row';
@@ -25,7 +25,7 @@ const LAZY_ROW_CLASS =
   '[&>[role=row]:nth-child(n+31)]:[content-visibility:auto]';
 
 /**
- * 전부 그리는 테이블 (pokemondb와 같은 방식). 브라우저 찾기(Ctrl+F)·뒤로 가기 위치 복원이 그대로 된다.
+ * 전부 그리는 테이블 (넓은 본문. pokemondb와 같은 방식). 브라우저 찾기(Ctrl+F)·뒤로 가기 위치 복원이 그대로 된다.
  * @container 안에 둔다 (본문 폭으로 레이아웃·행 높이가 바뀐다)
  */
 export default function FullStatTable({

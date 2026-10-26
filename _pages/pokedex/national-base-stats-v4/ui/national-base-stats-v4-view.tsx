@@ -9,11 +9,9 @@ import PokeToolbar from '@/_pages/pokedex/national-base-stats/ui/toolbar';
 import ResultsEmpty from '@/_pages/pokedex/national-base-stats/ui/results/results-empty';
 import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
 import SortControl from '@/_pages/pokedex/national-base-stats/ui/sort-control';
-import FullStatTable from './stat-table/full-stat-table';
-import VirtualStatTable from './stat-table/virtual-stat-table';
+import StatTable from '@/_pages/pokedex/national-base-stats/ui/stat-table';
 import { useAllPokeResults } from '../model/use-all-poke-results';
 import { useIsWideContainer } from '@/_pages/pokedex/national-base-stats/lib/use-is-wide-container';
-import { useListMode } from '../model/use-list-mode';
 import { useReloadScrollRestoration } from '@/_pages/pokedex/national-base-stats/lib/use-reload-scroll-restoration';
 
 interface NationalBaseStatsV4ViewProps {
@@ -41,18 +39,12 @@ export default function NationalBaseStatsV4View({
 
   const totalCount = resultPokes.length;
 
-  const listMode = useListMode();
-
   useReloadScrollRestoration();
 
   // 본문(@container) 폭으로 그리기 방식을 고른다: 테이블(넓은 본문)은 전부, 카드(좁은 본문)는 가상화
   const sectionRef = useRef<HTMLElement>(null);
 
   const isWide = useIsWideContainer(sectionRef);
-
-  const isFullList = listMode === 'auto' ? isWide : listMode === 'full';
-
-  const StatTable = isFullList ? FullStatTable : VirtualStatTable;
 
   return (
     <div className="flex flex-col gap-6">
@@ -78,6 +70,7 @@ export default function NationalBaseStatsV4View({
           />
         ) : (
           <StatTable
+            isWide={isWide}
             pokes={resultPokes}
             sortState={sortState}
             shownSortState={shownSortState}

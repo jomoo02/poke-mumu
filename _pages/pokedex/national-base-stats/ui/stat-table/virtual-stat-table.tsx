@@ -21,7 +21,7 @@ import {
   TABLE_VARS,
 } from './table-layout';
 import { useScrollToTableTop } from './use-scroll-to-table-top';
-import { useCssRowHeight } from '../../model/use-css-row-height';
+import { useCssRowHeight } from './use-css-row-height';
 
 const OVERSCAN = 8;
 
@@ -39,7 +39,7 @@ const INITIAL_OFFSET = 0;
 const ignoreScrollTo = () => {};
 
 /**
- * 보이는 행만 그리는 테이블 (기본. 전체 그리기는 비교용 ?list=full).
+ * 보이는 행만 그리는 테이블 (좁은 본문. 실기기 모바일에서 전체 그리기 정렬이 가끔 크게 늦어 가상화한다).
  * @container 안에 둔다 (본문 폭으로 레이아웃·행 높이가 바뀐다)
  */
 export default function VirtualStatTable({

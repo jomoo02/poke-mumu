@@ -2,24 +2,17 @@
 
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
-import {
-  STAT_LABEL,
-  type StatKey,
-} from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import type {
-  PokeSort,
-  SortKey,
-} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
+
+import type { PokeSort, SortKey } from '../../model/poke-sort';
 
 import {
-  CELL_ALIGN_CLASS,
   SORTABLE_HEAD_ALIGN_CLASS,
   HEADER_ROW_CLASS,
   HEAD_CELL_CLASS,
   INFO_COLUMNS,
   STAT_COLUMNS,
   WIDE_GRID_CLASS,
-  type PokeColumn,
+  type StatTableColumn,
 } from './table-layout';
 
 const ARIA_SORT = { asc: 'ascending', desc: 'descending' } as const;
@@ -29,10 +22,10 @@ interface StatTableHeadProps {
   onSort: (sortKey: SortKey) => void;
 }
 
-const getOrder = (column: PokeColumn, sortState: PokeSort) =>
+const getOrder = (column: StatTableColumn, sortState: PokeSort) =>
   column.sortKey && sortState.sort === column.sortKey ? sortState.order : null;
 
-// @5xl 이상에서만 보이는 10열 헤더 (번호·이름·능력치 정렬). window 기준 sticky.
+// @5xl 이상에서만 보이는 머리글 (도감번호가 두 칸에 걸쳐 10열) (번호·이름·능력치 정렬). window 기준 sticky.
 // @5xl 미만은 머리글 없이 카드 칸마다 능력치 이름을 두고, 정렬은 결과 줄의 정렬 시트에서 한다
 export default function StatTableHead({
   sortState,
@@ -58,25 +51,20 @@ export default function StatTableHead({
 }
 
 interface WideHeadCellProps {
-  column: PokeColumn;
+  column: StatTableColumn;
   sortState: PokeSort;
   onSort: (sortKey: SortKey) => void;
 }
 
 // _shared/ui/data-table의 헤더 셀과 같은 모양 (공개 API가 아니라 복사).
-// headerLabel이 있으면 화면엔 줄인 이름(특공), 스크린리더엔 전체 이름(특수공격)
+// 넓은 본문이라 능력치 이름을 줄이지 않는다 (특수공격 · 특수방어)
 function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
   const sortKey = column.sortKey;
-
-  const align = column.align ?? 'left';
 
   if (!sortKey) {
     // 정렬 없는 머리글(타입)은 왼쪽 정렬. 타입 아이콘도 칸 왼쪽에서 시작해 머리글 글자와 시작선이 맞는다
     return (
-      <div
-        role="columnheader"
-        className={cn(HEAD_CELL_CLASS, CELL_ALIGN_CLASS.left)}
-      >
+      <div role="columnheader" className={HEAD_CELL_CLASS}>
         {column.header}
       </div>
     );
@@ -86,14 +74,6 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
 
   const isDexNumber = column.id === 'dexNumber';
 
-  // 능력치는 줄이지 않은 이름 (특수공격·특수방어). 넓은 본문이라 머리글에 들어간다.
-  // 도감번호는 '#' 대신 이름으로 (번호만으로는 무엇의 번호인지 애매하다)
-  const label = isDexNumber
-    ? '도감번호'
-    : column.id in STAT_LABEL
-      ? STAT_LABEL[column.id as StatKey]
-      : column.header;
-
   const header = (
     <div
       role="columnheader"
@@ -101,7 +81,7 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
       className={cn(
         HEAD_CELL_CLASS,
         // 머리글은 열의 정렬을 따른다 (숫자 열은 오른쪽: 이름·삼각형이 숫자 바로 위)
-        SORTABLE_HEAD_ALIGN_CLASS[align],
+        SORTABLE_HEAD_ALIGN_CLASS[column.align],
         // 도감번호 열은 스프라이트·번호 두 칸에 걸친 한 열. 이름·타입 열처럼 왼쪽(이미지 시작선)에서 시작한다
         isDexNumber && 'col-span-2',
       )}
@@ -112,13 +92,13 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
         onClick={() => onSort(sortKey)}
         className={cn(
           // 이름 바로 옆에 삼각형 (글자 폭만큼). -mx: 누름 배경은 셀 패딩까지, 글자는 셀 내용 끝에 맞춘다
-          'group -mx-2.5 h-9 gap-1.5 rounded-lg px-2.5',
+          'group -mx-2.5 h-9 gap-1.75 rounded-lg px-2.5',
           // 지금 기준: 이름까지 primary 글자색 (선택된 상태 = primary, 모바일 카드의 정렬 칸과 같은 색)
           order &&
             'font-semibold text-primary-text hover:text-primary-text aria-expanded:text-primary-text',
         )}
       >
-        {label}
+        {column.header}
         <SortTriangles order={order} />
       </Button>
     </div>
@@ -143,7 +123,7 @@ function SortTriangles({ order }: { order: PokeSort['order'] | null }) {
     );
 
   return (
-    <span aria-hidden="true" className="flex flex-col gap-[3px]">
+    <span aria-hidden="true" className="flex flex-col gap-0.75">
       <span className={triangleClass('asc')} />
       <span className={triangleClass('desc')} />
     </span>
