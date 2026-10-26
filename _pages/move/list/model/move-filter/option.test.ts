@@ -9,7 +9,6 @@ import { DAMAGE_CLASS_IDENTIFIERS } from '@/_entities/damage-class';
 
 import { toFilterDamageClasses } from './option';
 import { parseMoveFilter } from './move-filter';
-import { FILTER_GROUP } from '../../config/move-list';
 
 const typeDetail = (id: number, identifier: string): TypeDetail => ({
   id,
@@ -46,8 +45,8 @@ describe('선택지와 URL 검증의 기준이 같다', () => {
 
     const validInUrl = TYPE_IDENTIFIERS.filter(
       (identifier) =>
-        parseMoveFilter([{ group: FILTER_GROUP.type, value: identifier }]).types
-          .length > 0,
+        parseMoveFilter({ type: [identifier], damageClass: [] }).types.length >
+        0,
     );
 
     expect(validInUrl).toEqual(optionValues);
@@ -64,9 +63,8 @@ describe('선택지와 URL 검증의 기준이 같다', () => {
 
     const validInUrl = DAMAGE_CLASS_IDENTIFIERS.filter(
       (identifier) =>
-        parseMoveFilter([
-          { group: FILTER_GROUP.damageClass, value: identifier },
-        ]).damageClasses.length > 0,
+        parseMoveFilter({ type: [], damageClass: [identifier] }).damageClasses
+          .length > 0,
     );
 
     expect(validInUrl).toEqual(optionValues);

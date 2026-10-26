@@ -1,4 +1,4 @@
-// URL filter 값의 그룹 이름 (?filter=그룹.값)
+// 필터 그룹. 값이 곧 URL 키다 (?type=fire,grass&damageClass=physical)
 const FILTER_GROUP = {
   type: 'type',
   damageClass: 'damageClass',

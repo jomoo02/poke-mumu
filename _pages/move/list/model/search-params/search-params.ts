@@ -1,6 +1,9 @@
-import { parseAsString, parseAsStringLiteral } from 'nuqs/server';
+import {
+  parseAsArrayOf,
+  parseAsString,
+  parseAsStringLiteral,
+} from 'nuqs/server';
 
-import { parseAsFacets } from '@/_shared/lib/facet-param';
 import { parseAsPage } from '@/_shared/lib/pagination';
 
 import { DEFAULT_SORT, SORT_KEYS, SORT_ORDERS } from '../move-sort/move-sort';
@@ -13,8 +16,10 @@ import { DEFAULT_SORT, SORT_KEYS, SORT_ORDERS } from '../move-sort/move-sort';
  */
 const moveSearchParams = {
   search: parseAsString.withDefault(''),
-  // ?filter=type.fire_damageClass.physical (고른 순서)
-  filter: parseAsFacets,
+  // 필터: 그룹마다 키, 값은 ','로 (?type=fire,grass&damageClass=physical). 키 이름 = FILTER_GROUP.
+  // 값 하나인 키라 바꿔도 제자리를 지켜, 키 순서는 그 그룹을 처음 고른 순서, 키 안은 고른 순서다
+  type: parseAsArrayOf(parseAsString).withDefault([]),
+  damageClass: parseAsArrayOf(parseAsString).withDefault([]),
   sort: parseAsStringLiteral(SORT_KEYS).withDefault(DEFAULT_SORT.sort),
   order: parseAsStringLiteral(SORT_ORDERS).withDefault(DEFAULT_SORT.order),
   page: parseAsPage,

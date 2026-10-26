@@ -9,7 +9,8 @@ describe('moveSearchParams', () => {
   it('값이 없으면 기본값', () => {
     expect(load('')).toEqual({
       search: '',
-      filter: [],
+      type: [],
+      damageClass: [],
       sort: 'moveNumber',
       order: 'asc',
       page: 1,
@@ -30,14 +31,11 @@ describe('moveSearchParams', () => {
     expect(load('?page=2.7').page).toBe(2);
   });
 
-  it('filter는 URL 순서대로', () => {
-    expect(
-      load('?filter=type.fire_damageClass.physical_type.grass').filter,
-    ).toEqual([
-      { group: 'type', value: 'fire' },
-      { group: 'damageClass', value: 'physical' },
-      { group: 'type', value: 'grass' },
-    ]);
+  it('필터는 그룹마다 키, 값은 쉼표로 URL 순서대로', () => {
+    expect(load('?type=fire,grass&damageClass=physical')).toMatchObject({
+      type: ['fire', 'grass'],
+      damageClass: ['physical'],
+    });
   });
 
   it('검색어', () => {
