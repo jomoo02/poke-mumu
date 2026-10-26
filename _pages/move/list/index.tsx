@@ -7,14 +7,14 @@ import {
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
 import { getAllMove } from '@/_entities/move/index.server';
-import { TypeIconPreload } from '@/_entities/type';
+import { TypeIconPreload, toSelectableTypes } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
 import { DamageClassIconPreload } from '@/_entities/damage-class';
 import { getAllDamageClass } from '@/_entities/damage-class/index.server';
 
 import MoveListView from './ui/move-list-view';
 import MoveListSkeleton from './ui/move-list-skeleton';
-import { toFilterDamageClasses, toFilterTypes } from './model/move-filter';
+import { toFilterDamageClasses } from './model/move-filter';
 
 // 제목은 상수라 Suspense 밖에서 바로 그린다
 export default function MoveListPage() {
@@ -45,7 +45,7 @@ async function MoveListContent() {
     <PageLayoutSection className="mt-2">
       <MoveListView
         moves={moves}
-        types={toFilterTypes(types)}
+        types={toSelectableTypes(types)}
         damageClasses={toFilterDamageClasses(damageClasses)}
       />
     </PageLayoutSection>

@@ -7,15 +7,12 @@ import {
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
 import { getAllMove } from '@/_entities/move/index.server';
-import { TypeIconPreload } from '@/_entities/type';
+import { TypeIconPreload, toSelectableTypes } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
 import { DamageClassIconPreload } from '@/_entities/damage-class';
 import { getAllDamageClass } from '@/_entities/damage-class/index.server';
 // 비교용 테스트 페이지라 /move 목록의 필터 선택지 변환·스켈레톤을 그대로 쓴다
-import {
-  toFilterDamageClasses,
-  toFilterTypes,
-} from '@/_pages/move/list/model/move-filter';
+import { toFilterDamageClasses } from '@/_pages/move/list/model/move-filter';
 import MoveListSkeleton from '@/_pages/move/list/ui/move-list-skeleton';
 
 import MoveListV2View from './ui/move-list-v2-view';
@@ -51,7 +48,7 @@ async function MoveListV2Content() {
     <PageLayoutSection className="mt-2">
       <MoveListV2View
         moves={moves}
-        types={toFilterTypes(types)}
+        types={toSelectableTypes(types)}
         damageClasses={toFilterDamageClasses(damageClasses)}
       />
     </PageLayoutSection>

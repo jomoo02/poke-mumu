@@ -8,6 +8,11 @@ export {
   getTypeIconSrc,
 } from './model/type';
 
+export {
+  SELECTABLE_TYPE_IDENTIFIERS,
+  toSelectableTypes,
+} from './model/selectable-type';
+
 export type { TypeColor } from './model/type-color';
 export { getTypeColor } from './model/type-color';
 

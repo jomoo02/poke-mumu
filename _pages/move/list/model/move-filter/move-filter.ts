@@ -1,7 +1,8 @@
 import type { Move } from '@/_entities/move';
+import { SELECTABLE_TYPE_IDENTIFIERS } from '@/_entities/type';
 import type { Facet } from '@/_shared/lib/facet-param';
 
-import { FILTERABLE_DAMAGE_CLASSES, FILTERABLE_TYPES } from './option';
+import { FILTERABLE_DAMAGE_CLASSES } from './option';
 import { FILTER_GROUP } from '../../config/move-list';
 
 interface MoveFilter {
@@ -13,7 +14,7 @@ interface MoveFilter {
 
 // URL 그룹 이름은 사용자 입력이라 객체 대신 Map으로 찾는다 (constructor 같은 키 방지)
 const VALID_VALUES = new Map<string, readonly string[]>([
-  [FILTER_GROUP.type, FILTERABLE_TYPES],
+  [FILTER_GROUP.type, SELECTABLE_TYPE_IDENTIFIERS],
   [FILTER_GROUP.damageClass, FILTERABLE_DAMAGE_CLASSES],
 ]);
 

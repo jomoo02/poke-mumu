@@ -7,14 +7,11 @@ import {
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
 import { getAllMove } from '@/_entities/move/index.server';
-import { TypeIconPreload } from '@/_entities/type';
+import { TypeIconPreload, toSelectableTypes } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
 import { DamageClassIconPreload } from '@/_entities/damage-class';
 import { getAllDamageClass } from '@/_entities/damage-class/index.server';
-import {
-  toFilterDamageClasses,
-  toFilterTypes,
-} from '@/_pages/move/list/model/move-filter';
+import { toFilterDamageClasses } from '@/_pages/move/list/model/move-filter';
 
 import MoveListV3View from './ui/move-list-v3-view';
 import MoveListV3Skeleton from './ui/move-list-v3-skeleton';
@@ -49,7 +46,7 @@ async function MoveListContent() {
     <PageLayoutSection className="mt-2">
       <MoveListV3View
         moves={moves}
-        types={toFilterTypes(types)}
+        types={toSelectableTypes(types)}
         damageClasses={toFilterDamageClasses(damageClasses)}
       />
     </PageLayoutSection>
