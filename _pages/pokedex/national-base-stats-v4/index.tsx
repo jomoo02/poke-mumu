@@ -29,7 +29,7 @@ const TITLE = '전국도감 종족값';
  */
 export default function NationalBaseStatsV4Page() {
   return (
-    <PageLayoutContainer>
+    <PageLayoutContainer className="max-w-360">
       <TypeIconPreload />
       <PageLayoutHeader>
         <PageLayoutHeaderTitle>{TITLE}</PageLayoutHeaderTitle>

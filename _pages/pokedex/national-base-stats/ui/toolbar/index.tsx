@@ -23,7 +23,7 @@ export default function PokeToolbar({
   const rootRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={rootRef} className="flex flex-col gap-3">
+    <div ref={rootRef} className="flex flex-col gap-4">
       <PokeSearchBar />
       <PokeFilterRow
         filterOptions={filterOptions}

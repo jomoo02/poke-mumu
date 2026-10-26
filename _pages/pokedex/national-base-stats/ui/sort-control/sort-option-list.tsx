@@ -75,7 +75,7 @@ export default function SortOptionList({
 
   return (
     <div className={cn('flex flex-col gap-y-4', className)}>
-      <section className="flex flex-col gap-y-1.5">
+      <section className="flex flex-col gap-y-1.5 pt-1.5">
         <h3 id={keyTitleId} className="text-sm font-medium text-foreground/70">
           정렬 기준
         </h3>
