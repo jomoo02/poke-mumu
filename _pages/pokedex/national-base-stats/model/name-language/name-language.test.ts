@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
+import type { BaseStatsPokeForm } from '../base-stats-poke';
 import { makePoke } from '../base-stats-poke.fixture';
 
 import {
@@ -10,12 +11,13 @@ import {
   getNameLanguageLabel,
 } from './name-language';
 
-const GALAR = {
+const GALAR: BaseStatsPokeForm = {
   identifier: 'galar',
   nameKo: '가라르의 모습',
   nameEn: 'Galarian',
   nameJa: 'ガラルのすがた',
   shortKo: '가라르',
+  group: 'galar',
 };
 
 const meowthGalar = makePoke({
@@ -57,7 +59,7 @@ describe('getFormName', () => {
     const mega = makePoke({
       nameKo: '메가리자몽X',
       nameEn: 'Mega Charizard X',
-      form: { ...GALAR, shortKo: null },
+      form: { ...GALAR, shortKo: null, group: 'mega' },
     });
 
     expect(getFormName(pikachu, 'en')).toBeNull();

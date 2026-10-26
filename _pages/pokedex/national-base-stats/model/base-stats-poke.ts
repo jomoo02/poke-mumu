@@ -10,10 +10,12 @@ interface BaseStats {
   total: number;
 }
 
-// 폼 + 영문·일본어 이름 (이름 표기 언어가 영어·일본어일 때 '이름 (폼)'으로 붙인다. 예: Meowth (Galarian))
+// 폼 + 영문·일본어 이름(이름 표기 언어) + 모습 필터 선택지
 interface BaseStatsPokeForm extends PokeForm {
   nameEn: string;
   nameJa: string;
+  // 모습 필터 선택지 identifier (DB form_group. 예: 'alola'). 모습 필터에 안 잡히는 폼은 null
+  group: string | null;
 }
 
 interface BaseStatsPoke extends Poke {
@@ -22,6 +24,8 @@ interface BaseStatsPoke extends Poke {
   nameJa: string;
   // 같은 도감 번호 안에서의 폼 순서 (기본 폼 1)
   sortOrder: number;
+  // 등장 세대 (1~9). 기본 모습에만 있고 폼은 null
+  generation: number | null;
   stats: BaseStats;
 }
 

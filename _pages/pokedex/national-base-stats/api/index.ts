@@ -1,10 +1,11 @@
 import { createClient } from '@/_shared/lib/supabase/client';
 
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { BaseStatsPoke } from '../model/base-stats-poke';
+import type { FormGroup } from '../model/form-group';
 
-// PostgREST가 한 번에 돌려주는 최대 행 수 (Supabase 기본 max-rows).
-// 포켓몬(폼 포함)은 이보다 많아 나눠 받는다
-const CHUNK_SIZE = 1000;
+// PostgREST가 한 번에 돌려주는 최대 행 수 (이 프로젝트 max-rows).
+// 지금(폼 포함 약 1,250행)은 한 번에 받지만, 넘으면 나눠 받는다
+const CHUNK_SIZE = 1500;
 
 const POKE_SELECT = `
   pokeKey:poke_key,
@@ -13,13 +14,15 @@ const POKE_SELECT = `
   nameJa:name_ja,
   dexNumber:dex_number,
   sortOrder:sort_order,
+  generation,
   sprite,
   form:form_id(
     identifier,
     nameKo:name_ko,
     nameEn:name_en,
     nameJa:name_ja,
-    shortKo:short_ko
+    shortKo:short_ko,
+    group:form_group_id(identifier)
   ),
   type1:type!type_1_id(
     id,
@@ -77,7 +80,34 @@ export const getBaseStatsPokes = async (): Promise<BaseStatsPoke[]> => {
   }
 
   // 종족값이 없는 포켓몬은 표에 그릴 수 없으므로 거른다 (poke_stat은 poke와 1:1)
-  return rows.flatMap(({ stats, ...poke }) =>
-    stats ? [{ ...poke, stats }] : [],
+  // 모습 필터 선택지는 identifier만 쓴다 (라벨은 getFormGroups)
+  return rows.flatMap(({ stats, form, ...poke }) =>
+    stats
+      ? [
+          {
+            ...poke,
+            form: form && { ...form, group: form.group?.identifier ?? null },
+            stats,
+          },
+        ]
+      : [],
   );
+};
+
+// 모습 필터 선택지. 순서는 sort_order
+export const getFormGroups = async (): Promise<FormGroup[]> => {
+  'use cache';
+
+  const supabase = createClient();
+
+  const { data, error } = await supabase
+    .from('form_group')
+    .select('identifier, nameKo:name_ko, nameEn:name_en, nameJa:name_ja')
+    .order('sort_order', { ascending: true });
+
+  if (error) {
+    throw new Error(`Failed to fetch form groups: ${error.message}`);
+  }
+
+  return data;
 };

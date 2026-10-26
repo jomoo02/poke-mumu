@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
+import type { BaseStatsPokeForm } from '../base-stats-poke';
 import { makePoke, names } from '../base-stats-poke.fixture';
 
 import {
@@ -7,12 +8,13 @@ import {
   filterPokesByKeyword,
 } from './poke-search';
 
-const GALAR = {
+const GALAR: BaseStatsPokeForm = {
   identifier: 'galar',
   nameKo: '가라르의 모습',
   nameEn: 'Galarian',
   nameJa: 'ガラルのすがた',
   shortKo: '가라르',
+  group: 'galar',
 };
 
 const pokes = [

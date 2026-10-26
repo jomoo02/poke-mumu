@@ -8,12 +8,17 @@
 - 세대(1~9)는 `poke.generation`. 폼(generation null)은 세대를 고르면 빠진다 (national과 같음).
   배포 후 사용 경험을 보고 '같은 종의 기본 모습 세대를 따른다'로 바꿀지 다시 판단한다
 
-### 모습 데이터: `form.kind` + `form.region`
-- `kind`: mega · primal · regional · other (필요해지면 other를 나눈다)
-- `region`: alola · galar · hisui · paldea · null (zen-galar → galar, paldea-* → paldea)
+### 모습 데이터: `form_group` 테이블 (2026-10-26 변경)
+- 선택지를 데이터로 관리한다: `form_group(identifier, name_ko, name_en, name_ja, sort_order)` + `form.form_group_id`
+  (null이면 모습 필터에 안 잡힘. zen-galar → galar, paldea-* → paldea)
+- 라벨은 form의 정식 명칭에서 복사했다 (메가진화 · 알로라의 모습 …, 영·일 포함 → 필터 라벨을 이름 언어에 맞출 수 있다)
+- 선택지 추가·라벨·순서 변경은 데이터만 바꾼다 (코드·마이그레이션 없음. 조회가 'use cache'라 캐시 갱신은 필요)
 - 버린 안
   - identifier 토큰 일치(national): 필터의 뜻이 이름 규칙에 숨어, 규칙과 다른 새 폼이 조용히 빠진다
   - 열 하나(`filter_key`): 종류와 지역이 섞여 '리전폼 전체' 같은 묶음에 다시 대응표가 필요하다
+  - `kind` + `region` (text+check → enum, 2026-10-23 적용 후 되돌림): 허용 값은 한 곳(enum)에서 정해지지만
+    라벨이 코드에 남고 언어별 라벨을 코드 상수로 관리해야 한다
+- 대가: TS 타입이 string(유니온 아님), URL 검증·필터가 서버에서 받은 선택지 목록에 의존한다
 
 ### URL
 - 한 키에 `그룹.값`: `?filter=type.fire_form.alola_gen.1` (고른 순서 유지)

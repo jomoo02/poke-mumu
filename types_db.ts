@@ -718,34 +718,66 @@ export type Database = {
       };
       form: {
         Row: {
+          form_group_id: number | null;
           id: number;
           identifier: string;
-          kind: string;
           name_en: string;
           name_ja: string;
           name_ko: string;
-          region: string | null;
           short_ko: string | null;
         };
         Insert: {
+          form_group_id?: number | null;
           id?: number;
           identifier: string;
-          kind?: string;
           name_en: string;
           name_ja: string;
           name_ko: string;
-          region?: string | null;
           short_ko?: string | null;
         };
         Update: {
+          form_group_id?: number | null;
           id?: number;
           identifier?: string;
-          kind?: string;
           name_en?: string;
           name_ja?: string;
           name_ko?: string;
-          region?: string | null;
           short_ko?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'form_form_group_id_fkey';
+            columns: ['form_group_id'];
+            isOneToOne: false;
+            referencedRelation: 'form_group';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      form_group: {
+        Row: {
+          id: number;
+          identifier: string;
+          name_en: string;
+          name_ja: string;
+          name_ko: string;
+          sort_order: number;
+        };
+        Insert: {
+          id?: never;
+          identifier: string;
+          name_en: string;
+          name_ja: string;
+          name_ko: string;
+          sort_order: number;
+        };
+        Update: {
+          id?: never;
+          identifier?: string;
+          name_en?: string;
+          name_ja?: string;
+          name_ko?: string;
+          sort_order?: number;
         };
         Relationships: [];
       };

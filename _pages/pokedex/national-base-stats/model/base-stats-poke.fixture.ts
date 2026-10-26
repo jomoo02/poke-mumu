@@ -17,6 +17,7 @@ const makePoke = (
     nameJa: '',
     dexNumber: 0,
     sortOrder: 1,
+    generation: null,
     sprite: '',
     form: null,
     ...rest,

@@ -9,7 +9,7 @@ import {
 import { TypeIconPreload } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
 // 정리 전까지 전국도감 종족값의 조회·필터 선택지 변환·스켈레톤을 그대로 쓴다
-import { getBaseStatsPokes } from '@/_pages/pokedex/national-base-stats-v0/api';
+import { getBaseStatsPokes } from '@/_pages/pokedex/national-base-stats/api';
 import { toFilterTypes } from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
 import NationalBaseStatsSkeleton from '@/_pages/pokedex/national-base-stats-v0/ui/national-base-stats-skeleton';
 
