@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
-import { XIcon } from 'lucide-react';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
 import { useSearchInput } from '@/_shared/lib/search-input';
@@ -19,7 +19,6 @@ import {
   type NameLanguage,
 } from '../../model/name-language';
 import { usePokeSearch } from '../../model/poke-search';
-import NameLanguageControl from '../name-language-control';
 
 // 입력창 접근 이름. 안내 글자와 같은 순서·표기에, 찾는 이름의 언어를 더한다
 const getSearchInputLabel = (language: NameLanguage) =>
@@ -30,16 +29,14 @@ interface PokeSearchBarProps {
 }
 
 /**
- * [한국어 ⌄ │ 도감번호 또는 이름으로 검색  ✕]
- * 고른 이름 언어로만 찾으므로 언어 버튼을 검색창 왼쪽 칸에 둔다 (전화번호의 국가 코드처럼 '이 검색창의 언어').
- * 도감 번호는 언어와 상관없이 찾는다.
- * 검색어·언어 모두 URL 상태라 부모에게서 받지 않고 훅으로 읽는다.
- * 바탕은 한 덩어리, 포커스 링은 입력 칸(구분선 오른쪽)에만 둔다 (언어 버튼은 자기 링이 따로 있다)
+ * [🔍 도감번호 또는 이름으로 검색  ✕]
+ * 고른 이름 언어(필터 줄의 첫 버튼)로만 찾는다. 도감 번호는 언어와 상관없이 찾는다.
+ * 검색어·언어 모두 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
  */
 export default function PokeSearchBar({ className }: PokeSearchBarProps) {
   const { keyword, setKeyword } = usePokeSearch();
 
-  const { language, setLanguage } = useNameLanguage();
+  const { language } = useNameLanguage();
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
     value: keyword,
@@ -49,47 +46,36 @@ export default function PokeSearchBar({ className }: PokeSearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <div
-      className={cn(
-        'flex h-11 w-full items-stretch rounded-4xl bg-input/50 dark:bg-input/70',
-        className,
-      )}
-    >
-      <NameLanguageControl language={language} onChange={setLanguage} />
-
-      <InputGroup
-        className={cn(
-          'h-11 min-w-0 flex-1 rounded-l-none',
-          // 바탕은 바깥 덩어리가 칠한다
-          'bg-transparent dark:bg-transparent',
-        )}
-      >
-        <InputGroupInput
-          ref={inputRef}
-          placeholder={SEARCH_PLACEHOLDER}
-          lang={language}
-          className="h-full"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
-          onCompositionEnd={onCompositionEnd}
-          autoComplete="off"
-          aria-label={getSearchInputLabel(language)}
-        />
-        <InputGroupAddon align="inline-end" className="h-full">
-          {/* 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}
-          <InputGroupButton
-            onClick={() => {
-              clear();
-              inputRef.current?.focus();
-            }}
-            aria-label="검색어 지우기"
-            size="icon-sm"
-            className={value === '' ? 'hidden' : 'flex'}
-          >
-            <XIcon className="size-5" aria-hidden />
-          </InputGroupButton>
-        </InputGroupAddon>
-      </InputGroup>
-    </div>
+    <InputGroup className={cn('h-11', className)}>
+      <InputGroupAddon align="inline-start">
+        <SearchIcon aria-hidden className="size-4.5" />
+      </InputGroupAddon>
+      <InputGroupInput
+        ref={inputRef}
+        placeholder={SEARCH_PLACEHOLDER}
+        // 일본어 입력기 힌트·글꼴 (고른 이름 언어)
+        lang={language}
+        className="h-full"
+        value={value}
+        onChange={(event) => onChange(event.target.value)}
+        onCompositionEnd={onCompositionEnd}
+        autoComplete="off"
+        aria-label={getSearchInputLabel(language)}
+      />
+      <InputGroupAddon align="inline-end" className="h-full">
+        {/* 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}
+        <InputGroupButton
+          onClick={() => {
+            clear();
+            inputRef.current?.focus();
+          }}
+          aria-label="검색어 지우기"
+          size="icon-sm"
+          className={value === '' ? 'hidden' : 'flex'}
+        >
+          <XIcon className="size-5" aria-hidden />
+        </InputGroupButton>
+      </InputGroupAddon>
+    </InputGroup>
   );
 }

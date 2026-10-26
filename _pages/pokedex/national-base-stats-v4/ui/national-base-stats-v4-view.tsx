@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
 import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 
-import PokeToolbar from './poke-toolbar';
+import PokeToolbar from '@/_pages/pokedex/national-base-stats/ui/toolbar';
 import ResultsEmpty from './results-empty';
 import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
 import SortControl from '@/_pages/pokedex/national-base-stats/ui/sort-control';
@@ -57,7 +57,7 @@ export default function NationalBaseStatsV4View({
 
   return (
     <div className="flex flex-col gap-6">
-      <PokeToolbar filterOptions={filterOptions} />
+      <PokeToolbar filterOptions={filterOptions} resultCount={totalCount} />
       {/* 10열이라 화면 폭이 아닌 본문 폭(@5xl)으로 테이블·2줄 행을 나눈다 */}
       <section
         ref={sectionRef}
