@@ -2,32 +2,31 @@
 
 import { useDeferredValue, useMemo } from 'react';
 
-// 정리 전까지 전국도감 종족값(_pages/pokedex/national-base-stats)의 모델을 그대로 쓴다
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { BaseStatsPoke } from './base-stats-poke';
 import {
   countMatchesInOtherLanguages,
   filterPokesByKeyword,
   usePokeSearch,
-} from '@/_pages/pokedex/national-base-stats/model/poke-search';
+} from './poke-search';
 import {
   filterPokes,
   usePokeFilter,
   type PokeFilterOptions,
-} from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+} from './poke-filter';
 import {
   sortPokes,
   usePokeSort,
-} from '@/_pages/pokedex/national-base-stats/model/poke-sort';
-import { useNameLanguage } from '@/_pages/pokedex/national-base-stats/model/name-language';
+} from './poke-sort';
+import { useNameLanguage } from './name-language';
 
 /**
- * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬. 기존 usePokeResults에서 페이지 슬라이스만 뺐다.
+ * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬. 페이지를 나누지 않고 전체를 돌려준다.
  *
  * 목록은 조건의 지연 값(useDeferredValue)으로 계산한다. 조건이 바뀌면
  * 1) 먼저 머리글 화살표·결과 줄처럼 가벼운 부분만 새 조건으로 그려 바로 화면에 내고 (isPending: true)
  * 2) 행은 뒤에서 다시 그린다. 그사이 입력이 또 오면 버리고 새로 시작한다
  */
-export function useAllPokeResults(
+export function usePokeResults(
   pokes: BaseStatsPoke[],
   filterOptions: PokeFilterOptions,
 ) {

@@ -2,29 +2,29 @@
 
 import { useRef } from 'react';
 
-import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
-import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+import type { BaseStatsPoke } from '../model/base-stats-poke';
+import type { PokeFilterOptions } from '../model/poke-filter';
+import { usePokeResults } from '../model/use-poke-results';
+import { useIsWideContainer } from '../lib/use-is-wide-container';
+import { useReloadScrollRestoration } from '../lib/use-reload-scroll-restoration';
 
-import PokeToolbar from '@/_pages/pokedex/national-base-stats/ui/toolbar';
-import ResultsEmpty from '@/_pages/pokedex/national-base-stats/ui/results/results-empty';
-import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
-import SortControl from '@/_pages/pokedex/national-base-stats/ui/sort-control';
-import StatTable from '@/_pages/pokedex/national-base-stats/ui/stat-table';
-import { useAllPokeResults } from '../model/use-all-poke-results';
-import { useIsWideContainer } from '@/_pages/pokedex/national-base-stats/lib/use-is-wide-container';
-import { useReloadScrollRestoration } from '@/_pages/pokedex/national-base-stats/lib/use-reload-scroll-restoration';
+import PokeToolbar from './toolbar';
+import ResultsEmpty from './results/results-empty';
+import ResultsHeader from './results/results-header';
+import SortControl from './sort-control';
+import StatTable from './stat-table';
 
-interface NationalBaseStatsV4ViewProps {
+interface NationalBaseStatsViewProps {
   pokes: BaseStatsPoke[];
   // 필터 선택지 (서버에서 출처별로 모은 같은 모양. 화면 순서)
   filterOptions: PokeFilterOptions;
 }
 
 // 위: 툴바(이름 언어·검색, 필터) / 아래: 결과(개수 ↔ 정렬, 테이블). 페이지네이션 없음
-export default function NationalBaseStatsV4View({
+export default function NationalBaseStatsView({
   pokes,
   filterOptions,
-}: NationalBaseStatsV4ViewProps) {
+}: NationalBaseStatsViewProps) {
   const {
     pokes: resultPokes,
     sortState,
@@ -35,7 +35,7 @@ export default function NationalBaseStatsV4View({
     selectKey,
     selectOrder,
     otherLanguageMatches,
-  } = useAllPokeResults(pokes, filterOptions);
+  } = usePokeResults(pokes, filterOptions);
 
   const totalCount = resultPokes.length;
 

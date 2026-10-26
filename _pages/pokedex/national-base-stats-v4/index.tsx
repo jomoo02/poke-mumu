@@ -16,7 +16,7 @@ import {
 import { toPokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 import NationalBaseStatsSkeleton from '@/_pages/pokedex/national-base-stats-v0/ui/national-base-stats-skeleton';
 
-import NationalBaseStatsV4View from './ui/national-base-stats-v4-view';
+import NationalBaseStatsV4View from '@/_pages/pokedex/national-base-stats/ui/national-base-stats-view';
 
 const TITLE = '전국도감 종족값';
 

@@ -1,5 +1,5 @@
 'use client';
 
-import NationalBaseStatsError from '@/_pages/pokedex/national-base-stats-v0/error';
+import NationalBaseStatsError from '@/_pages/pokedex/national-base-stats/error';
 
 export default NationalBaseStatsError;
