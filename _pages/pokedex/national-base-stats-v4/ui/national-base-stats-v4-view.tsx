@@ -6,7 +6,7 @@ import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/b
 import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 
 import PokeToolbar from '@/_pages/pokedex/national-base-stats/ui/toolbar';
-import ResultsEmpty from './results-empty';
+import ResultsEmpty from '@/_pages/pokedex/national-base-stats/ui/results/results-empty';
 import ResultsHeader from '@/_pages/pokedex/national-base-stats/ui/results/results-header';
 import SortControl from '@/_pages/pokedex/national-base-stats/ui/sort-control';
 import FullStatTable from './stat-table/full-stat-table';
@@ -36,7 +36,6 @@ export default function NationalBaseStatsV4View({
     toggleSort,
     selectKey,
     selectOrder,
-    setLanguage,
     otherLanguageMatches,
   } = useAllPokeResults(pokes, filterOptions);
 
@@ -76,7 +75,6 @@ export default function NationalBaseStatsV4View({
           <ResultsEmpty
             filterOptions={filterOptions}
             otherLanguageMatches={otherLanguageMatches}
-            onLanguageChange={setLanguage}
           />
         ) : (
           <StatTable

@@ -37,7 +37,7 @@ export function useAllPokeResults(
 
   const { sortState, toggleSort, selectKey, selectOrder } = usePokeSort();
 
-  const { language, setLanguage } = useNameLanguage();
+  const { language } = useNameLanguage();
 
   // 조건을 한 값으로 묶어 함께 미룬다 (각각 미루면 서로 다른 시점의 조건이 섞일 수 있다)
   const query = useMemo(
@@ -98,8 +98,6 @@ export function useAllPokeResults(
     // 정렬 시트: 기준 칸(그 기준의 첫 방향부터) / 방향 칸
     selectKey,
     selectOrder,
-    // 빈 결과의 '다른 언어로 보기'
-    setLanguage,
     otherLanguageMatches,
   };
 }
