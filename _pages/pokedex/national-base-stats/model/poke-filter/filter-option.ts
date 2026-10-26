@@ -8,7 +8,7 @@ import {
 import type { BaseStatsPoke } from '../base-stats-poke';
 import type { FormGroup } from '../form-group';
 
-// URL 필터 그룹 (?filter=그룹.값, 예: type.fire_form.alola_gen.1). 배열 순서가 필터 줄의 순서
+// 필터 그룹. 이름이 곧 URL 키다 (?type=fire,flying&form=alola&gen=1). 배열 순서가 필터 줄의 순서
 const POKE_FILTER_GROUPS = ['type', 'form', 'gen'] as const;
 
 type PokeFilterGroup = (typeof POKE_FILTER_GROUPS)[number];

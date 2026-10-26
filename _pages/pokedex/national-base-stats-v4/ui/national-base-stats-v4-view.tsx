@@ -2,8 +2,8 @@
 
 import { useRef } from 'react';
 
-import type { Type } from '@/_entities/type';
 import type { BaseStatsPoke } from '@/_pages/pokedex/national-base-stats/model/base-stats-poke';
+import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 
 import PokeToolbar from './poke-toolbar';
 import ResultsEmpty from './results-empty';
@@ -18,14 +18,14 @@ import { useReloadScrollRestoration } from '@/_pages/pokedex/national-base-stats
 
 interface NationalBaseStatsV4ViewProps {
   pokes: BaseStatsPoke[];
-  // 필터 선택지 (게임 표시 순서로 정렬된 상태)
-  types: Type[];
+  // 필터 선택지 (서버에서 출처별로 모은 같은 모양. 화면 순서)
+  filterOptions: PokeFilterOptions;
 }
 
 // 위: 툴바(이름 언어·검색, 필터) / 아래: 결과(개수 ↔ 정렬, 테이블). 페이지네이션 없음
 export default function NationalBaseStatsV4View({
   pokes,
-  types,
+  filterOptions,
 }: NationalBaseStatsV4ViewProps) {
   const {
     pokes: resultPokes,
@@ -38,7 +38,7 @@ export default function NationalBaseStatsV4View({
     selectOrder,
     setLanguage,
     otherLanguageMatches,
-  } = useAllPokeResults(pokes);
+  } = useAllPokeResults(pokes, filterOptions);
 
   const totalCount = resultPokes.length;
 
@@ -57,7 +57,7 @@ export default function NationalBaseStatsV4View({
 
   return (
     <div className="flex flex-col gap-6">
-      <PokeToolbar types={types} />
+      <PokeToolbar filterOptions={filterOptions} />
       {/* 10열이라 화면 폭이 아닌 본문 폭(@5xl)으로 테이블·2줄 행을 나눈다 */}
       <section
         ref={sectionRef}
@@ -74,6 +74,7 @@ export default function NationalBaseStatsV4View({
         </ResultsHeader>
         {totalCount === 0 ? (
           <ResultsEmpty
+            filterOptions={filterOptions}
             otherLanguageMatches={otherLanguageMatches}
             onLanguageChange={setLanguage}
           />

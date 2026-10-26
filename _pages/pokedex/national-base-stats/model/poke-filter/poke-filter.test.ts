@@ -10,8 +10,6 @@ import {
   type PokeFilterValues,
 } from './poke-filter';
 
-const facet = (group: string, value: string) => ({ group, value });
-
 const option = (value: string) => ({ value, label: value });
 
 // 서버에서 받은 선택지 (테스트에 필요한 것만)
@@ -46,53 +44,36 @@ const formOf = (group: string): BaseStatsPokeForm => ({
 });
 
 describe('parsePokeFilter', () => {
-  it('그룹별로 고른 순서를 지키고, 전체 선택도 고른 순서대로', () => {
-    const facets = [
-      facet('form', 'alola'),
-      facet('type', 'flying'),
-      facet('type', 'fire'),
-    ];
-
-    expect(parsePokeFilter(facets, OPTIONS)).toEqual({
-      selections: facets,
-      byGroup: values({ type: ['flying', 'fire'], form: ['alola'] }),
-    });
-  });
-
-  it('모르는 그룹, 선택지에 없는 값, 중복은 뺀다', () => {
+  it('그룹 안은 고른 순서를 지킨다', () => {
     expect(
       parsePokeFilter(
-        [
-          facet('constructor', 'fire'),
-          facet('type', 'unknown'),
-          facet('form', 'galar'), // 받은 선택지에 없다
-          facet('gen', '10'),
-          facet('type', 'fire'),
-          facet('type', 'fire'),
-        ],
+        values({ type: ['flying', 'fire'], form: ['alola'] }),
         OPTIONS,
       ),
-    ).toEqual({
-      selections: [facet('type', 'fire')],
-      byGroup: values({ type: ['fire'] }),
-    });
+    ).toEqual(values({ type: ['flying', 'fire'], form: ['alola'] }));
+  });
+
+  it('선택지에 없는 값과 중복은 뺀다', () => {
+    expect(
+      parsePokeFilter(
+        values({
+          type: ['unknown', 'fire', 'fire'],
+          form: ['galar'], // 받은 선택지에 없다
+          gen: ['10'],
+        }),
+        OPTIONS,
+      ),
+    ).toEqual(values({ type: ['fire'] }));
   });
 
   it('타입은 처음 고른 2개까지만, 모습·세대는 제한 없음', () => {
-    const { byGroup } = parsePokeFilter(
-      [
-        facet('type', 'fire'),
-        facet('type', 'flying'),
-        facet('type', 'water'),
-        facet('gen', '1'),
-        facet('gen', '2'),
-        facet('gen', '3'),
-      ],
+    const parsed = parsePokeFilter(
+      values({ type: ['fire', 'flying', 'water'], gen: ['1', '2', '3'] }),
       OPTIONS,
     );
 
-    expect(byGroup.type).toEqual(['fire', 'flying']);
-    expect(byGroup.gen).toEqual(['1', '2', '3']);
+    expect(parsed.type).toEqual(['fire', 'flying']);
+    expect(parsed.gen).toEqual(['1', '2', '3']);
   });
 });
 
@@ -136,8 +117,8 @@ describe('filterPokes', () => {
     }),
   ];
 
-  const keys = (byGroup: PokeFilterValues) =>
-    filterPokes(pokes, byGroup).map((poke) => poke.pokeKey);
+  const keys = (selected: PokeFilterValues) =>
+    filterPokes(pokes, selected).map((poke) => poke.pokeKey);
 
   it('고른 게 없으면 전부', () => {
     expect(keys(values({}))).toHaveLength(pokes.length);

@@ -6,24 +6,24 @@ import { RotateCwIcon } from 'lucide-react';
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import { FilterPopover, focusVisibleFilterTrigger } from '@/_shared/ui/filter';
-import type { Type } from '@/_entities/type';
-import { usePokeFilter } from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
+import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+import { useResetConditions } from '@/_pages/pokedex/national-base-stats/model/use-reset-conditions';
 // 정리 전까지 기존 툴바의 필터 그룹 구성을 그대로 쓴다
 import { usePokeFilterGroups } from '@/_pages/pokedex/national-base-stats-v0/ui/toolbar/use-poke-filter-groups';
 
 import PokeSearchBar from '@/_pages/pokedex/national-base-stats/ui/toolbar/poke-search-bar';
 
 interface PokeToolbarProps {
-  types: Type[];
+  filterOptions: PokeFilterOptions;
 }
 
 // 1줄: [한 ⌄ │ 🔍 검색]
-// 2줄: [타입 ▾] │ [↻ 초기화]      ← md 이상. 초기화는 필터가 켜졌을 때만
+// 2줄: [타입 ▾] │ [↻ 초기화]      ← md 이상. 초기화(검색어·언어·필터)는 켜진 게 있을 때만
 // TODO: md 미만 필터는 /pokedex/national처럼 칩 줄로 다시 만든다 (그전까지 좁은 화면엔 필터가 없다)
-export default function PokeToolbar({ types }: PokeToolbarProps) {
-  const groups = usePokeFilterGroups(types);
+export default function PokeToolbar({ filterOptions }: PokeToolbarProps) {
+  const groups = usePokeFilterGroups(filterOptions);
 
-  const { isActive, reset } = usePokeFilter();
+  const { isActive, reset } = useResetConditions(filterOptions);
 
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +54,7 @@ export default function PokeToolbar({ types }: PokeToolbarProps) {
             <Button
               variant="secondary"
               onClick={resetFilters}
-              aria-label="필터 초기화"
+              aria-label="검색·필터 초기화"
               className={cn(
                 'h-10 gap-2 text-foreground/70',
                 'bg-input/50 dark:bg-input/70',

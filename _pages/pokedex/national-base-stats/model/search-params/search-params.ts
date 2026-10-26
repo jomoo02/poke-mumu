@@ -1,6 +1,8 @@
-import { parseAsString, parseAsStringLiteral } from 'nuqs/server';
-
-import { parseAsFacets } from '@/_shared/lib/facet-param';
+import {
+  parseAsArrayOf,
+  parseAsString,
+  parseAsStringLiteral,
+} from 'nuqs/server';
 
 // index가 아닌 파일에서 직접: 각 index가 내보내는 훅(usePokeSort·useNameLanguage)이 이 파일을 import해 순환이 생긴다
 import { DEFAULT_SORT, SORT_KEYS, SORT_ORDERS } from '../poke-sort/poke-sort';
@@ -16,7 +18,12 @@ import {
  */
 const pokeSearchParams = {
   search: parseAsString.withDefault(''),
-  filter: parseAsFacets,
+  // 필터: 그룹마다 키, 값은 ','로 (?type=fire,flying&form=alola&gen=1). 키 이름 = POKE_FILTER_GROUPS.
+  // 값 하나인 키라 바꿔도 제자리를 지켜, 키 순서는 그 그룹을 처음 고른 순서, 키 안은 고른 순서다
+  // (반복 키 parseAsNativeArrayOf는 바꿀 때마다 키가 URL 끝으로 옮겨진다)
+  type: parseAsArrayOf(parseAsString).withDefault([]),
+  form: parseAsArrayOf(parseAsString).withDefault([]),
+  gen: parseAsArrayOf(parseAsString).withDefault([]),
   sort: parseAsStringLiteral(SORT_KEYS).withDefault(DEFAULT_SORT.sort),
   order: parseAsStringLiteral(SORT_ORDERS).withDefault(DEFAULT_SORT.order),
   lang: parseAsStringLiteral(NAME_LANGUAGES).withDefault(DEFAULT_NAME_LANGUAGE),

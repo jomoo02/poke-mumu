@@ -9,8 +9,10 @@ import {
   getNameLanguageLabel,
   type NameLanguage,
 } from '@/_pages/pokedex/national-base-stats/model/name-language';
+import type { PokeFilterOptions } from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 
 interface ResultsEmptyProps {
+  filterOptions: PokeFilterOptions;
   // 고른 언어로는 없지만 다른 언어 이름으로 찾히는 수 (찾히는 언어만)
   otherLanguageMatches: { language: NameLanguage; count: number }[];
   onLanguageChange: (language: NameLanguage) => void;
@@ -22,11 +24,12 @@ interface ResultsEmptyProps {
  * 그 밖에는 기존 빈 상태 (필터 초기화 등)
  */
 export default function ResultsEmpty({
+  filterOptions,
   otherLanguageMatches,
   onLanguageChange,
 }: ResultsEmptyProps) {
   if (otherLanguageMatches.length === 0) {
-    return <PokeEmpty />;
+    return <PokeEmpty filterOptions={filterOptions} />;
   }
 
   return (

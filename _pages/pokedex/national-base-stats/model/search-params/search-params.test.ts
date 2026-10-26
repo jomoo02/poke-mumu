@@ -9,7 +9,9 @@ describe('pokeSearchParams', () => {
   it('값이 없으면 기본값', () => {
     expect(load('')).toEqual({
       search: '',
-      filter: [],
+      type: [],
+      form: [],
+      gen: [],
       sort: 'dexNumber',
       order: 'asc',
       lang: 'ko',
@@ -35,10 +37,11 @@ describe('pokeSearchParams', () => {
     expect(load('?lang=fr').lang).toBe('ko');
   });
 
-  it('filter는 URL 순서대로', () => {
-    expect(load('?filter=type.flying_type.fire').filter).toEqual([
-      { group: 'type', value: 'flying' },
-      { group: 'type', value: 'fire' },
-    ]);
+  it('필터는 그룹마다 키, 값은 쉼표로 URL 순서대로', () => {
+    expect(load('?type=flying,fire&form=alola&gen=1')).toMatchObject({
+      type: ['flying', 'fire'],
+      form: ['alola'],
+      gen: ['1'],
+    });
   });
 });

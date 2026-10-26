@@ -1,5 +1,3 @@
-import type { Facet } from '@/_shared/lib/facet-param';
-
 import type { BaseStatsPoke } from '../base-stats-poke';
 import {
   POKE_FILTER_GROUPS,
@@ -8,55 +6,38 @@ import {
   type PokeFilterOptions,
 } from './filter-option';
 
+// 그룹별로 고른 값 (고른 순서)
 type PokeFilterValues = Record<PokeFilterGroup, string[]>;
 
-interface PokeFilter {
-  // 유효한 선택 전체를 고른 순서대로 (트리거는 그룹별 첫 값을 보여준다)
-  selections: Facet[];
-  byGroup: PokeFilterValues;
-}
-
-// 그룹을 추가하면 여기도 늘려야 tsc가 통과(Record)
-const emptyValues = (): PokeFilterValues => ({ type: [], form: [], gen: [] });
-
-// URL 그룹 이름은 사용자 입력이라 객체 키로 찾지 않고 목록에서 확인한다 (constructor 같은 키 방지)
-const isPokeFilterGroup = (group: string): group is PokeFilterGroup =>
-  (POKE_FILTER_GROUPS as readonly string[]).includes(group);
-
-/**
- * URL 선택 중 아는 그룹의, 선택지에 있는 값만 중복 없이 고른 순서대로 남긴다.
- * 그룹의 최대 선택 수를 넘으면 나중에 고른 것부터 버린다
- */
-const parsePokeFilter = (
-  facets: readonly Facet[],
+// 그룹 하나: 선택지에 있는 값만, 중복 없이, 고른 순서대로. 최대 선택 수를 넘으면 나중에 고른 것부터 버린다
+const parseGroup = (
+  values: readonly string[],
+  group: PokeFilterGroup,
   options: PokeFilterOptions,
-): PokeFilter => {
-  const seen = new Set<string>();
-  const byGroup = emptyValues();
+): string[] => {
+  const max = POKE_FILTER_RULES[group].max ?? Infinity;
 
-  const selections = facets.filter(({ group, value }) => {
-    if (!isPokeFilterGroup(group)) {
-      return false;
-    }
-
-    const id = `${group}.${value}`;
-    const max = POKE_FILTER_RULES[group].max ?? Infinity;
-
-    if (
-      seen.has(id) ||
-      byGroup[group].length >= max ||
-      !options[group].some((option) => option.value === value)
-    ) {
-      return false;
-    }
-
-    seen.add(id);
-    byGroup[group].push(value);
-    return true;
-  });
-
-  return { selections, byGroup };
+  return values
+    .filter(
+      (value, index) =>
+        values.indexOf(value) === index &&
+        options[group].some((option) => option.value === value),
+    )
+    .slice(0, max);
 };
+
+// URL 값(그룹별 배열)을 유효한 선택으로. 키가 코드로 정해져 있어 모르는 그룹은 들어오지 않는다
+const parsePokeFilter = (
+  raw: PokeFilterValues,
+  options: PokeFilterOptions,
+): PokeFilterValues => ({
+  type: parseGroup(raw.type, 'type', options),
+  form: parseGroup(raw.form, 'form', options),
+  gen: parseGroup(raw.gen, 'gen', options),
+});
+
+const isPokeFilterActive = (values: PokeFilterValues): boolean =>
+  POKE_FILTER_GROUPS.some((group) => values[group].length > 0);
 
 // 그룹 하나의 조건: 고른 게 없으면 통과. all은 모두 가짐(AND), any는 하나라도 가짐(OR)
 const matchesGroup = (
@@ -79,10 +60,10 @@ const matchesGroup = (
 // 모든 그룹의 조건을 만족하는 포켓몬만 남긴다 (그룹 사이 AND). 고른 게 없으면 그대로
 const filterPokes = (
   pokes: BaseStatsPoke[],
-  byGroup: PokeFilterValues,
+  values: PokeFilterValues,
 ): BaseStatsPoke[] => {
   const activeGroups = POKE_FILTER_GROUPS.filter(
-    (group) => byGroup[group].length > 0,
+    (group) => values[group].length > 0,
   );
 
   if (activeGroups.length === 0) {
@@ -90,10 +71,10 @@ const filterPokes = (
   }
 
   return pokes.filter((poke) =>
-    activeGroups.every((group) => matchesGroup(poke, group, byGroup[group])),
+    activeGroups.every((group) => matchesGroup(poke, group, values[group])),
   );
 };
 
-export type { PokeFilter, PokeFilterValues };
+export type { PokeFilterValues };
 
-export { parsePokeFilter, filterPokes };
+export { parseGroup, parsePokeFilter, isPokeFilterActive, filterPokes };

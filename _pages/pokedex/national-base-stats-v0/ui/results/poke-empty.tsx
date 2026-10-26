@@ -6,18 +6,29 @@ import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 
-import { usePokeFilter } from '../../model/poke-filter';
-import { MAX_TYPE_SELECTION } from '../../config/national-base-stats';
+import {
+  POKE_FILTER_RULES,
+  usePokeFilter,
+  type PokeFilterOptions,
+} from '@/_pages/pokedex/national-base-stats/model/poke-filter';
+import { useResetConditions } from '@/_pages/pokedex/national-base-stats/model/use-reset-conditions';
 
-// 결과 0개. 필터가 켜져 있으면 바로 풀 수 있게 초기화 버튼을 둔다 (검색어는 사용자가 입력한 값이라 두고)
-export default function PokeEmpty() {
-  const { filter, isActive, reset } = usePokeFilter();
+interface PokeEmptyProps {
+  filterOptions: PokeFilterOptions;
+}
+
+// 결과 0개. 켜진 조건(검색어·언어·필터)이 있으면 바로 처음으로 돌아가게 초기화 버튼을 둔다
+// (4-6에서 정식 slice의 빈 결과로 합친다)
+export default function PokeEmpty({ filterOptions }: PokeEmptyProps) {
+  const { filter, isActive: isFilterActive } = usePokeFilter(filterOptions);
+
+  const { isActive, reset } = useResetConditions(filterOptions);
 
   // 타입 필터는 AND라 두 타입을 고르면 그 복합 타입만 남는다는 것을 알려 준다
   const hint =
-    filter.types.length >= MAX_TYPE_SELECTION
+    filter.type.length >= (POKE_FILTER_RULES.type.max ?? Infinity)
       ? '고른 두 타입을 모두 가진 포켓몬만 보여요. 타입을 하나 빼 보세요'
-      : isActive
+      : isFilterActive
         ? '필터를 줄이거나 검색어를 바꿔 보세요'
         : '검색어를 바꿔 보세요';
 
@@ -40,7 +51,7 @@ export default function PokeEmpty() {
           )}
         >
           <RotateCwIcon aria-hidden />
-          필터 초기화
+          초기화
         </Button>
       )}
     </div>

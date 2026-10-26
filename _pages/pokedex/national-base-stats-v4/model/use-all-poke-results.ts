@@ -12,7 +12,8 @@ import {
 import {
   filterPokes,
   usePokeFilter,
-} from '@/_pages/pokedex/national-base-stats-v0/model/poke-filter';
+  type PokeFilterOptions,
+} from '@/_pages/pokedex/national-base-stats/model/poke-filter';
 import {
   sortPokes,
   usePokeSort,
@@ -26,10 +27,13 @@ import { useNameLanguage } from '@/_pages/pokedex/national-base-stats/model/name
  * 1) 먼저 머리글 화살표·결과 줄처럼 가벼운 부분만 새 조건으로 그려 바로 화면에 내고 (isPending: true)
  * 2) 행은 뒤에서 다시 그린다. 그사이 입력이 또 오면 버리고 새로 시작한다
  */
-export function useAllPokeResults(pokes: BaseStatsPoke[]) {
+export function useAllPokeResults(
+  pokes: BaseStatsPoke[],
+  filterOptions: PokeFilterOptions,
+) {
   const { keyword } = usePokeSearch();
 
-  const { filter } = usePokeFilter();
+  const { filter } = usePokeFilter(filterOptions);
 
   const { sortState, toggleSort, selectKey, selectOrder } = usePokeSort();
 
