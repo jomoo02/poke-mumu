@@ -22,9 +22,18 @@
 - 위치: 지금은 이 페이지(`model/form-group.ts`, `api` getFormGroups). /pokedex/national을 `_pages`로 이관할 때
   `_entities/poke`로 올린다 (실제 사용처가 둘이 되는 시점에 모양을 정한다)
 
-### URL
-- 한 키에 `그룹.값`: `?filter=type.fire_form.alola_gen.1` (고른 순서 유지)
-- 값은 DB 열 이름이 아닌 선택지 값. 열 구조가 바뀌어도 공유 링크가 그대로 동작한다
+### URL (2026-10-26 변경)
+- 그룹마다 키, 값은 ','로 묶는다: `?type=fire,flying&form=alola&gen=1` (nuqs `parseAsArrayOf`, 기본 구분자)
+- 키 안은 고른 순서, 키 사이는 그 그룹을 처음 고른 순서 (값 하나인 키라 바꿔도 제자리를 지킨다)
+- 값은 DB 열 이름이 아닌 선택지 값 (form은 form_group.identifier)
+- 기술 목록(/move)도 같은 형식으로 바꿨다: `?type=fire,grass&damageClass=physical`
+- ','는 nuqs가 인코딩하지 않고, 값 안의 ','만 %2C로 바꾼다. 다른 코드가 URL을 %2C로 다시 써도 읽을 때 디코딩되어 결과가 같다
+- 버린 안
+  - 한 키에 `그룹.값`(facet, `?filter=type.fire_form.alola`, `_shared/lib/facet-param`): 값 단위 고른 순서까지 남기지만
+    그 순서를 쓰는 UI(고른 필터 칩 줄)를 만들지 않아 model만 복잡했다. 예전 `?filter=` 링크는 옮기지 않는다
+  - 반복 키(`parseAsNativeArrayOf`, `?type=fire&type=flying`): 바꿀 때마다 그 키가 URL 끝으로 옮겨져
+    키 순서가 '처음 고른 순서'가 아닌 '최근에 바뀐 순서'가 되고 URL이 클릭마다 흔들린다
+- 서버·클라이언트 모두 키마다 같은 값을 읽어 hydration 차이가 없다
 
 ### 화면
 - 검색창은 입력만. 그 아래 한 줄(모바일·데스크탑 모두, 가로 스크롤):
