@@ -77,14 +77,16 @@ export default function RootLayout({
       lang="ko"
       suppressHydrationWarning
       className={cn(
-        eliceDxNeolit.variable,
+        // eliceDxNeolit.variable,
         suite.variable,
         suit.variable,
         'font-sans',
         inter.variable,
+        // 헤더 높이. body 끝에 포털로 그려지는 모바일 메뉴도 읽어야 해서 html에 둔다
+        '[--header-height:calc(--spacing(14))]',
         // 스크롤바 자리를 늘 비워 둔다. 모달(메뉴·시트)이 스크롤을 잠가도, 짧은 페이지로 이동해도
         // 스크롤바가 생겼다 사라지며 화면이 좌우로 움직이지 않게 (오버레이 스크롤바 환경은 영향 없음)
-        '[scrollbar-gutter:stable]',
+        // '[scrollbar-gutter:stable]',
       )}
     >
       <body className={`antialiased`}>
