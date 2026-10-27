@@ -11,7 +11,8 @@ function PageLayoutContainer({
         'mx-auto w-full min-h-svh flex flex-col gap-6',
         // '2xl:max-w-370',
         // 'md:max-w-[calc(100vw-240px)] lg:max-w-[calc(94vw-240px)] lg:w-360',
-        'max-w-[calc(90rem+4.375vw*2)] md:px-[4.375vw] pt-4 pb-12',
+        // 'max-w-[calc(90rem+4.375vw*2)] md:px-[4.375vw] pt-4 pb-12',
+        'max-w-350 py-12',
         'px-4 sm:px-6 ',
 
         className,

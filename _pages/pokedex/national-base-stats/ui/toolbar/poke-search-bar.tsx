@@ -46,7 +46,7 @@ export default function PokeSearchBar({ className }: PokeSearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-11', className)}>
+    <InputGroup className={cn('h-10 max-w-lg', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.5" />
       </InputGroupAddon>

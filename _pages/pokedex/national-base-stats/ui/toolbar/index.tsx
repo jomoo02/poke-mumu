@@ -23,8 +23,8 @@ export default function PokeToolbar({
   const rootRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={rootRef} className="flex flex-col gap-4">
-      <PokeSearchBar />
+    <div ref={rootRef} className="flex flex-col   gap-4">
+      <PokeSearchBar className="" />
       <PokeFilterRow
         filterOptions={filterOptions}
         resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}

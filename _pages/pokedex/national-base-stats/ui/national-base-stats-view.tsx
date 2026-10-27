@@ -47,7 +47,7 @@ export default function NationalBaseStatsView({
   const isWide = useIsWideContainer(sectionRef);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-3">
       <PokeToolbar filterOptions={filterOptions} resultCount={totalCount} />
       {/* 10열이라 화면 폭이 아닌 본문 폭(@5xl)으로 테이블·2줄 행을 나눈다 */}
       <section
