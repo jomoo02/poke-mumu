@@ -10,12 +10,12 @@ import PokeSearchBar from './poke-search-bar';
 
 interface PokeToolbarProps {
   filterOptions: PokeFilterOptions;
-  // 지금 결과 수 (시트의 '120마리 보기')
+  // 지금 결과 수
   resultCount: number;
 }
 
-// 1줄: [🔍 검색]
-// 2줄: [↻ 초기화] │ [한국어 ⌄] [모든 타입 ⌄] [모든 모습 ⌄] [모든 세대 ⌄]
+// 좁은 본문: 1줄 [🔍 검색] / 2줄 [한국어⌄ 타입⌄ 모습⌄ 세대⌄ ··· │ ↻]
+// 넓은 본문(@5xl/view): 한 줄 [🔍 검색] [한국어⌄ 타입⌄ 모습⌄ 세대⌄]      [↻ 초기화] | 개수
 export default function PokeToolbar({
   filterOptions,
   resultCount,
@@ -23,11 +23,14 @@ export default function PokeToolbar({
   const rootRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={rootRef} className="flex flex-col   gap-4">
-      <PokeSearchBar className="" />
+    <div
+      ref={rootRef}
+      className="flex flex-col gap-4 @5xl/view:flex-row @5xl/view:items-center @5xl/view:gap-3"
+    >
+      <PokeSearchBar className="@5xl/view:w-80 @5xl/view:shrink-0" />
       <PokeFilterRow
         filterOptions={filterOptions}
-        resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}
+        resultCount={resultCount}
         // 초기화 버튼은 사라지므로 포커스를 지금 보이는 첫 필터 트리거로.
         // (검색 입력창으로 옮기면 모바일에서 키보드가 올라온다)
         onReset={() => {

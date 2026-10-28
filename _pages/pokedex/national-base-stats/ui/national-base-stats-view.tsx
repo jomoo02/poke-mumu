@@ -47,14 +47,16 @@ export default function NationalBaseStatsView({
   const isWide = useIsWideContainer(sectionRef);
 
   return (
-    <div className="flex flex-col gap-3">
+    // view 컨테이너: 툴바가 본문 폭으로 한 줄(넓은 본문)·두 줄(좁은 본문)을 고른다
+    <div className="@container/view flex flex-col gap-3">
       <PokeToolbar filterOptions={filterOptions} resultCount={totalCount} />
       {/* 10열이라 화면 폭이 아닌 본문 폭(@5xl)으로 테이블·2줄 행을 나눈다 */}
       <section
         ref={sectionRef}
         className="@container flex w-full flex-col gap-4"
       >
-        <ResultsHeader totalCount={totalCount}>
+        {/* 넓은 본문은 개수가 툴바 줄 끝에 있고 정렬은 머리글이라 결과 줄을 숨긴다 */}
+        <ResultsHeader totalCount={totalCount} className="@5xl/view:hidden">
           {/* 넓은 본문(@5xl)은 테이블 머리글로 정렬해 숨긴다. md 미만은 시트, 이상은 팝오버 */}
           <SortControl
             sortState={sortState}
