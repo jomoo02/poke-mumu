@@ -12,7 +12,7 @@ import { DEFAULT_NAME_LANGUAGE, NAME_LANGUAGES } from '../name-language';
 /**
  * 전국도감(종족값)의 URL 상태 정의. 객체 키가 곧 URL 키다.
  * 잘못된 값은 기본값으로 읽고, 기본값은 URL에 쓰지 않는다(nuqs clearOnDefault).
- * 읽기·쓰기는 useConditions 한 곳에서 한다 (목록이 달라지는 변경은 page: null로 1페이지로)
+ * 읽기·쓰기는 url-state의 훅으로만 한다. 목록이 달라지는 쓰기는 writeList(use-list-params)를 거쳐 1페이지로
  */
 const pokeSearchParams = {
   search: parseAsString.withDefault(''),

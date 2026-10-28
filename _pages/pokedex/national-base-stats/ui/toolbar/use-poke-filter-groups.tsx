@@ -15,7 +15,7 @@ import {
   type PokeFilterOption,
   type PokeFilterOptions,
 } from '../../model/filter';
-import { useConditions } from '../../model/conditions';
+import { useFilterParams } from '../../model/url-state';
 
 // 그룹별 제목·목록 열 수 (글자 길이에 맞춘다: 모습은 '팔데아의 모습'처럼 길어 1열)
 const GROUP_VIEW: Record<
@@ -45,7 +45,7 @@ const toCheckboxOptions = (
 export function usePokeFilterGroups(
   options: PokeFilterOptions,
 ): FilterCheckboxGroup[] {
-  const { filter, toggleFilter, resetFilterGroup } = useConditions(options);
+  const { filter, toggleFilter, resetFilterGroup } = useFilterParams(options);
 
   const checkboxOptions = useMemo(
     (): Record<PokeFilterGroup, FilterCheckboxOption[]> => ({

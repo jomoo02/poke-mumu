@@ -11,7 +11,11 @@ import {
   type NameLanguage,
 } from '../../model/name-language';
 import { POKE_FILTER_RULES, type PokeFilterOptions } from '../../model/filter';
-import { useConditions } from '../../model/conditions';
+import {
+  useFilterParams,
+  useLanguageParam,
+  useResetParams,
+} from '../../model/url-state';
 
 // 툴바의 꺼진 버튼과 같은 모양
 const ACTION_BUTTON_CLASS = cn(
@@ -37,8 +41,11 @@ export default function ResultsEmpty({
   filterOptions,
   otherLanguageMatches,
 }: ResultsEmptyProps) {
-  const { filter, isFilterActive, isActive, setLanguage, reset } =
-    useConditions(filterOptions);
+  const { setLanguage } = useLanguageParam();
+
+  const { filter, isFilterActive } = useFilterParams(filterOptions);
+
+  const { isActive, reset } = useResetParams(filterOptions);
 
   // 타입 필터는 AND라 두 타입을 고르면 그 복합 타입만 남는다는 것을 알려 준다
   const isTypeFull =
