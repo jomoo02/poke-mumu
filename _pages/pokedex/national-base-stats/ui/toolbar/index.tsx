@@ -14,8 +14,8 @@ interface PokeToolbarProps {
   resultCount: number;
 }
 
-// 좁은 본문: 1줄 [🔍 검색] / 2줄 [한국어⌄ 타입⌄ 모습⌄ 세대⌄ ··· │ ↻]
-// 넓은 본문(@5xl/view): 한 줄 [🔍 검색] [한국어⌄ 타입⌄ 모습⌄ 세대⌄]      [↻ 초기화] | 개수
+// 좁은 본문: 1줄 [🔍 검색] / 2줄 [↻ 초기화 │ 한국어⌄ 타입⌄ 모습⌄ 세대⌄ ···]
+// 넓은 본문(@5xl/view): 한 줄 [🔍 검색] [↻ 초기화 │ 한국어⌄ 타입⌄ 모습⌄ 세대⌄]      개수
 export default function PokeToolbar({
   filterOptions,
   resultCount,

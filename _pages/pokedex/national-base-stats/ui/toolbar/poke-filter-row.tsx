@@ -21,9 +21,10 @@ interface PokeFilterRowProps {
 }
 
 /**
- * 좁은 본문: [한국어⌄ 타입⌄ 모습⌄ 세대⌄ ··· │ ↻]   ← 버튼만 가로 스크롤, ↻는 오른쪽 끝에 고정
- * 넓은 본문: [한국어⌄ 타입⌄ 모습⌄ 세대⌄]      [↻ 초기화] | 1,250 Pokémon
- * 초기화(검색어·이름 언어·필터)는 켜진 게 있을 때만. 두 본문 모두 필터 줄의 오른쪽 끝이다
+ * 초기화(검색어·이름 언어·필터)는 켜진 게 있을 때만, 검색과 필터 묶음 사이(필터 줄 맨 앞)에 둔다.
+ * 나타나면 필터 버튼이 오른쪽으로 밀리는 것은 받아들였다 (2026-10-28 결정)
+ * 좁은 본문: [↻ 초기화 │ 한국어⌄ 타입⌄ 모습⌄ 세대⌄ ···]   ← 줄 전체가 가로 스크롤
+ * 넓은 본문: [🔍 검색] [↻ 초기화 │ 한국어⌄ 타입⌄ 모습⌄ 세대⌄]          1,250 Pokémon
  */
 export default function PokeFilterRow({
   filterOptions,
@@ -36,22 +37,32 @@ export default function PokeFilterRow({
 
   const { isActive, reset } = useResetConditions(filterOptions);
 
-  const handleReset = () => {
-    reset();
-    onReset();
-  };
-
   return (
     <div className="flex min-w-0 flex-1 items-center gap-2">
-      {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게.
-          좁은 본문에서 ↻가 붙으면 오른쪽 끝을 흐려 뒤에 버튼이 더 있음을 보인다 */}
-      <div
-        className={cn(
-          '-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar p-1',
-          isActive &&
-            '[mask-image:linear-gradient(to_right,black_calc(100%-1.5rem),transparent)] @5xl/view:[mask-image:none]',
+      {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
+      <div className="-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar p-1">
+        {isActive && (
+          <>
+            {/* 꺼진 필터 트리거와 같은 모양, 글자만 옅게 (필터가 아닌 동작임을 구분) */}
+            <Button
+              variant="secondary"
+              onClick={() => {
+                reset();
+                onReset();
+              }}
+              aria-label="검색·필터 초기화"
+              className={cn(
+                'h-10 shrink-0 text-foreground/70',
+                'bg-input/50 dark:bg-input/70',
+                '[@media(hover:hover)]:hover:bg-input/70 dark:[@media(hover:hover)]:hover:bg-input',
+              )}
+            >
+              <RotateCwIcon aria-hidden className="size-3.5" />
+              초기화
+            </Button>
+            <div aria-hidden className="h-6 w-px shrink-0 bg-border" />
+          </>
         )}
-      >
         <NameLanguageControl language={language} onChange={setLanguage} />
         {groups.map((group) => (
           <FilterCheckboxControl
@@ -63,44 +74,13 @@ export default function PokeFilterRow({
         ))}
       </div>
 
-      {/* 좁은 본문: 아이콘만 (결과 줄은 개수 ↔ 정렬로 이미 찼다) */}
-      {isActive && (
-        <div className="flex shrink-0 items-center gap-1 @5xl/view:hidden">
-          <div aria-hidden className="h-6 w-px bg-border" />
-          <Button
-            variant="ghost"
-            onClick={handleReset}
-            aria-label="검색·필터 초기화"
-            className="size-10 rounded-xl text-foreground/70"
-          >
-            <RotateCwIcon aria-hidden className="size-4.5" />
-          </Button>
-        </div>
-      )}
-
-      {/* 넓은 본문: [↻ 초기화] | 개수. 개수는 오른쪽 끝에 고정되고 초기화는 그 왼쪽에 나타난다 */}
-      <div className="ml-auto hidden shrink-0 items-center gap-3 @5xl/view:flex">
-        {isActive && (
-          <>
-            <Button
-              variant="ghost"
-              onClick={handleReset}
-              aria-label="검색·필터 초기화"
-              className="h-9 rounded-xl px-3 text-foreground/70"
-            >
-              <RotateCwIcon aria-hidden className="size-3.5" />
-              초기화
-            </Button>
-            <div aria-hidden className="h-4 w-px bg-border" />
-          </>
-        )}
-        <p
-          aria-live="polite"
-          className="text-sm font-medium whitespace-nowrap text-foreground/70"
-        >
-          {resultCount.toLocaleString('ko-KR')} Pokémon
-        </p>
-      </div>
+      {/* 넓은 본문: 줄 끝에 개수만 */}
+      <p
+        aria-live="polite"
+        className="ml-auto hidden shrink-0 text-sm font-medium whitespace-nowrap text-foreground/70 @5xl/view:block"
+      >
+        {resultCount.toLocaleString('ko-KR')} Pokémon
+      </p>
     </div>
   );
 }
