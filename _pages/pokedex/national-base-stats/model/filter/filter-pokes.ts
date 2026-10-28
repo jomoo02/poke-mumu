@@ -75,6 +75,28 @@ const filterPokes = (
   );
 };
 
+// 그룹 하나에서 값 하나를 켜고 끈다: 있으면 빼고, 없으면 맨 뒤에 붙인 뒤 유효한 값만 남긴다
+// (잘못된 값·중복이 URL에 이어지지 않고 첫 조작에 정리된다)
+const toggleGroupValue = (
+  values: readonly string[],
+  value: string,
+  group: PokeFilterGroup,
+  options: PokeFilterOptions,
+): string[] => {
+  const current = parseGroup(values, group, options);
+  const next = current.includes(value)
+    ? current.filter((item) => item !== value)
+    : [...current, value];
+
+  return parseGroup(next, group, options);
+};
+
 export type { PokeFilterValues };
 
-export { parseGroup, parsePokeFilter, isPokeFilterActive, filterPokes };
+export {
+  parseGroup,
+  parsePokeFilter,
+  isPokeFilterActive,
+  toggleGroupValue,
+  filterPokes,
+};

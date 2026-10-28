@@ -1,8 +1,5 @@
 import { STAT_KEYS, type BaseStatsPoke } from '../base-stats-poke';
-import {
-  getLocalizedName,
-  type NameLanguage,
-} from '../name-language/name-language';
+import { getLocalizedName, type NameLanguage } from '../name-language';
 
 const SORT_KEYS = ['dexNumber', 'name', ...STAT_KEYS] as const;
 

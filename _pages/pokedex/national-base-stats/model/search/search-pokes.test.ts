@@ -6,7 +6,7 @@ import { makePoke, names } from '../base-stats-poke.fixture';
 import {
   countMatchesInOtherLanguages,
   filterPokesByKeyword,
-} from './poke-search';
+} from './search-pokes';
 
 const GALAR: BaseStatsPokeForm = {
   identifier: 'galar',

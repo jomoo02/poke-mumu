@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 
-import type { PokeFilterOptions } from '../../model/poke-filter';
+import type { PokeFilterOptions } from '../../model/filter';
 import PokeFilterRow from './poke-filter-row';
 import PokeSearchBar from './poke-search-bar';
 
@@ -27,7 +27,10 @@ export default function PokeToolbar({
       ref={rootRef}
       className="flex flex-col gap-4 @5xl/view:flex-row @5xl/view:items-center @5xl/view:gap-3"
     >
-      <PokeSearchBar className="@5xl/view:w-80 @5xl/view:shrink-0" />
+      <PokeSearchBar
+        filterOptions={filterOptions}
+        className="@5xl/view:w-80 @5xl/view:shrink-0"
+      />
       <PokeFilterRow
         filterOptions={filterOptions}
         resultCount={resultCount}

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import type { PokeSort } from '../../model/poke-sort';
+import type { PokeSort } from '../../model/sort';
 
 // 시트·팝오버의 열림 상태
 export function useSortPanel(sortState: PokeSort) {

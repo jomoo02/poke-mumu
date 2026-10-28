@@ -1,4 +1,4 @@
-import type { NameLanguage } from '../../model/name-language/name-language';
+import type { NameLanguage } from '../../model/name-language';
 
 // 시트·팝오버 제목, 버튼 접근 이름 앞말
 export const NAME_LANGUAGE_TITLE = '이름 언어';

@@ -1,12 +1,11 @@
 import { createSearchMatcher } from '@/_shared/lib/search';
 
 import type { BaseStatsPoke } from '../base-stats-poke';
-// index가 아닌 파일에서 직접: name-language의 index는 URL 훅(useNameLanguage)도 내보낸다 (순수 함수만 쓴다)
 import {
   NAME_LANGUAGES,
   getLocalizedName,
   type NameLanguage,
-} from '../name-language/name-language';
+} from '../name-language';
 
 // 히라가나 → 가타카나. 일본어 이름은 가타카나라 히라가나로 쳐도 찾히게 양쪽을 맞춘다 (ぴかちゅう → ピカチュウ)
 const toKatakana = (text: string) =>

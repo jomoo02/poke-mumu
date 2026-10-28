@@ -5,7 +5,8 @@ import { useRef } from 'react';
 import { PaginationNav } from '@/_shared/ui/pagination';
 
 import type { BaseStatsPoke } from '../model/base-stats-poke';
-import type { PokeFilterOptions } from '../model/poke-filter';
+import { useConditions } from '../model/conditions';
+import type { PokeFilterOptions } from '../model/filter';
 import { usePokeResults } from '../model/use-poke-results';
 import { useReloadScrollRestoration } from '../lib/use-reload-scroll-restoration';
 import { useScrollToResultsTop } from '../lib/use-scroll-to-results-top';
@@ -28,18 +29,12 @@ export default function NationalBaseStatsView({
   pokes,
   filterOptions,
 }: NationalBaseStatsViewProps) {
-  const {
-    pagePokes,
-    page,
-    totalPages,
-    totalCount,
-    sortState,
-    language,
-    toggleSort,
-    selectKey,
-    selectOrder,
-    otherLanguageMatches,
-  } = usePokeResults(pokes, filterOptions);
+  const conditions = useConditions(filterOptions);
+
+  const { sortState, language } = conditions;
+
+  const { pagePokes, page, totalPages, totalCount, otherLanguageMatches } =
+    usePokeResults(pokes, conditions);
 
   useReloadScrollRestoration();
 
@@ -62,8 +57,8 @@ export default function NationalBaseStatsView({
           {/* md 미만은 시트, 이상은 팝오버 */}
           <SortControl
             sortState={sortState}
-            onSelectKey={selectKey}
-            onSelectOrder={selectOrder}
+            onSelectKey={conditions.selectSortKey}
+            onSelectOrder={conditions.selectSortOrder}
           />
         </ResultsHeader>
         {totalCount === 0 ? (
@@ -79,7 +74,7 @@ export default function NationalBaseStatsView({
                 pokes={pagePokes}
                 sortState={sortState}
                 language={language}
-                onSort={toggleSort}
+                onSort={conditions.toggleSort}
               />
             </div>
             <div className="@5xl:hidden">

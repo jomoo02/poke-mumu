@@ -5,7 +5,7 @@ import {
   STAT_LABEL,
   type StatKey,
 } from '../../model/base-stats-poke';
-import type { SortKey } from '../../model/poke-sort';
+import type { SortKey } from '../../model/sort';
 
 /*
  * 넓은 본문(@5xl 이상) 표 레이아웃. 한 줄 11칸 grid(--table-cols).

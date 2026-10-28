@@ -7,7 +7,7 @@ import { ControlRadioGroupLabel } from '@/_shared/ui/control';
 import {
   NAME_LANGUAGE_OPTIONS,
   NAME_LANGUAGES,
-} from '../../model/name-language/name-language';
+} from '../../model/name-language';
 
 import type { NameLanguagePanelProps } from './name-language-panel';
 

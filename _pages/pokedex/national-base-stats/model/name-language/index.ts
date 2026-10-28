@@ -1,12 +1,10 @@
-export type { NameLanguage, NameLanguageOption } from './name-language';
+export type { NameLanguage, NameLanguageOption } from './name-language-option';
 export {
   NAME_LANGUAGES,
   DEFAULT_NAME_LANGUAGE,
   NAME_LANGUAGE_OPTIONS,
   getNameLanguageLabel,
   SEARCH_PLACEHOLDER,
-  getLocalizedName,
-  getBaseName,
-  getFormName,
-} from './name-language';
-export { useNameLanguage } from './use-name-language';
+} from './name-language-option';
+
+export { getLocalizedName, getBaseName, getFormName } from './localized-name';

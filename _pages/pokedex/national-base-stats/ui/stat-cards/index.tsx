@@ -1,6 +1,6 @@
 import type { BaseStatsPoke } from '../../model/base-stats-poke';
 import type { NameLanguage } from '../../model/name-language';
-import type { PokeSort } from '../../model/poke-sort';
+import type { PokeSort } from '../../model/sort';
 
 import StatCard from './stat-card';
 

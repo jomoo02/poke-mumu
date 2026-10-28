@@ -1,11 +1,13 @@
 import { describe, it, expect } from 'vitest';
 
-import { SORT_KEYS } from './poke-sort';
+import { SORT_KEYS } from './sort-pokes';
 import {
   SORT_OPTIONS,
   getInitialOrder,
   getOrderOptions,
   getSortLabel,
+  getToggledSort,
+  getKeySelectedSort,
 } from './sort-option';
 
 describe('SORT_OPTIONS', () => {
@@ -68,5 +70,39 @@ describe('getOrderOptions', () => {
       { order: 'desc', label: '높은 순' },
       { order: 'asc', label: '낮은 순' },
     ]);
+  });
+});
+
+describe('getToggledSort', () => {
+  it('같은 기준이면 방향을 뒤집는다', () => {
+    expect(getToggledSort({ sort: 'speed', order: 'desc' }, 'speed')).toEqual({
+      sort: 'speed',
+      order: 'asc',
+    });
+  });
+
+  it('다른 기준이면 그 기준의 첫 방향부터 (능력치는 높은 순, 이름은 오름차순)', () => {
+    expect(getToggledSort({ sort: 'name', order: 'asc' }, 'attack')).toEqual({
+      sort: 'attack',
+      order: 'desc',
+    });
+    expect(getToggledSort({ sort: 'attack', order: 'asc' }, 'name')).toEqual({
+      sort: 'name',
+      order: 'asc',
+    });
+  });
+});
+
+describe('getKeySelectedSort', () => {
+  it('같은 기준이면 방향을 그대로 둔다', () => {
+    expect(getKeySelectedSort({ sort: 'speed', order: 'asc' }, 'speed')).toEqual(
+      { sort: 'speed', order: 'asc' },
+    );
+  });
+
+  it('다른 기준이면 그 기준의 첫 방향부터', () => {
+    expect(getKeySelectedSort({ sort: 'dexNumber', order: 'desc' }, 'hp')).toEqual(
+      { sort: 'hp', order: 'desc' },
+    );
   });
 });

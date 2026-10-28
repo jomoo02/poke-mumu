@@ -7,8 +7,9 @@ import type { PokeFilterOptions } from './filter-option';
 import {
   filterPokes,
   parsePokeFilter,
+  toggleGroupValue,
   type PokeFilterValues,
-} from './poke-filter';
+} from './filter-pokes';
 
 const option = (value: string) => ({ value, label: value });
 
@@ -154,5 +155,26 @@ describe('filterPokes', () => {
       'raichu-alola',
     ]);
     expect(keys(values({ type: ['flying'], gen: ['2'] }))).toEqual(['lugia']);
+  });
+});
+
+describe('toggleGroupValue', () => {
+  it('없으면 맨 뒤에 붙이고, 있으면 뺀다', () => {
+    expect(toggleGroupValue(['fire'], 'water', 'type', OPTIONS)).toEqual([
+      'fire',
+      'water',
+    ]);
+    expect(toggleGroupValue(['fire', 'water'], 'fire', 'type', OPTIONS)).toEqual(
+      ['water'],
+    );
+  });
+
+  it('잘못된 값·중복은 함께 정리하고, 최대 수(타입 2개)를 넘지 않는다', () => {
+    expect(
+      toggleGroupValue(['unknown', 'fire', 'fire'], 'water', 'type', OPTIONS),
+    ).toEqual(['fire', 'water']);
+    expect(
+      toggleGroupValue(['fire', 'water'], 'flying', 'type', OPTIONS),
+    ).toEqual(['fire', 'water']);
   });
 });

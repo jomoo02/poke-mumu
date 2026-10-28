@@ -11,11 +11,11 @@ import { TypeIcon } from '@/_entities/type';
 import {
   POKE_FILTER_GROUPS,
   POKE_FILTER_RULES,
-  usePokeFilter,
   type PokeFilterGroup,
   type PokeFilterOption,
   type PokeFilterOptions,
-} from '../../model/poke-filter';
+} from '../../model/filter';
+import { useConditions } from '../../model/conditions';
 
 // 그룹별 제목·목록 열 수 (글자 길이에 맞춘다: 모습은 '팔데아의 모습'처럼 길어 1열)
 const GROUP_VIEW: Record<
@@ -45,7 +45,7 @@ const toCheckboxOptions = (
 export function usePokeFilterGroups(
   options: PokeFilterOptions,
 ): FilterCheckboxGroup[] {
-  const { filter, toggle, resetGroup } = usePokeFilter(options);
+  const { filter, toggleFilter, resetFilterGroup } = useConditions(options);
 
   const checkboxOptions = useMemo(
     (): Record<PokeFilterGroup, FilterCheckboxOption[]> => ({
@@ -67,8 +67,8 @@ export function usePokeFilterGroups(
       max,
       options: checkboxOptions[group],
       selected,
-      onToggle: (value) => toggle(group, value),
-      onReset: () => resetGroup(group),
+      onToggle: (value) => toggleFilter(group, value),
+      onReset: () => resetFilterGroup(group),
       isDisabled: isFull ? (value) => !selected.includes(value) : undefined,
     };
   });

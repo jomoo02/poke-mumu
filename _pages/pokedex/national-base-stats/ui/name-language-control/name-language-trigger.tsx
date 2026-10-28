@@ -7,7 +7,7 @@ import {
   DEFAULT_NAME_LANGUAGE,
   getNameLanguageLabel,
   type NameLanguage,
-} from '../../model/name-language/name-language';
+} from '../../model/name-language';
 
 import { NAME_LANGUAGE_TITLE } from './name-language-panel';
 

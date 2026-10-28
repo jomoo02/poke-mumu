@@ -1,20 +1,18 @@
-export type { SortKey, SortOrder, PokeSort } from './poke-sort';
-
+export type { SortKey, SortOrder, PokeSort } from './sort-pokes';
 export {
   SORT_KEYS,
   SORT_ORDERS,
   DEFAULT_SORT,
   isSameSort,
   sortPokes,
-} from './poke-sort';
+} from './sort-pokes';
 
 export type { SortOption } from './sort-option';
-
 export {
   SORT_OPTIONS,
   getSortLabel,
   getInitialOrder,
   getOrderOptions,
+  getToggledSort,
+  getKeySelectedSort,
 } from './sort-option';
-
-export { usePokeSort } from './use-poke-sort';

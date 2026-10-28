@@ -1,4 +1,4 @@
-import type { PokeSort, SortKey, SortOrder } from '../../model/poke-sort';
+import type { PokeSort, SortKey, SortOrder } from '../../model/sort';
 
 // 시트 제목·팝오버 접근 이름·버튼 접근 이름 앞말
 export const SORT_TITLE = '정렬';

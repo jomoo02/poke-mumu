@@ -3,13 +3,7 @@ import { describe, it, expect } from 'vitest';
 import type { BaseStatsPokeForm } from '../base-stats-poke';
 import { makePoke } from '../base-stats-poke.fixture';
 
-import {
-  NAME_LANGUAGES,
-  NAME_LANGUAGE_OPTIONS,
-  getBaseName,
-  getFormName,
-  getNameLanguageLabel,
-} from './name-language';
+import { getBaseName, getFormName } from './localized-name';
 
 const GALAR: BaseStatsPokeForm = {
   identifier: 'galar',
@@ -25,18 +19,6 @@ const meowthGalar = makePoke({
   nameEn: 'Meowth',
   nameJa: 'ニャース',
   form: GALAR,
-});
-
-describe('NAME_LANGUAGE_OPTIONS', () => {
-  it('언어마다 하나씩, NAME_LANGUAGES 순서로', () => {
-    expect(NAME_LANGUAGE_OPTIONS.map((option) => option.value)).toEqual(
-      NAME_LANGUAGES,
-    );
-  });
-
-  it('언어 이름', () => {
-    expect(getNameLanguageLabel('en')).toBe('영어');
-  });
 });
 
 describe('getBaseName', () => {

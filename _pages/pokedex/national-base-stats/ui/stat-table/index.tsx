@@ -2,7 +2,7 @@
 
 import type { BaseStatsPoke } from '../../model/base-stats-poke';
 import type { NameLanguage } from '../../model/name-language';
-import type { PokeSort, SortKey } from '../../model/poke-sort';
+import type { PokeSort, SortKey } from '../../model/sort';
 
 import StatTableHead from './stat-table-head';
 import StatTableRow from './stat-table-row';

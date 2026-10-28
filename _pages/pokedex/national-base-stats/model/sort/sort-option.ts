@@ -1,5 +1,5 @@
 import { STAT_KEYS, STAT_LABEL } from '../base-stats-poke';
-import type { PokeSort, SortKey, SortOrder } from './poke-sort';
+import type { PokeSort, SortKey, SortOrder } from './sort-pokes';
 
 // 기준 종류: 방향을 고르는 순서를 정한다
 // - sequence: 순서형(번호·이름) → asc부터
@@ -81,6 +81,25 @@ const getOrderOptions = (
   }));
 };
 
+// 표 머리글: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
+const getToggledSort = (current: PokeSort, key: SortKey): PokeSort =>
+  key === current.sort
+    ? { sort: key, order: current.order === 'asc' ? 'desc' : 'asc' }
+    : { sort: key, order: getInitialOrder(key) };
+
+// 정렬 시트 기준 칸: 다른 기준이면 그 기준의 첫 방향부터, 같은 기준이면 방향 그대로
+const getKeySelectedSort = (current: PokeSort, key: SortKey): PokeSort => ({
+  sort: key,
+  order: key === current.sort ? current.order : getInitialOrder(key),
+});
+
 export type { SortOption };
 
-export { SORT_OPTIONS, getSortLabel, getInitialOrder, getOrderOptions };
+export {
+  SORT_OPTIONS,
+  getSortLabel,
+  getInitialOrder,
+  getOrderOptions,
+  getToggledSort,
+  getKeySelectedSort,
+};

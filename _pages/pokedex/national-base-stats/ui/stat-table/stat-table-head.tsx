@@ -3,7 +3,7 @@
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 
-import type { PokeSort, SortKey } from '../../model/poke-sort';
+import type { PokeSort, SortKey } from '../../model/sort';
 
 import {
   SORTABLE_HEAD_ALIGN_CLASS,

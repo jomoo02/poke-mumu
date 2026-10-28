@@ -15,28 +15,30 @@ import {
 import {
   SEARCH_PLACEHOLDER,
   getNameLanguageLabel,
-  useNameLanguage,
   type NameLanguage,
 } from '../../model/name-language';
-import { usePokeSearch } from '../../model/poke-search';
+import { useConditions } from '../../model/conditions';
+import type { PokeFilterOptions } from '../../model/filter';
 
 // 입력창 접근 이름. 안내 글자와 같은 순서·표기에, 찾는 이름의 언어를 더한다
 const getSearchInputLabel = (language: NameLanguage) =>
   `포켓몬 검색 (도감번호·${getNameLanguageLabel(language)} 이름)`;
 
 interface PokeSearchBarProps {
+  filterOptions: PokeFilterOptions;
   className?: string;
 }
 
 /**
  * [🔍 도감번호 또는 이름으로 검색  ✕]
  * 고른 이름 언어(필터 줄의 첫 버튼)로만 찾는다. 도감 번호는 언어와 상관없이 찾는다.
- * 검색어·언어 모두 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
+ * 검색어·언어 모두 URL 상태라 부모에게서 받지 않고 useConditions로 읽는다
  */
-export default function PokeSearchBar({ className }: PokeSearchBarProps) {
-  const { keyword, setKeyword } = usePokeSearch();
-
-  const { language } = useNameLanguage();
+export default function PokeSearchBar({
+  filterOptions,
+  className,
+}: PokeSearchBarProps) {
+  const { keyword, setKeyword, language } = useConditions(filterOptions);
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
     value: keyword,

@@ -10,7 +10,7 @@ import { TypeIconPreload } from '@/_entities/type';
 import { getAllType } from '@/_entities/type/index.server';
 
 import { getBaseStatsPokes, getFormGroups } from './api';
-import { toPokeFilterOptions } from './model/poke-filter';
+import { toPokeFilterOptions } from './model/filter';
 import NationalBaseStatsView from './ui/national-base-stats-view';
 
 const TITLE = '전국도감 종족값';

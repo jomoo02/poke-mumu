@@ -12,7 +12,7 @@ import {
   SORT_ORDERS,
   getOrderOptions,
   type PokeSort,
-} from '../../model/poke-sort';
+} from '../../model/sort';
 
 import type { SortPanelProps } from './sort-panel';
 

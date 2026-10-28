@@ -9,7 +9,10 @@ export {
   toPokeFilterOptions,
 } from './filter-option';
 
-export type { PokeFilterValues } from './poke-filter';
-export { filterPokes } from './poke-filter';
-
-export { usePokeFilter } from './use-poke-filter';
+export type { PokeFilterValues } from './filter-pokes';
+export {
+  parsePokeFilter,
+  isPokeFilterActive,
+  toggleGroupValue,
+  filterPokes,
+} from './filter-pokes';

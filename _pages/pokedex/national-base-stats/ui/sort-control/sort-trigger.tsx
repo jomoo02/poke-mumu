@@ -4,7 +4,7 @@ import { ChevronDownIcon } from 'lucide-react';
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 
-import { getSortLabel, type PokeSort } from '../../model/poke-sort';
+import { getSortLabel, type PokeSort } from '../../model/sort';
 
 import { SORT_TITLE } from './sort-panel';
 

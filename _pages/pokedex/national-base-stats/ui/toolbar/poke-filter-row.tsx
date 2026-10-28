@@ -6,9 +6,8 @@ import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import { FilterCheckboxControl } from '@/_shared/ui/filter';
 
-import { useNameLanguage } from '../../model/name-language';
-import type { PokeFilterOptions } from '../../model/poke-filter';
-import { useResetConditions } from '../../model/use-reset-conditions';
+import { useConditions } from '../../model/conditions';
+import type { PokeFilterOptions } from '../../model/filter';
 import NameLanguageControl from '../name-language-control';
 import { usePokeFilterGroups } from './use-poke-filter-groups';
 
@@ -33,9 +32,8 @@ export default function PokeFilterRow({
 }: PokeFilterRowProps) {
   const groups = usePokeFilterGroups(filterOptions);
 
-  const { language, setLanguage } = useNameLanguage();
-
-  const { isActive, reset } = useResetConditions(filterOptions);
+  const { language, setLanguage, isActive, reset } =
+    useConditions(filterOptions);
 
   return (
     <div className="flex min-w-0 flex-1 items-center gap-2">

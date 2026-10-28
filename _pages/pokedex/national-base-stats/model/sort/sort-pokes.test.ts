@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import { sortPokes, type PokeSort } from './poke-sort';
+import { sortPokes, type PokeSort } from './sort-pokes';
 import { makePoke } from '../base-stats-poke.fixture';
 import type { BaseStatsPoke } from '../base-stats-poke';
 

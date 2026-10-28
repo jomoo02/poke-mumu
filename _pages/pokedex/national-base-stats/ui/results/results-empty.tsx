@@ -8,15 +8,10 @@ import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 
 import {
   getNameLanguageLabel,
-  useNameLanguage,
   type NameLanguage,
 } from '../../model/name-language';
-import {
-  POKE_FILTER_RULES,
-  usePokeFilter,
-  type PokeFilterOptions,
-} from '../../model/poke-filter';
-import { useResetConditions } from '../../model/use-reset-conditions';
+import { POKE_FILTER_RULES, type PokeFilterOptions } from '../../model/filter';
+import { useConditions } from '../../model/conditions';
 
 // 툴바의 꺼진 버튼과 같은 모양
 const ACTION_BUTTON_CLASS = cn(
@@ -42,11 +37,8 @@ export default function ResultsEmpty({
   filterOptions,
   otherLanguageMatches,
 }: ResultsEmptyProps) {
-  const { setLanguage } = useNameLanguage();
-
-  const { filter, isActive: isFilterActive } = usePokeFilter(filterOptions);
-
-  const { isActive, reset } = useResetConditions(filterOptions);
+  const { filter, isFilterActive, isActive, setLanguage, reset } =
+    useConditions(filterOptions);
 
   // 타입 필터는 AND라 두 타입을 고르면 그 복합 타입만 남는다는 것을 알려 준다
   const isTypeFull =
