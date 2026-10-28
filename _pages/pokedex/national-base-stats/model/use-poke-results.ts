@@ -1,6 +1,6 @@
-'use client';
-
 import { useMemo } from 'react';
+
+import { paginate } from '@/_shared/lib/pagination';
 
 import { PAGE_SIZE } from '../config/national-base-stats';
 import type { BaseStatsPoke } from './base-stats-poke';

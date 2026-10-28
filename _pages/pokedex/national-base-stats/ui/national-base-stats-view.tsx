@@ -17,6 +17,7 @@ import ResultsHeader from './results/results-header';
 import SortControl from './sort-control';
 import StatCards from './stat-cards';
 import StatTable from './stat-table';
+import PokedexTable from '../../national-base-stats-final/ui/pokedex-table';
 
 interface NationalBaseStatsViewProps {
   pokes: BaseStatsPoke[];
