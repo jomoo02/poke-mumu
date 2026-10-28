@@ -1,5 +1,7 @@
 # 전국도감 종족값 모바일: 정렬 시트 + 가상화 (2026-10-20)
 
+> 2026-10-28: /pokedex/national-base-stats는 페이지네이션(70개)·표/카드 분리로 바뀌었다 (`2026-10-28-national-base-stats-layout.md`).
+
 2026-10-19의 두 결정(`2026-10-19-sort-ui.md`의 모바일 머리글 정렬, `2026-10-19-list-rendering.md`의 전체 그리기)을
 이 페이지(`/pokedex/national-base-stats`)에서 바꾼다. 실기기 배포 후 확인한 결과다.
 
