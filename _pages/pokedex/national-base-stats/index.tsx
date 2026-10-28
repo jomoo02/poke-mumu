@@ -16,10 +16,11 @@ import NationalBaseStatsView from './ui/national-base-stats-view';
 const TITLE = '전국도감 종족값';
 
 /**
- * 전국도감 종족값 (정렬 UI: docs/decisions/2026-10-19-sort-ui.md, 필터: 2026-10-23-national-base-stats-filter.md)
- * - 페이지네이션 없이 전체를 그린다. 좁은 본문의 카드는 window 가상화
- * - 넓은 본문: 10열 테이블. 번호·이름·능력치 머리글로 정렬
- * - 좁은 본문: 머리글 없는 2줄 카드(능력치 칸마다 이름). 정렬은 결과 줄의 정렬 시트·팝오버
+ * 전국도감 종족값 (정렬 UI: docs/decisions/2026-10-19-sort-ui.md, 필터: 2026-10-23-national-base-stats-filter.md,
+ * 툴바·페이지·표/카드: 2026-10-28-national-base-stats-layout.md)
+ * - 70개씩 페이지로 나눈다 (?page=)
+ * - 넓은 본문: 10열 표(ui/stat-table). 번호·이름·능력치 머리글로 정렬
+ * - 좁은 본문: 머리글 없는 2줄 카드(ui/stat-cards, 능력치 칸마다 이름). 정렬은 결과 줄의 정렬 시트·팝오버
  */
 export default function NationalBaseStatsPage() {
   return (

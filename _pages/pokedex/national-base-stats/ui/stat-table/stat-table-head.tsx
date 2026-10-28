@@ -11,7 +11,7 @@ import {
   HEAD_CELL_CLASS,
   INFO_COLUMNS,
   STAT_COLUMNS,
-  WIDE_GRID_CLASS,
+  GRID_CLASS,
   type StatTableColumn,
 } from './table-layout';
 
@@ -25,8 +25,7 @@ interface StatTableHeadProps {
 const getOrder = (column: StatTableColumn, sortState: PokeSort) =>
   column.sortKey && sortState.sort === column.sortKey ? sortState.order : null;
 
-// @5xl 이상에서만 보이는 머리글 (도감번호가 두 칸에 걸쳐 10열) (번호·이름·능력치 정렬). window 기준 sticky.
-// @5xl 미만은 머리글 없이 카드 칸마다 능력치 이름을 두고, 정렬은 결과 줄의 정렬 시트에서 한다
+// 머리글 (도감번호가 두 칸에 걸쳐 10열) (번호·이름·능력치 정렬). window 기준 sticky
 export default function StatTableHead({
   sortState,
   onSort,
@@ -34,9 +33,9 @@ export default function StatTableHead({
   return (
     <div
       role="rowgroup"
-      className="sticky top-(--header-height) z-10 hidden @5xl:block"
+      className="sticky top-(--header-height) z-10"
     >
-      <div role="row" className={cn(HEADER_ROW_CLASS, 'grid', WIDE_GRID_CLASS)}>
+      <div role="row" className={cn(HEADER_ROW_CLASS, GRID_CLASS)}>
         {[...INFO_COLUMNS, ...STAT_COLUMNS].map((column) => (
           <WideHeadCell
             key={column.id}
@@ -93,7 +92,7 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
         className={cn(
           // 이름 바로 옆에 삼각형 (글자 폭만큼). -mx: 누름 배경은 셀 패딩까지, 글자는 셀 내용 끝에 맞춘다
           'group -mx-2.5 h-9 gap-1.75 rounded-lg px-2.5',
-          // 지금 기준: 이름까지 primary 글자색 (선택된 상태 = primary, 모바일 카드의 정렬 칸과 같은 색)
+          // 지금 기준: 이름까지 primary 글자색 (선택된 상태 = primary, 카드의 정렬 칸과 같은 색)
           order &&
             'font-semibold text-primary-text hover:text-primary-text aria-expanded:text-primary-text',
         )}
