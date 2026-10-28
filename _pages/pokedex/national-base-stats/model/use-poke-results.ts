@@ -1,7 +1,11 @@
 'use client';
 
-import { useDeferredValue, useMemo } from 'react';
+import { useMemo } from 'react';
+import { useQueryStates } from 'nuqs';
 
+import { paginate } from '@/_shared/lib/pagination';
+
+import { PAGE_SIZE } from '../config/national-base-stats';
 import type { BaseStatsPoke } from './base-stats-poke';
 import {
   countMatchesInOtherLanguages,
@@ -13,18 +17,15 @@ import {
   usePokeFilter,
   type PokeFilterOptions,
 } from './poke-filter';
-import {
-  sortPokes,
-  usePokeSort,
-} from './poke-sort';
+import { sortPokes, usePokeSort } from './poke-sort';
 import { useNameLanguage } from './name-language';
+import { pokeSearchParams } from './search-params';
+
+const PAGE_PARSER = { page: pokeSearchParams.page };
 
 /**
- * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬. 페이지를 나누지 않고 전체를 돌려준다.
- *
- * 목록은 조건의 지연 값(useDeferredValue)으로 계산한다. 조건이 바뀌면
- * 1) 먼저 머리글 화살표·결과 줄처럼 가벼운 부분만 새 조건으로 그려 바로 화면에 내고 (isPending: true)
- * 2) 행은 뒤에서 다시 그린다. 그사이 입력이 또 오면 버리고 새로 시작한다
+ * 포켓몬 목록 파생: 필터 → 검색(고른 이름 언어) → 정렬 → 현재 페이지 슬라이스.
+ * 한 페이지가 PAGE_SIZE개라 조건을 바꾸면 바로 다시 그린다 (지연 렌더·가상화 없음)
  */
 export function usePokeResults(
   pokes: BaseStatsPoke[],
@@ -38,60 +39,43 @@ export function usePokeResults(
 
   const { language } = useNameLanguage();
 
-  // 조건을 한 값으로 묶어 함께 미룬다 (각각 미루면 서로 다른 시점의 조건이 섞일 수 있다)
-  const query = useMemo(
-    () => ({ keyword, filter, sortState, language }),
-    [keyword, filter, sortState, language],
-  );
-
-  const deferredQuery = useDeferredValue(query);
-
-  const isPending = query !== deferredQuery;
+  const [{ page: requestedPage }] = useQueryStates(PAGE_PARSER);
 
   // 각 단계를 memo해야 다음 단계의 의존성이 안정된다.
   // 필터를 먼저 해, 검색 결과가 없을 때 다른 언어 안내도 필터가 걸린 목록에서 센다
-  const filtered = useMemo(
-    () => filterPokes(pokes, deferredQuery.filter),
-    [pokes, deferredQuery.filter],
-  );
+  const filtered = useMemo(() => filterPokes(pokes, filter), [pokes, filter]);
 
   const searched = useMemo(
-    () =>
-      filterPokesByKeyword(
-        filtered,
-        deferredQuery.keyword,
-        deferredQuery.language,
-      ),
-    [filtered, deferredQuery.keyword, deferredQuery.language],
+    () => filterPokesByKeyword(filtered, keyword, language),
+    [filtered, keyword, language],
   );
 
   const sorted = useMemo(
-    () => sortPokes(searched, deferredQuery.sortState, deferredQuery.language),
-    [searched, deferredQuery.sortState, deferredQuery.language],
+    () => sortPokes(searched, sortState, language),
+    [searched, sortState, language],
+  );
+
+  const { items, page, totalPages } = useMemo(
+    () => paginate(sorted, requestedPage, PAGE_SIZE),
+    [sorted, requestedPage],
   );
 
   // 결과가 없을 때만 센다: 고른 언어로는 없지만 다른 언어 이름으로는 찾히는 수
   const otherLanguageMatches = useMemo(
     () =>
       sorted.length === 0
-        ? countMatchesInOtherLanguages(
-            filtered,
-            deferredQuery.keyword,
-            deferredQuery.language,
-          )
+        ? countMatchesInOtherLanguages(filtered, keyword, language)
         : [],
-    [sorted.length, filtered, deferredQuery.keyword, deferredQuery.language],
+    [sorted.length, filtered, keyword, language],
   );
 
   return {
-    pokes: sorted,
-    // 지금 고른 정렬 (머리글·정렬 시트)
+    pagePokes: items,
+    page,
+    totalPages,
+    totalCount: sorted.length,
     sortState,
-    // 지금 보이는 행의 정렬 (정렬 중인 열 칠하기)
-    shownSortState: deferredQuery.sortState,
-    // 지금 보이는 행의 이름 언어
-    shownLanguage: deferredQuery.language,
-    isPending,
+    language,
     // 넓은 본문 머리글: 같은 기준이면 방향 반전
     toggleSort,
     // 정렬 시트: 기준 칸(그 기준의 첫 방향부터) / 방향 칸

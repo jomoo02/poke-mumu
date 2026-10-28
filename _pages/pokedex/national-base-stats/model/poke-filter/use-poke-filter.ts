@@ -9,6 +9,7 @@ const PARSERS = {
   type: pokeSearchParams.type,
   form: pokeSearchParams.form,
   gen: pokeSearchParams.gen,
+  page: pokeSearchParams.page,
 };
 
 // 있으면 빼고, 없으면 맨 뒤에 붙인다 (그룹 안 고른 순서 유지)
@@ -20,7 +21,7 @@ const toggleValue = (values: readonly string[], value: string): string[] =>
 /**
  * 필터 상태 (URL ?type=fire,flying&form=alola&gen=1).
  * - filter: 목록 계산·트리거가 쓰는 유효한 선택 (options에 있는 값만, 그룹 안은 고른 순서)
- * - toggle·resetGroup: 그 그룹의 키만 바꾼다
+ * - toggle·resetGroup: 그 그룹의 키만 바꾸고 page를 함께 지운다
  * 검색어·이름 언어까지 한 번에 지우는 초기화는 useResetConditions
  */
 export function usePokeFilter(options: PokeFilterOptions) {
@@ -41,9 +42,10 @@ export function usePokeFilter(options: PokeFilterOptions) {
         group,
         options,
       ),
+      page: null,
     }));
 
-  const resetGroup = (group: PokeFilterGroup) => setParams({ [group]: null });
+  const resetGroup = (group: PokeFilterGroup) => setParams({ [group]: null, page: null });
 
   return { filter, isActive, toggle, resetGroup };
 }

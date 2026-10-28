@@ -15,6 +15,7 @@ describe('pokeSearchParams', () => {
       sort: 'dexNumber',
       order: 'asc',
       lang: 'ko',
+      page: 1,
     });
   });
 
@@ -35,6 +36,12 @@ describe('pokeSearchParams', () => {
   it('이름 언어. 잘못된 값은 기본값(한국어)', () => {
     expect(load('?lang=ja').lang).toBe('ja');
     expect(load('?lang=fr').lang).toBe('ko');
+  });
+
+  it('페이지. 잘못된 값은 1', () => {
+    expect(load('?page=3').page).toBe(3);
+    expect(load('?page=0').page).toBe(1);
+    expect(load('?page=foo').page).toBe(1);
   });
 
   it('필터는 그룹마다 키, 값은 쉼표로 URL 순서대로', () => {

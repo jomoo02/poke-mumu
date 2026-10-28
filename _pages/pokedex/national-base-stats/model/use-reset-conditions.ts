@@ -11,6 +11,7 @@ const PARSERS = {
   type: pokeSearchParams.type,
   form: pokeSearchParams.form,
   gen: pokeSearchParams.gen,
+  page: pokeSearchParams.page,
 };
 
 /**
@@ -40,6 +41,7 @@ export function useResetConditions(options: PokeFilterOptions) {
       type: null,
       form: null,
       gen: null,
+      page: null,
     });
   };
 

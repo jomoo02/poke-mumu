@@ -2,6 +2,8 @@
 
 import { useRef } from 'react';
 
+import { PaginationNav } from '@/_shared/ui/pagination';
+
 import type { BaseStatsPoke } from '../model/base-stats-poke';
 import type { PokeFilterOptions } from '../model/poke-filter';
 import { usePokeResults } from '../model/use-poke-results';
@@ -20,24 +22,23 @@ interface NationalBaseStatsViewProps {
   filterOptions: PokeFilterOptions;
 }
 
-// 위: 툴바(이름 언어·검색, 필터) / 아래: 결과(개수 ↔ 정렬, 테이블). 페이지네이션 없음
+// 위: 툴바(검색, 이름 언어·필터) / 아래: 결과(개수 ↔ 정렬, 테이블, 페이지)
 export default function NationalBaseStatsView({
   pokes,
   filterOptions,
 }: NationalBaseStatsViewProps) {
   const {
-    pokes: resultPokes,
+    pagePokes,
+    page,
+    totalPages,
+    totalCount,
     sortState,
-    shownSortState,
-    shownLanguage,
-    isPending,
+    language,
     toggleSort,
     selectKey,
     selectOrder,
     otherLanguageMatches,
   } = usePokeResults(pokes, filterOptions);
-
-  const totalCount = resultPokes.length;
 
   useReloadScrollRestoration();
 
@@ -71,15 +72,19 @@ export default function NationalBaseStatsView({
             otherLanguageMatches={otherLanguageMatches}
           />
         ) : (
-          <StatTable
-            isWide={isWide}
-            pokes={resultPokes}
-            sortState={sortState}
-            shownSortState={shownSortState}
-            language={shownLanguage}
-            isPending={isPending}
-            onSort={toggleSort}
-          />
+          <>
+            <StatTable
+              isWide={isWide}
+              pokes={pagePokes}
+              sortState={sortState}
+              shownSortState={sortState}
+              language={language}
+              isPending={false}
+              onSort={toggleSort}
+            />
+            {/* 1페이지뿐이어도 표시한다. 검색 중 결과 수가 바뀔 때 레이아웃이 흔들리지 않게 */}
+            <PaginationNav page={page} totalPages={totalPages} className="mt-3" />
+          </>
         )}
       </section>
     </div>

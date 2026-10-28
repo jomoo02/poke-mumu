@@ -13,6 +13,7 @@ import { pokeSearchParams } from '../search-params';
 const PARSERS = {
   sort: pokeSearchParams.sort,
   order: pokeSearchParams.order,
+  page: pokeSearchParams.page,
 };
 
 export function usePokeSort() {
@@ -22,12 +23,12 @@ export function usePokeSort() {
   const sortState = useMemo<PokeSort>(() => ({ sort, order }), [sort, order]);
 
   const setSort = (next: PokeSort) => {
-    // 같은 정렬을 다시 고르면 URL을 쓰지 않는다
+    // 같은 정렬을 다시 고르면 URL을 쓰지 않는다 (page도 유지한다)
     if (isSameSort(next, sortState)) {
       return;
     }
 
-    setParams({ sort: next.sort, order: next.order });
+    setParams({ sort: next.sort, order: next.order, page: null });
   };
 
   // 테이블 헤더: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
