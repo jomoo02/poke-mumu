@@ -30,9 +30,9 @@ export function NameLanguagePopover({
           <NameLanguageTrigger language={language} className="hidden md:flex" />
         }
       />
-      <PopoverContent className="w-56 gap-0">
+      <PopoverContent className="w-58 -ml-3" align="start">
         <PopoverHeader>
-          <PopoverTitle className="sr-only">{NAME_LANGUAGE_TITLE}</PopoverTitle>
+          <PopoverTitle>{NAME_LANGUAGE_TITLE}</PopoverTitle>
           <PopoverDescription className="sr-only">
             {NAME_LANGUAGE_DESCRIPTION}
           </PopoverDescription>

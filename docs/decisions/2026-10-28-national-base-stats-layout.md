@@ -1,5 +1,7 @@
 # 전국도감 종족값: 툴바 배치 · 페이지네이션 · 표/카드 분리 (2026-10-28)
 
+> 툴바·지연 렌더 결정은 `2026-10-30-national-base-stats-filter-sheet.md`로 바뀌었다.
+
 `/pokedex/national-base-stats`. 아래 결정을 바꾼다.
 - `2026-10-19-list-rendering.md`의 "페이지네이션 없이 전부 그리기"
 - `2026-10-20-mobile-sort-sheet-virtualization.md`의 "좁은 본문 가상화 · 넓은 본문 전부 그리기"

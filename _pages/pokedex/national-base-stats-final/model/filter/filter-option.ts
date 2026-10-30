@@ -13,6 +13,15 @@ const POKE_FILTER_GROUPS = ['type', 'form', 'gen'] as const;
 
 type PokeFilterGroup = (typeof POKE_FILTER_GROUPS)[number];
 
+// 그룹마다 값을 만든다. 그룹별 Record(URL 키·해석·초기화·체크박스)는 모두 이것으로 만들어
+// 그룹을 추가하면 따라온다 (Object.fromEntries는 키 타입을 잃어 여기서만 단언한다)
+const mapFilterGroups = <T>(
+  fn: (group: PokeFilterGroup) => T,
+): Record<PokeFilterGroup, T> =>
+  Object.fromEntries(
+    POKE_FILTER_GROUPS.map((group) => [group, fn(group)]),
+  ) as Record<PokeFilterGroup, T>;
+
 // 선택지 하나. 출처(코드·DB)와 상관없이 같은 모양으로 클라이언트에 넘긴다
 interface PokeFilterOption {
   value: string;
@@ -96,4 +105,9 @@ export type {
   PokeFilterRule,
 };
 
-export { POKE_FILTER_GROUPS, POKE_FILTER_RULES, toPokeFilterOptions };
+export {
+  POKE_FILTER_GROUPS,
+  POKE_FILTER_RULES,
+  mapFilterGroups,
+  toPokeFilterOptions,
+};

@@ -1,6 +1,6 @@
 'use client';
 
-import { RotateCwIcon } from 'lucide-react';
+import { RotateCwIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
@@ -8,14 +8,11 @@ import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 
 import {
   getNameLanguageLabel,
+  useLanguageParam,
   type NameLanguage,
 } from '../model/name-language';
-import { POKE_FILTER_RULES, type PokeFilterOptions } from '../model/filter';
-import {
-  useFilterParams,
-  useLanguageParam,
-  useResetParams,
-} from '../model/url-state';
+import { POKE_FILTER_RULES, useFilterParam } from '../model/filter';
+import { useKeywordParam } from '../model/search';
 
 // 툴바의 꺼진 버튼과 같은 모양
 const ACTION_BUTTON_CLASS = cn(
@@ -25,7 +22,6 @@ const ACTION_BUTTON_CLASS = cn(
 );
 
 interface ResultsEmptyProps {
-  filterOptions: PokeFilterOptions;
   // 고른 언어로는 없지만 다른 언어 이름으로 찾히는 수 (찾히는 언어만, 결과 훅이 센다)
   otherLanguageMatches: { language: NameLanguage; count: number }[];
 }
@@ -35,17 +31,17 @@ interface ResultsEmptyProps {
  * - 검색어가 다른 언어 이름이면(예: 한국어로 두고 'pikachu') 그 언어로 넘어가는 버튼.
  *   몰래 다른 언어까지 찾지 않고 알린다 (언어 = 이 목록의 이름·검색 언어라는 규칙을 지킨다)
  * - 그 밖에는 원인 안내 (타입 두 개 / 필터 / 검색어)
- * - 켜진 조건(검색어·이름 언어·필터)이 있으면 처음으로 돌아가는 초기화 (툴바 초기화와 같다)
+ * - 원인마다 따로 지우는 버튼: 검색어가 있으면 '검색어 지우기', 필터가 켜져 있으면 '필터 모두 지우기'
+ *   (하나로 모두 지우지 않고 무엇이 지워지는지 보이게. 이름 언어는 설정이라 두지 않는다. 결정 문서 2026-10-30)
  */
 export default function ResultsEmpty({
-  filterOptions,
   otherLanguageMatches,
 }: ResultsEmptyProps) {
   const { setLanguage } = useLanguageParam();
 
-  const { filter, isFilterActive } = useFilterParams(filterOptions);
+  const { keyword, clearKeyword } = useKeywordParam();
 
-  const { isActive, reset } = useResetParams(filterOptions);
+  const { filter, isFilterActive, resetFilters } = useFilterParam();
 
   // 타입 필터는 AND라 두 타입을 고르면 그 복합 타입만 남는다는 것을 알려 준다
   const isTypeFull =
@@ -80,18 +76,31 @@ export default function ResultsEmpty({
             {getNameLanguageLabel(language)}로 보기
           </Button>
         ))}
-        {isActive && (
+        {/* 누르면 결과가 생겨 이 화면이 사라지므로 포커스를 지금 보이는 필터 트리거로 */}
+        {keyword !== '' && (
           <Button
             variant="secondary"
             onClick={() => {
-              reset();
-              // 이 버튼은 사라지므로 포커스를 지금 보이는 필터 트리거로
+              clearKeyword();
+              focusVisibleFilterTrigger();
+            }}
+            className={cn(ACTION_BUTTON_CLASS, 'text-foreground/70')}
+          >
+            <XIcon aria-hidden className="size-3.5" />
+            검색어 지우기
+          </Button>
+        )}
+        {isFilterActive && (
+          <Button
+            variant="secondary"
+            onClick={() => {
+              resetFilters();
               focusVisibleFilterTrigger();
             }}
             className={cn(ACTION_BUTTON_CLASS, 'text-foreground/70')}
           >
             <RotateCwIcon aria-hidden className="size-3.5" />
-            초기화
+            필터 모두 지우기
           </Button>
         )}
       </div>

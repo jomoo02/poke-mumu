@@ -2,7 +2,10 @@
 
 import { cn } from '@/_shared/lib/cn';
 
-import { FilterCheckboxPopover } from './filter-checkbox-popover';
+import {
+  FilterCheckboxPopover,
+  type FilterCheckboxPopoverLayout,
+} from './filter-checkbox-popover';
 import { FilterCheckboxSheet } from './filter-checkbox-sheet';
 import type { FilterCheckboxGroup } from './filter-group';
 
@@ -10,6 +13,8 @@ interface FilterCheckboxControlProps {
   group: FilterCheckboxGroup;
   // 시트의 닫기 버튼 문구 (예: '120마리 보기')
   resultLabel: string;
+  // 팝오버 목록 모양 (filter-checkbox-popover.tsx)
+  popoverLayout?: FilterCheckboxPopoverLayout;
   className?: string;
 }
 
@@ -20,6 +25,7 @@ interface FilterCheckboxControlProps {
 export function FilterCheckboxControl({
   group,
   resultLabel,
+  popoverLayout,
   className,
 }: FilterCheckboxControlProps) {
   return (
@@ -31,6 +37,7 @@ export function FilterCheckboxControl({
       />
       <FilterCheckboxPopover
         group={group}
+        layout={popoverLayout}
         className={cn('hidden md:inline-flex', className)}
       />
     </>

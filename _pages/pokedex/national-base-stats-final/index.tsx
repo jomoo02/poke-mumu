@@ -13,11 +13,13 @@ import { getBaseStatsPokes } from './api/base-stats-poke';
 import { getFormGroups } from './api/form-group';
 
 import PageView from './ui/page-view';
-import { toPokeFilterOptions } from './model/filter';
+// 서버: 선택지 모듈과 Provider만 직접 (model/filter의 public API는 URL 훅도 내보낸다)
+import { toPokeFilterOptions } from './model/filter/filter-option';
+import { FilterOptionsProvider } from './model/filter/filter-options-context';
 
 const TITLE = '전국도감 종족값';
 
-export default function NationalBaseStatsPageV2() {
+export default function NationalBaseStatsPage() {
   return (
     <PageLayoutContainer>
       <TypeIconPreload />
@@ -46,10 +48,9 @@ async function NationalBaseStatsContent() {
 
   return (
     <PageLayoutSection className="mt-2">
-      <PageView
-        pokes={pokes}
-        filterOptions={toPokeFilterOptions(types, formGroups)}
-      />
+      <FilterOptionsProvider options={toPokeFilterOptions(types, formGroups)}>
+        <PageView pokes={pokes} />
+      </FilterOptionsProvider>
     </PageLayoutSection>
   );
 }

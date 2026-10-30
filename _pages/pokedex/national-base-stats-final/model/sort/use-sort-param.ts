@@ -1,20 +1,18 @@
 import { useMemo } from 'react';
 
+import { useListQueryStates } from '../url-state';
+import { getKeySelectedSort, getToggledSort } from './sort-option';
 import {
-  getKeySelectedSort,
-  getToggledSort,
   isSameSort,
   type PokeSort,
   type SortKey,
   type SortOrder,
-} from '../sort';
-import { useListParams } from './use-list-params';
+} from './sort-pokes';
+import { sortSearchParams } from './sort-search-params';
 
-// 정렬 (?sort=&order=). 기본 정렬(도감 번호순)은 URL에 쓰지 않는다
-export function useSortParams() {
-  const { params, writeList } = useListParams();
-
-  const { sort, order } = params;
+// 정렬 (?sort=&order=)
+export function useSortParam() {
+  const [{ sort, order }, write] = useListQueryStates(sortSearchParams);
 
   const sortState = useMemo<PokeSort>(() => ({ sort, order }), [sort, order]);
 
@@ -24,7 +22,7 @@ export function useSortParams() {
       return;
     }
 
-    writeList({ sort: next.sort, order: next.order });
+    write({ sort: next.sort, order: next.order });
   };
 
   // 표 머리글

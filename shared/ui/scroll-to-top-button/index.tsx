@@ -3,8 +3,8 @@
 import { ArrowUpIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { cn } from '@/shared/lib/cn';
-import { Button } from '@/shared/ui/button';
+import { cn } from '@/_shared/lib/cn';
+import { Button } from '@/_shared/ui/button';
 
 export default function ScrollToTopButton() {
   const [visible, setVisible] = useState(false);

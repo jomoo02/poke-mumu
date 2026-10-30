@@ -16,3 +16,6 @@ export {
   getToggledSort,
   getKeySelectedSort,
 } from './sort-option';
+
+export { sortSearchParams } from './sort-search-params';
+export { useSortParam } from './use-sort-param';

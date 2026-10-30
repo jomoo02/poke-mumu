@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import Link from 'next/link';
 
 import { cn } from '@/_shared/lib/cn';
@@ -22,7 +23,7 @@ interface CardProps {
   language: NameLanguage;
 }
 
-export default function Card({ poke, language }: CardProps) {
+function Card({ poke, language }: CardProps) {
   const formName = getFormName(poke, language);
 
   return (
@@ -32,13 +33,13 @@ export default function Card({ poke, language }: CardProps) {
         'flex flex-col relative',
         '[@media(hover:hover)]:hover:bg-muted/70',
         'gap-4 py-3.5 px-1 -mx-1',
-        'sm:gap-y-4 sm:rounded-4xl sm:px-5 sm:py-4 sm:mx-0',
-        'sm:bg-card sm:border',
+        // 'sm:gap-y-4 sm:rounded-4xl sm:px-5 sm:py-4 sm:mx-0',
+        // 'sm:bg-card sm:border',
         'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
-        'after:w-[calc(100%-8px)] sm:after:hidden after:bg-border after:h-px after:absolute after:bottom-0 last:after:h-0',
+        'after:w-[calc(100%-8px)]  after:bg-border after:h-px after:absolute after:bottom-0 [li:last-child>&]:after:h-0',
       )}
     >
-      <div className="flex min-w-0 items-center gap-x-3.5">
+      <div className="flex min-w-0 items-center gap-x-3.5 max-w-lg mx-auto w-full">
         <div className="size-16 shrink-0 rounded-2xl bg-muted/70 p-1.75">
           <PokeSprite poke={poke} alt="" className="size-full" />
         </div>
@@ -76,7 +77,7 @@ export default function Card({ poke, language }: CardProps) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-x-1">
+      <div className="grid grid-cols-7 gap-x-1 max-w-lg mx-auto w-full">
         {STAT_KEYS.map((key) => (
           <div
             key={key}
@@ -96,10 +97,13 @@ export default function Card({ poke, language }: CardProps) {
                 </>
               )}
             </div>
-            <dd>{poke.stats[key]}</dd>
+            <div>{poke.stats[key]}</div>
           </div>
         ))}
       </div>
     </Link>
   );
 }
+
+// 키 입력 때 목록을 늦춰 그리는 동안(usePokeResults) 같은 포켓몬 행은 다시 그리지 않는다
+export default memo(Card);

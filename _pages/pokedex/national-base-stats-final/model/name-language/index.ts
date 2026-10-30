@@ -8,3 +8,6 @@ export {
 } from './name-language-option';
 
 export { getLocalizedName, getBaseName, getFormName } from './localized-name';
+
+export { languageSearchParams } from './language-search-params';
+export { useLanguageParam } from './use-language-param';

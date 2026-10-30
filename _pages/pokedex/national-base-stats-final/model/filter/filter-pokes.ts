@@ -2,6 +2,7 @@ import type { BaseStatsPoke } from '../base-stats-poke';
 import {
   POKE_FILTER_GROUPS,
   POKE_FILTER_RULES,
+  mapFilterGroups,
   type PokeFilterGroup,
   type PokeFilterOptions,
 } from './filter-option';
@@ -30,11 +31,8 @@ const parseGroup = (
 const parsePokeFilter = (
   raw: PokeFilterValues,
   options: PokeFilterOptions,
-): PokeFilterValues => ({
-  type: parseGroup(raw.type, 'type', options),
-  form: parseGroup(raw.form, 'form', options),
-  gen: parseGroup(raw.gen, 'gen', options),
-});
+): PokeFilterValues =>
+  mapFilterGroups((group) => parseGroup(raw[group], group, options));
 
 const isPokeFilterActive = (values: PokeFilterValues): boolean =>
   POKE_FILTER_GROUPS.some((group) => values[group].length > 0);

@@ -25,7 +25,7 @@ interface TableHeaderProps {
 const getOrder = (column: StatTableColumn, sortState: PokeSort) =>
   column.sortKey && sortState.sort === column.sortKey ? sortState.order : null;
 
-// 머리글 (도감번호가 두 칸에 걸쳐 10열) (번호·이름·능력치 정렬). window 기준 sticky
+// 머리글 10열 (번호·이름·능력치 정렬). window 기준 sticky
 export default function TableHeader({ sortState, onSort }: TableHeaderProps) {
   return (
     <div role="rowgroup" className="sticky top-(--header-height) z-10">
@@ -75,7 +75,7 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
         HEAD_CELL_CLASS,
         // 머리글은 열의 정렬을 따른다 (숫자 열은 오른쪽: 이름·삼각형이 숫자 바로 위)
         SORTABLE_HEAD_ALIGN_CLASS[column.align],
-        // 도감번호 열은 스프라이트·번호 두 칸에 걸친 한 열. 이름·타입 열처럼 왼쪽(이미지 시작선)에서 시작한다
+        // 도감번호 열은 스프라이트·번호가 함께 있는 한 칸. 이름·타입 열처럼 왼쪽(이미지 시작선)에서 시작한다
         isDexNumber,
       )}
     >
@@ -85,10 +85,8 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
         onClick={() => onSort(sortKey)}
         className={cn(
           // 이름 바로 옆에 삼각형 (글자 폭만큼). -mx: 누름 배경은 셀 패딩까지, 글자는 셀 내용 끝에 맞춘다
-          'group -mx-2.5 h-9 gap-1.5 rounded-lg px-2.5 cursor-pointer ',
-          // 지금 기준: 이름까지 primary 글자색 (선택된 상태 = primary, 카드의 정렬 칸과 같은 색)
-          // order &&
-          //   'font-semibold text-primary-text hover:text-primary-text aria-expanded:text-primary-text',
+          'group -mx-2.5 h-9 gap-1.5 rounded-lg px-2.5 cursor-pointer',
+          // 지금 기준: 이름을 진하게
           order && 'text-foreground font-medium',
         )}
       >

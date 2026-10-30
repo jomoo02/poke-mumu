@@ -11,11 +11,12 @@ import { TypeIcon } from '@/_entities/type';
 import {
   POKE_FILTER_GROUPS,
   POKE_FILTER_RULES,
+  mapFilterGroups,
+  useFilterOptions,
+  useFilterParam,
   type PokeFilterGroup,
   type PokeFilterOption,
-  type PokeFilterOptions,
 } from '../../model/filter';
-import { useFilterParams } from '../../model/url-state';
 
 // 그룹별 제목·목록 열 수 (글자 길이에 맞춘다: 모습은 '팔데아의 모습'처럼 길어 1열)
 const GROUP_VIEW: Record<
@@ -38,21 +39,17 @@ const toCheckboxOptions = (
   }));
 
 /**
- * 필터 그룹 (타입 · 모습 · 세대). 선택지는 서버에서 받은 options 그대로, 타입만 아이콘을 붙인다.
+ * 필터 그룹 (타입 · 모습 · 세대). 선택지는 서버에서 받은 options(FilterOptionsProvider) 그대로, 타입만 아이콘을 붙인다.
  * 선택값은 목록 계산과 같은 기준(유효한 값만)으로 넘겨 트리거가 결과와 어긋나지 않게 한다.
  * 최대 선택 수에 닿으면 고르지 않은 나머지는 막는다 (고른 값은 눌러서 해제할 수 있다)
  */
-export function usePokeFilterGroups(
-  options: PokeFilterOptions,
-): FilterCheckboxGroup[] {
-  const { filter, toggleFilter, resetFilterGroup } = useFilterParams(options);
+export function usePokeFilterGroups(): FilterCheckboxGroup[] {
+  const options = useFilterOptions();
+
+  const { filter, toggleFilter, resetFilterGroup } = useFilterParam();
 
   const checkboxOptions = useMemo(
-    (): Record<PokeFilterGroup, FilterCheckboxOption[]> => ({
-      type: toCheckboxOptions(options.type),
-      form: toCheckboxOptions(options.form),
-      gen: toCheckboxOptions(options.gen),
-    }),
+    () => mapFilterGroups((group) => toCheckboxOptions(options[group])),
     [options],
   );
 
