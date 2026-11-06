@@ -13,7 +13,7 @@ const controlTriggerButtonVariant = cva('transition-none group', {
         'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input text-foreground aria-expanded:bg-input/70 dark:aria-expanded:bg-input',
 
       active:
-        'bg-primary hover:bg-primary/80 text-primary-foreground active:bg-primary/80 aria-expanded:bg-primary/80 dark:aria-expanded:bg-primary/80',
+        'bg-primary/90 text-primary-foreground dark:bg-primary/70 dark:text-primary-foreground dark:hover:bg-primary',
 
       // 선택 상태는 무채색(--selected, globals.css). primary는 주요 행동에만
       selected:
@@ -21,7 +21,7 @@ const controlTriggerButtonVariant = cva('transition-none group', {
     },
     size: {
       // _shared Button 기본 gap(1.5)이 구 Button(2.5)과 달라 기존 간격을 명시한다
-      default: 'h-10.5 gap-2.5',
+      default: 'h-10.5 gap-2',
       icon: 'size-10.5',
     },
   },
@@ -51,6 +51,7 @@ function ControlTriggerButton({
             'size-4.5 transition-transform duration-150',
             'group-data-popup-open:rotate-180',
           )}
+          data-icon="inline-end"
         />
       )}
     </Button>
@@ -76,12 +77,12 @@ function ControlRadioGroupLabel({
 const controlResetButtonVariant = cva('text-foreground/70 group', {
   variants: {
     variant: {
-      default: 'rounded-md text-base',
+      default: 'rounded-lg text-base',
       small: 'gap-1.5 text-sm rounded-lg',
     },
     size: {
       default: 'h-12.5',
-      small: 'h-7.5 -my-0.75 px-2 -mx-2',
+      small: 'h-7.5 -my-0.75 pl-2 pr-3 -ml-2',
     },
   },
   defaultVariants: {

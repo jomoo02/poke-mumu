@@ -12,20 +12,12 @@ import {
   type BaseStatsPoke,
   type StatKey,
 } from '../../model/base-stats-poke';
-import {
-  getBaseName,
-  getFormName,
-  type NameLanguage,
-} from '../../model/name-language';
 
 interface CardProps {
   poke: BaseStatsPoke;
-  language: NameLanguage;
 }
 
-function Card({ poke, language }: CardProps) {
-  const formName = getFormName(poke, language);
-
+function Card({ poke }: CardProps) {
   return (
     <Link
       href={getPokeHref(poke)}
@@ -51,19 +43,16 @@ function Card({ poke, language }: CardProps) {
           >
             {String(poke.dexNumber).padStart(4, '0')}
           </span>
-          <div
-            lang={language === 'ko' ? undefined : language}
-            className={cn('block min-w-0 flex-1 outline-none')}
-          >
+          <div className={cn('block min-w-0 flex-1 outline-none')}>
             <span className={cn('block truncate text-md font-medium')}>
-              {getBaseName(poke, language)}
+              {poke.nameKo}
             </span>
-            {formName && (
+            {poke.form?.shortKo && (
               <>
                 {/* 이름과 모습이 붙어 읽히지 않게 (줄바꿈은 화면에만 보인다) */}
                 <span className="sr-only">, </span>
                 <span className="mt-0.5 block truncate text-sm text-foreground/70">
-                  {formName}
+                  {poke.form.nameKo}
                 </span>
               </>
             )}

@@ -2,25 +2,21 @@ import { memo } from 'react';
 import Link from 'next/link';
 
 import { cn } from '@/_shared/lib/cn';
-import { PokeSprite, getPokeHref, getPokeTypes } from '@/_entities/poke';
+import {
+  PokeSprite,
+  getPokeHref,
+  getPokeName,
+  getPokeTypes,
+} from '@/_entities/poke';
 import { TypeIcon } from '@/_entities/type';
 
 import { STAT_KEYS, type BaseStatsPoke } from '../../model/base-stats-poke';
-import {
-  getBaseName,
-  getFormName,
-  type NameLanguage,
-} from '../../model/name-language';
 
 interface TableRowProps {
   poke: BaseStatsPoke;
-  // 이름 표기 언어
-  language: NameLanguage;
 }
 
-function TableRow({ poke, language }: TableRowProps) {
-  const formName = getFormName(poke, language);
-
+function TableRow({ poke }: TableRowProps) {
   return (
     <div
       role="row"
@@ -31,8 +27,8 @@ function TableRow({ poke, language }: TableRowProps) {
         'after:w-[calc(100%-8px)] after:mx-1 after:bg-border after:h-px after:absolute after:bottom-0 last:after:h-0',
       )}
     >
-      <div role="cell" className="gap-4 px-4 flex items-center">
-        <PokeSprite poke={poke} alt="" />
+      <div role="cell" className="gap-3.5 px-4 flex items-center">
+        <PokeSprite poke={poke} alt="" className="size-12.5" />
 
         <div className="text-center flex-1 text-md tabular-nums">
           {String(poke.dexNumber).padStart(4, '0')}
@@ -43,28 +39,17 @@ function TableRow({ poke, language }: TableRowProps) {
         <Link
           href={getPokeHref(poke)}
           prefetch={false}
-          lang={language === 'ko' ? undefined : language}
           className={cn(
-            'block outline-none',
+            'block outline-none min-w-0 truncate',
             'focus-visible:rounded-sm focus-visible:ring-[3px] focus-visible:ring-ring/50',
+            // 행 전체를 누를 수 있게
             'after:absolute after:inset-0',
           )}
         >
-          <span className="block truncate text-md font-medium">
-            {getBaseName(poke, language)}
-          </span>
-          {formName && (
-            <>
-              {/* 이름과 모습이 붙어 읽히지 않게 (줄바꿈은 화면에만 보인다) */}
-              <span className="sr-only">, </span>
-              <span className="block truncate text-sm text-foreground/70">
-                {formName}
-              </span>
-            </>
-          )}
+          <span className="text-md font-medium">{getPokeName(poke)}</span>
         </Link>
       </div>
-      <div role="cell" className="flex px-4">
+      <div role="cell" className="flex px-3 xl:px-4">
         {/* 단일 타입도 두 칸 폭을 잡아 위아래 행의 첫째 타입이 열처럼 맞는다 (PokeTypes와 같다) */}
         <div className="grid grid-cols-2 gap-1">
           {getPokeTypes(poke).map((type) => (

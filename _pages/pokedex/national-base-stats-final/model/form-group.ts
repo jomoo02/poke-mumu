@@ -3,8 +3,6 @@
 interface FormGroup {
   identifier: string;
   nameKo: string;
-  nameEn: string;
-  nameJa: string;
 }
 
 export type { FormGroup };

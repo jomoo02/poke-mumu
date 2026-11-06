@@ -2,7 +2,6 @@ import { useDeferredValue, useMemo } from 'react';
 
 import type { BaseStatsPoke } from '../base-stats-poke';
 import { useFilterParam } from '../filter';
-import { useLanguageParam } from '../name-language';
 import { useKeywordParam } from '../search';
 import { useSortParam } from '../sort';
 import { usePageParam } from '../url-state';
@@ -17,13 +16,12 @@ export function usePokeResults(pokes: BaseStatsPoke[]) {
   const { keyword } = useKeywordParam();
   const { filter } = useFilterParam();
   const { sortState } = useSortParam();
-  const { language } = useLanguageParam();
   const { page } = usePageParam();
 
   // 검색어와 함께 page도 바뀌므로(1페이지로) 조건을 한 묶음으로 늦춘다
   const conditions = useMemo<PokeConditions>(
-    () => ({ keyword, filter, sortState, language, page }),
-    [keyword, filter, sortState, language, page],
+    () => ({ keyword, filter, sortState, page }),
+    [keyword, filter, sortState, page],
   );
 
   const deferred = useDeferredValue(conditions);

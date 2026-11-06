@@ -11,13 +11,13 @@ interface SortOption {
   // 기준 이름. 줄이지 않는다 (특수공격·특수방어)
   label: string;
   kind: SortKind;
-  // 정렬 시트의 순서 칸: 위에 기준 이름이 있어 짧게 ('번호순', '높은 순')
+  // 정렬 목록의 고른 줄: 앞에 기준 이름이 있어 짧게 ('번호순', '높은 순')
   orderLabel: Record<SortOrder, string>;
   // 정렬 전체 이름 (결과 줄 정렬 버튼): 혼자 보여도 무엇의 순서인지 알 수 있게 ('도감번호순', '특수공격 높은 순')
   sortLabel: Record<SortOrder, string>;
 }
 
-// 종류별 방향 순서. 첫 방향이 기준을 새로 고를 때의 방향이고, 시트 순서 칸의 왼쪽이다
+// 종류별 방향 순서. 첫 방향이 기준을 새로 고를 때의 방향이다
 const ORDERS_BY_KIND: Record<SortKind, readonly [SortOrder, SortOrder]> = {
   sequence: ['asc', 'desc'],
   amount: ['desc', 'asc'],
@@ -69,29 +69,15 @@ const getSortLabel = ({ sort, order }: PokeSort): string =>
 const getInitialOrder = (key: SortKey): SortOrder =>
   ORDERS_BY_KIND[getSortOption(key).kind][0];
 
-// 정렬 시트의 순서 칸 두 개 (첫 방향이 왼쪽)
-const getOrderOptions = (
-  key: SortKey,
-): readonly { order: SortOrder; label: string }[] => {
-  const option = getSortOption(key);
+// 방향 이름: 위에 기준 이름이 있는 곳(정렬 목록의 고른 줄)에서 쓴다 ('번호순', '높은 순')
+const getOrderLabel = ({ sort, order }: PokeSort): string =>
+  getSortOption(sort).orderLabel[order];
 
-  return ORDERS_BY_KIND[option.kind].map((order) => ({
-    order,
-    label: option.orderLabel[order],
-  }));
-};
-
-// 표 머리글: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
+// 표 머리글·정렬 목록: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
 const getToggledSort = (current: PokeSort, key: SortKey): PokeSort =>
   key === current.sort
     ? { sort: key, order: current.order === 'asc' ? 'desc' : 'asc' }
     : { sort: key, order: getInitialOrder(key) };
-
-// 정렬 시트 기준 칸: 다른 기준이면 그 기준의 첫 방향부터, 같은 기준이면 방향 그대로
-const getKeySelectedSort = (current: PokeSort, key: SortKey): PokeSort => ({
-  sort: key,
-  order: key === current.sort ? current.order : getInitialOrder(key),
-});
 
 export type { SortOption };
 
@@ -99,7 +85,6 @@ export {
   SORT_OPTIONS,
   getSortLabel,
   getInitialOrder,
-  getOrderOptions,
+  getOrderLabel,
   getToggledSort,
-  getKeySelectedSort,
 };

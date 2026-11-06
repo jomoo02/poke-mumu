@@ -33,10 +33,10 @@ export function FilterTrigger({
       {/* '모든 타입' / '불꽃' / '불꽃 +2' (처음 고른 값 + 나머지 수) */}
       <span aria-hidden className="flex min-w-0 items-center gap-1.5">
         {first === null ? (
-          <span className="truncate">모든 {group.title}</span>
+          <span className="truncate">{group.title}</span>
         ) : (
           <>
-            <span className="truncate font-medium">{first}</span>
+            <span className="truncate font-medium">{`${group.title}: ${first}`}</span>
             {rest > 0 && (
               <span className="shrink-0 tabular-nums font-medium">+{rest}</span>
             )}

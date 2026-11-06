@@ -26,8 +26,8 @@ describe('filterSearchParams', () => {
     });
   });
 
-  it('검색어·이름 언어·정렬 키는 읽지 않는다', () => {
-    expect(load('?search=피카&lang=en&sort=hp&type=fire')).toEqual({
+  it('검색어·정렬 키는 읽지 않는다', () => {
+    expect(load('?search=피카&sort=hp&type=fire')).toEqual({
       type: ['fire'],
       form: [],
       gen: [],
@@ -36,7 +36,7 @@ describe('filterSearchParams', () => {
 });
 
 describe('FILTER_RESET_PATCH', () => {
-  it('필터 키만 모두 지운다 (검색어·이름 언어·정렬은 두기)', () => {
+  it('필터 키만 모두 지운다 (검색어·정렬은 두기)', () => {
     expect(FILTER_RESET_PATCH).toEqual({ type: null, form: null, gen: null });
   });
 });

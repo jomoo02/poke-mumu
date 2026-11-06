@@ -4,10 +4,9 @@ import { SORT_KEYS } from './sort-pokes';
 import {
   SORT_OPTIONS,
   getInitialOrder,
-  getOrderOptions,
+  getOrderLabel,
   getSortLabel,
   getToggledSort,
-  getKeySelectedSort,
 } from './sort-option';
 
 describe('SORT_OPTIONS', () => {
@@ -57,19 +56,14 @@ describe('getInitialOrder', () => {
   });
 });
 
-describe('getOrderOptions', () => {
-  it('순서형: 오름차순이 왼쪽, 시트에선 번호로 줄인다', () => {
-    expect(getOrderOptions('dexNumber')).toEqual([
-      { order: 'asc', label: '번호순' },
-      { order: 'desc', label: '번호 반대순' },
-    ]);
-  });
-
-  it('수치형: 높은 순이 왼쪽, 기준 이름 없이', () => {
-    expect(getOrderOptions('attack')).toEqual([
-      { order: 'desc', label: '높은 순' },
-      { order: 'asc', label: '낮은 순' },
-    ]);
+describe('getOrderLabel', () => {
+  it('앞에 기준 이름이 있어 짧게', () => {
+    expect(getOrderLabel({ sort: 'dexNumber', order: 'asc' })).toBe('번호순');
+    expect(getOrderLabel({ sort: 'dexNumber', order: 'desc' })).toBe(
+      '번호 반대순',
+    );
+    expect(getOrderLabel({ sort: 'attack', order: 'desc' })).toBe('높은 순');
+    expect(getOrderLabel({ sort: 'attack', order: 'asc' })).toBe('낮은 순');
   });
 });
 
@@ -90,19 +84,5 @@ describe('getToggledSort', () => {
       sort: 'name',
       order: 'asc',
     });
-  });
-});
-
-describe('getKeySelectedSort', () => {
-  it('같은 기준이면 방향을 그대로 둔다', () => {
-    expect(getKeySelectedSort({ sort: 'speed', order: 'asc' }, 'speed')).toEqual(
-      { sort: 'speed', order: 'asc' },
-    );
-  });
-
-  it('다른 기준이면 그 기준의 첫 방향부터', () => {
-    expect(getKeySelectedSort({ sort: 'dexNumber', order: 'desc' }, 'hp')).toEqual(
-      { sort: 'hp', order: 'desc' },
-    );
   });
 });

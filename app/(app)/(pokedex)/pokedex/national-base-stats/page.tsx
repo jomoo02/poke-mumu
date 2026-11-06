@@ -1,7 +1,6 @@
-import NationalBaseStatsPage from '@/_pages/pokedex/national-base-stats';
 import NationalBaseStatsPageV2 from '@/_pages/pokedex/national-base-stats-final';
-
+import NationalBaseStatsPage from '@/_pages/pokedex-national/base-stats';
 export default function Page() {
-  // return <NationalBaseStatsPage />;
-  return <NationalBaseStatsPageV2 />;
+  // return <NationalBaseStatsPageV2 />;
+  return <NationalBaseStatsPage />;
 }

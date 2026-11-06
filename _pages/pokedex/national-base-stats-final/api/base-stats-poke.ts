@@ -7,8 +7,6 @@ const CHUNK_SIZE = 1500;
 const POKE_SELECT = `
   pokeKey:poke_key,
   nameKo:name_ko,
-  nameEn:name_en,
-  nameJa:name_ja,
   dexNumber:dex_number,
   sortOrder:sort_order,
   gen:generation,
@@ -16,8 +14,6 @@ const POKE_SELECT = `
   form:form_id(
     identifier,
     nameKo:name_ko,
-    nameEn:name_en,
-    nameJa:name_ja,
     shortKo:short_ko,
     group:form_group_id(identifier)
   ),

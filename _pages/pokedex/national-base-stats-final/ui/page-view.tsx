@@ -7,7 +7,6 @@ import ScrollToTopButton from '@/_shared/ui/scroll-to-top-button';
 import type { BaseStatsPoke } from '../model/base-stats-poke';
 import { usePokeResults } from '../model/poke-results';
 import PokedexTable from './pokedex-table';
-import { useLanguageParam } from '../model/name-language';
 import { useSortParam } from '../model/sort';
 import PokedexCardList from './pokedex-card-list';
 import PokedexFilter from './pokedex-filter';
@@ -22,13 +21,9 @@ interface PageViewProps {
 }
 
 export default function PageView({ pokes }: PageViewProps) {
-  const { language } = useLanguageParam();
+  const { sortState, toggleSort } = useSortParam();
 
-  const { sortState, toggleSort, selectSortKey, selectSortOrder } =
-    useSortParam();
-
-  const { pagePokes, page, totalPages, totalCount, otherLanguageMatches } =
-    usePokeResults(pokes);
+  const { pagePokes, page, totalPages, totalCount } = usePokeResults(pokes);
 
   useReloadScrollRestoration();
 
@@ -48,25 +43,20 @@ export default function PageView({ pokes }: PageViewProps) {
         {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 툴바 끝에, 정렬은 표 머리글로 한다 */}
         <div className="flex min-h-8 items-center justify-between gap-3 lg:hidden">
           <ResultCount count={totalCount} />
-          <SortControl
-            sortState={sortState}
-            onSelectKey={selectSortKey}
-            onSelectOrder={selectSortOrder}
-          />
+          <SortControl sortState={sortState} onToggle={toggleSort} />
         </div>
 
         {totalCount === 0 ? (
-          <ResultsEmpty otherLanguageMatches={otherLanguageMatches} />
+          <ResultsEmpty />
         ) : (
           <>
             <div className="lg:hidden">
-              <PokedexCardList pokes={pagePokes} language={language} />
+              <PokedexCardList pokes={pagePokes} />
             </div>
             <div className="hidden lg:block">
               <PokedexTable
                 pokes={pagePokes}
                 sortState={sortState}
-                language={language}
                 onSort={toggleSort}
               />
             </div>

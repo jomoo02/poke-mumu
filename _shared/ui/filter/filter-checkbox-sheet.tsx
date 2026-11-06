@@ -1,5 +1,8 @@
 'use client';
 
+import { useState } from 'react';
+
+import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 import {
   Sheet,
   SheetClose,
@@ -20,6 +23,8 @@ interface FilterCheckboxSheetProps {
   group: FilterCheckboxGroup;
   // 닫기 버튼 문구. 결과 수를 보여준다 (예: '120마리 보기')
   resultLabel: string;
+  // false면 아래 줄에 이 그룹 초기화 없이 결과 버튼만. 페이지에 전체 초기화만 둘 때
+  showReset?: boolean;
   className?: string;
 }
 
@@ -28,10 +33,16 @@ interface FilterCheckboxSheetProps {
 export function FilterCheckboxSheet({
   group,
   resultLabel,
+  showReset = true,
   className,
 }: FilterCheckboxSheetProps) {
+  const [open, setOpen] = useState(false);
+
+  // 트리거가 숨는 폭(md 이상)이 되면 닫는다 (FilterCheckboxControl의 md:hidden과 같은 경계)
+  useCloseOutsideMedia('(max-width: 767px)', open, () => setOpen(false));
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
         render={<FilterTrigger group={group} className={className} />}
       />
@@ -49,14 +60,16 @@ export function FilterCheckboxSheet({
           <FilterCheckboxList group={group} place="sheet" />
         </div>
         <SheetFooter className="flex flex-row">
-          <SheetFooterButton
-            variant="input"
-            onClick={group.onReset}
-            disabled={group.selected.length === 0}
-            className="flex-1/3"
-          >
-            초기화
-          </SheetFooterButton>
+          {showReset && (
+            <SheetFooterButton
+              variant="input"
+              onClick={group.onReset}
+              disabled={group.selected.length === 0}
+              className="flex-1/3"
+            >
+              초기화
+            </SheetFooterButton>
+          )}
           <SheetClose render={<SheetFooterButton className="flex-2/3" />}>
             {resultLabel}
           </SheetClose>

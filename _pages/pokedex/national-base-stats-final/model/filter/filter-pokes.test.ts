@@ -38,8 +38,6 @@ const values = (partial: Partial<PokeFilterValues>): PokeFilterValues => ({
 const formOf = (group: string): BaseStatsPokeForm => ({
   identifier: group,
   nameKo: group,
-  nameEn: group,
-  nameJa: group,
   shortKo: null,
   group,
 });

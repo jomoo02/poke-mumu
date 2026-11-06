@@ -10,6 +10,6 @@ const getPokeName = (
     : poke.nameKo;
 
 const formatDexNumber = (dexNumber: number, length = 4) =>
-  `No.${String(dexNumber).padStart(length, '0')}`;
+  String(dexNumber).padStart(length, '0');
 
 export { getPokeName, formatDexNumber };

@@ -9,7 +9,6 @@ import { computePokeResults, type PokeConditions } from './poke-results';
 const conditions = (partial: Partial<PokeConditions>): PokeConditions => ({
   filter: { type: [], form: [], gen: [] },
   keyword: '',
-  language: 'ko',
   sortState: DEFAULT_SORT,
   page: 1,
   ...partial,
@@ -18,28 +17,24 @@ const conditions = (partial: Partial<PokeConditions>): PokeConditions => ({
 const POKES = [
   makePoke({
     nameKo: '리자몽',
-    nameEn: 'Charizard',
     dexNumber: 6,
     types: ['fire', 'flying'],
     stats: { speed: 100 },
   }),
   makePoke({
     nameKo: '이상해씨',
-    nameEn: 'Bulbasaur',
     dexNumber: 1,
     types: ['grass', 'poison'],
     stats: { speed: 45 },
   }),
   makePoke({
     nameKo: '파이리',
-    nameEn: 'Charmander',
     dexNumber: 4,
     types: ['fire'],
     stats: { speed: 65 },
   }),
   makePoke({
     nameKo: '피카츄',
-    nameEn: 'Pikachu',
     dexNumber: 25,
     types: ['electric'],
     stats: { speed: 90 },
@@ -57,7 +52,6 @@ describe('computePokeResults', () => {
       '피카츄',
     ]);
     expect(result.totalCount).toBe(4);
-    expect(result.otherLanguageMatches).toEqual([]);
   });
 
   it('필터한 결과에서 검색하고 정렬한다', () => {
@@ -84,24 +78,5 @@ describe('computePokeResults', () => {
     expect(result.totalPages).toBe(2);
     expect(result.totalCount).toBe(PAGE_SIZE + 5);
     expect(result.pagePokes).toHaveLength(5);
-  });
-
-  it('결과가 없을 때만 다른 언어로 찾히는 수를 센다', () => {
-    const result = computePokeResults(POKES, conditions({ keyword: 'char' }));
-
-    expect(result.totalCount).toBe(0);
-    expect(result.otherLanguageMatches).toEqual([{ language: 'en', count: 2 }]);
-  });
-
-  it('다른 언어로 찾히는 수는 필터는 거치고 검색은 거치기 전 목록에서 센다', () => {
-    const result = computePokeResults(
-      POKES,
-      conditions({
-        filter: { type: ['flying'], form: [], gen: [] },
-        keyword: 'char',
-      }),
-    );
-
-    expect(result.otherLanguageMatches).toEqual([{ language: 'en', count: 1 }]);
   });
 });

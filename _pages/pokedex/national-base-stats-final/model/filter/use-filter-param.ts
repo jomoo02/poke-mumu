@@ -18,7 +18,7 @@ import {
  * - filter: 목록 계산·트리거가 쓰는 유효한 선택 (options에 있는 값만, 그룹 안은 고른 순서)
  * - toggleFilter·resetFilterGroup: 바꾼 그룹의 키만 쓴다
  *   (키가 제자리를 지켜 URL의 키 순서가 처음 고른 순서로 남는다)
- * - resetFilters: 필터 키 모두. 페이지의 초기화는 이것뿐이다 (검색어·이름 언어는 둔다)
+ * - resetFilters: 필터 키 모두. 페이지의 초기화는 이것뿐이다 (검색어는 둔다)
  */
 export function useFilterParam() {
   const options = useFilterOptions();

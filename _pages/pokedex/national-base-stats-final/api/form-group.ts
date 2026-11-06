@@ -10,7 +10,7 @@ export const getFormGroups = async (): Promise<FormGroup[]> => {
 
   const { data, error } = await supabase
     .from('form_group')
-    .select('identifier, nameKo:name_ko, nameEn:name_en, nameJa:name_ja')
+    .select('identifier, nameKo:name_ko')
     .order('sort_order', { ascending: true });
 
   if (error) {

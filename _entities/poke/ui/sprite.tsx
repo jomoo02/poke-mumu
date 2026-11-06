@@ -22,8 +22,8 @@ export function PokeSprite({
   priority = false,
   native = false,
 }: PokeSpriteProps) {
-  // const src = getPokeSpriteSrc(poke);
-  const src = '/pokeball.svg';
+  const src = getPokeSpriteSrc(poke);
+  // const src = '/pokeball.svg';
 
   if (native) {
     return (
@@ -39,7 +39,7 @@ export function PokeSprite({
   }
 
   return (
-    <div className={cn('relative size-14', className)}>
+    <div className={cn('relative size-14 select-none', className)}>
       <Image
         src={src}
         placeholder="blur"

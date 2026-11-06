@@ -1,13 +1,8 @@
 import { useMemo } from 'react';
 
 import { useListQueryStates } from '../url-state';
-import { getKeySelectedSort, getToggledSort } from './sort-option';
-import {
-  isSameSort,
-  type PokeSort,
-  type SortKey,
-  type SortOrder,
-} from './sort-pokes';
+import { getToggledSort } from './sort-option';
+import { isSameSort, type PokeSort, type SortKey } from './sort-pokes';
 import { sortSearchParams } from './sort-search-params';
 
 // 정렬 (?sort=&order=)
@@ -25,15 +20,8 @@ export function useSortParam() {
     write({ sort: next.sort, order: next.order });
   };
 
-  // 표 머리글
+  // 표 머리글·정렬 목록
   const toggleSort = (key: SortKey) => setSort(getToggledSort(sortState, key));
 
-  // 정렬 시트: 기준 칸 / 방향 칸
-  const selectSortKey = (key: SortKey) =>
-    setSort(getKeySelectedSort(sortState, key));
-
-  const selectSortOrder = (nextOrder: SortOrder) =>
-    setSort({ sort, order: nextOrder });
-
-  return { sortState, toggleSort, selectSortKey, selectSortOrder };
+  return { sortState, toggleSort };
 }

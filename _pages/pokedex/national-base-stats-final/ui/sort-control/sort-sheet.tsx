@@ -17,12 +17,8 @@ import SortTrigger from './sort-trigger';
 import { useSortPanel } from './use-sort-panel';
 
 // md 미만: 바텀시트. 아래엔 닫기만
-export default function SortSheet({
-  sortState,
-  onSelectKey,
-  onSelectOrder,
-}: SortPanelProps) {
-  const { open, onOpenChange, close, shownOrderSort } = useSortPanel(sortState);
+export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
+  const { open, onOpenChange, close } = useSortPanel();
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
@@ -36,17 +32,15 @@ export default function SortSheet({
         <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar px-6">
           <SortOptionList
             sortState={sortState}
-            shownOrderSort={shownOrderSort}
-            onSelectKey={onSelectKey}
-            onSelectOrder={onSelectOrder}
+            onToggle={onToggle}
             close={close}
             place="sheet"
           />
         </div>
-        <SheetFooter>
-          <SheetClose render={<SheetFooterButton variant="input" />}>
+        <SheetFooter className="pt-0">
+          {/* <SheetClose render={<SheetFooterButton variant="input" />}>
             닫기
-          </SheetClose>
+          </SheetClose> */}
         </SheetFooter>
       </SheetContent>
     </Sheet>

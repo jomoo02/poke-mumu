@@ -13,8 +13,6 @@ const makePoke = (
 
   return {
     pokeKey: fields.nameKo,
-    nameEn: '',
-    nameJa: '',
     dexNumber: 0,
     sortOrder: 1,
     gen: null,

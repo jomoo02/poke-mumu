@@ -7,13 +7,9 @@ import { SORT_TITLE, type SortPanelProps } from './sort-panel';
 import SortTrigger from './sort-trigger';
 import { useSortPanel } from './use-sort-panel';
 
-// md 이상: 팝오버. 바깥을 누르거나 Esc로 닫아 닫기 버튼이 없다 (필터·이름 언어 팝오버와 같다)
-export default function SortPopover({
-  sortState,
-  onSelectKey,
-  onSelectOrder,
-}: SortPanelProps) {
-  const { open, onOpenChange, close, shownOrderSort } = useSortPanel(sortState);
+// md 이상: 팝오버. 바깥을 누르거나 Esc로 닫아 닫기 버튼이 없다 (필터 팝오버와 같다)
+export default function SortPopover({ sortState, onToggle }: SortPanelProps) {
+  const { open, onOpenChange, close } = useSortPanel();
 
   return (
     <Popover open={open} onOpenChange={onOpenChange}>
@@ -25,14 +21,11 @@ export default function SortPopover({
           />
         }
       />
-      {/* 버튼이 결과 줄 오른쪽 끝이라 오른쪽을 맞춘다.
-          제목 없이 소제목(정렬 기준·순서)만 둔다. 접근 이름은 aria-label */}
-      <PopoverContent align="end" aria-label={SORT_TITLE} className="w-102">
+      {/* 버튼이 결과 줄 오른쪽 끝이라 오른쪽을 맞춘다. 제목 없이 목록만, 접근 이름은 aria-label */}
+      <PopoverContent align="end" aria-label={SORT_TITLE} className="w-64">
         <SortOptionList
           sortState={sortState}
-          shownOrderSort={shownOrderSort}
-          onSelectKey={onSelectKey}
-          onSelectOrder={onSelectOrder}
+          onToggle={onToggle}
           close={close}
           place="popover"
         />

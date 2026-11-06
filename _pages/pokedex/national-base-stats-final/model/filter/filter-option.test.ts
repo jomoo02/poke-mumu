@@ -22,8 +22,6 @@ const typeDetail = (
 const ALOLA_FORM: BaseStatsPokeForm = {
   identifier: 'alola',
   nameKo: '알로라의 모습',
-  nameEn: 'Alolan',
-  nameJa: 'アローラのすがた',
   shortKo: '알로라',
   group: 'alola',
 };
@@ -37,12 +35,10 @@ describe('toPokeFilterOptions', () => {
   ];
 
   const formGroups = [
-    { identifier: 'mega', nameKo: '메가진화', nameEn: 'Mega', nameJa: 'メガ' },
+    { identifier: 'mega', nameKo: '메가진화' },
     {
       identifier: 'alola',
       nameKo: '알로라의 모습',
-      nameEn: 'Alolan',
-      nameJa: 'アローラのすがた',
     },
   ];
 

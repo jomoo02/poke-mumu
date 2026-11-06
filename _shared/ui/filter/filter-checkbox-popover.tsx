@@ -30,6 +30,8 @@ type FilterCheckboxPopoverLayout = 'grid' | 'list';
 interface FilterCheckboxPopoverProps {
   group: FilterCheckboxGroup;
   layout?: FilterCheckboxPopoverLayout;
+  // false면 제목 줄(제목 · 이 그룹 초기화) 없이 목록만. 페이지에 전체 초기화만 둘 때
+  showHeader?: boolean;
   className?: string;
 }
 
@@ -39,6 +41,7 @@ export type { FilterCheckboxPopoverLayout };
 export function FilterCheckboxPopover({
   group,
   layout = 'grid',
+  showHeader = true,
   className,
 }: FilterCheckboxPopoverProps) {
   const isList = layout === 'list';
@@ -49,16 +52,25 @@ export function FilterCheckboxPopover({
       <PopoverTrigger
         render={<FilterTrigger group={group} className={className} />}
       />
-      <PopoverContent className={POPOVER_WIDTH[listGroup.columns]}>
-        <PopoverHeader className="flex flex-row justify-between">
-          <PopoverTitle>
-            <FilterCheckboxTitleText group={group} />
-          </PopoverTitle>
-          <ControlResetButton
-            onClick={group.onReset}
-            disabled={group.selected.length === 0}
-          />
-        </PopoverHeader>
+      {/* 제목 줄이 없으면 보이는 제목이 없어 접근 이름을 aria-label로 */}
+      <PopoverContent
+        aria-label={showHeader ? undefined : group.title}
+        className={cn(
+          POPOVER_WIDTH[listGroup.columns],
+          'rounded-3xl py-2.5 gap-2.5',
+        )}
+      >
+        {showHeader && (
+          <PopoverHeader className="flex flex-row justify-between">
+            <PopoverTitle>
+              <FilterCheckboxTitleText group={group} />
+            </PopoverTitle>
+            <ControlResetButton
+              onClick={group.onReset}
+              disabled={group.selected.length === 0}
+            />
+          </PopoverHeader>
+        )}
         {/* p-2 -m-2: 줄 호버 배경(라벨 양옆으로 넓다)과 포커스 링이 스크롤 영역에 잘리지 않게 */}
         <div
           className={cn(

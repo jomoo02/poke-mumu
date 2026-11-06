@@ -11,8 +11,8 @@ interface SortControlProps extends SortPanelProps {
 }
 
 /**
- * [특수공격 높은 순 ⌄] 버튼 → 정렬 기준·순서. 고르면 반영하고 닫는다 (쇼핑앱 정렬 시트와 같은 흐름).
- * md 미만은 바텀시트, 이상은 팝오버 (필터·이름 언어 선택과 같은 규칙).
+ * [특수공격 높은 순 ⌄] 버튼 → 기준 목록. 누르면 반영하고 닫는다. 고른 기준을 다시 누르면 방향을 뒤집는다 (표 머리글과 같다).
+ * md 미만은 바텀시트, 이상은 팝오버 (필터와 같은 규칙).
  * 둘 다 그려 두고 CSS로 하나만 보인다 (JS matchMedia는 첫 렌더가 한쪽으로 고정돼 트리거가 바뀐다)
  */
 export default function SortControl({ className, ...props }: SortControlProps) {
