@@ -1,6 +1,9 @@
 import { CheckIcon } from 'lucide-react';
 import { useState } from 'react';
 
+import { cn } from '@/_shared/lib/cn';
+import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
+import { Button } from '@/_shared/ui/button';
 import {
   Sheet,
   SheetContent,
@@ -8,18 +11,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/_shared/ui/sheet';
-import { Button } from '@/_shared/ui/button';
-import { cn } from '@/_shared/lib/cn';
-import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 
-import { SORT_TITLE, type SortPanelProps } from './sort-panel';
-import SortTrigger from './sort-trigger';
-import SortStateIcon from '../sort-state-icon';
 import {
+  SORT_OPTIONS,
   getOrderLabel,
   getSortOptionAriaLabel,
-  SORT_OPTIONS,
 } from '../../model/sort';
+import SortStateIcon from '../sort-state-icon';
+import { SORT_TITLE, type SortPanelProps } from './sort-panel';
+import SortTrigger from './sort-trigger';
 
 export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
   const [open, setOpen] = useState(false);
@@ -68,7 +68,7 @@ export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
                     {isCurrent && (
                       <span
                         aria-hidden
-                        className="flex shrink-0 items-center gap-2 pr-0.5 text-sm"
+                        className="flex shrink-0 items-center gap-2 pr-0.5"
                       >
                         {getOrderLabel(sortState)}
                         <SortStateIcon order={sortState.order} />

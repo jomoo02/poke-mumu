@@ -43,7 +43,7 @@ function PageLayoutHeaderTitle({
   return (
     <h1
       className={cn(
-        'text-4xl font-semibold tracking-tight text-balance break-keep whitespace-pre-line scroll-mt-14',
+        'text-3xl font-bold tracking-tight text-balance break-keep whitespace-pre-line scroll-mt-14',
         className,
       )}
       {...props}

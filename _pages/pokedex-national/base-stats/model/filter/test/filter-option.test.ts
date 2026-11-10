@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 
 import type { TypeDetail } from '@/_entities/type';
 
-import { makePoke } from '../../poke';
+import { makePoke } from '../../poke/base-stats-poke.fixture';
 import type { BaseStatsPokeForm } from '../../poke';
 
 import { POKE_FILTER_RULES, toPokeFilterOptions } from '../filter-option';

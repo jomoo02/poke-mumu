@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { sortPokes, type PokeSort } from '../sort-pokes';
-import { makePoke } from '../../poke';
+import { makePoke } from '../../poke/base-stats-poke.fixture';
 import type { BaseStatsPoke } from '../../poke';
 
 const keys = (list: BaseStatsPoke[]) => list.map((poke) => poke.pokeKey);

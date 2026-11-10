@@ -1,5 +1,3 @@
-export { makePoke, names } from './base-stats-poke.fixture';
-
 export type {
   BaseStats,
   BaseStatsPoke,

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { cn } from '@/_shared/lib/cn';
 import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 import {
   Sheet,
@@ -38,13 +39,16 @@ export function FilterCheckboxSheet({
 }: FilterCheckboxSheetProps) {
   const [open, setOpen] = useState(false);
 
-  // 트리거가 숨는 폭(md 이상)이 되면 닫는다 (FilterCheckboxControl의 md:hidden과 같은 경계)
+  // md 이상에선 트리거를 숨기고(메뉴가 대신한다), 그 폭이 되면 닫는다.
+  // 경계 두 곳(트리거 md:hidden · media query)은 이 파일에서 함께 바꾼다
   useCloseOutsideMedia('(max-width: 767px)', open, () => setOpen(false));
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger
-        render={<FilterTrigger group={group} className={className} />}
+        render={
+          <FilterTrigger group={group} className={cn('md:hidden', className)} />
+        }
       />
       <SheetContent side="bottom" className="max-h-[90dvh] gap-0">
         <SheetHeader>

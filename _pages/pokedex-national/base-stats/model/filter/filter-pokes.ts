@@ -91,10 +91,4 @@ const toggleGroupValue = (
 
 export type { PokeFilterValues };
 
-export {
-  parseGroup,
-  parsePokeFilter,
-  isPokeFilterActive,
-  toggleGroupValue,
-  filterPokes,
-};
+export { parsePokeFilter, isPokeFilterActive, toggleGroupValue, filterPokes };

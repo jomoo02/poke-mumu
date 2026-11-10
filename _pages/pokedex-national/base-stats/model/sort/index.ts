@@ -7,7 +7,6 @@ export {
   sortPokes,
 } from './sort-pokes';
 
-export type { SortOption } from './sort-option';
 export {
   SORT_OPTIONS,
   getSortLabel,

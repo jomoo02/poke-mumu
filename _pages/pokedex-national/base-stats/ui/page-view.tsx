@@ -1,20 +1,21 @@
 'use client';
+
 import { useRef } from 'react';
 
 import { PaginationNav } from '@/_shared/ui/pagination';
 import ScrollToTopButton from '@/_shared/ui/scroll-to-top-button';
 
-import type { BaseStatsPoke } from '../model/poke';
-import { usePokeResults } from '../model/poke-results';
-import PokedexTable from './pokedex-table';
-import { useSortParam } from '../model/sort';
-import PokedexCardList from './pokedex-card-list';
-import PokedexFilter from './filter-group';
-import ResultEmpty from './result-empty';
-import ResultCount from './result-count';
-import Sort from './sort';
 import { useReloadScrollRestoration } from '../lib/use-reload-scroll-restoration';
 import { useScrollToResultsTop } from '../lib/use-scroll-to-results-top';
+import type { BaseStatsPoke } from '../model/poke';
+import { usePokeResults } from '../model/poke-results';
+import { useSortParam } from '../model/sort';
+import PokedexFilter from './filter-group';
+import PokedexCardList from './pokedex-card-list';
+import PokedexTable from './pokedex-table';
+import ResultCount from './result-count';
+import ResultEmpty from './result-empty';
+import Sort from './sort';
 
 interface PageViewProps {
   pokes: BaseStatsPoke[];
@@ -33,12 +34,12 @@ export default function PageView({ pokes }: PageViewProps) {
   useScrollToResultsTop(pagePokes, sectionRef);
 
   return (
-    <div className="flex flex-col gap-3 lg:gap-3">
+    <div className="flex flex-col gap-3 lg:gap-6">
       <ScrollToTopButton />
       <PokedexFilter resultCount={totalCount} />
       <section
         ref={sectionRef}
-        className="flex flex-col gap-6 w-full scroll-mt-(--header-height)"
+        className="flex flex-col gap-3 w-full scroll-mt-(--header-height)"
       >
         {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 툴바 끝에, 정렬은 표 머리글로 한다 */}
         <div className="flex min-h-8 items-center justify-between gap-3 lg:hidden">

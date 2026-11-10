@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { PAGE_SIZE } from '../../../config';
-import { makePoke, names } from '../../poke';
+import { makePoke, names } from '../../poke/base-stats-poke.fixture';
 import { DEFAULT_SORT } from '../../sort';
 
 import { computePokeResults, type PokeConditions } from '../poke-results';

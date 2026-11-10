@@ -1,5 +1,3 @@
-'use client';
-
 import { RotateCwIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';

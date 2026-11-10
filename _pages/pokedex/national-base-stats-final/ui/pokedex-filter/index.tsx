@@ -1,12 +1,13 @@
 'use client';
 
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { RotateCwIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import {
-  FilterCheckboxControl,
+  FilterCheckboxMenu,
+  FilterCheckboxSheet,
   focusVisibleFilterTrigger,
 } from '@/_shared/ui/filter';
 
@@ -65,13 +66,15 @@ export default function PokedexFilter({ resultCount }: PokedexFilterProps) {
         {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
         <div className="-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar p-1">
           {groups.map((group) => (
-            <FilterCheckboxControl
-              key={group.key}
-              group={group}
-              resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}
-              showGroupReset={false}
-              className="shrink-0"
-            />
+            <Fragment key={group.key}>
+              <FilterCheckboxSheet
+                group={group}
+                resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}
+                showReset={false}
+                className="shrink-0"
+              />
+              <FilterCheckboxMenu group={group} className="shrink-0" />
+            </Fragment>
           ))}
         </div>
         <ResultCount className="hidden lg:block" count={resultCount} />

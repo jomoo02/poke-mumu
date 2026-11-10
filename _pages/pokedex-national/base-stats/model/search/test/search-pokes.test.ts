@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import type { BaseStatsPokeForm } from '../../poke';
-import { makePoke, names } from '../../poke';
+import { makePoke, names } from '../../poke/base-stats-poke.fixture';
 
 import { filterPokesByKeyword } from '../search-pokes';
 

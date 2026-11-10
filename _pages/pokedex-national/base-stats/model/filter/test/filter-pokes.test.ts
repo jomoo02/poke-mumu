@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import type { BaseStatsPokeForm } from '../../poke';
-import { makePoke } from '../../poke';
+import { makePoke } from '../../poke/base-stats-poke.fixture';
 
 import type { PokeFilterOptions } from '../filter-option';
 import {

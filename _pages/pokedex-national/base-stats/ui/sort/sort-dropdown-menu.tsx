@@ -1,3 +1,6 @@
+import { useState } from 'react';
+
+import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,11 +15,9 @@ import {
   getSortOptionAriaLabel,
   type SortKey,
 } from '../../model/sort';
-import { SORT_TITLE, type SortPanelProps } from './sort-panel';
 import SortStateIcon from '../sort-state-icon';
+import { SORT_TITLE, type SortPanelProps } from './sort-panel';
 import SortTrigger from './sort-trigger';
-import { useState } from 'react';
-import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 
 export default function SortDropdownMenu({
   sortState,
@@ -35,14 +36,14 @@ export default function SortDropdownMenu({
         render={
           <SortTrigger
             sortState={sortState}
-            className="hidden max-md:hidden md:inline-flex"
+            className="hidden md:inline-flex"
           />
         }
       />
       <DropdownMenuContent
         align="end"
         aria-label={SORT_TITLE}
-        className="w-62 py-2 lg:hidden"
+        className="w-58 max-md:hidden lg:hidden"
       >
         <DropdownMenuRadioGroup
           value={sortState.sort}
@@ -54,7 +55,7 @@ export default function SortDropdownMenu({
               value={key}
               indicator="start"
               aria-label={getSortOptionAriaLabel(sortState, key)}
-              className="h-10 cursor-pointer"
+              className="h-10 cursor-pointer text-md"
             >
               <span aria-hidden className="min-w-0 flex-1 truncate">
                 {label}
@@ -62,7 +63,7 @@ export default function SortDropdownMenu({
               {sortState.sort === key && (
                 <span
                   aria-hidden
-                  className="flex shrink-0 items-center gap-2 pr-0.5 text-sm"
+                  className="flex shrink-0 items-center gap-2 text-sm"
                 >
                   {getOrderLabel(sortState)}
                   <SortStateIcon order={sortState.order} />

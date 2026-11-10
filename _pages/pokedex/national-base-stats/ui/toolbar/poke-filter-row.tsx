@@ -1,10 +1,12 @@
 'use client';
 
+import { Fragment } from 'react';
+
 import { RotateCwIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
-import { FilterCheckboxControl } from '@/_shared/ui/filter';
+import { FilterCheckboxMenu, FilterCheckboxSheet } from '@/_shared/ui/filter';
 
 import { useLanguageParam, useResetParams } from '../../model/url-state';
 import type { PokeFilterOptions } from '../../model/filter';
@@ -64,12 +66,15 @@ export default function PokeFilterRow({
         )}
         <NameLanguageControl language={language} onChange={setLanguage} />
         {groups.map((group) => (
-          <FilterCheckboxControl
-            key={group.key}
-            group={group}
-            resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}
-            className="shrink-0"
-          />
+          <Fragment key={group.key}>
+            <FilterCheckboxSheet
+              group={group}
+              resultLabel={`${resultCount.toLocaleString('ko-KR')}마리 보기`}
+              showReset={true}
+              className="shrink-0"
+            />
+            <FilterCheckboxMenu group={group} className="shrink-0" />
+          </Fragment>
         ))}
       </div>
 

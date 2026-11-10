@@ -17,4 +17,5 @@ export { FilterSheet } from './filter-sheet';
 
 export { FilterTrigger } from './filter-trigger';
 export { FilterCheckboxList } from './filter-checkbox-list';
-export { FilterCheckboxControl } from './filter-checkbox-control';
+export { FilterCheckboxMenu } from './filter-checkbox-menu';
+export { FilterCheckboxSheet } from './filter-checkbox-sheet';
