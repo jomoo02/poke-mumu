@@ -46,16 +46,21 @@ describe('getPokeName', () => {
   });
 });
 
+// 숫자만 자릿수에 맞춰 0을 채운다 ('No.' 같은 접두사는 화면에서 붙인다)
 describe('formatDexNumber', () => {
   it.each([
-    [1, 'No.0001'],
-    [25, 'No.0025'],
-    [1025, 'No.1025'],
+    [1, '0001'],
+    [25, '0025'],
+    [1025, '1025'],
   ])('formatDexNumber(%s) → %s', (dexNumber, expected) => {
     expect(formatDexNumber(dexNumber)).toBe(expected);
   });
 
   it('자릿수를 지정할 수 있다', () => {
-    expect(formatDexNumber(25, 3)).toBe('No.025');
+    expect(formatDexNumber(25, 3)).toBe('025');
+  });
+
+  it('자릿수보다 긴 번호는 자르지 않는다', () => {
+    expect(formatDexNumber(10000)).toBe('10000');
   });
 });
