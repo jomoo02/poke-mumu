@@ -35,7 +35,7 @@ function Card({ poke }: CardProps) {
       aria-label={`No.${dexNumber} ${name}`}
       className={cn(
         'flex flex-col [@media(hover:hover)]:hover:bg-muted/70',
-        'gap-4 p-4 bg-card border rounded-4xl',
+        'gap-4 p-4 bg-card border rounded-3xl',
         'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
       )}
     >

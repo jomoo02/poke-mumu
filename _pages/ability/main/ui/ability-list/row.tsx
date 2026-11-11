@@ -23,7 +23,7 @@ function Row({ ability }: RowProps) {
       )}
     >
       <span className="w-9 shrink-0 text-sm font-medium tabular-nums text-foreground/70">
-        {ability.abilityNumber}
+        {ability.abilityNumber.toString().padStart(3, '0')}
       </span>
       <span className="min-w-0 flex-1 truncate text-md font-medium">
         {ability.nameKo}

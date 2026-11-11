@@ -43,7 +43,9 @@ function Card({ move }: CardProps) {
     >
       {/* 특성 카드 한 줄과 같은 구조: 번호 · 이름 ··· 오른쪽 끝 (특성은 등장 배지, 기술은 타입·분류) */}
       <div className={FIRST_ROW_CLASS}>
-        <span className={NUMBER_CLASS}>{move.moveNumber}</span>
+        <span className={NUMBER_CLASS}>
+          {move.moveNumber.toString().padStart(3, '0')}
+        </span>
         <span className="min-w-0 flex-1 truncate text-md font-medium">
           {move.nameKo}
         </span>
