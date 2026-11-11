@@ -21,9 +21,6 @@ interface Move {
 const getMoveHref = (move: Pick<Move, 'identifier'>) =>
   `/move/${move.identifier}`;
 
-const getMoveSubName = (move: Pick<Move, 'nameEn' | 'nameJa'>) =>
-  `${move.nameEn} / ${move.nameJa}`;
-
 export type { Move };
 
-export { getMoveHref, getMoveSubName };
+export { getMoveHref };

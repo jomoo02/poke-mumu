@@ -1,5 +1,5 @@
 'use client';
 
-import MoveListError from '@/_pages/move/list/error';
+import MoveMainError from '@/_pages/move/main/error';
 
-export default MoveListError;
+export default MoveMainError;
