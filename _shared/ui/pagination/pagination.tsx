@@ -47,8 +47,16 @@ function PaginationLink({
   className,
   isActive,
   size = 'default',
+  onClick,
   ...props
 }: PaginationLinkProps) {
+  // 현재 페이지·비활성(이전/다음 끝)은 링크로 두되 이동하지 않는다.
+  // 같은 URL로 다시 이동하면 요청이 한 번 더 나가고 페이지 맨 위로 올라간다 (키보드 Enter도 막는다)
+  const isInert =
+    isActive ||
+    props['aria-disabled'] === true ||
+    props['aria-disabled'] === 'true';
+
   return (
     <Button
       variant={isActive ? 'secondary' : 'ghost'}
@@ -61,6 +69,12 @@ function PaginationLink({
           data-slot="pagination-link"
           data-active={isActive}
           {...props}
+          onClick={(event) => {
+            onClick?.(event);
+            if (isInert) {
+              event.preventDefault();
+            }
+          }}
         />
       }
     />
@@ -106,7 +120,7 @@ function PaginationNext({
       {...props}
     >
       <span className="">{text}</span>
-      <ChevronRightIcon className="" />
+      <ChevronRightIcon data-icon="inline-end" className="" />
     </PaginationLink>
   );
 }
