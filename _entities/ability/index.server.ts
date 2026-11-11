@@ -1,1 +1,1 @@
-export { getAbility, getAbilityDetail, getAllAbilityDetail } from './api';
+export { getAbility, getAbilityDetail } from './api';

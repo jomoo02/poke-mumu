@@ -18,7 +18,9 @@ const getAbilityHref = (ability: Ability) => {
   return `/ability/${ability.identifier}`;
 };
 
-const getAbilityAppeared = (ability: AbilityDetail) => {
+const getAbilityAppeared = (
+  ability: Pick<AbilityDetail, 'gen' | 'isChampions'>,
+) => {
   return ability.isChampions ? '챔피언스' : `${ability.gen}세대`;
 };
 

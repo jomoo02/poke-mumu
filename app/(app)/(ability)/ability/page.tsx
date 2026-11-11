@@ -1,5 +1,5 @@
-import AbilityListPage from '@/_pages/ability/list';
+import AbilityMainPage from '@/_pages/ability/main';
 
 export default function Page() {
-  return <AbilityListPage />;
+  return <AbilityMainPage />;
 }

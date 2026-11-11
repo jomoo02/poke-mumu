@@ -1,5 +1,5 @@
 'use client';
 
-import AbilityListError from '@/_pages/ability/list/error';
+import AbilityMainError from '@/_pages/ability/main/error';
 
-export default AbilityListError;
+export default AbilityMainError;

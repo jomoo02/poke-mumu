@@ -1,0 +1,40 @@
+import { SearchIcon } from 'lucide-react';
+
+import { Button } from '@/_shared/ui/button';
+
+import { useKeywordParam } from '../model/search';
+import { SEARCH_INPUT_ID } from './search-bar';
+
+/**
+ * 결과 0개. 전국도감 종족값과 같은 빈 결과: 가운데에 아이콘 · 제목 · 한 줄 안내 · 초기화 버튼.
+ * 필터가 없어 초기화는 검색어만 지우고 정렬은 둔다
+ */
+export default function ResultEmpty() {
+  const { clearKeyword } = useKeywordParam();
+
+  return (
+    <div className="flex flex-col gap-3 py-12 items-center">
+      <div className="bg-muted size-12 flex items-center justify-center rounded-lg">
+        <SearchIcon className="size-6 text-foreground/50 dark:text-foreground/70" />
+      </div>
+      <div className="flex flex-col items-center">
+        <p className="font-medium text-lg">검색 결과가 없어요</p>
+        <p className="text-md text-foreground/70">
+          조건에 맞는 특성을 찾지 못했어요
+        </p>
+      </div>
+
+      {/* 누르면 결과가 생겨 이 화면이 사라지므로 포커스를 검색창으로 */}
+      <Button
+        variant="ghost"
+        onClick={() => {
+          clearKeyword();
+          document.getElementById(SEARCH_INPUT_ID)?.focus();
+        }}
+        className="font-semibold hover:dark:bg-transparent hover:opacity-70 hover:text-[#1447e6] text-[#1447e6] hover:bg-transparent cursor-pointer"
+      >
+        초기화
+      </Button>
+    </div>
+  );
+}
