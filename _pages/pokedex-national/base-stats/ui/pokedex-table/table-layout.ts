@@ -26,27 +26,28 @@ const STAT_COLUMNS: readonly TableColumn[] = STAT_KEYS.map((key) => ({
   sortKey: key,
 }));
 
-// 열 너비 (grid 트랙)
+// 열 최소 너비 (rem). 글자·여백·삼각형이 rem이라 브라우저 글자 크기를 키우면 함께 넓어진다
+// (px로 두면 큰 글자에서 머리글 정렬 버튼이 셀 밖으로 나간다). 16px 기준 값은 주석
 const STAT_MIN_WIDTH: Record<StatKey, number> = {
-  total: 72,
-  hp: 64,
-  attack: 72,
-  defense: 72,
-  specialAttack: 100,
-  specialDefense: 100,
-  speed: 84,
+  total: 4.5, // 72px
+  hp: 4, // 64px
+  attack: 4.5, // 72px
+  defense: 4.5, // 72px
+  specialAttack: 6.25, // 100px
+  specialDefense: 6.25, // 100px
+  speed: 5.25, // 84px
 };
 
 const getColumnTrack = (id: TableColumnId): string => {
   switch (id) {
     case 'dexNumber':
-      return 'minmax(144px,1fr)';
+      return 'minmax(9rem,1fr)'; // 144px
     case 'name':
-      return 'minmax(120px,2fr)';
+      return 'minmax(7.5rem,2fr)'; // 120px
     case 'type':
-      return 'minmax(88px,1fr)';
+      return 'minmax(5.5rem,1fr)'; // 88px
     default:
-      return `minmax(${STAT_MIN_WIDTH[id]}px,0.75fr)`;
+      return `minmax(${STAT_MIN_WIDTH[id]}rem,0.75fr)`;
   }
 };
 

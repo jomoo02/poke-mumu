@@ -16,13 +16,10 @@ import {
   type SortKey,
 } from '../../model/sort';
 import SortStateIcon from '../sort-state-icon';
-import { SORT_TITLE, type SortPanelProps } from './sort-panel';
+import { SORT_TITLE, type SortProps } from './sort-props';
 import SortTrigger from './sort-trigger';
 
-export default function SortDropdownMenu({
-  sortState,
-  onToggle,
-}: SortPanelProps) {
+export default function SortDropdownMenu({ sortState, onToggle }: SortProps) {
   const [open, setOpen] = useState(false);
 
   useCloseOutsideMedia('(min-width: 768px) and (max-width: 1023px)', open, () =>

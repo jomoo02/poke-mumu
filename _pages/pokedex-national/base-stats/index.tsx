@@ -12,25 +12,26 @@ import { getAllType } from '@/_entities/type/index.server';
 import { getBaseStatsPokes } from './api/base-stats-poke';
 import { getFormGroups } from './api/form-group';
 
+import { PAGE_TITLE } from './config';
 import PageView from './ui/page-view';
+import PageViewSkeleton from './ui/page-view-skeleton';
 // 서버: 선택지 모듈과 Provider만 직접 (model/filter의 public API는 URL 훅도 내보낸다)
 import { toPokeFilterOptions } from './model/filter/filter-option';
 import { FilterOptionsProvider } from './model/filter/filter-options-context';
-
-const TITLE = '전국도감 종족값';
 
 export default function NationalBaseStatsPage() {
   return (
     <PageLayoutContainer>
       <TypeIconPreload />
       <PageLayoutHeader>
-        <PageLayoutHeaderTitle>{TITLE}</PageLayoutHeaderTitle>
+        <PageLayoutHeaderTitle>{PAGE_TITLE}</PageLayoutHeaderTitle>
       </PageLayoutHeader>
+      {/* 데이터는 'use cache'라 보통 App Shell에 함께 들어가 이 fallback은 캐시가 비었을 때만 보인다 */}
       <Suspense
         fallback={
-          <span role="status" className="sr-only">
-            포켓몬 목록을 불러오는 중
-          </span>
+          <PageLayoutSection className="mt-0">
+            <PageViewSkeleton />
+          </PageLayoutSection>
         }
       >
         <NationalBaseStatsContent />
@@ -47,10 +48,16 @@ async function NationalBaseStatsContent() {
   ]);
 
   return (
-    <PageLayoutSection className="mt-2">
-      <FilterOptionsProvider options={toPokeFilterOptions(types, formGroups)}>
-        <PageView pokes={pokes} />
-      </FilterOptionsProvider>
-    </PageLayoutSection>
+    <>
+      <PageLayoutSection className="mt-0">
+        <FilterOptionsProvider options={toPokeFilterOptions(types, formGroups)}>
+          {/* PageView는 URL(검색·필터·정렬·페이지)을 읽으므로 링크마다 다르다 → shared App Shell에 못 들어간다.
+            경계를 여기 두어 캐시된 목록(pokes)은 shell에 담기고, URL을 읽는 화면만 이 경계 뒤로 미룬다 */}
+          <Suspense fallback={<PageViewSkeleton />}>
+            <PageView pokes={pokes} />
+          </Suspense>
+        </FilterOptionsProvider>
+      </PageLayoutSection>
+    </>
   );
 }

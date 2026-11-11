@@ -18,10 +18,10 @@ import {
   getSortOptionAriaLabel,
 } from '../../model/sort';
 import SortStateIcon from '../sort-state-icon';
-import { SORT_TITLE, type SortPanelProps } from './sort-panel';
+import { SORT_TITLE, type SortProps } from './sort-props';
 import SortTrigger from './sort-trigger';
 
-export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
+export default function SortSheet({ sortState, onToggle }: SortProps) {
   const [open, setOpen] = useState(false);
 
   useCloseOutsideMedia('(max-width: 767px)', open, () => setOpen(false));
@@ -31,7 +31,7 @@ export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
       <SheetTrigger
         render={<SortTrigger sortState={sortState} className="md:hidden" />}
       />
-      <SheetContent side="bottom" className="max-h-[80dvh] gap-0">
+      <SheetContent side="bottom" className="max-h-[70dvh] gap-0">
         <SheetHeader>
           <SheetTitle>{SORT_TITLE}</SheetTitle>
         </SheetHeader>
@@ -50,7 +50,7 @@ export default function SortSheet({ sortState, onToggle }: SortPanelProps) {
                     className={cn(
                       'relative flex w-full items-center pl-10.5 pr-3 gap-2.5 border-0 cursor-pointer',
                       'hover:bg-transparent dark:hover:bg-transparent [@media(hover:hover)]:hover:bg-accent dark:[@media(hover:hover)]:hover:bg-accent',
-                      'h-12 rounded-lg active:bg-accent text-md',
+                      'h-12 rounded-lg active:bg-accent text-md active:not-aria-[haspopup]:translate-y-0',
                     )}
                   >
                     <span

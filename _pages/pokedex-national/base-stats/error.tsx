@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect } from 'react';
-import { RotateCwIcon } from 'lucide-react';
+import Link from 'next/link';
 
-import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 import {
   PageLayoutContainer,
@@ -11,6 +10,8 @@ import {
   PageLayoutHeaderTitle,
   PageLayoutSection,
 } from '@/_shared/ui/page-layout';
+
+import { PAGE_TITLE } from './config';
 
 interface NationalBaseStatsErrorProps {
   error: Error & { digest?: string };
@@ -31,26 +32,32 @@ export default function NationalBaseStatsError({
   return (
     <PageLayoutContainer>
       <PageLayoutHeader>
-        <PageLayoutHeaderTitle>전국도감 종족값</PageLayoutHeaderTitle>
+        <PageLayoutHeaderTitle>{PAGE_TITLE}</PageLayoutHeaderTitle>
       </PageLayoutHeader>
-      <PageLayoutSection className="mt-3">
-        <div role="alert" className="flex flex-col items-start gap-1 py-6">
-          <p className="font-medium">포켓몬 목록을 불러오지 못했어요</p>
-          <p className="text-sm text-muted-foreground">
-            잠시 후 다시 시도해 주세요
-          </p>
-          <Button
-            variant="secondary"
-            onClick={retry}
-            className={cn(
-              'mt-3 h-10.5 px-4',
-              'bg-input/50 dark:bg-input/70',
-              '[@media(hover:hover)]:hover:bg-input/70 dark:[@media(hover:hover)]:hover:bg-input',
-            )}
-          >
-            <RotateCwIcon aria-hidden />
-            다시 시도
-          </Button>
+      <PageLayoutSection className="mt-0">
+        <div role="alert" className="flex flex-col items-center gap-3 py-12">
+          <div className="flex flex-col items-center gap-0.5">
+            <p className="font-medium text-lg">
+              포켓몬 목록을 불러오지 못했어요
+            </p>
+          </div>
+          <div className="flex gap-3 mt-1.5">
+            <Button
+              variant="secondary"
+              onClick={retry}
+              className="w-32 h-11 cursor-pointer"
+            >
+              다시 시도하기
+            </Button>
+            <Button
+              variant="default"
+              nativeButton={false}
+              render={<Link href="/" />}
+              className="w-32 h-11"
+            >
+              메인으로
+            </Button>
+          </div>
         </div>
       </PageLayoutSection>
     </PageLayoutContainer>

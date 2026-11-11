@@ -12,7 +12,7 @@ interface SortStateIconProps {
  * 표 머리글과 정렬 메뉴·시트가 같이 쓴다.
  * 색은 글자색(currentColor)이 아니라 테두리 색으로 바로 칠한다:
  * 메뉴 항목의 focus:**:text-accent-foreground가 자손 글자색을 덮어 hover 때 방향이 안 보이기 때문.
- * #1447e6: 라이트 테마 primary. 메뉴 팝업이 dark라 --primary(다크 값)는 대비가 낮아 고정 값을 쓴다 (토큰은 추후)
+ * #1447e6: 라이트 테마 primary 고정 값. 정렬 메뉴 팝업은 늘 dark라 --primary(다크 값)는 대비가 낮다 (토큰은 추후)
  */
 export default function SortStateIcon({ order }: SortStateIconProps) {
   return (

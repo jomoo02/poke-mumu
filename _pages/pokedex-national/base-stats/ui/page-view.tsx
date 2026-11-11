@@ -47,26 +47,24 @@ export default function PageView({ pokes }: PageViewProps) {
           <Sort sortState={sortState} onToggle={toggleSort} />
         </div>
 
-        {totalCount === 0 ? (
-          <ResultEmpty />
-        ) : (
-          <>
-            <div className="lg:hidden">
-              <PokedexCardList pokes={pagePokes} />
-            </div>
-            <div className="hidden lg:block">
-              <PokedexTable
-                pokes={pagePokes}
-                sortState={sortState}
-                onSort={toggleSort}
-              />
-            </div>
-            <PaginationNav
-              page={page}
-              totalPages={totalPages}
-              className="mt-3"
-            />
-          </>
+        {/* 결과가 없으면 카드 목록은 안내로 바꾸고, 표는 머리글을 남긴 채 본문에 안내를 보인다 */}
+        <div className="lg:hidden">
+          {totalCount === 0 ? (
+            <ResultEmpty />
+          ) : (
+            <PokedexCardList pokes={pagePokes} />
+          )}
+        </div>
+        <div className="hidden lg:block">
+          <PokedexTable
+            pokes={pagePokes}
+            sortState={sortState}
+            onSort={toggleSort}
+            empty={<ResultEmpty />}
+          />
+        </div>
+        {totalCount > 0 && (
+          <PaginationNav page={page} totalPages={totalPages} className="mt-3" />
         )}
       </section>
     </div>

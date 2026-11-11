@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import Link from 'next/link';
 
 import { cn } from '@/_shared/lib/cn';
+import { IntentPrefetchLink } from '@/_shared/ui/intent-prefetch-link';
 import {
   PokeSprite,
   formatDexNumber,
@@ -41,9 +41,9 @@ function TableRow({ poke }: TableRowProps) {
         </div>
       </div>
       <div role="cell" className="min-w-0 px-4">
-        <Link
+        {/* 상세 내용은 고를 뜻(hover · focus · touch)을 보일 때만 미리 받는다 */}
+        <IntentPrefetchLink
           href={href}
-          prefetch={false}
           className={cn(
             'outline-none block min-w-0 truncate',
             'focus-visible:rounded-xs focus-visible:ring-[3px] focus-visible:ring-ring/50',
@@ -51,7 +51,7 @@ function TableRow({ poke }: TableRowProps) {
           )}
         >
           <span className="text-md font-medium">{name}</span>
-        </Link>
+        </IntentPrefetchLink>
       </div>
       <div role="cell" className="flex px-4">
         <div className="grid grid-cols-2 gap-1">

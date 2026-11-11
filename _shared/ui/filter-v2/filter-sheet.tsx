@@ -82,7 +82,7 @@ export function FilterSheetContent({
   return (
     <SheetContent
       side="bottom"
-      className={cn('max-h-[90dvh] gap-0', className)}
+      className={cn('max-h-[70dvh] gap-0', className)}
       {...props}
     />
   );
@@ -110,11 +110,7 @@ export function FilterSheetCheckboxGroup({
   ...props
 }: ComponentProps<'div'>) {
   return (
-    <div
-      role="group"
-      className={cn('grid gap-x-6 gap-y-1', className)}
-      {...props}
-    />
+    <div role="group" className={cn('grid gap-x-6', className)} {...props} />
   );
 }
 
@@ -141,8 +137,8 @@ export function FilterSheetCheckboxItem({
     <ControlRadioGroupLabel
       htmlFor={id}
       className={cn(
-        'h-11 min-w-0',
-        'has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-disabled:hover:after:bg-transparent',
+        'h-12 min-w-0',
+        'has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-disabled:hover:after:bg-transparent active:after:bg-accent',
         className,
       )}
     >

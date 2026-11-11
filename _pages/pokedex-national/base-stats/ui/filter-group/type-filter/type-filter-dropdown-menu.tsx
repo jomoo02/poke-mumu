@@ -6,9 +6,9 @@ import {
 } from '@/_shared/ui/filter-v2';
 import { TypeIcon } from '@/_entities/type';
 
-import { TYPE_FILTER_TITLE } from './use-type-filter';
 import CheckboxFilterTriggerText from '../checkbox-filter-trigger-text';
 import type { CheckboxFilterState } from '../use-checkbox-filter';
+import { TYPE_FILTER_TITLE } from './use-type-filter';
 
 interface TypeFilterDropdownMenuProps {
   filter: CheckboxFilterState;

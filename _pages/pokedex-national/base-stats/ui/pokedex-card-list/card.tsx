@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import Link from 'next/link';
 
 import { cn } from '@/_shared/lib/cn';
+import { IntentPrefetchLink } from '@/_shared/ui/intent-prefetch-link';
 import {
   PokeSprite,
   formatDexNumber,
@@ -28,9 +28,9 @@ function Card({ poke }: CardProps) {
   const name = getPokeName(poke);
 
   return (
-    <Link
+    // 상세 내용은 고를 뜻(hover · focus · touch)을 보일 때만 미리 받는다 (한 페이지 100개라 보이는 대로 받지 않는다)
+    <IntentPrefetchLink
       href={href}
-      prefetch={false}
       // 카드 전체가 링크라 안의 능력치까지 한 번에 읽힌다: 링크 이름은 번호·이름만
       aria-label={`No.${dexNumber} ${name}`}
       className={cn(
@@ -75,7 +75,7 @@ function Card({ poke }: CardProps) {
           </div>
         ))}
       </div>
-    </Link>
+    </IntentPrefetchLink>
   );
 }
 
