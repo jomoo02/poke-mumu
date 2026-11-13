@@ -17,7 +17,9 @@ type ListPatch<P extends UseQueryStatesKeysMap> = Partial<Nullable<Values<P>>>;
  * - write: 목록이 달라지는 변경. 항상 1페이지로 되돌린다 (page: null)
  *   함수를 넘기면 렌더 시점 값 대신 직전 값(prev)으로 계산한다 (연속 클릭에도 앞 변경을 덮어쓰지 않게)
  */
-export function useListQueryStates<P extends UseQueryStatesKeysMap>(parsers: P) {
+export function useListQueryStates<P extends UseQueryStatesKeysMap>(
+  parsers: P,
+) {
   const [values, setValues] = useQueryStates(parsers);
   const [, setPage] = useQueryStates(pageSearchParams);
 

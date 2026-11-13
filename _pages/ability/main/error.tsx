@@ -37,9 +37,7 @@ export default function AbilityMainError({
       <PageLayoutSection className="mt-0">
         <div role="alert" className="flex flex-col items-center gap-3 py-12">
           <div className="flex flex-col items-center gap-0.5">
-            <p className="font-medium text-lg">
-              특성 목록을 불러오지 못했어요
-            </p>
+            <p className="font-medium text-lg">특성 목록을 불러오지 못했어요</p>
           </div>
           <div className="flex gap-3 mt-1.5">
             <Button

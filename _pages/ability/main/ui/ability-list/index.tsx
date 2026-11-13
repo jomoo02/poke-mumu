@@ -1,18 +1,17 @@
 import type { ListAbility } from '../../model/ability';
-import { LIST_GRID_CLASS } from './list-layout';
-import Row from './row';
+import AbilityCard from './ability-card';
 
 interface AbilityListProps {
   abilities: ListAbility[];
 }
 
-// lg 미만: 한 줄 카드 목록 (정렬은 결과 줄의 정렬 버튼)
+// lg 미만: 카드 목록, sm부터 2열 (정렬은 결과 줄의 정렬 버튼)
 export default function AbilityList({ abilities }: AbilityListProps) {
   return (
-    <ul className={LIST_GRID_CLASS}>
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
       {abilities.map((ability) => (
         <li key={ability.identifier}>
-          <Row ability={ability} />
+          <AbilityCard ability={ability} />
         </li>
       ))}
     </ul>

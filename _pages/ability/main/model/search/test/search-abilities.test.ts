@@ -22,9 +22,9 @@ describe('filterAbilitiesByKeyword', () => {
   });
 
   it('띄어쓰기를 무시한다', () => {
-    expect(names(filterAbilitiesByKeyword(abilities, '가시지 않는'))).toEqual(
-      ['가시지않는향기'],
-    );
+    expect(names(filterAbilitiesByKeyword(abilities, '가시지 않는'))).toEqual([
+      '가시지않는향기',
+    ]);
   });
 
   it('자모 분리형(NFD) 검색어도 찾는다', () => {

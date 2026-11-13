@@ -8,7 +8,9 @@ import {
   type AbilityConditions,
 } from '../ability-results';
 
-const conditions = (partial: Partial<AbilityConditions>): AbilityConditions => ({
+const conditions = (
+  partial: Partial<AbilityConditions>,
+): AbilityConditions => ({
   keyword: '',
   sortState: DEFAULT_SORT,
   page: 1,
@@ -23,14 +25,14 @@ const ABILITIES = [
 ];
 
 describe('computeAbilityResults', () => {
-  it('조건이 없으면 전체를 특성번호순으로', () => {
+  it('조건이 없으면 전체를 이름순으로', () => {
     const result = computeAbilityResults(ABILITIES, conditions({}));
 
     expect(names(result.pageAbilities)).toEqual([
-      '악취',
       '가속',
-      '맹화',
       '급류',
+      '맹화',
+      '악취',
     ]);
     expect(result.totalCount).toBe(4);
     expect(result.page).toBe(1);

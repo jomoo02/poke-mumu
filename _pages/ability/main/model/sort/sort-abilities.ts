@@ -1,6 +1,6 @@
 import type { ListAbility } from '../ability';
 
-const SORT_KEYS = ['abilityNumber', 'name', 'appearance'] as const;
+const SORT_KEYS = ['name', 'appearance'] as const;
 
 type SortKey = (typeof SORT_KEYS)[number];
 
@@ -13,8 +13,8 @@ interface AbilitySort {
   order: SortOrder;
 }
 
-// 게임 공식 번호순. 기본값은 URL에 쓰지 않는다
-const DEFAULT_SORT: AbilitySort = { sort: 'abilityNumber', order: 'asc' };
+// 이름순. 기본값은 URL에 쓰지 않는다
+const DEFAULT_SORT: AbilitySort = { sort: 'name', order: 'asc' };
 
 const isSameSort = (a: AbilitySort, b: AbilitySort) =>
   a.sort === b.sort && a.order === b.order;
@@ -30,8 +30,6 @@ const getAppearanceRank = ({ gen, isChampions }: ListAbility) =>
 // 한 기준으로 오름차순 비교
 const compareBy = (a: ListAbility, b: ListAbility, sort: SortKey): number => {
   switch (sort) {
-    case 'abilityNumber':
-      return a.abilityNumber - b.abilityNumber;
     case 'name':
       return NAME_COLLATOR.compare(a.nameKo, b.nameKo);
     case 'appearance':
@@ -39,8 +37,9 @@ const compareBy = (a: ListAbility, b: ListAbility, sort: SortKey): number => {
   }
 };
 
-// 고른 기준으로 정렬하고, 값이 같으면 기본 정렬(번호순)로.
-// 동점 순서는 방향을 따라 뒤집지 않는다 (등장 반대순이어도 같은 세대끼리는 번호순)
+// 고른 기준으로 정렬하고, 값이 같으면 특성 번호순으로 (번호는 화면에 없지만 동점 순서를 고정한다).
+// 동점 순서도 방향을 따라 뒤집는다: 반대 방향은 정확히 거꾸로 된 목록이다
+// (등장 반대순이면 같은 세대끼리는 번호 반대순)
 const sortAbilities = (
   abilities: readonly ListAbility[],
   { sort, order }: AbilitySort,
@@ -49,8 +48,7 @@ const sortAbilities = (
 
   return [...abilities].sort(
     (a, b) =>
-      compareBy(a, b, sort) * direction ||
-      compareBy(a, b, DEFAULT_SORT.sort),
+      (compareBy(a, b, sort) || a.abilityNumber - b.abilityNumber) * direction,
   );
 };
 

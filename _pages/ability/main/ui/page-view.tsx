@@ -22,7 +22,7 @@ interface PageViewProps {
 }
 
 export default function PageView({ abilities }: PageViewProps) {
-  const { sortState, toggleSort } = useSortParam();
+  const { sortState, toggleSort, selectKey, selectOrder } = useSortParam();
 
   const { pageAbilities, page, totalPages, totalCount } =
     useAbilityResults(abilities);
@@ -37,16 +37,20 @@ export default function PageView({ abilities }: PageViewProps) {
   return (
     <>
       <ScrollToTopButton />
-      <div className="flex flex-col lg:gap-2">
+      <div className="flex flex-col lg:gap-6">
         <Toolbar resultCount={totalCount} />
         <section
           ref={sectionRef}
           className="flex flex-col gap-y-3 w-full scroll-mt-(--header-height)"
         >
-          {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 툴바 끝에, 정렬은 표 머리글로 한다 */}
+          {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 검색 줄 끝에, 정렬은 표 머리글로 한다 */}
           <div className="mt-3 flex min-h-8 items-center justify-between gap-3 lg:hidden">
             <ResultCount count={totalCount} />
-            <Sort sortState={sortState} onToggle={toggleSort} />
+            <Sort
+              sortState={sortState}
+              onSelectKey={selectKey}
+              onSelectOrder={selectOrder}
+            />
           </div>
 
           {/* 결과가 없으면 목록은 안내로 바꾸고, 표는 머리글을 남긴 채 본문에 안내를 보인다 */}

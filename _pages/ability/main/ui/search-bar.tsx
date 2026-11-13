@@ -12,9 +12,7 @@ import {
 
 import { useKeywordParam } from '../model/search';
 
-// 안내 글자. '이'와 '름' 사이에 폭 없는 공백(U+200B):
-// iOS Safari가 '이름'을 보고 키보드 위에 연락처 자동 완성을 띄우는 것을 막는다
-const SEARCH_PLACEHOLDER = '이​름 검색';
+const SEARCH_PLACEHOLDER = '특성 검색';
 
 // 빈 결과의 초기화가 포커스를 돌려줄 입력창
 export const SEARCH_INPUT_ID = 'ability-search-input';
@@ -38,7 +36,7 @@ export default function SearchBar({ className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-10.5', className)}>
+    <InputGroup className={cn('h-10.5 lg:max-w-2/5', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>
@@ -51,7 +49,6 @@ export default function SearchBar({ className }: SearchBarProps) {
         onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={onCompositionEnd}
         autoComplete="off"
-        // 모바일 키보드의 엔터를 '검색'으로 (type="search"는 브라우저 자체 ✕가 하나 더 생겨 쓰지 않는다)
         enterKeyHint="search"
         aria-label="특성 이름 검색"
       />

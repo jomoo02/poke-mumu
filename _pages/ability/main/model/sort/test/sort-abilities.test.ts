@@ -16,30 +16,6 @@ const desc = (sort: AbilitySort['sort']): AbilitySort => ({
 });
 
 describe('sortAbilities', () => {
-  describe('번호', () => {
-    const abilities = [
-      makeAbility({ nameKo: '파동의방호', abilityNumber: 319 }),
-      makeAbility({ nameKo: '악취', abilityNumber: 1 }),
-      makeAbility({ nameKo: '맹화', abilityNumber: 66 }),
-    ];
-
-    it('asc: 공식 번호순', () => {
-      expect(sortNames(abilities, asc('abilityNumber'))).toEqual([
-        '악취',
-        '맹화',
-        '파동의방호',
-      ]);
-    });
-
-    it('desc: 공식 번호 반대순', () => {
-      expect(sortNames(abilities, desc('abilityNumber'))).toEqual([
-        '파동의방호',
-        '맹화',
-        '악취',
-      ]);
-    });
-  });
-
   describe('이름', () => {
     const abilities = [
       makeAbility({ nameKo: '맹화' }),
@@ -95,24 +71,21 @@ describe('sortAbilities', () => {
       ]);
     });
 
-    it('desc: 챔피언스 → 같은 세대 일반 → 이전 세대, 같은 순위는 여전히 번호순', () => {
+    it('desc: 챔피언스 → 같은 세대 일반 → 이전 세대, 같은 순위는 번호 반대순', () => {
       expect(sortNames(abilities, desc('appearance'))).toEqual([
-        '관통드릴',
         '하바네로분출',
-        '가시지않는향기',
+        '관통드릴',
         '파수견',
+        '가시지않는향기',
         '파워스폿',
         '맹화',
       ]);
     });
 
-    it('동점 순서는 방향과 무관하게 같다', () => {
-      const tied = (order: AbilitySort['order']) =>
-        sortNames(abilities, { sort: 'appearance', order }).filter((name) =>
-          ['가시지않는향기', '파수견'].includes(name),
-        );
-
-      expect(tied('asc')).toEqual(tied('desc'));
+    it('desc는 asc를 정확히 뒤집은 목록이다 (동점 포함)', () => {
+      expect(sortNames(abilities, desc('appearance'))).toEqual(
+        sortNames(abilities, asc('appearance')).reverse(),
+      );
     });
   });
 

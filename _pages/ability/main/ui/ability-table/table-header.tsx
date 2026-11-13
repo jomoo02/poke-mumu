@@ -4,73 +4,60 @@ import { Button } from '@/_shared/ui/button';
 import type { AbilitySort, SortKey } from '../../model/sort';
 import SortStateIcon from '../sort-state-icon';
 
-import {
-  COLUMNS,
-  GRID_CLASS,
-  HEADER_ROW_CLASS,
-  HEAD_CELL_CLASS,
-  SORTABLE_HEAD_ALIGN_CLASS,
-  type TableColumn,
-} from './table-layout';
-
 const ARIA_SORT = { asc: 'ascending', desc: 'descending' } as const;
-
-const getOrder = (column: TableColumn, sortState: AbilitySort) =>
-  column.sortKey && sortState.sort === column.sortKey ? sortState.order : null;
 
 interface TableHeaderProps {
   sortState: AbilitySort;
   onSort: (sortKey: SortKey) => void;
 }
 
+// 열 너비(grid-cols)는 table-row · skeleton과 같은 값을 쓴다
 export default function TableHeader({ sortState, onSort }: TableHeaderProps) {
   return (
     <div role="rowgroup" className="sticky top-(--header-height) z-10">
-      <div role="row" className={cn(HEADER_ROW_CLASS, GRID_CLASS)}>
-        {COLUMNS.map((column) => (
-          <TableSortHead
-            key={column.id}
-            column={column}
-            sortState={sortState}
-            onSort={onSort}
-          />
-        ))}
+      <div
+        role="row"
+        className={cn(
+          'grid grid-cols-[minmax(9rem,1.75fr)_minmax(0,5fr)_6rem] items-center',
+          'h-11 rounded-sm bg-muted text-sm font-medium whitespace-nowrap text-foreground/70',
+        )}
+      >
+        <TableSortHead sortKey="name" sortState={sortState} onSort={onSort}>
+          이름
+        </TableSortHead>
+        <div role="columnheader" className="px-4">
+          설명
+        </div>
+        <TableSortHead
+          sortKey="appearance"
+          sortState={sortState}
+          onSort={onSort}
+        >
+          등장
+        </TableSortHead>
       </div>
     </div>
   );
 }
 
-interface TableHeadProps {
-  column: TableColumn;
+interface TableSortHeadProps extends TableHeaderProps {
+  sortKey: SortKey;
+  children: string;
 }
 
-function TableHead({ column }: TableHeadProps) {
-  return (
-    <div role="columnheader" className={HEAD_CELL_CLASS}>
-      {column.header}
-    </div>
-  );
-}
-
-interface TableSortHeadProps extends TableHeadProps {
-  sortState: AbilitySort;
-  onSort: (sortKey: SortKey) => void;
-}
-
-function TableSortHead({ column, sortState, onSort }: TableSortHeadProps) {
-  const sortKey = column.sortKey;
-
-  if (!sortKey) {
-    return <TableHead column={column} />;
-  }
-
-  const order = getOrder(column, sortState);
+function TableSortHead({
+  sortKey,
+  sortState,
+  onSort,
+  children,
+}: TableSortHeadProps) {
+  const order = sortState.sort === sortKey ? sortState.order : null;
 
   return (
     <div
       role="columnheader"
       aria-sort={order ? ARIA_SORT[order] : 'none'}
-      className={cn(HEAD_CELL_CLASS, SORTABLE_HEAD_ALIGN_CLASS[column.align])}
+      className="px-4"
     >
       <Button
         variant="ghost"
@@ -80,7 +67,7 @@ function TableSortHead({ column, sortState, onSort }: TableSortHeadProps) {
           order && 'text-foreground font-medium',
         )}
       >
-        {column.header}
+        {children}
         <SortStateIcon order={order} />
       </Button>
     </div>
