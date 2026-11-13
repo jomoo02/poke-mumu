@@ -35,7 +35,7 @@ export default function SearchBar({ className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-10.5', className)}>
+    <InputGroup className={cn('h-10.5 lg:max-w-2/5', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>

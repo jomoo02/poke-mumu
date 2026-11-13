@@ -45,6 +45,7 @@ export default function PageView({ pokes }: PageViewProps) {
           {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 툴바 끝에, 정렬은 표 머리글로 한다 */}
           <div className="flex min-h-8 items-center justify-between gap-3 lg:hidden">
             <ResultCount count={totalCount} />
+
             <Sort sortState={sortState} onToggle={toggleSort} />
           </div>
 

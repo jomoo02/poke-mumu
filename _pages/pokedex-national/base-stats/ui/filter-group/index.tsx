@@ -35,9 +35,9 @@ export default function PokedexFilter({ resultCount }: PokedexFilterProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}마리 보기`;
 
   return (
-    <div ref={rootRef} className="flex flex-col">
+    <div ref={rootRef} className="flex flex-col lg:flex-row lg:gap-x-3.5">
       <SearchBar />
-      <div className="flex min-w-0 items-center gap-3 h-16">
+      <div className="flex min-w-0 items-center gap-3 h-16 lg:h-auto">
         {isFilterActive && (
           <>
             <Button

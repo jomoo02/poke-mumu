@@ -15,7 +15,7 @@ import {
   groupByPokeAbilityKind,
 } from '@/_entities/poke';
 
-import { getAbilityPokes } from './api';
+import { getAbilityPokes } from './api/ability-poke';
 import { getVisibleKinds } from './model/ability-poke';
 import PokeList from './ui/poke-list';
 
