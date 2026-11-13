@@ -22,9 +22,10 @@ interface PageViewProps {
 }
 
 export default function PageView({ moves }: PageViewProps) {
-  const { sortState, toggleSort } = useSortParam();
+  const { sortState, toggleSort, selectKey, selectOrder } = useSortParam();
 
-  const { pageMoves, page, totalPages, totalCount } = useMoveResults(moves);
+  const { pageMoves, page, totalPages, totalCount, scopeCount, filterCounts } =
+    useMoveResults(moves);
 
   useReloadScrollRestoration();
 
@@ -36,21 +37,33 @@ export default function PageView({ moves }: PageViewProps) {
   return (
     <>
       <ScrollToTopButton />
-      <div className="flex flex-col lg:gap-2">
-        <Toolbar resultCount={totalCount} />
+      <div className="flex flex-col lg:gap-6">
+        <Toolbar
+          resultCount={totalCount}
+          scopeCount={scopeCount}
+          filterCounts={filterCounts}
+        />
         <section
           ref={sectionRef}
           className="flex flex-col gap-y-3 w-full scroll-mt-(--header-height)"
         >
-          {/* 결과 줄 (lg 미만): 개수 + 정렬. lg 이상은 개수를 툴바 끝에, 정렬은 표 머리글로 한다 */}
-          <div className="flex min-h-8 items-center justify-between gap-3 lg:hidden">
-            <ResultCount count={totalCount} />
-            <Sort sortState={sortState} onToggle={toggleSort} />
+          <ResultCount count={totalCount} />
+          {/* 결과 줄 (lg 미만): 정렬. lg 이상은 표 머리글로 한다 */}
+          <div className="mt-3 flex min-h-8 items-center justify-end lg:hidden">
+            <Sort
+              sortState={sortState}
+              onSelectKey={selectKey}
+              onSelectOrder={selectOrder}
+            />
           </div>
 
           {/* 결과가 없으면 카드 목록은 안내로 바꾸고, 표는 머리글을 남긴 채 본문에 안내를 보인다 */}
           <div className="lg:hidden">
-            {totalCount === 0 ? <ResultEmpty /> : <MoveList moves={pageMoves} />}
+            {totalCount === 0 ? (
+              <ResultEmpty />
+            ) : (
+              <MoveList moves={pageMoves} />
+            )}
           </div>
           <div className="hidden lg:block">
             <MoveTable

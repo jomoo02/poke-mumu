@@ -65,6 +65,27 @@ const filterMoves = (
   );
 };
 
+// 고른 값 하나 (칩 한 개). 이름은 선택지에서 읽는다
+interface SelectedFilterItem {
+  group: MoveFilterGroup;
+  value: string;
+  label: string;
+}
+
+// 고른 값을 칩 순서로 펼친다: 그룹 순서(타입 → 분류), 그룹 안은 고른 순서.
+// 유효한 선택(parseMoveFilter 결과)을 받아 이름이 없는 값은 들어오지 않는다
+const getSelectedFilterItems = (
+  values: MoveFilterValues,
+  options: MoveFilterOptions,
+): SelectedFilterItem[] =>
+  MOVE_FILTER_GROUPS.flatMap((group) =>
+    values[group].flatMap((value) => {
+      const option = options[group].find((item) => item.value === value);
+
+      return option ? [{ group, value, label: option.label }] : [];
+    }),
+  );
+
 // 그룹 하나에서 값 하나를 켜고 끈다: 있으면 빼고, 없으면 맨 뒤에 붙인 뒤 유효한 값만 남긴다
 // (잘못된 값·중복이 URL에 이어지지 않고 첫 조작에 정리된다)
 const toggleGroupValue = (
@@ -81,6 +102,12 @@ const toggleGroupValue = (
   return parseGroup(next, group, options);
 };
 
-export type { MoveFilterValues };
+export type { MoveFilterValues, SelectedFilterItem };
 
-export { parseMoveFilter, isMoveFilterActive, toggleGroupValue, filterMoves };
+export {
+  parseMoveFilter,
+  isMoveFilterActive,
+  toggleGroupValue,
+  filterMoves,
+  getSelectedFilterItems,
+};

@@ -10,12 +10,13 @@ export {
   toMoveFilterOptions,
 } from './filter-option';
 
-export type { MoveFilterValues } from './filter-moves';
+export type { MoveFilterValues, SelectedFilterItem } from './filter-moves';
 export {
   parseMoveFilter,
   isMoveFilterActive,
   toggleGroupValue,
   filterMoves,
+  getSelectedFilterItems,
 } from './filter-moves';
 
 export { filterSearchParams, FILTER_RESET_PATCH } from './filter-search-params';

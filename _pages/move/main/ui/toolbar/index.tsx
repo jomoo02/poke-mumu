@@ -1,68 +1,33 @@
-import { useRef } from 'react';
-import { RotateCwIcon } from 'lucide-react';
-
-import { cn } from '@/_shared/lib/cn';
-import { Button } from '@/_shared/ui/button';
-import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
-
-import { useFilterParam } from '../../model/filter';
-import ResultCount from '../result-count';
-import DamageClassFilter from './damage-class-filter';
+import type { MoveFilterCounts } from '../../model/move-results';
+import { FilterSheet } from './filter';
 import SearchBar from './search-bar';
-import TypeFilter from './type-filter';
 
 interface ToolbarProps {
-  // 지금 결과 수 (lg 이상 줄 끝 개수, 모바일 시트의 'N개 보기')
+  // 지금 결과 수 (필터 시트의 'N개 보기')
   resultCount: number;
+  // 검색할 범위의 수 (검색창 안내)
+  scopeCount: number;
+  // 필터 선택지 옆 숫자
+  filterCounts: MoveFilterCounts;
 }
 
 /**
- * 검색 + 묶음별 필터 (전국도감 종족값과 같은 표 페이지 툴바).
- * [검색]
- * [↻ 초기화] | [타입⌄] [분류⌄]          개수(lg 이상)
- * 초기화는 필터 전체 하나뿐이고, 고른 필터가 있을 때만 왼쪽에 나타난다.
- * 아이콘만 (접근 이름 '필터 모두 지우기'). 누르면 사라지므로 포커스를 지금 보이는 첫 필터 트리거로
+ * 검색 + 통합 필터 (전국도감 종족값과 같은 표 페이지 툴바).
+ * [🔍 기술 400개 중 검색 ] ……………… [⚙ 필터 N]
+ * lg 미만은 [검색][⚙] 한 줄. 개수는 검색창 안내(검색할 범위)와 필터 시트('N개 보기')에만 보인다.
+ * 고른 값(칩)은 필터 시트 안에서 보여 툴바 높이는 늘 같다
  */
-export default function Toolbar({ resultCount }: ToolbarProps) {
-  const rootRef = useRef<HTMLDivElement>(null);
-
-  const { isFilterActive, resetFilters } = useFilterParam();
-
+export default function Toolbar({
+  resultCount,
+  scopeCount,
+  filterCounts,
+}: ToolbarProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}개 보기`;
 
   return (
-    <div ref={rootRef} className="flex flex-col">
-      <SearchBar />
-      <div className="flex min-w-0 items-center gap-3 h-16">
-        {isFilterActive && (
-          <>
-            <Button
-              variant="ghost"
-              onClick={() => {
-                resetFilters();
-                if (rootRef.current) {
-                  focusVisibleFilterTrigger(rootRef.current);
-                }
-              }}
-              aria-label="필터 모두 지우기"
-              className={cn(
-                'size-10 shrink-0 cursor-pointer',
-                'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input',
-              )}
-            >
-              <RotateCwIcon aria-hidden className="size-3.75" />
-            </Button>
-
-            <div aria-hidden className="h-5 w-px shrink-0 bg-border" />
-          </>
-        )}
-
-        <div className="-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar p-1">
-          <TypeFilter resultLabel={resultLabel} />
-          <DamageClassFilter resultLabel={resultLabel} />
-        </div>
-        <ResultCount stacked className="hidden lg:flex" count={resultCount} />
-      </div>
+    <div className="flex items-center justify-between gap-3">
+      <SearchBar scopeCount={scopeCount} className="flex-1 lg:max-w-2/5" />
+      <FilterSheet resultLabel={resultLabel} filterCounts={filterCounts} />
     </div>
   );
 }

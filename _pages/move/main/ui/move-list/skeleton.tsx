@@ -1,27 +1,20 @@
 import { Skeleton, SkeletonLine } from '@/_shared/ui/skeleton';
 
-import {
-  CARD_CLASS,
-  FIRST_ROW_CLASS,
-  LIST_GRID_CLASS,
-  STAT_ROW_CLASS,
-} from './list-layout';
-
 interface MoveListSkeletonProps {
   count: number;
 }
 
-// Card와 같은 카드 모양·글꼴 크기·간격으로 자리를 잡는다
+// MoveCard와 같은 카드 모양·글꼴 크기·간격으로 자리를 잡는다
 export default function MoveListSkeleton({ count }: MoveListSkeletonProps) {
   return (
-    <ul className={LIST_GRID_CLASS}>
+    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
       {Array.from({ length: count }, (_, index) => (
-        <li key={index} className={CARD_CLASS}>
-          <div className={FIRST_ROW_CLASS}>
-            <div className="w-9 shrink-0 text-sm">
-              <SkeletonLine className="w-6" />
-            </div>
-            <div className="min-w-0 flex-1 text-md">
+        <li
+          key={index}
+          className="flex h-full flex-col px-4 gap-1.5 py-3.5 rounded-2xl bg-card border"
+        >
+          <div className="flex gap-3.5">
+            <div className="flex flex-1 items-center text-base">
               <SkeletonLine className="w-24" />
             </div>
             {/* 타입·분류 아이콘 size-7 둘 */}
@@ -30,11 +23,16 @@ export default function MoveListSkeleton({ count }: MoveListSkeletonProps) {
               <Skeleton className="size-7 rounded-sm" />
             </div>
           </div>
-          {/* 수치 칩: text-sm(줄 높이 20px) + py-0.75 = 26px. 폭은 '위력 40' 정도 */}
-          <div className={STAT_ROW_CLASS}>
+          {/* 수치 줄: '위력 40' 셋 */}
+          <div className="flex items-center gap-x-3.5 pt-0.5 text-md">
             {Array.from({ length: 3 }, (_, statIndex) => (
-              <Skeleton key={statIndex} className="h-6.5 w-17 rounded-lg" />
+              <SkeletonLine key={statIndex} className="w-14" />
             ))}
+          </div>
+          {/* 설명 두 줄 자리(pt-2 + h-12.5). 모바일 폭에선 대부분 두 줄 */}
+          <div className="flex h-12.5 max-w-[92%] flex-col pt-2 text-md">
+            <SkeletonLine className="w-full" />
+            <SkeletonLine className="w-3/5" />
           </div>
         </li>
       ))}

@@ -66,7 +66,7 @@ function ControlRadioGroupLabel({
     <Label
       className={cn(
         'relative isolate flex items-center gap-2.5 h-10 text-md cursor-pointer',
-        'after:absolute after:inset-y-0 after:-inset-x-2 after:-z-10 after:rounded-lg hover:after:bg-muted/70',
+        'after:absolute after:inset-y-0 after:-inset-x-3 after:-z-10 after:rounded-lg hover:after:bg-muted/70',
         className,
       )}
       {...props}

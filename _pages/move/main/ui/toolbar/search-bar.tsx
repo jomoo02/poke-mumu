@@ -12,19 +12,18 @@ import {
 
 import { useKeywordParam } from '../../model/search';
 
-// 안내 글자. '이'와 '름' 사이에 폭 없는 공백(U+200B):
-// iOS Safari가 '이름'을 보고 키보드 위에 연락처 자동 완성을 띄우는 것을 막는다
-const SEARCH_PLACEHOLDER = '이\u200B름 검색';
-
 interface SearchBarProps {
+  // 검색할 범위의 수 (필터만 건 결과)
+  scopeCount: number;
   className?: string;
 }
 
 /**
- * [🔍 이름 검색   ✕]
+ * [🔍 기술 400개 중 검색   ✕]
+ * 안내 글자에 검색할 범위(필터만 건 수)를 보인다. 비어 있을 때만 보여 검색어와 섞이지 않는다.
  * 검색어는 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
  */
-export default function SearchBar({ className }: SearchBarProps) {
+export default function SearchBar({ scopeCount, className }: SearchBarProps) {
   const { keyword, setKeyword } = useKeywordParam();
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
@@ -41,7 +40,7 @@ export default function SearchBar({ className }: SearchBarProps) {
       </InputGroupAddon>
       <InputGroupInput
         ref={inputRef}
-        placeholder={SEARCH_PLACEHOLDER}
+        placeholder={`기술 ${scopeCount.toLocaleString('ko-KR')}개 중 검색`}
         className="h-full"
         value={value}
         onChange={(event) => onChange(event.target.value)}

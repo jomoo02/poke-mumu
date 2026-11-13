@@ -8,26 +8,24 @@ import { DamageClassIcon } from '@/_entities/damage-class';
 
 import type { ListMove } from '../../model/move';
 import MoveStatValue from '../move-stat-value';
-import { BODY_ROW_CLASS, GRID_CLASS } from './table-layout';
 
 interface TableRowProps {
   move: ListMove;
 }
 
+// 열 너비(grid-cols)는 table-header · skeleton과 같은 값을 쓴다.
+// 높이 고정 64px: 설명은 두 줄까지(line-clamp-2)라 어느 폭에서도 넘치지 않는다
 function TableRow({ move }: TableRowProps) {
   return (
     <div
       role="row"
       className={cn(
-        // 머리글과 같은 grid (열이 어긋나지 않게)
-        GRID_CLASS,
-        BODY_ROW_CLASS,
+        'grid items-center',
+        'grid-cols-[minmax(9rem,1.5fr)_minmax(4.5rem,0.6fr)_minmax(4.5rem,0.6fr)_minmax(5.5rem,0.75fr)_minmax(5.5rem,0.75fr)_minmax(5rem,0.65fr)_minmax(0,3.25fr)]',
+        'h-16 border-b last:border-b-0',
         'relative [@media(hover:hover)]:hover:bg-muted/70',
       )}
     >
-      <div role="cell" className="px-4 text-md tabular-nums">
-        {move.moveNumber}
-      </div>
       <div role="cell" className="min-w-0 px-4">
         {/* 상세 내용은 고를 뜻(hover · focus · touch)을 보일 때만 미리 받는다 */}
         <IntentPrefetchLink

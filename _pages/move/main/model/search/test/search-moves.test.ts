@@ -26,9 +26,9 @@ describe('filterMovesByKeyword', () => {
   });
 
   it('자모 분리형(NFD) 검색어도 찾는다', () => {
-    expect(
-      names(filterMovesByKeyword(moves, '불꽃'.normalize('NFD'))),
-    ).toEqual(['불꽃세례']);
+    expect(names(filterMovesByKeyword(moves, '불꽃'.normalize('NFD')))).toEqual(
+      ['불꽃세례'],
+    );
   });
 
   it('기술 번호로는 찾지 않는다 (이름에 든 숫자는 찾는다)', () => {

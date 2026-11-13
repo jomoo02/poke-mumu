@@ -45,13 +45,13 @@ describe('toMoveFilterOptions', () => {
   });
 
   it('분류: 물리 → 특수 → 변화, 모르는 분류는 뺀다', () => {
-    expect(options.damageClass.map(({ value, label }) => [value, label])).toEqual(
-      [
-        ['physical', '물리'],
-        ['special', '특수'],
-        ['status', '변화'],
-      ],
-    );
+    expect(
+      options.damageClass.map(({ value, label }) => [value, label]),
+    ).toEqual([
+      ['physical', '물리'],
+      ['special', '특수'],
+      ['status', '변화'],
+    ]);
   });
 
   it('선택지에 아이콘을 그릴 값을 넣는다', () => {

@@ -1,29 +1,13 @@
-import { cn } from '@/_shared/lib/cn';
-
 interface ResultCountProps {
   count: number;
-  // '특성'과 'N개'를 두 줄로 쌓는다 (lg 이상 툴바 끝).
-  // 쌓지 않으면 'N개'만 보인다 (모바일 결과 줄)
-  stacked?: boolean;
-  className?: string;
 }
 
-export default function ResultCount({
-  count,
-  stacked = false,
-  className,
-}: ResultCountProps) {
+// 결과 수 알림 (화면엔 안 보임). 검색어·필터가 바뀌면 스크린리더가 읽는다.
+// 화면의 수는 검색창 안내('기술 400개 중 검색')와 필터 시트('N개 보기')에 있다
+export default function ResultCount({ count }: ResultCountProps) {
   return (
-    <p
-      aria-live="polite"
-      className={cn(
-        'shrink-0 text-sm lg:text-xs text-foreground/70',
-        stacked && 'flex flex-col items-end',
-        className,
-      )}
-    >
-      {stacked && <span>기술</span>}
-      <span>{`${count.toLocaleString('ko-KR')}개`}</span>
+    <p aria-live="polite" className="sr-only">
+      {`결과 ${count.toLocaleString('ko-KR')}개`}
     </p>
   );
 }

@@ -4,6 +4,7 @@ import { makeMove, names } from '../../move/list-move.fixture';
 import type { MoveFilterOptions } from '../filter-option';
 import {
   filterMoves,
+  getSelectedFilterItems,
   isMoveFilterActive,
   parseMoveFilter,
   toggleGroupValue,
@@ -103,5 +104,24 @@ describe('toggleGroupValue', () => {
     expect(
       toggleGroupValue(['foo', 'fire', 'fire'], 'water', 'type', OPTIONS),
     ).toEqual(['fire', 'water']);
+  });
+});
+
+describe('getSelectedFilterItems', () => {
+  it('그룹 순서(타입 → 분류), 그룹 안은 고른 순서로 펼친다', () => {
+    expect(
+      getSelectedFilterItems(
+        values({ damageClass: ['physical'], type: ['water', 'fire'] }),
+        OPTIONS,
+      ),
+    ).toEqual([
+      { group: 'type', value: 'water', label: 'water' },
+      { group: 'type', value: 'fire', label: 'fire' },
+      { group: 'damageClass', value: 'physical', label: 'physical' },
+    ]);
+  });
+
+  it('고른 게 없으면 빈 목록', () => {
+    expect(getSelectedFilterItems(values({}), OPTIONS)).toEqual([]);
   });
 });

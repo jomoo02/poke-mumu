@@ -1,3 +1,3 @@
-export type { MoveConditions } from './move-results';
-export { computeMoveResults } from './move-results';
+export type { MoveConditions, MoveFilterCounts } from './move-results';
+export { computeMoveResults, computeFilterCounts } from './move-results';
 export { useMoveResults } from './use-move-results';

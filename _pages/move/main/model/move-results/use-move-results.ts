@@ -5,7 +5,11 @@ import { useFilterParam } from '../filter';
 import { useKeywordParam } from '../search';
 import { useSortParam } from '../sort';
 import { usePageParam } from '../url-state';
-import { computeMoveResults, type MoveConditions } from './move-results';
+import {
+  computeFilterCounts,
+  computeMoveResults,
+  type MoveConditions,
+} from './move-results';
 
 /**
  * 지금 URL 조건의 결과 (computeMoveResults).
@@ -26,5 +30,20 @@ export function useMoveResults(moves: ListMove[]) {
 
   const deferred = useDeferredValue(conditions);
 
-  return useMemo(() => computeMoveResults(moves, deferred), [moves, deferred]);
+  const results = useMemo(
+    () => computeMoveResults(moves, deferred),
+    [moves, deferred],
+  );
+
+  // 필터 선택지 옆 숫자 (정렬·페이지와 상관없어 검색어·필터가 바뀔 때만 센다)
+  const filterCounts = useMemo(
+    () =>
+      computeFilterCounts(moves, {
+        filter: deferred.filter,
+        keyword: deferred.keyword,
+      }),
+    [moves, deferred.filter, deferred.keyword],
+  );
+
+  return { ...results, filterCounts };
 }
