@@ -15,7 +15,7 @@ export default function AbilityListSkeleton({
       {Array.from({ length: count }, (_, index) => (
         <li
           key={index}
-          className="flex h-full flex-col gap-y-1.5 px-4 py-3.5 rounded-2xl bg-card border"
+          className="flex h-full flex-col gap-y-1.5 px-5 py-4.5 rounded-3xl bg-card border"
         >
           <div className="flex justify-between gap-x-3.5">
             <div className="min-w-0 flex-1 text-base">

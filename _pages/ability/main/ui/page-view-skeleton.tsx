@@ -10,22 +10,21 @@ const TABLE_ROW_COUNT = 10;
 /**
  * PageView와 같은 구조·크기로 자리를 잡는다 (App Shell에 들어가는 로딩 화면).
  * - 검색 한 줄
- * - lg 미만: 결과 줄(정렬) + 카드 목록 / lg 이상: 표 머리글은 진짜로
+ * - 결과 줄(개수 · lg 미만 정렬) + lg 미만 카드 / lg 이상 표 (머리글은 진짜로)
  */
 export default function PageViewSkeleton() {
   return (
-    <div className="flex flex-col lg:gap-6">
+    <div className="flex flex-col">
       <span role="status" className="sr-only">
         특성 목록을 불러오는 중
       </span>
-      <Skeleton
-        aria-hidden
-        className="h-10.5 w-full rounded-4xl lg:max-w-2/5"
-      />
-      <div aria-hidden className="flex flex-col gap-3">
-        <div className="mt-3 flex min-h-8 items-center justify-end lg:hidden">
-          {/* 정렬 버튼 높이(h-10)만큼 줄이 높아진다 */}
-          <div className="flex h-10 items-center text-sm">
+      <Skeleton aria-hidden className="mb-3 h-11 w-full rounded-4xl" />
+      <div aria-hidden className="flex flex-col gap-y-4">
+        <div className="flex h-9.5 items-center justify-between gap-3">
+          <div className="text-sm">
+            <SkeletonLine className="w-10" />
+          </div>
+          <div className="flex items-center text-sm lg:hidden">
             <SkeletonLine className="w-24" />
           </div>
         </div>

@@ -15,18 +15,17 @@ import { useKeywordParam } from '../model/search';
 // 빈 결과의 초기화가 포커스를 돌려줄 입력창
 export const SEARCH_INPUT_ID = 'ability-search-input';
 
+const SEARCH_PLACEHOLDER = '특성 검색';
+
 interface SearchBarProps {
-  // 검색할 범위의 수 (필터가 없어 전체 특성 수)
-  scopeCount: number;
   className?: string;
 }
 
 /**
- * [🔍 특성 314개 중 검색   ✕]
- * 안내 글자에 검색할 범위를 보인다 (기술 페이지와 같은 규칙). 비어 있을 때만 보여 검색어와 섞이지 않는다.
+ * [🔍 특성 검색   ✕]
  * 검색어는 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
  */
-export default function SearchBar({ scopeCount, className }: SearchBarProps) {
+export default function SearchBar({ className }: SearchBarProps) {
   const { keyword, setKeyword } = useKeywordParam();
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
@@ -37,14 +36,14 @@ export default function SearchBar({ scopeCount, className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-10.5 lg:max-w-2/5', className)}>
+    <InputGroup className={cn('h-11', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>
       <InputGroupInput
         ref={inputRef}
         id={SEARCH_INPUT_ID}
-        placeholder={`특성 ${scopeCount.toLocaleString('ko-KR')}개 중 검색`}
+        placeholder={SEARCH_PLACEHOLDER}
         className="h-full"
         value={value}
         onChange={(event) => onChange(event.target.value)}

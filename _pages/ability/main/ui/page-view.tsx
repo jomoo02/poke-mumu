@@ -37,20 +37,22 @@ export default function PageView({ abilities }: PageViewProps) {
   return (
     <>
       <ScrollToTopButton />
-      <div className="flex flex-col lg:gap-6">
-        <Toolbar scopeCount={abilities.length} />
+      <div className="flex flex-col">
+        <Toolbar />
         <section
           ref={sectionRef}
-          className="flex flex-col gap-y-3 w-full scroll-mt-(--header-height)"
+          className="flex flex-col gap-y-4 w-full scroll-mt-(--header-height)"
         >
-          <ResultCount count={totalCount} />
-          {/* 결과 줄 (lg 미만): 정렬. lg 이상은 표 머리글로 한다 */}
-          <div className="mt-3 flex min-h-8 items-center justify-end lg:hidden">
-            <Sort
-              sortState={sortState}
-              onSelectKey={selectKey}
-              onSelectOrder={selectOrder}
-            />
+          {/* 결과 줄: 개수 + 정렬(lg 미만). lg 이상은 개수만, 정렬은 표 머리글로 한다 */}
+          <div className="h-9.5 flex items-center justify-between gap-3">
+            <ResultCount count={totalCount} />
+            <div className="lg:hidden">
+              <Sort
+                sortState={sortState}
+                onSelectKey={selectKey}
+                onSelectOrder={selectOrder}
+              />
+            </div>
           </div>
 
           {/* 결과가 없으면 목록은 안내로 바꾸고, 표는 머리글을 남긴 채 본문에 안내를 보인다 */}

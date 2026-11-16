@@ -16,7 +16,7 @@ function AbilityCard({ ability }: AbilityCardProps) {
     <IntentPrefetchLink
       href={getAbilityHref(ability)}
       className={cn(
-        'flex h-full flex-col gap-y-1.5 px-4 py-3.5 rounded-2xl bg-card border',
+        'flex h-full flex-col gap-y-1.5 px-5 py-4.5 rounded-3xl bg-card border',
         '[@media(hover:hover)]:hover:bg-muted/70',
         'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
         'flex gap-x-3.5',

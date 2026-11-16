@@ -18,7 +18,7 @@ function TableRow({ ability }: TableRowProps) {
       role="row"
       className={cn(
         'grid grid-cols-[minmax(9rem,1.75fr)_minmax(0,5fr)_6rem] items-center',
-        'h-16 border-b last:border-b-0',
+        'h-18 border-b last:border-b-0',
         'relative [@media(hover:hover)]:hover:bg-muted/70',
       )}
     >
