@@ -6,6 +6,7 @@ import { makePoke } from '../../poke/base-stats-poke.fixture';
 import type { PokeFilterOptions } from '../filter-option';
 import {
   filterPokes,
+  getSelectedFilterItems,
   parsePokeFilter,
   toggleGroupValue,
   type PokeFilterValues,
@@ -174,5 +175,27 @@ describe('toggleGroupValue', () => {
     expect(
       toggleGroupValue(['fire', 'water'], 'flying', 'type', OPTIONS),
     ).toEqual(['fire', 'water']);
+  });
+});
+
+describe('getSelectedFilterItems', () => {
+  it('그룹 순서(타입 → 모습 → 세대), 그룹 안은 고른 순서로 펼친다', () => {
+    expect(
+      getSelectedFilterItems(
+        { gen: ['3'], form: ['alola'], type: ['water', 'fire'] },
+        OPTIONS,
+      ),
+    ).toEqual([
+      { group: 'type', value: 'water', label: 'water' },
+      { group: 'type', value: 'fire', label: 'fire' },
+      { group: 'form', value: 'alola', label: 'alola' },
+      { group: 'gen', value: '3', label: '3' },
+    ]);
+  });
+
+  it('선택지에 없는 값은 빠진다', () => {
+    expect(
+      getSelectedFilterItems({ type: ['foo'], form: [], gen: [] }, OPTIONS),
+    ).toEqual([]);
   });
 });

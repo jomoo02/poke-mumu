@@ -89,6 +89,32 @@ const toggleGroupValue = (
   return parseGroup(next, group, options);
 };
 
-export type { PokeFilterValues };
+interface SelectedFilterItem {
+  group: PokeFilterGroup;
+  value: string;
+  label: string;
+}
 
-export { parsePokeFilter, isPokeFilterActive, toggleGroupValue, filterPokes };
+// 고른 값을 칩 순서로 펼친다: 그룹 순서(타입 → 모습 → 세대), 그룹 안은 고른 순서.
+// 유효한 선택(parsePokeFilter 결과)을 받아 이름이 없는 값은 들어오지 않는다
+const getSelectedFilterItems = (
+  values: PokeFilterValues,
+  options: PokeFilterOptions,
+): SelectedFilterItem[] =>
+  POKE_FILTER_GROUPS.flatMap((group) =>
+    values[group].flatMap((value) => {
+      const option = options[group].find((item) => item.value === value);
+
+      return option ? [{ group, value, label: option.label }] : [];
+    }),
+  );
+
+export type { PokeFilterValues, SelectedFilterItem };
+
+export {
+  parsePokeFilter,
+  isPokeFilterActive,
+  toggleGroupValue,
+  filterPokes,
+  getSelectedFilterItems,
+};

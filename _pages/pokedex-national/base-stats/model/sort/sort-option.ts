@@ -11,7 +11,7 @@ interface SortOption {
   // 기준 이름. 줄이지 않는다 (특수공격·특수방어)
   label: string;
   kind: SortKind;
-  // 정렬 목록의 고른 줄: 앞에 기준 이름이 있어 짧게 ('번호순', '높은 순')
+  // 정렬 시트·메뉴의 방향 섹션 칸 이름: 위에 기준이 있어 짧게 ('번호순', '높은 순')
   orderLabel: Record<SortOrder, string>;
   // 정렬 전체 이름 (결과 줄 정렬 버튼): 혼자 보여도 무엇의 순서인지 알 수 있게 ('도감번호순', '특수공격 높은 순')
   sortLabel: Record<SortOrder, string>;
@@ -69,34 +69,41 @@ const getSortLabel = ({ sort, order }: PokeSort): string =>
 const getInitialOrder = (key: SortKey): SortOrder =>
   ORDERS_BY_KIND[getSortOption(key).kind][0];
 
-// 방향 이름: 위에 기준 이름이 있는 곳(정렬 목록의 고른 줄)에서 쓴다 ('번호순', '높은 순')
-const getOrderLabel = ({ sort, order }: PokeSort): string =>
-  getSortOption(sort).orderLabel[order];
-
-// 표 머리글·정렬 목록: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
+// 표 머리글: 같은 기준이면 방향 반전, 다른 기준이면 그 기준의 첫 방향부터
 const getToggledSort = (current: PokeSort, key: SortKey): PokeSort =>
   key === current.sort
     ? { sort: key, order: current.order === 'asc' ? 'desc' : 'asc' }
     : { sort: key, order: getInitialOrder(key) };
 
-// 정렬 목록 한 줄의 접근 이름. 고른 줄은 지금 방향과 다시 누르면 바뀔 방향을, 나머지는 누르면 될 정렬을 읽는다
-// ('총합, 높은 순. 다시 누르면 낮은 순' / 'HP, 높은 순'). 선택 상태는 넣지 않는다 (메뉴는 aria-checked가 읽는다)
-const getSortOptionAriaLabel = (current: PokeSort, key: SortKey): string => {
-  const { label } = getSortOption(key);
-  const next = getOrderLabel(getToggledSort(current, key));
+// 정렬 시트·메뉴의 기준 섹션: 같은 기준이면 그대로, 다른 기준이면 그 기준의 첫 방향부터.
+// 방향은 아래 방향 섹션에서 따로 고른다 (기준 → 방향 순서라, 고른 방향을 기준이 덮어쓰지 않는다)
+const getKeySelectedSort = (current: PokeSort, key: SortKey): PokeSort =>
+  key === current.sort ? current : { sort: key, order: getInitialOrder(key) };
 
-  return current.sort === key
-    ? `${label}, ${getOrderLabel(current)}. 다시 누르면 ${next}`
-    : `${label}, ${next}`;
+interface OrderOption {
+  order: SortOrder;
+  // 방향 섹션의 칸 이름 ('번호순', '높은 순')
+  label: string;
+}
+
+// 정렬 시트·메뉴의 방향 섹션: 지금 기준의 두 방향을 첫 방향부터
+// (도감번호: 번호순 → 번호 반대순, 능력치: 높은 순 → 낮은 순)
+const getOrderOptions = (sort: SortKey): OrderOption[] => {
+  const { kind, orderLabel } = getSortOption(sort);
+
+  return ORDERS_BY_KIND[kind].map((order) => ({
+    order,
+    label: orderLabel[order],
+  }));
 };
 
-export type { SortOption };
+export type { SortOption, OrderOption };
 
 export {
   SORT_OPTIONS,
   getSortLabel,
   getInitialOrder,
-  getOrderLabel,
   getToggledSort,
-  getSortOptionAriaLabel,
+  getKeySelectedSort,
+  getOrderOptions,
 };

@@ -4,9 +4,9 @@ import { SORT_KEYS } from '../sort-pokes';
 import {
   SORT_OPTIONS,
   getInitialOrder,
-  getOrderLabel,
+  getKeySelectedSort,
+  getOrderOptions,
   getSortLabel,
-  getSortOptionAriaLabel,
   getToggledSort,
 } from '../sort-option';
 
@@ -57,17 +57,6 @@ describe('getInitialOrder', () => {
   });
 });
 
-describe('getOrderLabel', () => {
-  it('앞에 기준 이름이 있어 짧게', () => {
-    expect(getOrderLabel({ sort: 'dexNumber', order: 'asc' })).toBe('번호순');
-    expect(getOrderLabel({ sort: 'dexNumber', order: 'desc' })).toBe(
-      '번호 반대순',
-    );
-    expect(getOrderLabel({ sort: 'attack', order: 'desc' })).toBe('높은 순');
-    expect(getOrderLabel({ sort: 'attack', order: 'asc' })).toBe('낮은 순');
-  });
-});
-
 describe('getToggledSort', () => {
   it('같은 기준이면 방향을 뒤집는다', () => {
     expect(getToggledSort({ sort: 'speed', order: 'desc' }, 'speed')).toEqual({
@@ -88,28 +77,35 @@ describe('getToggledSort', () => {
   });
 });
 
-describe('getSortOptionAriaLabel', () => {
-  it('고른 기준: 지금 방향과 다시 누르면 바뀔 방향', () => {
+describe('getKeySelectedSort', () => {
+  it('같은 기준이면 방향을 바꾸지 않는다', () => {
     expect(
-      getSortOptionAriaLabel({ sort: 'total', order: 'desc' }, 'total'),
-    ).toBe('총합, 높은 순. 다시 누르면 낮은 순');
-    expect(
-      getSortOptionAriaLabel({ sort: 'dexNumber', order: 'asc' }, 'dexNumber'),
-    ).toBe('도감번호, 번호순. 다시 누르면 번호 반대순');
+      getKeySelectedSort({ sort: 'speed', order: 'asc' }, 'speed'),
+    ).toEqual({ sort: 'speed', order: 'asc' });
   });
 
-  it('다른 능력치 기준: 그 기준의 첫 방향(높은 순)', () => {
+  it('다른 기준이면 그 기준의 첫 방향부터', () => {
     expect(
-      getSortOptionAriaLabel({ sort: 'total', order: 'asc' }, 'speed'),
-    ).toBe('스피드, 높은 순');
+      getKeySelectedSort({ sort: 'dexNumber', order: 'desc' }, 'attack'),
+    ).toEqual({ sort: 'attack', order: 'desc' });
+    expect(
+      getKeySelectedSort({ sort: 'attack', order: 'asc' }, 'name'),
+    ).toEqual({ sort: 'name', order: 'asc' });
+  });
+});
+
+describe('getOrderOptions', () => {
+  it('순서형: 짧은 이름으로 asc → desc', () => {
+    expect(getOrderOptions('dexNumber')).toEqual([
+      { order: 'asc', label: '번호순' },
+      { order: 'desc', label: '번호 반대순' },
+    ]);
   });
 
-  it('다른 번호·이름 기준: 그 기준의 첫 방향(번호순·이름순)', () => {
-    expect(
-      getSortOptionAriaLabel({ sort: 'total', order: 'desc' }, 'dexNumber'),
-    ).toBe('도감번호, 번호순');
-    expect(
-      getSortOptionAriaLabel({ sort: 'total', order: 'desc' }, 'name'),
-    ).toBe('이름, 이름순');
+  it('수치형: 높은 순 → 낮은 순', () => {
+    expect(getOrderOptions('total')).toEqual([
+      { order: 'desc', label: '높은 순' },
+      { order: 'asc', label: '낮은 순' },
+    ]);
   });
 });

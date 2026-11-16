@@ -10,12 +10,13 @@ export {
   toPokeFilterOptions,
 } from './filter-option';
 
-export type { PokeFilterValues } from './filter-pokes';
+export type { PokeFilterValues, SelectedFilterItem } from './filter-pokes';
 export {
   parsePokeFilter,
   isPokeFilterActive,
   toggleGroupValue,
   filterPokes,
+  getSelectedFilterItems,
 } from './filter-pokes';
 
 export { filterSearchParams, FILTER_RESET_PATCH } from './filter-search-params';

@@ -11,9 +11,9 @@ export {
   SORT_OPTIONS,
   getSortLabel,
   getInitialOrder,
-  getOrderLabel,
   getToggledSort,
-  getSortOptionAriaLabel,
+  getKeySelectedSort,
+  getOrderOptions,
 } from './sort-option';
 
 export { sortSearchParams } from './sort-search-params';
