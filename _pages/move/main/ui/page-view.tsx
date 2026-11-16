@@ -41,7 +41,7 @@ export default function PageView({ moves }: PageViewProps) {
         <Toolbar resultCount={totalCount} filterCounts={filterCounts} />
         <section
           ref={sectionRef}
-          className="flex flex-col gap-y-3 w-full scroll-mt-(--header-height) mt-3"
+          className="flex flex-col gap-y-4 w-full scroll-mt-(--header-height)"
         >
           {/* 결과 줄: 개수 + 정렬(lg 미만). lg 이상은 개수만, 정렬은 표 머리글로 한다 */}
           <div className="h-9.5 flex items-center justify-between gap-3">

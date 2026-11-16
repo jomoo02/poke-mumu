@@ -25,7 +25,7 @@ export default function Toolbar({ resultCount, filterCounts }: ToolbarProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}개 보기`;
 
   return (
-    <div ref={rootRef}>
+    <div ref={rootRef} className="mb-3">
       <div className="flex items-center justify-between gap-3">
         <SearchBar className="flex-1" />
         <FilterSheet resultLabel={resultLabel} filterCounts={filterCounts} />

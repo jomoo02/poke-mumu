@@ -39,7 +39,7 @@ export default function MoveTableSkeleton({
           className={cn(
             'grid items-center',
             'grid-cols-[minmax(9rem,1.5fr)_minmax(4.5rem,0.6fr)_minmax(4.5rem,0.6fr)_minmax(5.5rem,0.75fr)_minmax(5.5rem,0.75fr)_minmax(5rem,0.65fr)_minmax(0,3.25fr)]',
-            'h-16 border-b last:border-b-0',
+            'h-18 border-b last:border-b-0',
           )}
         >
           <div className="px-4 text-md">

@@ -115,15 +115,21 @@ export default function FilterSheet({
           />
         }
       >
-        <SlidersHorizontalIcon aria-hidden className="size-4.5" />
+        <SlidersHorizontalIcon
+          aria-hidden
+          className="size-4.5"
+          data-icon="inline-start"
+        />
         <span aria-hidden className="hidden lg:inline">
           {FILTER_TITLE}
         </span>
         {selectedCount > 0 && (
           <span
             aria-hidden
+            data-icon="inline-end"
             className={cn(
-              'flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1.5 text-xs font-medium tabular-nums text-primary-foreground',
+              // 고를 수 있는 값은 최대 21개(두 자리)라 20px 원 안에 들어간다. 자리 수와 관계없이 크기 고정
+              'flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] leading-none font-medium tabular-nums text-primary-foreground',
               'absolute -top-1 -right-1 lg:static',
             )}
           >

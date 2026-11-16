@@ -51,7 +51,7 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
   }
 
   return (
-    <div className="-mx-1 px-1 py-0.5 mt-3 flex min-w-0 items-center gap-2 overflow-x-auto no-scrollbar lg:flex-wrap lg:overflow-visible">
+    <div className="-mx-1 px-1 py-2 -mb-2 mt-1.5 flex min-w-0 items-center gap-2 overflow-x-auto no-scrollbar lg:flex-wrap lg:overflow-visible">
       {selectedItems.map(({ group, value, label }, index) => (
         <Button
           key={`${group}-${value}`}

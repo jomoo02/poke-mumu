@@ -11,7 +11,7 @@ export default function MoveListSkeleton({ count }: MoveListSkeletonProps) {
       {Array.from({ length: count }, (_, index) => (
         <li
           key={index}
-          className="flex h-full flex-col px-4 gap-1.5 py-3.5 rounded-2xl bg-card border"
+          className="flex h-full flex-col px-5 gap-1.5 py-4.5 rounded-3xl bg-card border"
         >
           <div className="flex gap-3.5">
             <div className="flex flex-1 items-center text-base">

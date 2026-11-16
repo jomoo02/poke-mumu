@@ -14,24 +14,23 @@ const TABLE_ROW_COUNT = 10;
  */
 export default function PageViewSkeleton() {
   return (
-    <div className="flex flex-col lg:gap-6">
+    <div className="flex flex-col">
       <span role="status" className="sr-only">
         기술 목록을 불러오는 중
       </span>
-      <div aria-hidden className="flex flex-col">
+      <div aria-hidden className="mb-3 flex flex-col">
         <div className="flex items-center justify-between gap-3">
-          <Skeleton className="h-10.5 flex-1 rounded-4xl" />
-          {/* 필터 트리거: lg 미만 아이콘(size-10.5), lg 이상 '필터' 글자까지 */}
-          <Skeleton className="size-10.5 shrink-0 rounded-4xl lg:w-22" />
+          <Skeleton className="h-11 flex-1 rounded-4xl" />
+          {/* 필터 트리거: lg 미만 아이콘(size-11), lg 이상 '필터' 글자까지 */}
+          <Skeleton className="size-11 shrink-0 rounded-4xl lg:w-20.5" />
         </div>
       </div>
-      <div aria-hidden className="flex flex-col gap-3">
-        <div className="mt-3 flex min-h-8 items-center justify-between gap-3 lg:mt-0">
+      <div aria-hidden className="flex flex-col gap-y-4">
+        <div className="flex h-9.5 items-center justify-between gap-3">
           <div className="text-sm">
             <SkeletonLine className="w-10" />
           </div>
-          {/* 정렬 버튼 높이(h-10)만큼 줄이 높아진다 */}
-          <div className="flex h-10 items-center text-sm lg:hidden">
+          <div className="flex items-center text-sm lg:hidden">
             <SkeletonLine className="w-24" />
           </div>
         </div>
