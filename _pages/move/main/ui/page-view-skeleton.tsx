@@ -9,8 +9,8 @@ const TABLE_ROW_COUNT = 10;
 
 /**
  * PageView와 같은 구조·크기로 자리를 잡는다 (App Shell에 들어가는 로딩 화면).
- * - [검색 …… 필터 트리거] 한 줄
- * - lg 미만: 결과 줄(정렬) + 카드 / lg 이상: 표 머리글은 진짜로
+ * - [검색 …… 필터 트리거] 한 줄. 칩 줄은 고른 필터가 있을 때만이라 그리지 않는다
+ * - 결과 줄(개수 · lg 미만 정렬) + lg 미만 카드 / lg 이상 표 (머리글은 진짜로)
  */
 export default function PageViewSkeleton() {
   return (
@@ -20,15 +20,18 @@ export default function PageViewSkeleton() {
       </span>
       <div aria-hidden className="flex flex-col">
         <div className="flex items-center justify-between gap-3">
-          <Skeleton className="h-10.5 flex-1 rounded-4xl lg:max-w-2/5" />
+          <Skeleton className="h-10.5 flex-1 rounded-4xl" />
           {/* 필터 트리거: lg 미만 아이콘(size-10.5), lg 이상 '필터' 글자까지 */}
           <Skeleton className="size-10.5 shrink-0 rounded-4xl lg:w-22" />
         </div>
       </div>
       <div aria-hidden className="flex flex-col gap-3">
-        <div className="mt-3 flex min-h-8 items-center justify-end lg:hidden">
+        <div className="mt-3 flex min-h-8 items-center justify-between gap-3 lg:mt-0">
+          <div className="text-sm">
+            <SkeletonLine className="w-10" />
+          </div>
           {/* 정렬 버튼 높이(h-10)만큼 줄이 높아진다 */}
-          <div className="flex h-10 items-center text-sm">
+          <div className="flex h-10 items-center text-sm lg:hidden">
             <SkeletonLine className="w-24" />
           </div>
         </div>

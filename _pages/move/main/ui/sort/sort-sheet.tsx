@@ -114,7 +114,7 @@ export default function SortSheet({
       <SheetTrigger
         render={<SortTrigger sortState={sortState} className="md:hidden" />}
       />
-      <SheetContent side="bottom" className="max-h-[70dvh] gap-0">
+      <SheetContent side="bottom" className="max-h-[85dvh] gap-0">
         <SheetHeader>
           <SheetTitle>{SORT_TITLE}</SheetTitle>
         </SheetHeader>

@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
 import { SlidersHorizontalIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
@@ -20,6 +20,7 @@ import {
 import {
   Sheet,
   SheetContent,
+  SheetFooterButton,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -35,7 +36,6 @@ import {
   type MoveFilterOption,
 } from '../../../model/filter';
 import type { MoveFilterCounts } from '../../../model/move-results';
-import FilterChips from './filter-chips';
 
 export const FILTER_TITLE = '필터';
 
@@ -71,10 +71,10 @@ interface FilterSheetProps {
  * 그룹은 열고 닫는 섹션: 첫 그룹만 처음부터 열고 나머지는 닫아 둔다 (여럿 동시에 열 수 있다).
  * 열린 섹션은 시트를 닫았다 열어도 유지한다 (새로고침하면 처음으로). 제목엔 그 그룹에서 고른 수: '타입 (3)',
  * 닫힌 섹션은 제목 아래에 고른 값 이름을 한 줄로 ('불꽃, 물, 풀…').
- * 맨 위는 고른 값 칩 + 모두 지우기 (페이지엔 칩을 두지 않는다: 툴바 높이가 바뀌지 않게)
+ * 고른 값 칩은 페이지의 검색창 아래에 있다 (FilterChips). 모두 지우기는 시트 아래 [초기화][N개 보기]
  * 선택지는 한 줄에 하나: [☐ 이름 ······ 숫자 아이콘]. 숫자가 0이면 흐리게 (고른 값을 풀 수 있게 누르는 건 막지 않는다)
  * 트리거: 아이콘 + 고른 값 개수 배지 (lg 이상은 '필터' 글자도)
- * data-filter-trigger: 빈 결과의 초기화 뒤 포커스를 돌려줄 대상
+ * data-filter-trigger: 칩을 모두 지운 뒤·빈 결과의 초기화 뒤 포커스를 돌려줄 대상
  */
 export default function FilterSheet({
   resultLabel,
@@ -91,18 +91,13 @@ export default function FilterSheet({
   const isMobile = useIsMobile();
 
   const options = useFilterOptions();
-  const { filter, selectedItems, toggleFilter } = useFilterParam();
+  const { filter, selectedItems, toggleFilter, resetFilters } =
+    useFilterParam();
+
+  // 초기화 뒤 초기화 버튼이 비활성이 되므로 포커스를 '보기' 버튼으로 옮긴다
+  const footerRef = useRef<HTMLDivElement>(null);
 
   const selectedCount = selectedItems.length;
-
-  // 칩을 모두 지우면 칩 줄이 사라지므로 첫 섹션 제목으로 포커스를 옮긴다
-  const bodyRef = useRef<HTMLDivElement>(null);
-
-  const focusFirstSection = useCallback(() => {
-    bodyRef.current
-      ?.querySelector<HTMLElement>('[data-slot=accordion-trigger]')
-      ?.focus();
-  }, []);
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -116,7 +111,7 @@ export default function FilterSheet({
                 ? `${FILTER_TITLE}, ${selectedCount}개 선택됨`
                 : FILTER_TITLE
             }
-            className="relative shrink-0 cursor-pointer lg:w-auto lg:gap-2 lg:px-4"
+            className="relative shrink-0 cursor-pointer size-11 lg:w-auto lg:gap-2 lg:px-4"
           />
         }
       >
@@ -138,13 +133,12 @@ export default function FilterSheet({
       </SheetTrigger>
       <SheetContent
         side={isMobile ? 'bottom' : 'right'}
-        className={cn('gap-0', isMobile && 'max-h-[85dvh]')}
+        className={cn('gap-0', isMobile && 'data-[side=bottom]:h-[85dvh]')}
       >
         <SheetHeader>
           <SheetTitle>{FILTER_TITLE}</SheetTitle>
         </SheetHeader>
-        <FilterSheetBody ref={bodyRef} className="flex flex-col py-1">
-          <FilterChips onEmptied={focusFirstSection} />
+        <FilterSheetBody className="flex flex-col py-1">
           <Accordion
             multiple
             value={openGroups}
@@ -156,7 +150,7 @@ export default function FilterSheet({
                   <div className="my-2.5 h-px shrink-0 bg-border" />
                 )}
                 <AccordionItem value={group}>
-                  <AccordionTrigger className="py-2.5 min-h-12 text-base font-semibold text-foreground active:bg-muted/70 hover:bg-muted/70 px-3 -mx-3 rounded-lg">
+                  <AccordionTrigger className="py-2.5 min-h-12 text-base font-semibold text-foreground rounded-sm hover:underline hover:underline-offset-2 px-3 -mx-3">
                     <span className="flex min-w-0 flex-col">
                       {/* 고른 값이 있으면 개수: '타입 (3)' */}
                       <span>
@@ -202,9 +196,7 @@ export default function FilterSheet({
                               <span className="min-w-0 flex-1 truncate">
                                 {option.label}
                               </span>
-                              <span className="shrink-0 text-sm tabular-nums text-foreground/70">
-                                {count.toLocaleString('ko-KR')}
-                              </span>
+
                               <span className="flex shrink-0">
                                 <OptionIcon {...option} />
                               </span>
@@ -219,8 +211,21 @@ export default function FilterSheet({
             ))}
           </Accordion>
         </FilterSheetBody>
-        <FilterSheetFooter>
-          <FilterSheetDone>{resultLabel}</FilterSheetDone>
+        <FilterSheetFooter ref={footerRef}>
+          <SheetFooterButton
+            variant="input"
+            disabled={selectedCount === 0}
+            onClick={() => {
+              resetFilters();
+              footerRef.current
+                ?.querySelector<HTMLButtonElement>('[data-filter-done]')
+                ?.focus();
+            }}
+            className="cursor-pointer px-6"
+          >
+            초기화
+          </SheetFooterButton>
+          <FilterSheetDone data-filter-done>{resultLabel}</FilterSheetDone>
         </FilterSheetFooter>
       </SheetContent>
     </Sheet>

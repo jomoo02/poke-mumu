@@ -12,18 +12,17 @@ import {
 
 import { useKeywordParam } from '../../model/search';
 
+const SEARCH_PLACEHOLDER = '기술 검색';
+
 interface SearchBarProps {
-  // 검색할 범위의 수 (필터만 건 결과)
-  scopeCount: number;
   className?: string;
 }
 
 /**
- * [🔍 기술 400개 중 검색   ✕]
- * 안내 글자에 검색할 범위(필터만 건 수)를 보인다. 비어 있을 때만 보여 검색어와 섞이지 않는다.
+ * [🔍 기술 검색   ✕]
  * 검색어는 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
  */
-export default function SearchBar({ scopeCount, className }: SearchBarProps) {
+export default function SearchBar({ className }: SearchBarProps) {
   const { keyword, setKeyword } = useKeywordParam();
 
   const { value, onChange, onCompositionEnd, clear } = useSearchInput({
@@ -34,13 +33,13 @@ export default function SearchBar({ scopeCount, className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-10.5', className)}>
+    <InputGroup className={cn('h-11', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>
       <InputGroupInput
         ref={inputRef}
-        placeholder={`기술 ${scopeCount.toLocaleString('ko-KR')}개 중 검색`}
+        placeholder={SEARCH_PLACEHOLDER}
         className="h-full"
         value={value}
         onChange={(event) => onChange(event.target.value)}

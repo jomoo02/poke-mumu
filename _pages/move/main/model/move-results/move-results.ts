@@ -28,8 +28,6 @@ interface MoveResults {
   totalPages: number;
   // 자르기 전 결과 수
   totalCount: number;
-  // 검색할 범위: 필터만 건 수 (검색창 안내 '기술 400개 중 검색')
-  scopeCount: number;
 }
 
 // 필터 → 검색 → 정렬 → 현재 페이지
@@ -51,7 +49,6 @@ const computeMoveResults = (
     page: shownPage,
     totalPages,
     totalCount: sorted.length,
-    scopeCount: filtered.length,
   };
 };
 

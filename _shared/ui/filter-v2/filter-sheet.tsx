@@ -138,7 +138,7 @@ export function FilterSheetCheckboxItem({
       htmlFor={id}
       className={cn(
         'h-12 min-w-0',
-        'has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-disabled:hover:after:bg-transparent active:after:bg-accent',
+        'has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-disabled:hover:after:bg-transparent',
         className,
       )}
     >
@@ -164,13 +164,19 @@ export function FilterSheetFooter({
 export function FilterSheetDone({
   className,
   children,
+  ...props
 }: {
   className?: string;
   children: ReactNode;
-}) {
+} & Omit<ComponentProps<'button'>, 'className' | 'children'>) {
   return (
     <SheetClose
-      render={<SheetFooterButton className={cn('flex-1', className)} />}
+      render={
+        <SheetFooterButton
+          className={cn('flex-1 cursor-pointer', className)}
+          {...props}
+        />
+      }
     >
       {children}
     </SheetClose>

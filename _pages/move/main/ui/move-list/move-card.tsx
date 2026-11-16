@@ -30,7 +30,7 @@ function MoveCard({ move }: MoveCardProps) {
     <IntentPrefetchLink
       href={getMoveHref(move)}
       className={cn(
-        'flex h-full flex-col px-4 gap-1.5 py-3.5 rounded-2xl bg-card border',
+        'flex h-full flex-col px-5 gap-1.5 py-4.5 rounded-3xl bg-card border',
         '[@media(hover:hover)]:hover:bg-muted/70',
         'outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50',
       )}

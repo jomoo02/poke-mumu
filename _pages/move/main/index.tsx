@@ -15,7 +15,6 @@ import { getListMoves } from './api/move';
 import { PAGE_TITLE } from './config';
 import { toMoveFilterOptions } from './model/filter/filter-option';
 import { FilterOptionsProvider } from './model/filter/filter-options-context';
-import ActiveFilterSummary from './ui/active-filter-summary';
 import PageView from './ui/page-view';
 import PageViewSkeleton from './ui/page-view-skeleton';
 
@@ -26,15 +25,7 @@ export default function MoveMainPage() {
       <TypeIconPreload />
       <DamageClassIconPreload />
       <PageLayoutHeader>
-        {/* 제목은 App Shell에 담고, 옆의 지금 필터(URL을 읽음)만 나중에 채운다. 같은 줄이라 나타나도 밀리지 않는다 */}
-        <div className="flex min-w-0 items-baseline gap-3">
-          <PageLayoutHeaderTitle className="shrink-0">
-            {PAGE_TITLE}
-          </PageLayoutHeaderTitle>
-          <Suspense fallback={null}>
-            <MoveFilterSummary />
-          </Suspense>
-        </div>
+        <PageLayoutHeaderTitle>{PAGE_TITLE}</PageLayoutHeaderTitle>
       </PageLayoutHeader>
       <Suspense
         fallback={
@@ -46,20 +37,6 @@ export default function MoveMainPage() {
         <MoveMainContent />
       </Suspense>
     </PageLayoutContainer>
-  );
-}
-
-// 제목 옆 지금 필터. 선택지 이름이 필요해 같은 조회('use cache')를 한 번 더 부른다 (캐시라 비용 없음)
-async function MoveFilterSummary() {
-  const [types, damageClasses] = await Promise.all([
-    getAllType(),
-    getAllDamageClass(),
-  ]);
-
-  return (
-    <FilterOptionsProvider options={toMoveFilterOptions(types, damageClasses)}>
-      <ActiveFilterSummary />
-    </FilterOptionsProvider>
   );
 }
 

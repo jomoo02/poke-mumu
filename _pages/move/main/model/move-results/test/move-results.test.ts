@@ -50,8 +50,6 @@ describe('computeMoveResults', () => {
 
     expect(names(result.pageMoves)).toEqual(['불꽃세례']);
     expect(result.totalCount).toBe(1);
-    // 검색 범위는 필터만 건 수 (불꽃 2개)
-    expect(result.scopeCount).toBe(2);
   });
 
   it('결과가 없으면 0개, 1페이지', () => {
