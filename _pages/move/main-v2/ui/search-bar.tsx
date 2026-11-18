@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef } from 'react';
 import { SearchIcon, XIcon } from 'lucide-react';
 
@@ -10,7 +12,7 @@ import {
   InputGroupInput,
 } from '@/_shared/ui/input-group';
 
-import { useKeywordParam } from '../../model/search';
+import { useKeywordParam } from '../model/search';
 
 const SEARCH_PLACEHOLDER = '기술 검색';
 
@@ -18,10 +20,6 @@ interface SearchBarProps {
   className?: string;
 }
 
-/**
- * [🔍 기술 검색   ✕]
- * 검색어는 URL 상태라 부모에게서 받지 않고 훅으로 읽는다
- */
 export default function SearchBar({ className }: SearchBarProps) {
   const { keyword, setKeyword } = useKeywordParam();
 
@@ -45,13 +43,10 @@ export default function SearchBar({ className }: SearchBarProps) {
         onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={onCompositionEnd}
         autoComplete="off"
-        // 모바일 키보드의 엔터를 '검색'으로 (type="search"는 브라우저 자체 ✕가 하나 더 생겨 쓰지 않는다)
         enterKeyHint="search"
         aria-label="기술 이름 검색"
       />
-      {/* 오른쪽 여백은 기본값(pr-4): ✕ 중심이 돋보기 중심과 같은 거리(약 26px)가 된다 */}
       <InputGroupAddon align="inline-end">
-        {/* 입력값이 있을 때만. 지운 뒤 버튼이 사라지므로 포커스를 입력창으로 돌려 바로 다시 입력할 수 있게 한다 */}
         <InputGroupButton
           onClick={() => {
             clear();
@@ -59,7 +54,7 @@ export default function SearchBar({ className }: SearchBarProps) {
           }}
           aria-label="검색어 지우기"
           size="icon-sm"
-          className={value === '' ? 'hidden' : 'flex rounded-lg'}
+          className={value === '' ? 'hidden' : 'flex rounded-lg cursor-pointer'}
         >
           <XIcon className="size-5" aria-hidden />
         </InputGroupButton>

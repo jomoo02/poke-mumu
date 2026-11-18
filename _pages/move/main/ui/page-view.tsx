@@ -38,21 +38,25 @@ export default function PageView({ moves }: PageViewProps) {
     <>
       <ScrollToTopButton />
       <div className="flex flex-col">
-        <Toolbar resultCount={totalCount} filterCounts={filterCounts} />
+        <Toolbar
+          resultCount={totalCount}
+          filterCounts={filterCounts}
+          sortState={sortState}
+          onSelectKey={selectKey}
+          onSelectOrder={selectOrder}
+        />
         <section
           ref={sectionRef}
           className="flex flex-col gap-y-4 w-full scroll-mt-(--header-height)"
         >
-          {/* 결과 줄: 개수 + 정렬(lg 미만). lg 이상은 개수만, 정렬은 표 머리글로 한다 */}
-          <div className="h-9.5 flex items-center justify-between gap-3">
+          {/* 결과 줄 (md 미만): 개수 + 정렬. md 이상은 필터 줄 끝의 [개수 | 정렬] */}
+          <div className="flex h-9.5 items-center justify-between gap-3 md:hidden">
             <ResultCount count={totalCount} />
-            <div className="lg:hidden">
-              <Sort
-                sortState={sortState}
-                onSelectKey={selectKey}
-                onSelectOrder={selectOrder}
-              />
-            </div>
+            <Sort
+              sortState={sortState}
+              onSelectKey={selectKey}
+              onSelectOrder={selectOrder}
+            />
           </div>
 
           {/* 결과가 없으면 카드 목록은 안내로 바꾸고, 표는 머리글을 남긴 채 본문에 안내를 보인다 */}

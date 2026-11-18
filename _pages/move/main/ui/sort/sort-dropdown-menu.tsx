@@ -29,7 +29,7 @@ import SortTrigger from './sort-trigger';
 const ITEM_CLASS_NAME = 'h-10 cursor-pointer text-md';
 
 /**
- * md 정렬 메뉴: [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
+ * md 이상 정렬 메뉴 (필터 줄 끝): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
  * 고르면 바로 닫는다
  */
 export default function SortDropdownMenu({
@@ -39,9 +39,7 @@ export default function SortDropdownMenu({
 }: SortProps) {
   const [open, setOpen] = useState(false);
 
-  useCloseOutsideMedia('(min-width: 768px) and (max-width: 1023px)', open, () =>
-    setOpen(false),
-  );
+  useCloseOutsideMedia('(min-width: 768px)', open, () => setOpen(false));
 
   // modal={false}: 스크롤을 잠그지 않는다 (스크롤바가 사라지며 화면 폭이 바뀌지 않게)
   return (
@@ -57,7 +55,7 @@ export default function SortDropdownMenu({
       <DropdownMenuContent
         align="end"
         aria-label={SORT_TITLE}
-        className="w-58 max-md:hidden lg:hidden"
+        className="w-58 max-md:hidden"
       >
         <DropdownMenuGroup>
           <DropdownMenuLabel>{SORT_KEY_TITLE}</DropdownMenuLabel>

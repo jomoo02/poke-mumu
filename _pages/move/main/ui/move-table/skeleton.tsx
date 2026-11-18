@@ -31,7 +31,7 @@ export default function MoveTableSkeleton({
         <SortHeadSkeleton className="flex justify-end">위력</SortHeadSkeleton>
         <SortHeadSkeleton className="flex justify-end">명중</SortHeadSkeleton>
         <SortHeadSkeleton className="flex justify-end">PP</SortHeadSkeleton>
-        <div className="px-4">설명</div>
+        <div className="pl-8 pr-4">설명</div>
       </div>
       {Array.from({ length: rowCount }, (_, index) => (
         <div
@@ -56,7 +56,7 @@ export default function MoveTableSkeleton({
               <SkeletonLine className="w-7" />
             </div>
           ))}
-          <div className="px-4 text-md">
+          <div className="pl-8 pr-4 text-md">
             <SkeletonLine className="w-4/5" />
           </div>
         </div>

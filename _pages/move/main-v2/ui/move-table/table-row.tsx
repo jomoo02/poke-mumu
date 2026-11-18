@@ -1,0 +1,77 @@
+import { memo } from 'react';
+
+import { cn } from '@/_shared/lib/cn';
+import { IntentPrefetchLink } from '@/_shared/ui/intent-prefetch-link';
+import { getMoveHref } from '@/_entities/move';
+import { TypeIcon } from '@/_entities/type';
+import { DamageClassIcon } from '@/_entities/damage-class';
+
+import type { ListMove } from '../../model/move';
+import MoveStatValue from '../move-stat-value';
+
+interface TableRowProps {
+  move: ListMove;
+}
+
+// 열 너비(grid-cols)는 table-header · skeleton과 같은 값을 쓴다.
+// 높이 고정 64px: 설명은 두 줄까지(line-clamp-2)라 어느 폭에서도 넘치지 않는다
+function TableRow({ move }: TableRowProps) {
+  return (
+    <div
+      role="row"
+      className={cn(
+        'grid items-center',
+        'grid-cols-[minmax(9rem,1.5fr)_minmax(4.5rem,0.6fr)_minmax(4.5rem,0.6fr)_minmax(5.5rem,0.75fr)_minmax(5.5rem,0.75fr)_minmax(5rem,0.65fr)_minmax(0,3.25fr)]',
+        'h-18 border-b last:border-b-0',
+        'relative [@media(hover:hover)]:hover:bg-muted/70',
+      )}
+    >
+      <div role="cell" className="min-w-0 px-4">
+        {/* 상세 내용은 고를 뜻(hover · focus · touch)을 보일 때만 미리 받는다 */}
+        <IntentPrefetchLink
+          href={getMoveHref(move)}
+          className={cn(
+            'outline-none block min-w-0 truncate',
+            'focus-visible:rounded-xs focus-visible:ring-[3px] focus-visible:ring-ring/50',
+            'after:absolute after:inset-0',
+          )}
+        >
+          <span className="text-md font-medium">{move.nameKo}</span>
+        </IntentPrefetchLink>
+      </div>
+      {/* 접근 이름은 아이콘의 alt */}
+      <div role="cell" className="flex px-4">
+        <TypeIcon type={move.type} />
+      </div>
+      <div role="cell" className="flex px-4">
+        {/* Z·다이맥스 기술은 분류가 없다. '-'는 스크린리더가 '대시'로 읽으므로 '없음'으로 읽힌다 */}
+        {move.damageClass ? (
+          <DamageClassIcon damageClass={move.damageClass} />
+        ) : (
+          <span className="text-md">
+            <span aria-hidden>-</span>
+            <span className="sr-only">없음</span>
+          </span>
+        )}
+      </div>
+      <div role="cell" className="px-4 text-right text-md">
+        <MoveStatValue value={move.power} />
+      </div>
+      <div role="cell" className="px-4 text-right text-md">
+        <MoveStatValue value={move.accuracy} />
+      </div>
+      <div role="cell" className="px-4 text-right text-md">
+        <MoveStatValue value={move.pp} />
+      </div>
+      {/* 두 줄을 넘으면 '…'로 자른다. 잘린 전체 문장은 마우스를 올리면 보인다 */}
+      {/* 설명: 왼쪽 여백을 넓혀 PP 숫자와 띄운다 (머리글과 같은 값) */}
+      <div role="cell" className="min-w-0 pl-8 pr-4">
+        <p title={move.description} className="line-clamp-2 break-keep text-md">
+          {move.description}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export default memo(TableRow);

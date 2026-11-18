@@ -58,7 +58,8 @@ export default function TableHeader({ sortState, onSort }: TableHeaderProps) {
         >
           PP
         </TableSortHead>
-        <div role="columnheader" className="px-4">
+        {/* 설명: 왼쪽 여백을 넓혀 오른쪽 정렬된 PP 숫자와 붙어 보이지 않게 (행과 같은 값) */}
+        <div role="columnheader" className="pl-8 pr-4">
           설명
         </div>
       </div>

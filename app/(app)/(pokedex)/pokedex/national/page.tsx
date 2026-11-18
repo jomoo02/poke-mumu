@@ -1,10 +1,10 @@
-import NationalView from '@/views/(pokedex)/national';
+import PokedexNationalBasicPage from '@/_pages/pokedex-national/basic';
 import { Suspense } from 'react';
 
-export default function NationalPage() {
+export default function Page() {
   return (
     <Suspense>
-      <NationalView />
+      <PokedexNationalBasicPage />
     </Suspense>
   );
 }

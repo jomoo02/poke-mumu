@@ -22,8 +22,8 @@ export function PokeSprite({
   priority = false,
   native = false,
 }: PokeSpriteProps) {
-  const src = getPokeSpriteSrc(poke);
-  // const src = '/pokeball.svg';
+  // const src = getPokeSpriteSrc(poke);
+  const src = '/pokeball.svg';
 
   if (native) {
     return (

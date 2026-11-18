@@ -1,2 +1,1 @@
-export { default as FilterSheet } from './filter-sheet';
-export { default as FilterChips } from './filter-chips';
+export { default as GroupFilter } from './group-filter';

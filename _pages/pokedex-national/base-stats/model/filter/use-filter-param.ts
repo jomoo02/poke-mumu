@@ -9,10 +9,7 @@ import {
   parsePokeFilter,
   toggleGroupValue,
 } from './filter-pokes';
-import {
-  FILTER_RESET_PATCH,
-  filterSearchParams,
-} from './filter-search-params';
+import { FILTER_RESET_PATCH, filterSearchParams } from './filter-search-params';
 
 /**
  * 필터 (?type=fire,flying&form=alola&gen=1). 선택지는 FilterOptionsProvider에서 읽는다.

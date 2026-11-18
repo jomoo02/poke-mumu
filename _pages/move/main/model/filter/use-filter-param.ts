@@ -17,7 +17,8 @@ import { FILTER_RESET_PATCH, filterSearchParams } from './filter-search-params';
  * - selectedItems: 고른 값을 칩 순서로 (그룹 순서 → 고른 순서). 개수는 트리거 배지
  * - toggleFilter: 바꾼 그룹의 키만 쓴다 (칩 ✕도 이것으로 끈다)
  *   (키가 제자리를 지켜 URL의 키 순서가 처음 고른 순서로 남는다)
- * - resetFilters: 필터 키 모두. 페이지의 초기화는 이것뿐이다 (검색어는 둔다)
+ * - resetFilters: 필터 키 모두 (전체 필터의 초기화). 검색어는 둔다
+ * - resetFilterGroup: 그룹 하나 (개별 필터의 초기화)
  */
 export function useFilterParam() {
   const options = useFilterOptions();
@@ -50,11 +51,21 @@ export function useFilterParam() {
     write(FILTER_RESET_PATCH);
   };
 
+  // 그 그룹에 고른 게 없으면 URL을 다시 쓰지 않는다
+  const resetFilterGroup = (group: MoveFilterGroup) => {
+    if (filter[group].length === 0) {
+      return;
+    }
+
+    write({ [group]: null });
+  };
+
   return {
     filter,
     isFilterActive,
     selectedItems,
     toggleFilter,
     resetFilters,
+    resetFilterGroup,
   };
 }
