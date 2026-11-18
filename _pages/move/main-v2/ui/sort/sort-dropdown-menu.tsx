@@ -41,9 +41,9 @@ export default function SortDropdownMenu({
 
   useCloseOutsideMedia('(min-width: 768px)', open, () => setOpen(false));
 
-  // modal={false}: 스크롤을 잠그지 않는다 (스크롤바가 사라지며 화면 폭이 바뀌지 않게)
+  // modal: 열려 있는 동안 페이지 스크롤을 잠근다 (필터 팝오버와 같은 규칙)
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={true}>
       <DropdownMenuTrigger
         render={
           <SortTrigger

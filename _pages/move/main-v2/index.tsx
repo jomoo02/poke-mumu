@@ -30,10 +30,10 @@ export default function MoveMainPageV2() {
         {/* 검색어는 URL에서 읽어 링크마다 다르다 → 제목(정적 셸)과 떼어 이 자리만 미룬다 */}
         <Suspense
           fallback={
-            <Skeleton aria-hidden className="h-10.5 w-full rounded-4xl" />
+            <Skeleton aria-hidden className="h-11 w-full rounded-4xl" />
           }
         >
-          <SearchBar className="h-10.5 w-full" />
+          <SearchBar className="h-11 w-full" />
         </Suspense>
       </PageLayoutHeader>
       <Suspense

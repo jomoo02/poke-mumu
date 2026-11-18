@@ -5,7 +5,7 @@ export const SORT_TITLE = '정렬';
 
 // 섹션 이름 (시트·메뉴 같은 문구)
 export const SORT_KEY_TITLE = '정렬 기준';
-export const SORT_ORDER_TITLE = '방향';
+export const SORT_ORDER_TITLE = '정렬 방향';
 
 // 시트·메뉴가 받는 값 (Sort가 그대로 넘긴다)
 export interface SortProps {

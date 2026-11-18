@@ -1,19 +1,19 @@
 import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from '@/_shared/ui/dropdown-menu';
-import {
-  FilterMenu,
-  FilterMenuCheckboxItem,
-  FilterMenuContent,
-  FilterMenuTrigger,
+  FilterPopover,
+  FilterPopoverTrigger,
+  FilterPopoverContent,
+  FilterPopoverList,
+  FilterPopoverItem,
+  FilterPopoverSeparator,
+  FilterPopoverFooter,
+  FilterPopoverReset,
   FilterSheet,
   FilterSheetBody,
   FilterSheetCheckboxGroup,
   FilterSheetCheckboxItem,
   FilterSheetContent,
   FilterSheetTrigger,
-} from '@/_shared/ui/filter-v2';
+} from '@/_shared/ui/filter-v3';
 import { SheetHeader, SheetTitle } from '@/_shared/ui/sheet';
 
 import {
@@ -40,8 +40,8 @@ interface GroupFilterProps {
 
 /**
  * 그룹 필터 하나 ([모든 타입 ⌄] / [불꽃, 물 +2 ⌄]). 고른 값이 있으면 강조 모양.
- * md 미만은 바텀시트 + [초기화][N개 보기], md 이상은 드롭다운 메뉴. 초기화는 이 그룹만 지운다.
- * 고르는 즉시 반영된다. 시트·메뉴 조각(filter-v2)이 CSS로 하나만 보인다
+ * md 미만은 바텀시트 + [초기화][N개 보기], md 이상은 팝오버 + [↻ 초기화]. 초기화는 이 그룹만 지운다.
+ * 고르는 즉시 반영된다. 시트·팝오버 조각(filter-v3)이 CSS로 하나만 보인다
  */
 export default function GroupFilter({
   group,
@@ -104,37 +104,36 @@ export default function GroupFilter({
         </FilterSheetContent>
       </FilterSheet>
 
-      <FilterMenu>
-        <FilterMenuTrigger
+      <FilterPopover>
+        <FilterPopoverTrigger
           active={names.length > 0}
           aria-label={trigger.ariaLabel}
           className="max-w-48 shrink-0 px-4"
         >
           <GroupTriggerText text={trigger.text} rest={trigger.rest} />
-        </FilterMenuTrigger>
-        <FilterMenuContent aria-label={title} className="w-60">
-          {options.map((option) => (
-            <FilterMenuCheckboxItem
-              key={option.value}
-              label={option.label}
-              checked={selected.includes(option.value)}
-              onCheckedChange={() => toggleFilter(group, option.value)}
-            >
-              <OptionContent option={option} empty={isEmpty(option.value)} />
-            </FilterMenuCheckboxItem>
-          ))}
-          <DropdownMenuSeparator />
-          {/* 열어 둔 채 지운다 (지운 결과를 메뉴 뒤로 바로 본다) */}
-          <DropdownMenuItem
-            closeOnClick={false}
-            disabled={selected.length === 0}
-            onClick={() => resetFilterGroup(group)}
-            className="h-10 cursor-pointer text-md"
-          >
-            초기화
-          </DropdownMenuItem>
-        </FilterMenuContent>
-      </FilterMenu>
+        </FilterPopoverTrigger>
+        <FilterPopoverContent aria-label={title}>
+          <FilterPopoverList aria-label={title}>
+            {options.map((option) => (
+              <FilterPopoverItem
+                key={option.value}
+                checked={selected.includes(option.value)}
+                onCheckedChange={() => toggleFilter(group, option.value)}
+              >
+                <OptionContent option={option} empty={isEmpty(option.value)} />
+              </FilterPopoverItem>
+            ))}
+          </FilterPopoverList>
+          <FilterPopoverSeparator />
+          <FilterPopoverFooter>
+            <FilterPopoverReset
+              canReset={selected.length > 0}
+              onReset={() => resetFilterGroup(group)}
+              className="h-8 text-sm"
+            />
+          </FilterPopoverFooter>
+        </FilterPopoverContent>
+      </FilterPopover>
     </>
   );
 }

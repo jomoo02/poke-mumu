@@ -1,4 +1,3 @@
-import MoveMainPage from '@/_pages/move/main';
 import MoveMainPageV2 from '@/_pages/move/main-v2';
 
 export default function Page() {
