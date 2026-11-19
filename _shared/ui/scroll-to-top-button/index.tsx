@@ -40,7 +40,7 @@ export default function ScrollToTopButton() {
         visible
           ? 'opacity-100 translate-x-0 pointer-events-auto'
           : 'opacity-0 translate-x-4 pointer-events-none',
-        'z-20 size-11.5 rounded-full',
+        'z-20 size-11 rounded-full',
         'bg-[#71717a] dark:bg-[#52525b] hover:bg-[#3f3f46] dark:hover:bg-[#71717a]',
       )}
     >

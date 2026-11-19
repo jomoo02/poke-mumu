@@ -129,7 +129,7 @@ export default function GroupFilter({
             <FilterPopoverReset
               canReset={selected.length > 0}
               onReset={() => resetFilterGroup(group)}
-              className="h-8 text-sm"
+              className="text-sm"
             />
           </FilterPopoverFooter>
         </FilterPopoverContent>

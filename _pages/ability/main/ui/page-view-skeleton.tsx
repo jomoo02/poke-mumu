@@ -20,7 +20,7 @@ export default function PageViewSkeleton() {
       </span>
       <Skeleton aria-hidden className="mb-3 h-11 w-full rounded-4xl" />
       <div aria-hidden className="flex flex-col gap-y-4">
-        <div className="flex h-9.5 items-center justify-between gap-3">
+        <div className="flex h-9 items-center justify-between gap-3">
           <div className="text-sm">
             <SkeletonLine className="w-10" />
           </div>

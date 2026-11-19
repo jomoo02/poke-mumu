@@ -108,7 +108,7 @@ function SheetFooterButton({
     return (
       <Button
         variant={'default'}
-        className={cn('h-12.5 rounded-md text-base', className)}
+        className={cn('h-12 rounded-md text-base', className)}
         {...props}
       />
     );
@@ -117,7 +117,7 @@ function SheetFooterButton({
     <Button
       variant={'secondary'}
       className={cn(
-        'h-12.5 rounded-md text-base',
+        'h-12 rounded-md text-base',
         'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input active:bg-input/70 dark:active:bg-input',
         className,
       )}

@@ -26,7 +26,7 @@ export default function PageViewSkeleton() {
         </div>
       </div>
       <div aria-hidden className="flex flex-col gap-y-4">
-        <div className="flex h-9.5 items-center justify-between gap-3">
+        <div className="flex h-9 items-center justify-between gap-3">
           <div className="text-sm">
             <SkeletonLine className="w-10" />
           </div>

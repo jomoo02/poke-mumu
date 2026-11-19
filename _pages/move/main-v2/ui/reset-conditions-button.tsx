@@ -34,7 +34,7 @@ export default function ResetConditionsButton({
         focusVisibleFilterTrigger();
       }}
       className={cn(
-        '-mr-1 h-9.5 shrink-0 cursor-pointer rounded-lg px-1 text-sm',
+        '-mr-1 h-9 shrink-0 cursor-pointer rounded-lg px-1 text-sm',
         'hover:bg-transparent dark:hover:bg-transparent [@media(hover:hover)]:hover:opacity-70 active:opacity-70',
         className,
       )}

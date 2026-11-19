@@ -77,7 +77,7 @@ export function FilterPopoverTrigger({
           data-filter-trigger
           variant={active ? 'active' : 'default'}
           className={cn(
-            'hidden h-10 max-w-60 md:inline-flex cursor-pointer',
+            'hidden max-w-60 md:inline-flex cursor-pointer',
             className,
           )}
           {...props}
@@ -185,7 +185,7 @@ export function FilterPopoverFooter({
 }: ComponentProps<'div'>) {
   return (
     <div
-      className={cn('flex shrink-0 items-center px-2 py-0.5', className)}
+      className={cn('flex shrink-0 items-center px-2 py-1.5', className)}
       {...props}
     />
   );

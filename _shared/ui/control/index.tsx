@@ -14,15 +14,12 @@ const controlTriggerButtonVariant = cva('transition-none group', {
 
       active:
         'bg-primary/90 text-primary-foreground dark:bg-primary/70 dark:text-primary-foreground dark:hover:bg-primary',
-
-      // 선택 상태는 무채색(--selected, globals.css). primary는 주요 행동에만
-      selected:
-        'bg-selected text-selected-foreground hover:bg-selected/85 aria-expanded:bg-selected/85',
     },
     size: {
+      // 높이 체계: 36 글자 버튼 · 40 툴바 컨트롤 · 44 주 입력 · 48 터치(시트)
       // _shared Button 기본 gap(1.5)이 구 Button(2.5)과 달라 기존 간격을 명시한다
-      default: 'h-10.5 gap-2',
-      icon: 'size-10.5',
+      default: 'h-10 gap-2',
+      icon: 'size-10',
     },
   },
   defaultVariants: {
@@ -81,8 +78,9 @@ const controlResetButtonVariant = cva('text-foreground/70 group', {
       small: 'gap-1.5 text-sm rounded-lg',
     },
     size: {
-      default: 'h-12.5',
-      small: 'h-7.5 -my-0.75 pl-2 pr-3 -ml-2',
+      default: 'h-12',
+      // 36px. 바깥 자리는 -my-1.5로 24px만 차지한다
+      small: 'h-9 -my-1.5 pl-2 pr-3 -ml-2',
     },
   },
   defaultVariants: {
