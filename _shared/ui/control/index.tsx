@@ -9,9 +9,9 @@ import { Label } from '@/_shared/ui/label';
 const controlTriggerButtonVariant = cva('transition-none group', {
   variants: {
     variant: {
-      // 기본은 테두리만, 고르면 선택 색(--selected)으로 채운다
+      // 기본은 옅은 회색 채움(검색창과 같은 면), 고르면 선택 색(--selected)으로 채운다
       default:
-        'bg-transparent border-foreground/15 text-foreground hover:bg-accent aria-expanded:bg-accent',
+        'bg-input/50 dark:bg-input/70 text-foreground hover:bg-input/80 dark:hover:bg-input aria-expanded:bg-input/80 dark:aria-expanded:bg-input',
 
       active:
         'bg-selected border-selected text-selected-foreground hover:bg-selected/90 aria-expanded:bg-selected/90',
@@ -44,10 +44,12 @@ function ControlTriggerButton({
     >
       {children}
       {size === 'default' && (
+        // 화살표는 작고(16px) 흐리게 해 글자가 먼저 읽히게 한다. 고른 상태는 채움 위라 글자색 그대로
         <ChevronDownIcon
           className={cn(
-            'size-4.5 transition-transform duration-150',
+            'size-4 transition-transform duration-150',
             'group-data-popup-open:rotate-180',
+            variant === 'default' && 'text-foreground/70',
           )}
           data-icon="inline-end"
         />
