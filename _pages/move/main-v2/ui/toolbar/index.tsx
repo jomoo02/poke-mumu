@@ -27,8 +27,10 @@ export default function Toolbar({
 }: ToolbarProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}개 보기`;
 
+  // md 미만: 필터 줄 → [개수 …… 정렬] 줄 8px (gap-2).
+  // 위아래 여백은 두지 않는다 (검색과 12px, 콘텐츠와 16px은 바깥에서 준다)
   return (
-    <div className="flex min-w-0 md:items-center gap-2 py-1.5 flex-col md:flex-row">
+    <div className="flex min-w-0 flex-col gap-2 md:flex-row md:items-center">
       {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
       <div className="-m-1 p-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar ">
         {MOVE_FILTER_GROUPS.map((group) => (

@@ -47,7 +47,8 @@ export default function PageView({ moves }: PageViewProps) {
         /> */}
         <section
           ref={sectionRef}
-          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-2"
+          // 툴바 → 콘텐츠(카드·표) 16px
+          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-4"
         >
           {/* 필터 줄 + [개수 | 정렬] (md 이상은 필터 줄 끝, md 미만은 다음 줄에서 양 끝으로) */}
           <Toolbar resultCount={totalCount} filterCounts={filterCounts}>

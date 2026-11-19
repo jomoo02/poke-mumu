@@ -21,8 +21,9 @@ import PageViewSkeleton from './ui/page-view-skeleton';
 import SearchBar from './ui/search-bar';
 
 export default function MoveMainPageV2() {
+  // 간격: 제목 → 검색 24px (머리글 gap-6), 검색 → 필터 줄 12px (gap-y-3)
   return (
-    <PageLayoutContainer className="gap-y-2">
+    <PageLayoutContainer className="gap-y-3">
       <TypeIconPreload />
       <DamageClassIconPreload />
       <PageLayoutHeader className="gap-6">
