@@ -9,11 +9,12 @@ import { Label } from '@/_shared/ui/label';
 const controlTriggerButtonVariant = cva('transition-none group', {
   variants: {
     variant: {
+      // 기본은 테두리만, 고르면 선택 색(--selected)으로 채운다
       default:
-        'bg-input/50 dark:bg-input/70 hover:bg-input/70 dark:hover:bg-input text-foreground aria-expanded:bg-input/70 dark:aria-expanded:bg-input',
+        'bg-transparent border-foreground/15 text-foreground hover:bg-accent aria-expanded:bg-accent',
 
       active:
-        'bg-primary/90 text-primary-foreground dark:bg-primary/70 dark:text-primary-foreground dark:hover:bg-primary',
+        'bg-selected border-selected text-selected-foreground hover:bg-selected/90 aria-expanded:bg-selected/90',
     },
     size: {
       // 높이 체계: 36 글자 버튼 · 40 툴바 컨트롤 · 44 주 입력 · 48 터치(시트)

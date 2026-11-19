@@ -111,7 +111,7 @@ export default function FilterSheet({ resultLabel }: FilterSheetProps) {
             data-icon="inline-end"
             className={cn(
               // 고른 값 수는 두 자리를 넘지 않아 20px 원 안에 들어간다. 자리 수와 관계없이 크기 고정
-              'flex size-5 shrink-0 items-center justify-center rounded-full bg-primary text-[11px] leading-none font-medium tabular-nums text-primary-foreground',
+              'flex size-5 shrink-0 items-center justify-center rounded-full bg-selected text-[11px] leading-none font-medium tabular-nums text-selected-foreground',
               'absolute -top-1 -right-1 lg:static',
             )}
           >

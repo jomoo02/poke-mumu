@@ -11,7 +11,7 @@ interface SortStateIconProps {
  * 정렬 방향 삼각형 (위 = 오름, 아래 = 내림). 지금 방향만 칠한다.
  * 표 머리글이 쓴다.
  * 색은 글자색(currentColor)이 아니라 테두리 색으로 바로 칠한다.
- * #1447e6: 라이트 테마 primary 고정 값 (토큰은 추후)
+ * 지금 방향은 선택 색(--selected), 나머지는 글자색 25%
  */
 export default function SortStateIcon({ order }: SortStateIconProps) {
   return (
@@ -19,13 +19,13 @@ export default function SortStateIcon({ order }: SortStateIconProps) {
       <span
         className={cn(
           'size-0 border-x-4 border-x-transparent border-b-[5px]',
-          order === 'asc' ? 'border-b-[#1447e6]' : 'border-b-foreground/25',
+          order === 'asc' ? 'border-b-selected' : 'border-b-foreground/25',
         )}
       />
       <span
         className={cn(
           'size-0 border-x-4 border-x-transparent border-t-[5px]',
-          order === 'desc' ? 'border-t-[#1447e6]' : 'border-t-foreground/25',
+          order === 'desc' ? 'border-t-selected' : 'border-t-foreground/25',
         )}
       />
     </span>

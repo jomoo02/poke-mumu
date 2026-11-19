@@ -120,6 +120,9 @@
   --primary-foreground: oklch(0.97 0.014 254.604);
   /* 글자용 primary. 다크의 primary는 배경용이라 글자로 쓰기엔 어두워 더 밝게 둔다 */
   --primary-text: oklch(0.488 0.243 264.376);
+  /* 고른 상태(필터·체크·정렬 방향)는 무채색. primary(파랑)는 이동·주요 행동에만 쓴다 */
+  --selected: var(--foreground);
+  --selected-foreground: var(--background);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.967 0.001 286.375);
@@ -176,6 +179,8 @@
   --primary: oklch(0.424 0.199 265.638);
   --primary-foreground: oklch(0.97 0.014 254.604);
   --primary-text: oklch(0.623 0.214 259.815);
+  --selected: var(--foreground);
+  --selected-foreground: var(--background);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.274 0.006 286.033);
@@ -219,6 +224,8 @@
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
   --color-primary-text: var(--primary-text);
+  --color-selected: var(--selected);
+  --color-selected-foreground: var(--selected-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
