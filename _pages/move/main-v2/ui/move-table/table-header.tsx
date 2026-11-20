@@ -21,7 +21,7 @@ export default function TableHeader({ sortState, onSort }: TableHeaderProps) {
         className={cn(
           'grid items-center',
           'grid-cols-[minmax(9rem,1.5fr)_minmax(4.5rem,0.6fr)_minmax(4.5rem,0.6fr)_minmax(5.5rem,0.75fr)_minmax(5.5rem,0.75fr)_minmax(5rem,0.65fr)_minmax(0,3.25fr)]',
-          'h-11 text-sm font-semibold whitespace-nowrap text-foreground border-b bg-background',
+          'h-11 text-sm font-medium whitespace-nowrap text-foreground border-b bg-background',
         )}
       >
         <TableSortHead sortKey="name" sortState={sortState} onSort={onSort}>
@@ -92,7 +92,7 @@ function TableSortHead({
         variant="ghost"
         onClick={() => onSort(sortKey)}
         className={cn(
-          'px-2.5 -mx-2.5 h-9 gap-1.5 rounded-lg cursor-pointer font-semibold',
+          'px-2.5 -mx-2.5 h-9 gap-1.5 rounded-lg cursor-pointer font-medium',
         )}
       >
         {children}

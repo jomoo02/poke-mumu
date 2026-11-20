@@ -29,8 +29,8 @@ import SortTrigger from './sort-trigger';
 const ITEM_CLASS_NAME = 'h-10 cursor-pointer text-md';
 
 /**
- * md 이상 정렬 메뉴 (필터 줄 끝): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
- * 고르면 바로 닫는다
+ * md~lg 정렬 메뉴 (필터 줄 맨 왼쪽 칩): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
+ * 이 폭은 카드 목록이라 표 머리글이 없다. lg 이상은 표 머리글로 정렬해 칩을 숨긴다. 고르면 바로 닫는다
  */
 export default function SortDropdownMenu({
   sortState,
@@ -39,7 +39,9 @@ export default function SortDropdownMenu({
 }: SortProps) {
   const [open, setOpen] = useState(false);
 
-  useCloseOutsideMedia('(min-width: 768px)', open, () => setOpen(false));
+  useCloseOutsideMedia('(min-width: 768px) and (max-width: 1023px)', open, () =>
+    setOpen(false),
+  );
 
   // modal: 열려 있는 동안 페이지 스크롤을 잠근다 (필터 팝오버와 같은 규칙)
   return (
@@ -48,12 +50,12 @@ export default function SortDropdownMenu({
         render={
           <SortTrigger
             sortState={sortState}
-            className="hidden md:inline-flex"
+            className="hidden md:inline-flex lg:hidden"
           />
         }
       />
       <DropdownMenuContent
-        align="end"
+        align="start"
         aria-label={SORT_TITLE}
         className="w-58 max-md:hidden"
       >

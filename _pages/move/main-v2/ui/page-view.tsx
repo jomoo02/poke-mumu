@@ -37,7 +37,8 @@ export default function PageView({ moves }: PageViewProps) {
 
   return (
     <>
-      <ScrollToTopButton />
+      {/* 모바일에도 띄운다 (목록 끝 여백은 index.tsx의 pb-20) */}
+      <ScrollToTopButton className="flex" />
       <div className="flex flex-col gap-y-2">
         {/* <Toolbar
           resultCount={totalCount}
@@ -48,10 +49,10 @@ export default function PageView({ moves }: PageViewProps) {
         /> */}
         <section
           ref={sectionRef}
-          // 툴바 → 콘텐츠(카드·표) 24px
-          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-6"
+          // 툴바 → 콘텐츠(카드·표) sm 미만 16px, sm 이상 24px
+          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-4 sm:gap-y-6"
         >
-          {/* [정렬 │ 필터…] 초기화 + 검색 (결과 수는 목록 아래) */}
+          {/* [정렬][필터…] + 검색 (정렬은 lg 미만만. 결과 수는 목록 아래) */}
           <Toolbar
             resultCount={totalCount}
             filterCounts={filterCounts}

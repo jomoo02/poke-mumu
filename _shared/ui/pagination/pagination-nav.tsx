@@ -13,7 +13,11 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from './pagination';
-import { isEllipsis } from './pagination-item';
+import {
+  getPaginationItems,
+  isEllipsis,
+  type PageItem,
+} from './pagination-item';
 import { usePagination } from './use-pagination';
 
 interface PaginationNavProps {
@@ -60,6 +64,36 @@ function PaginationNav({
   const iconPrevNextClassName = hasSummary
     ? 'hidden md:block'
     : 'hidden sm:block';
+  const compactItemClassName = hasSummary ? 'md:hidden' : 'sm:hidden';
+
+  // 번호는 두 벌: 넓은 화면 ±2(많아야 9칸), 좁은 화면 ±1(많아야 7칸, 343px 안에 든다).
+  // 폭을 JS로 재지 않고 CSS로 하나만 보인다 (첫 그림에서 번호가 바뀌지 않게. 숨긴 쪽은 접근성 트리에서도 빠진다)
+  const compactItems = getPaginationItems(page, totalPages, 1);
+
+  const renderItems = (
+    list: PageItem[],
+    itemClassName: string,
+    keyPrefix: string,
+  ) =>
+    list.map((item) => (
+      <Fragment key={`${keyPrefix}-${item}`}>
+        {isEllipsis(item) ? (
+          <PaginationItem className={itemClassName}>
+            <PaginationEllipsis />
+          </PaginationItem>
+        ) : (
+          <PaginationItem className={itemClassName}>
+            <PaginationLink
+              href={createHref(item)}
+              className="size-10"
+              isActive={item === page}
+            >
+              {item}
+            </PaginationLink>
+          </PaginationItem>
+        )}
+      </Fragment>
+    ));
 
   const prevNext = (
     <PaginationContent className={cn('gap-1', textPrevNextClassName)}>
@@ -86,25 +120,8 @@ function PaginationNav({
           className={ICON_BUTTON_CLASS_NAME}
         />
       </PaginationItem>
-      {items.map((item) => (
-        <Fragment key={item}>
-          {isEllipsis(item) ? (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          ) : (
-            <PaginationItem>
-              <PaginationLink
-                href={createHref(item)}
-                className="size-10"
-                isActive={item === page}
-              >
-                {item}
-              </PaginationLink>
-            </PaginationItem>
-          )}
-        </Fragment>
-      ))}
+      {renderItems(items, iconPrevNextClassName, 'wide')}
+      {renderItems(compactItems, compactItemClassName, 'compact')}
       <PaginationItem className={iconPrevNextClassName}>
         <PaginationNext
           href={nextHref}

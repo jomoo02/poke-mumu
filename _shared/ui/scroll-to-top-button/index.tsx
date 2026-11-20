@@ -6,7 +6,14 @@ import { useEffect, useState } from 'react';
 import { cn } from '@/shared/lib/cn';
 import { Button } from '@/shared/ui/button';
 
-export default function ScrollToTopButton() {
+interface ScrollToTopButtonProps {
+  // 기본은 sm 이상만 보인다. 모바일에도 띄우려면 'flex' (목록 아래에 버튼만큼 여백을 둘 것)
+  className?: string;
+}
+
+export default function ScrollToTopButton({
+  className,
+}: ScrollToTopButtonProps) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -42,6 +49,7 @@ export default function ScrollToTopButton() {
           : 'opacity-0 translate-x-4 pointer-events-none',
         'z-20 size-11 rounded-full',
         'bg-[#71717a] dark:bg-[#52525b] hover:bg-[#3f3f46] dark:hover:bg-[#71717a]',
+        className,
       )}
     >
       <ArrowUpIcon className="size-5 text-white" />

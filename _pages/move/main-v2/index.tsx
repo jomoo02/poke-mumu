@@ -20,8 +20,9 @@ import PageViewSkeleton from './ui/page-view-skeleton';
 
 export default function MoveMainPageV2() {
   // 간격: 제목 → 툴바(검색) 24px (컨테이너 기본 gap-6). 검색창은 툴바 안 (ui/toolbar)
+  // md 미만 아래 여백 80: 목록 끝에서 페이지 번호 줄이 맨 위로 버튼(아래 19 + 높이 44)보다 위에 놓이게
   return (
-    <PageLayoutContainer>
+    <PageLayoutContainer className="pb-20 md:pb-8 lg:pb-12">
       <TypeIconPreload />
       <DamageClassIconPreload />
       <PageLayoutHeader>
