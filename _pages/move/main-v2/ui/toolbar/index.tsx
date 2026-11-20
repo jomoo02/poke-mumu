@@ -32,10 +32,10 @@ export default function Toolbar({
 }: ToolbarProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}개 보기`;
 
-  // 간격: md 미만 검색 → 필터 줄 12px (gap-3). md 이상은 한 줄이라 컨트롤 사이 8px.
+  // 간격: md 미만 검색 → 필터 줄 16px (gap-4). md 이상은 한 줄: 필터끼리 8px, 필터 줄 → 검색 16px (gap-4).
   // 위아래 여백은 두지 않는다 (바깥에서 준다)
   return (
-    <div className="flex min-w-0 flex-col gap-3 md:flex-row md:items-center">
+    <div className="flex min-w-0 flex-col gap-4 md:flex-row md:items-center">
       {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
       <div className="-m-1 p-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar">
         {sort}
@@ -54,7 +54,7 @@ export default function Toolbar({
         <ResetConditionsButton className="mr-0 px-2" />
       </div>
       {/* md 미만은 맨 위 넓은 검색(44), md 이상은 줄 끝에 필터와 같은 높이(40) */}
-      <SearchBar className="order-first h-10 w-full md:order-0 md:h-10 md:w-56 md:shrink-0 lg:w-72" />
+      <SearchBar className="order-first h-11 w-full md:order-0 md:h-10 md:w-56 md:shrink-0 lg:w-72" />
     </div>
   );
 }

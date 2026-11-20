@@ -48,7 +48,7 @@ export default function PageView({ moves }: PageViewProps) {
         /> */}
         <section
           ref={sectionRef}
-          // 툴바 → 콘텐츠(카드·표) 16px
+          // 툴바 → 콘텐츠(카드·표) 24px
           className="flex flex-col w-full scroll-mt-(--header-height) gap-y-6"
         >
           {/* [정렬 │ 필터…] 초기화 + 검색 (결과 수는 목록 아래) */}
