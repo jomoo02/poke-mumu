@@ -10,9 +10,8 @@ export default function AppHeader() {
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full bg-background/70 backdrop-blur-md',
-        // 모바일 메뉴가 열리면 반투명 배경 뒤로 메뉴가 비치지 않게 불투명하게
-        'has-[[data-slot=mobile-nav-trigger][data-popup-open]]:bg-background',
+        // 불투명 배경 (흐림 효과 없음): 아래로 지나가는 목록·표 머리글이 비치지 않게
+        'sticky top-0 z-50 w-full bg-background',
       )}
     >
       <div className="flex h-(--header-height) gap-1 items-center justify-between w-full px-2 sm:px-4 md:px-6">

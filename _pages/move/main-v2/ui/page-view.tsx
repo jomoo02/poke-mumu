@@ -88,16 +88,20 @@ export default function PageView({ moves }: PageViewProps) {
               empty={<ResultEmpty />}
             />
           </div>
-          {/* 목록 아래: 'N개 중 a–b' + 페이지 이동 (한 페이지뿐이면 개수만) */}
+          {/* 목록 아래: 'N개 중 a–b' ··· 페이지 이동 (배치는 PaginationNav가 잡는다) */}
           {totalCount > 0 && (
-            <div className="mt-3 flex flex-col items-center gap-3">
-              <ResultCount
-                count={totalCount}
-                start={(page - 1) * PAGE_SIZE + 1}
-                end={Math.min(page * PAGE_SIZE, totalCount)}
-              />
-              <PaginationNav page={page} totalPages={totalPages} />
-            </div>
+            <PaginationNav
+              page={page}
+              totalPages={totalPages}
+              className="mt-3"
+              summary={
+                <ResultCount
+                  count={totalCount}
+                  start={(page - 1) * PAGE_SIZE + 1}
+                  end={Math.min(page * PAGE_SIZE, totalCount)}
+                />
+              }
+            />
           )}
         </section>
       </div>

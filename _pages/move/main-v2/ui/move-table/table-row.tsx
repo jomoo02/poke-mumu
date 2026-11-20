@@ -65,7 +65,7 @@ function TableRow({ move }: TableRowProps) {
       </div>
       {/* 두 줄을 넘으면 '…'로 자른다. 잘린 전체 문장은 마우스를 올리면 보인다 */}
       {/* 설명: 왼쪽 여백을 넓혀 PP 숫자와 띄운다 (머리글과 같은 값) */}
-      <div role="cell" className="min-w-0 pl-8 pr-4">
+      <div role="cell" className="min-w-0 pl-8 pr-8">
         <p title={move.description} className="line-clamp-2 break-keep text-md">
           {move.description}
         </p>

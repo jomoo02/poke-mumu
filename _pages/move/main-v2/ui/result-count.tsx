@@ -26,7 +26,7 @@ export default function ResultCount({
         className,
       )}
     >
-      {`${format(count)}개 중 ${format(start)}–${format(end)}`}
+      {`${format(count)}개 중 ${format(start)} - ${format(end)}`}
     </p>
   );
 }

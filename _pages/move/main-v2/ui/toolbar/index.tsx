@@ -1,6 +1,5 @@
 import { MOVE_FILTER_GROUPS } from '../../model/filter';
 import type { MoveFilterCounts } from '../../model/move-results';
-import ResetConditionsButton from '../reset-conditions-button';
 import SearchBar from '../search-bar';
 import { GroupFilter } from './filter';
 
@@ -14,16 +13,14 @@ interface ToolbarProps {
 }
 
 /**
- * 툴바: [보기 설정 │ 조건] + 검색. 결과 수는 목록 아래 ('N개 중 a–b', PageView)
- *   보기 설정 = 정렬 (늘 값이 있음, 초기화 대상 아님) │ 조건 = 필터·검색 (초기화 대상)
- *   md 이상  [모든 타입 ⌄][모든 분류 ⌄] 초기화 ················ [검색]   (한 줄, 표 툴바)
- *   md 미만  [검색 ··························]                         (넓은 검색, 카드 목록)
- *            [↕ 이름순 ⌄] │ [모든 타입 ⌄][모든 분류 ⌄] 초기화 →
- * 구분선은 왼쪽 보기 설정이 보일 때만 (지금은 md 미만의 정렬뿐)
+ * 툴바: [정렬][필터…] + 검색. 결과 수는 목록 아래 ('N개 중 a–b', PageView)
+ *   md 이상  [모든 타입 ⌄][모든 분류 ⌄] ···················· [검색]   (한 줄, 표 툴바)
+ *   md 미만  [검색 ··························]                       (넓은 검색, 카드 목록)
+ *            [↕ 이름순 ⌄][모든 타입 ⌄][모든 분류 ⌄] →
  * 코드 순서는 데스크탑 화면 순서(검색이 맨 뒤)에 맞춘다: Tab 이동이 잦은 쪽이 화면과 같게.
  * md 미만만 CSS(order)로 검색을 맨 위로 올린다 (모바일 스크린리더는 정렬·필터를 먼저 읽는다)
- * 정렬·필터·초기화는 가로 스크롤 (모바일은 초기화가 스크롤 끝에 놓일 수 있다).
- * 고른 필터는 트리거 글자로 보여 칩 줄은 두지 않는다. 초기화는 검색어·필터가 있을 때만 (정렬은 남긴다)
+ * 정렬·필터는 가로 스크롤. 고른 필터는 트리거 글자로 보여 칩 줄은 두지 않는다.
+ * 전체 초기화는 두지 않는다: 조건이 적어 하나씩 지운다 (검색 ✕ · 필터마다 초기화 · 결과 없음 안내의 초기화)
  */
 export default function Toolbar({
   resultCount,
@@ -39,10 +36,6 @@ export default function Toolbar({
       {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
       <div className="-m-1 p-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar">
         {sort}
-        <div
-          aria-hidden
-          className="mx-1 h-5 w-px shrink-0 bg-foreground/15 md:hidden"
-        />
         {MOVE_FILTER_GROUPS.map((group) => (
           <GroupFilter
             key={group}
@@ -51,7 +44,6 @@ export default function Toolbar({
             filterCounts={filterCounts}
           />
         ))}
-        <ResetConditionsButton className="mr-0 px-2" />
       </div>
       {/* md 미만은 맨 위 넓은 검색(44), md 이상은 줄 끝에 필터와 같은 높이(40) */}
       <SearchBar className="order-first h-11 w-full md:order-0 md:h-10 md:w-56 md:shrink-0 lg:w-72" />
