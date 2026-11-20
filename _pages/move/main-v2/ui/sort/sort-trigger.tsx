@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react';
-import { ChevronDownIcon } from 'lucide-react';
+import { ArrowUpDownIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
-import { Button } from '@/_shared/ui/button';
+import { ControlTriggerButton } from '@/_shared/ui/control';
 
 import { getSortLabel, type MoveSort } from '../../model/sort';
 
@@ -10,25 +10,24 @@ interface SortTriggerProps extends ComponentProps<'button'> {
   sortState: MoveSort;
 }
 
+// [↕ 이름순 ⌄]: 필터 트리거와 같은 칩 모양 (툴바 필터 줄 맨 왼쪽). '정렬:'은 스크린리더만 읽는다
 export default function SortTrigger({
   sortState,
   className,
   ...props
 }: SortTriggerProps) {
   return (
-    <Button
-      variant="ghost"
-      className={cn(
-        '-mr-1 px-1 cursor-pointer h-9 rounded-lg',
-        'hover:bg-transparent aria-expanded:bg-transparent dark:hover:bg-transparent',
-        '[@media(hover:hover)]:hover:opacity-70 active:opacity-70 aria-expanded:opacity-70',
-        className,
-      )}
+    <ControlTriggerButton
+      className={cn('shrink-0 cursor-pointer', className)}
       {...props}
     >
+      <ArrowUpDownIcon
+        aria-hidden
+        data-icon="inline-start"
+        className="size-4 text-foreground/70"
+      />
       <span className="sr-only">정렬: </span>
       {getSortLabel(sortState)}
-      <ChevronDownIcon aria-hidden className="size-4 text-foreground/70" />
-    </Button>
+    </ControlTriggerButton>
   );
 }

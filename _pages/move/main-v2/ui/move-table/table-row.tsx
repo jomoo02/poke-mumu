@@ -23,7 +23,7 @@ function TableRow({ move }: TableRowProps) {
         'grid items-center',
         'grid-cols-[minmax(9rem,1.5fr)_minmax(4.5rem,0.6fr)_minmax(4.5rem,0.6fr)_minmax(5.5rem,0.75fr)_minmax(5.5rem,0.75fr)_minmax(5rem,0.65fr)_minmax(0,3.25fr)]',
         'h-18 border-b last:border-b-0',
-        'relative [@media(hover:hover)]:hover:bg-muted/70',
+        'relative [@media(hover:hover)]:hover:bg-muted/70 bg-background',
       )}
     >
       <div role="cell" className="min-w-0 px-4">

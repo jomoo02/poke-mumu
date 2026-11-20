@@ -14,7 +14,7 @@ import {
 
 import { useKeywordParam } from '../model/search';
 
-const SEARCH_PLACEHOLDER = '기술 검색';
+const SEARCH_PLACEHOLDER = '기술 이\u200B름으로 검색';
 
 interface SearchBarProps {
   className?: string;
@@ -31,20 +31,20 @@ export default function SearchBar({ className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-11', className)}>
+    <InputGroup className={cn('h-10', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>
       <InputGroupInput
         ref={inputRef}
         placeholder={SEARCH_PLACEHOLDER}
-        className="h-full"
+        className="h-full md:text-md"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={onCompositionEnd}
         autoComplete="off"
         enterKeyHint="search"
-        aria-label="기술 이름 검색"
+        aria-label="기술 검색"
       />
       <InputGroupAddon align="inline-end">
         <InputGroupButton

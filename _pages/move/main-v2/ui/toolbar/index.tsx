@@ -1,6 +1,7 @@
 import { MOVE_FILTER_GROUPS } from '../../model/filter';
 import type { MoveFilterCounts } from '../../model/move-results';
 import ResetConditionsButton from '../reset-conditions-button';
+import SearchBar from '../search-bar';
 import { GroupFilter } from './filter';
 
 interface ToolbarProps {
@@ -8,31 +9,40 @@ interface ToolbarProps {
   resultCount: number;
   // 고르면 나올 기술 수 (0이면 흐리게)
   filterCounts: MoveFilterCounts;
-  // 필터 줄 오른쪽(md 이상)·아래(md 미만) 자리: [개수 | 정렬] (PageView가 채운다)
-  children: React.ReactNode;
+  // 정렬 칩 (PageView가 채운다). md 미만만 보인다 (md 이상은 표 머리글로 정렬)
+  sort: React.ReactNode;
 }
 
 /**
- * 필터 줄 (검색창은 제목 아래, index.tsx). 오른쪽 자리(children)는 PageView가 [개수 | 정렬]로 채운다
- *   md 이상  [모든 타입 ⌄][모든 분류 ⌄] 초기화 ············ children
- *   md 미만  [모든 타입 ⌄][모든 분류 ⌄] 초기화 →
- *            children (다음 줄)
- * 필터·초기화만 가로 스크롤 (모바일은 초기화가 스크롤 끝에 놓일 수 있다).
- * 고른 필터는 트리거 글자로 보여 칩 줄은 두지 않는다. 초기화는 검색어·필터가 있을 때만
+ * 툴바: [보기 설정 │ 조건] + 검색. 결과 수는 목록 아래 ('N개 중 a–b', PageView)
+ *   보기 설정 = 정렬 (늘 값이 있음, 초기화 대상 아님) │ 조건 = 필터·검색 (초기화 대상)
+ *   md 이상  [모든 타입 ⌄][모든 분류 ⌄] 초기화 ················ [검색]   (한 줄, 표 툴바)
+ *   md 미만  [검색 ··························]                         (넓은 검색, 카드 목록)
+ *            [↕ 이름순 ⌄] │ [모든 타입 ⌄][모든 분류 ⌄] 초기화 →
+ * 구분선은 왼쪽 보기 설정이 보일 때만 (지금은 md 미만의 정렬뿐)
+ * 코드 순서는 데스크탑 화면 순서(검색이 맨 뒤)에 맞춘다: Tab 이동이 잦은 쪽이 화면과 같게.
+ * md 미만만 CSS(order)로 검색을 맨 위로 올린다 (모바일 스크린리더는 정렬·필터를 먼저 읽는다)
+ * 정렬·필터·초기화는 가로 스크롤 (모바일은 초기화가 스크롤 끝에 놓일 수 있다).
+ * 고른 필터는 트리거 글자로 보여 칩 줄은 두지 않는다. 초기화는 검색어·필터가 있을 때만 (정렬은 남긴다)
  */
 export default function Toolbar({
   resultCount,
   filterCounts,
-  children,
+  sort,
 }: ToolbarProps) {
   const resultLabel = `${resultCount.toLocaleString('ko-KR')}개 보기`;
 
-  // md 미만: 필터 줄 → [개수 …… 정렬] 줄 8px (gap-2).
-  // 위아래 여백은 두지 않는다 (검색과 12px, 콘텐츠와 16px은 바깥에서 준다)
+  // 간격: md 미만 검색 → 필터 줄 12px (gap-3). md 이상은 한 줄이라 컨트롤 사이 8px.
+  // 위아래 여백은 두지 않는다 (바깥에서 준다)
   return (
-    <div className="flex min-w-0 flex-col gap-2 md:flex-row md:items-center">
+    <div className="flex min-w-0 flex-col gap-3 md:flex-row md:items-center">
       {/* p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게 */}
-      <div className="-m-1 p-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar ">
+      <div className="-m-1 p-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto no-scrollbar">
+        {sort}
+        <div
+          aria-hidden
+          className="mx-1 h-5 w-px shrink-0 bg-foreground/15 md:hidden"
+        />
         {MOVE_FILTER_GROUPS.map((group) => (
           <GroupFilter
             key={group}
@@ -43,13 +53,8 @@ export default function Toolbar({
         ))}
         <ResetConditionsButton className="mr-0 px-2" />
       </div>
-      {/* md 이상: 줄 끝 [개수 | 정렬]. md 미만은 PageView의 결과 줄 */}
-      {/* <div className="hidden shrink-0 items-center gap-3 md:flex">
-        <ResultCount count={resultCount} />
-        <div aria-hidden className="h-4 w-px bg-border" />
-        <Sort {...sortProps} />
-      </div> */}
-      <div>{children}</div>
+      {/* md 미만은 맨 위 넓은 검색(44), md 이상은 줄 끝에 필터와 같은 높이(40) */}
+      <SearchBar className="order-first h-10 w-full md:order-0 md:h-10 md:w-56 md:shrink-0 lg:w-72" />
     </div>
   );
 }

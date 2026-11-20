@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { PaginationNav } from '@/_shared/ui/pagination';
 import ScrollToTopButton from '@/_shared/ui/scroll-to-top-button';
 
+import { PAGE_SIZE } from '../config';
 import { useReloadScrollRestoration } from '../lib/use-reload-scroll-restoration';
 import { useScrollToResultsTop } from '../lib/use-scroll-to-results-top';
 import type { ListMove } from '../model/move';
@@ -48,20 +49,20 @@ export default function PageView({ moves }: PageViewProps) {
         <section
           ref={sectionRef}
           // 툴바 → 콘텐츠(카드·표) 16px
-          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-4"
+          className="flex flex-col w-full scroll-mt-(--header-height) gap-y-6"
         >
-          {/* 필터 줄 + [개수 | 정렬] (md 이상은 필터 줄 끝, md 미만은 다음 줄에서 양 끝으로) */}
-          <Toolbar resultCount={totalCount} filterCounts={filterCounts}>
-            <div className="flex items-center justify-between gap-3.5">
-              <ResultCount count={totalCount} />
-              <div className="hidden md:block w-px h-5 bg-border" />
+          {/* [정렬 │ 필터…] 초기화 + 검색 (결과 수는 목록 아래) */}
+          <Toolbar
+            resultCount={totalCount}
+            filterCounts={filterCounts}
+            sort={
               <Sort
                 sortState={sortState}
                 onSelectKey={selectKey}
                 onSelectOrder={selectOrder}
               />
-            </div>
-          </Toolbar>
+            }
+          />
           {/* <div className="flex items-center justify-between gap-3 md:hidden">
             <ResultCount count={totalCount} />
             <Sort
@@ -87,12 +88,16 @@ export default function PageView({ moves }: PageViewProps) {
               empty={<ResultEmpty />}
             />
           </div>
+          {/* 목록 아래: 'N개 중 a–b' + 페이지 이동 (한 페이지뿐이면 개수만) */}
           {totalCount > 0 && (
-            <PaginationNav
-              page={page}
-              totalPages={totalPages}
-              className="mt-3"
-            />
+            <div className="mt-3 flex flex-col items-center gap-3">
+              <ResultCount
+                count={totalCount}
+                start={(page - 1) * PAGE_SIZE + 1}
+                end={Math.min(page * PAGE_SIZE, totalCount)}
+              />
+              <PaginationNav page={page} totalPages={totalPages} />
+            </div>
           )}
         </section>
       </div>
