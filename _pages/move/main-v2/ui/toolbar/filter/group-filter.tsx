@@ -1,3 +1,5 @@
+import { SheetHeader, SheetTitle } from '@/_shared/ui/sheet';
+
 import {
   FilterPopover,
   FilterPopoverTrigger,
@@ -12,10 +14,9 @@ import {
   FilterSheetCheckboxGroup,
   FilterSheetCheckboxItem,
   FilterSheetContent,
+  FilterSheetResetFooter,
   FilterSheetTrigger,
-} from '@/_shared/ui/filter-v3';
-import { SheetHeader, SheetTitle } from '@/_shared/ui/sheet';
-
+} from '../../toolbar-kit';
 import {
   useFilterOptions,
   useFilterParam,
@@ -23,7 +24,6 @@ import {
 } from '../../../model/filter';
 import type { MoveFilterCounts } from '../../../model/move-results';
 import {
-  FilterSheetResetFooter,
   GROUP_TITLE,
   GroupTriggerText,
   OptionContent,
@@ -41,7 +41,7 @@ interface GroupFilterProps {
 /**
  * 그룹 필터 하나 ([모든 타입 ⌄] / [불꽃, 물 +2 ⌄]). 고른 값이 있으면 강조 모양.
  * md 미만은 바텀시트 + [초기화][N개 보기], md 이상은 팝오버 + [↻ 초기화]. 초기화는 이 그룹만 지운다.
- * 고르는 즉시 반영된다. 시트·팝오버 조각(filter-v3)이 CSS로 하나만 보인다
+ * 고르는 즉시 반영된다. 시트·팝오버 조각(ui/toolbar-kit)이 CSS로 하나만 보인다
  */
 export default function GroupFilter({
   group,

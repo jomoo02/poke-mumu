@@ -1,8 +1,4 @@
-import { useRef } from 'react';
-
 import { cn } from '@/_shared/lib/cn';
-import { FilterSheetDone, FilterSheetFooter } from '@/_shared/ui/filter-v2';
-import { SheetFooterButton } from '@/_shared/ui/sheet';
 import { DamageClassIcon } from '@/_entities/damage-class';
 import { TypeIcon } from '@/_entities/type';
 
@@ -72,41 +68,5 @@ export function OptionContent({
         )}
       </span>
     </span>
-  );
-}
-
-interface FilterSheetResetFooterProps {
-  // 지울 게 없으면 막는다
-  canReset: boolean;
-  onReset: () => void;
-  // 닫기 버튼 문구 ('120개 보기')
-  resultLabel: string;
-}
-
-// 시트 아래: [초기화][N개 보기]. 초기화하면 버튼이 막히므로 포커스를 '보기'로 옮긴다
-export function FilterSheetResetFooter({
-  canReset,
-  onReset,
-  resultLabel,
-}: FilterSheetResetFooterProps) {
-  const footerRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <FilterSheetFooter ref={footerRef}>
-      <SheetFooterButton
-        variant="input"
-        disabled={!canReset}
-        onClick={() => {
-          onReset();
-          footerRef.current
-            ?.querySelector<HTMLButtonElement>('[data-filter-done]')
-            ?.focus();
-        }}
-        className="cursor-pointer px-6"
-      >
-        초기화
-      </SheetFooterButton>
-      <FilterSheetDone data-filter-done>{resultLabel}</FilterSheetDone>
-    </FilterSheetFooter>
   );
 }

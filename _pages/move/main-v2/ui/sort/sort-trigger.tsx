@@ -2,9 +2,9 @@ import type { ComponentProps } from 'react';
 import { ArrowUpDownIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
-import { ControlTriggerButton } from '@/_shared/ui/control';
 
 import { getSortLabel, type MoveSort } from '../../model/sort';
+import { ChipTrigger } from '../toolbar-kit';
 
 interface SortTriggerProps extends ComponentProps<'button'> {
   sortState: MoveSort;
@@ -17,7 +17,7 @@ export default function SortTrigger({
   ...props
 }: SortTriggerProps) {
   return (
-    <ControlTriggerButton
+    <ChipTrigger
       className={cn('shrink-0 cursor-pointer', className)}
       {...props}
     >
@@ -28,6 +28,6 @@ export default function SortTrigger({
       />
       <span className="sr-only">정렬: </span>
       {getSortLabel(sortState)}
-    </ControlTriggerButton>
+    </ChipTrigger>
   );
 }

@@ -1,10 +1,10 @@
 import { SearchIcon } from 'lucide-react';
 
 import { Button } from '@/_shared/ui/button';
-import { focusVisibleFilterTrigger } from '@/_shared/ui/filter';
 
 import { useFilterParam } from '../model/filter';
 import { useKeywordParam } from '../model/search';
+import { focusVisibleFilterTrigger } from './toolbar-kit';
 
 /**
  * 결과 0개. 흔한 빈 결과 패턴으로 가운데에 아이콘 · 제목 · 한 줄 안내 · 초기화 버튼 하나를 둔다
