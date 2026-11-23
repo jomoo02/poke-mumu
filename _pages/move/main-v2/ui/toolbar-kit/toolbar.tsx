@@ -23,8 +23,11 @@ interface ToolbarProps {
  * 검색 + 통합 필터 (도감 종족값 페이지와 같은 툴바). 결과 수는 목록 아래 ('N개 중 a–b')
  *   lg 이상  [🔍 검색 ……………………………………………][⚙ 필터 2]   ← 검색창이 남는 폭을 다 써 트리거와 붙는다
  *            [불꽃 ✕][물 ✕]                                 ← 고른 값이 있을 때만, 줄바꿈
- *   lg 미만  [🔍 검색 ………………………][⚙²]
- *            [불꽃 ✕][물 ✕] → ··········· [↕ 이름순]        ← 칩은 가로 스크롤, 정렬은 오른쪽 끝 고정
+ *   md~lg   [🔍 검색 ………………………][⚙]
+ *            [불꽃 ✕][물 ✕] → ··········· [이름순 ⌄]        ← 칩은 가로 스크롤, 정렬은 오른쪽 끝 고정
+ *   md 미만  [🔍 검색 ………………][⚙]
+ *            [불꽃 ✕][물 ✕] →                              ← 칩 줄 (고른 값이 있을 때만)
+ *            ·························· [이름순 ⌄]          ← 정렬 줄
  * lg 이상은 정렬이 없어 고른 칩이 없으면 둘째 줄을 숨긴다
  */
 export default function Toolbar({
@@ -48,12 +51,13 @@ export default function Toolbar({
       </div>
       <div
         className={cn(
-          'flex min-w-0 items-center gap-2',
+          'flex min-w-0 flex-col gap-3 md:flex-row md:items-center md:gap-2',
           !hasChips && 'lg:hidden',
         )}
       >
         <FilterChips getFocusRoot={getFocusRoot} />
-        <div className="shrink-0">{sort}</div>
+        {/* md 미만은 칩 아래 자기 줄, 오른쪽 끝 */}
+        <div className="flex shrink-0 justify-end">{sort}</div>
       </div>
     </div>
   );

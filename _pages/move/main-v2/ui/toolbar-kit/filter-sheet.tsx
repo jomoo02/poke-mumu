@@ -109,9 +109,7 @@ export default function FilterSheet({
         className="size-4.25"
         data-icon="inline-start"
       />
-      <span aria-hidden className="hidden lg:inline">
-        {FILTER_TITLE}
-      </span>
+      <span aria-hidden>{FILTER_TITLE}</span>
     </Button>
   );
 
