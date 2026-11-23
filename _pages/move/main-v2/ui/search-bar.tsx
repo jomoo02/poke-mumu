@@ -31,14 +31,14 @@ export default function SearchBar({ className }: SearchBarProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
-    <InputGroup className={cn('h-10', className)}>
+    <InputGroup className={cn('h-11 ', className)}>
       <InputGroupAddon align="inline-start">
         <SearchIcon aria-hidden className="size-4.75" />
       </InputGroupAddon>
       <InputGroupInput
         ref={inputRef}
         placeholder={SEARCH_PLACEHOLDER}
-        className="h-full md:text-md"
+        className="h-full"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         onCompositionEnd={onCompositionEnd}

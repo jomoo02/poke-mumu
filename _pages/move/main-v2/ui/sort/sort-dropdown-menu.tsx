@@ -29,7 +29,7 @@ import SortTrigger from './sort-trigger';
 const ITEM_CLASS_NAME = 'h-10 cursor-pointer text-md';
 
 /**
- * md~lg 정렬 메뉴 (필터 줄 맨 왼쪽 칩): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
+ * md~lg 정렬 메뉴 (칩 줄 오른쪽 끝): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP ─── [방향] 높은 순 ✓ / 낮은 순
  * 이 폭은 카드 목록이라 표 머리글이 없다. lg 이상은 표 머리글로 정렬해 칩을 숨긴다. 고르면 바로 닫는다
  */
 export default function SortDropdownMenu({
@@ -55,7 +55,7 @@ export default function SortDropdownMenu({
         }
       />
       <DropdownMenuContent
-        align="start"
+        align="end"
         aria-label={SORT_TITLE}
         className="w-58 max-md:hidden"
       >

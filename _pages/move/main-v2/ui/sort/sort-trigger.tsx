@@ -1,33 +1,36 @@
 import type { ComponentProps } from 'react';
-import { ArrowUpDownIcon } from 'lucide-react';
+import { ChevronDownIcon } from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
+import { Button } from '@/_shared/ui/button';
 
 import { getSortLabel, type MoveSort } from '../../model/sort';
-import { ChipTrigger } from '../toolbar-kit';
 
 interface SortTriggerProps extends ComponentProps<'button'> {
   sortState: MoveSort;
 }
 
-// [↕ 이름순 ⌄]: 필터 트리거와 같은 칩 모양 (툴바 필터 줄 맨 왼쪽). '정렬:'은 스크린리더만 읽는다
+// [이름순 ⌄]: 배경 없는 글자 버튼 (도감 종족값 페이지와 같은 모양). 칩 줄 오른쪽 끝.
+// -mr-1: 글자 끝을 줄 끝에 맞춘다. 호버·열림은 흐리게. '정렬:'은 스크린리더만 읽는다
 export default function SortTrigger({
   sortState,
   className,
   ...props
 }: SortTriggerProps) {
   return (
-    <ChipTrigger
-      className={cn('shrink-0 cursor-pointer', className)}
+    <Button
+      variant="ghost"
+      className={cn(
+        '-mr-1 h-9 cursor-pointer rounded-lg px-1',
+        'hover:bg-transparent aria-expanded:bg-transparent dark:hover:bg-transparent',
+        '[@media(hover:hover)]:hover:opacity-70 active:opacity-70 aria-expanded:opacity-70',
+        className,
+      )}
       {...props}
     >
-      <ArrowUpDownIcon
-        aria-hidden
-        data-icon="inline-start"
-        className="size-4 text-foreground/70"
-      />
       <span className="sr-only">정렬: </span>
       {getSortLabel(sortState)}
-    </ChipTrigger>
+      <ChevronDownIcon aria-hidden className="size-4 text-foreground/70" />
+    </Button>
   );
 }

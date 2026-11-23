@@ -39,7 +39,7 @@ function AccordionTrigger({
         {children}
         <ChevronDownIcon
           aria-hidden
-          className="size-4.5 shrink-0 text-foreground/70 transition-transform duration-200 group-data-panel-open:rotate-180"
+          className="size-5 shrink-0 text-foreground/70 transition-transform duration-200 group-data-panel-open:rotate-180"
         />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>

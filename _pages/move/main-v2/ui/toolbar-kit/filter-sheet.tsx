@@ -1,206 +1,254 @@
 'use client';
 
+import { Fragment, useState } from 'react';
 import {
-  useId,
-  useRef,
-  useState,
-  type ComponentProps,
-  type ReactNode,
-} from 'react';
+  FunnelIcon,
+  ListFilterIcon,
+  SlidersHorizontalIcon,
+} from 'lucide-react';
 
 import { cn } from '@/_shared/lib/cn';
-import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
-import { Checkbox } from '@/_shared/ui/checkbox';
-import { Label } from '@/_shared/ui/label';
+import { useIsMobile } from '@/_shared/lib/use-mobile';
+import {
+  Accordion,
+  AccordionItem,
+  AccordionPanel,
+  AccordionTrigger,
+} from '@/_shared/ui/accordion';
+import { Button } from '@/_shared/ui/button';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
-  SheetFooter,
-  SheetFooterButton,
+  SheetHeader,
+  SheetTitle,
   SheetTrigger,
 } from '@/_shared/ui/sheet';
 
-import { ChipTrigger } from './chip-trigger';
+import {
+  MOVE_FILTER_GROUPS,
+  useFilterOptions,
+  useFilterParam,
+  type MoveFilterGroup,
+} from '../../model/filter';
+import type { MoveFilterCounts } from '../../model/move-results';
+import { GROUP_TITLE, OptionContent, OptionIcon } from './filter-option';
+import {
+  FilterSheetBody,
+  FilterSheetCheckboxItem,
+  FilterSheetResetFooter,
+} from './filter-sheet-parts';
+import {
+  FilterChip,
+  FilterChipList,
+  FilterTile,
+  FilterTileGrid,
+} from './filter-toggle';
+
+interface FilterSheetProps {
+  // 시트 닫기 버튼 문구 ('120개 보기')
+  resultLabel: string;
+  // 고르면 나올 기술 수 (0이면 흐리게)
+  filterCounts: MoveFilterCounts;
+}
+
+const FILTER_TITLE = '필터';
+
+// 선택지 모양. 'tile': 한 줄 4개 타일 (지금, 아이콘 없는 그룹은 칩), 'chip': 아이콘 칩, 'checkbox': 이전 체크박스 줄 (둘은 비교용으로 남겨 둔다)
+const OPTION_STYLE = 'tile' as 'chip' | 'tile' | 'checkbox';
 
 /**
- * md 미만의 필터 바텀시트 조각. 모양·규칙만 갖고, 무엇을 보일지는 쓰는 쪽이 조립한다.
- *   <FilterSheet>
- *     <FilterSheetTrigger active={…} aria-label={…}>불꽃, 물</FilterSheetTrigger>
- *     <FilterSheetContent>
- *       <SheetHeader>…</SheetHeader>          ← '@/_shared/ui/sheet' 그대로
- *       <FilterSheetBody>
- *         <FilterSheetCheckboxGroup aria-label="타입">
- *           <FilterSheetCheckboxItem checked … >불꽃</FilterSheetCheckboxItem>
- *         </FilterSheetCheckboxGroup>
- *       </FilterSheetBody>
- *       <FilterSheetResetFooter canReset={…} onReset={…} resultLabel="120개 보기" />
- *     </FilterSheetContent>
- *   </FilterSheet>
- * 규칙 (이 파일에서 함께 바꾼다): md 이상에선 트리거를 숨기고(팝오버가 대신한다) 그 폭이 되면 닫는다.
- * 경계 두 곳: 트리거 md:hidden · media query
- * (기술 페이지 전용으로 다듬는 중. _shared/ui/filter-v3 시트 + filter-v2 아래 버튼을 옮겨 _shared/ui/control 없이 쓴다)
+ * 통합 필터 (도감 종족값 페이지와 같은 형태): 트리거 하나 + 시트 하나에 모든 그룹 (타입 · 분류).
+ * md 미만은 바텀시트, md 이상은 오른쪽 시트. 고르는 즉시 반영되고 아래 [초기화][N개 보기]의 보기는 닫기만 한다.
+ * 그룹은 열고 닫는 섹션: 처음엔 첫 그룹만 연다 (여럿 동시에 열 수 있다). 열린 섹션은 시트를 닫았다 열어도 유지.
+ * 제목엔 그 그룹에서 고른 수 '타입 (3)', 닫힌 섹션은 제목 아래에 고른 값 이름 ('불꽃, 물').
+ * 선택지: 아이콘이 있는 그룹은 한 줄 4개 타일 [아이콘 / 이름], 없는 그룹은 칩 [이름] (filter-toggle).
+ * 고르면 아이콘에 ✓ 배지. 고르면 나올 기술이 없으면 흐리게.
+ * 트리거: 아이콘 (lg 이상은 '필터' 글자도). 높이 44로 검색창과 같다. 고른 개수는 접근 이름으로만 ('필터, 2개 선택됨')
+ * data-filter-trigger: 칩을 모두 지운 뒤·빈 결과의 초기화 뒤 포커스를 돌려줄 대상 (focusVisibleFilterTrigger)
  */
-export function FilterSheet({ children }: { children: ReactNode }) {
-  const [open, setOpen] = useState(false);
-
-  useCloseOutsideMedia('(max-width: 767px)', open, () => setOpen(false));
-
-  return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      {children}
-    </Sheet>
-  );
-}
-
-interface FilterSheetTriggerProps extends ComponentProps<'button'> {
-  // 고른 게 있으면 강조 모양
-  active?: boolean;
-}
-
-// data-filter-trigger: 초기화 뒤 포커스를 돌려줄 대상 (focusVisibleFilterTrigger)
-export function FilterSheetTrigger({
-  active = false,
-  className,
-  children,
-  ...props
-}: FilterSheetTriggerProps) {
-  return (
-    <SheetTrigger
-      render={
-        <ChipTrigger
-          data-filter-trigger
-          active={active}
-          className={cn('max-w-60 md:hidden cursor-pointer', className)}
-          {...props}
-        />
-      }
-    >
-      {children}
-    </SheetTrigger>
-  );
-}
-
-export function FilterSheetContent({
-  className,
-  ...props
-}: ComponentProps<typeof SheetContent>) {
-  return (
-    <SheetContent
-      side="bottom"
-      className={cn('max-h-[70dvh] gap-0', className)}
-      {...props}
-    />
-  );
-}
-
-// 목록 스크롤 영역 (머리글·아래 버튼은 고정)
-export function FilterSheetBody({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
-  return (
-    <div
-      className={cn(
-        'min-h-0 flex-1 overflow-y-auto no-scrollbar px-6',
-        className,
-      )}
-      {...props}
-    />
-  );
-}
-
-// 체크박스 묶음. 열 수는 쓰는 쪽이 className으로 (예: grid-cols-2)
-export function FilterSheetCheckboxGroup({
-  className,
-  ...props
-}: ComponentProps<'div'>) {
-  return (
-    <div role="group" className={cn('grid gap-x-6', className)} {...props} />
-  );
-}
-
-interface FilterSheetCheckboxItemProps {
-  checked: boolean;
-  disabled?: boolean;
-  onCheckedChange: () => void;
-  className?: string;
-  // 이름(과 아이콘). 줄 전체가 라벨이라 어디를 눌러도 체크된다
-  children: ReactNode;
-}
-
-// 줄 높이 48px (터치). 호버하면 줄 전체에 옅은 배경 (after). 비활성이면 줄 전체를 흐리게, 호버 배경도 없앤다
-export function FilterSheetCheckboxItem({
-  checked,
-  disabled,
-  onCheckedChange,
-  className,
-  children,
-}: FilterSheetCheckboxItemProps) {
-  const id = useId();
-
-  return (
-    <Label
-      htmlFor={id}
-      className={cn(
-        'relative isolate flex h-12 min-w-0 cursor-pointer items-center gap-2.5 text-md',
-        'after:absolute after:inset-0 after:-z-10 after:rounded-lg hover:after:bg-accent',
-        'has-data-disabled:cursor-not-allowed has-data-disabled:opacity-50 has-data-disabled:hover:after:bg-transparent',
-        className,
-      )}
-    >
-      <Checkbox
-        id={id}
-        checked={checked}
-        disabled={disabled}
-        onCheckedChange={onCheckedChange}
-      />
-      {children}
-    </Label>
-  );
-}
-
-interface FilterSheetResetFooterProps {
-  // 지울 게 없으면 막는다
-  canReset: boolean;
-  onReset: () => void;
-  // 닫기 버튼 문구 ('120개 보기'). 고르는 즉시 반영되므로 이 버튼은 닫기만 한다
-  resultLabel: string;
-}
-
-// 시트 아래: [초기화][N개 보기]. 초기화하면 버튼이 막히므로 포커스를 '보기'로 옮긴다
-export function FilterSheetResetFooter({
-  canReset,
-  onReset,
+export default function FilterSheet({
   resultLabel,
-}: FilterSheetResetFooterProps) {
-  const footerRef = useRef<HTMLDivElement>(null);
+  filterCounts,
+}: FilterSheetProps) {
+  const [openGroups, setOpenGroups] = useState<MoveFilterGroup[]>([
+    MOVE_FILTER_GROUPS[0],
+  ]);
+
+  const isMobile = useIsMobile();
+
+  const options = useFilterOptions();
+  const { filter, selectedItems, toggleFilter, resetFilters, isFilterActive } =
+    useFilterParam();
+
+  const selectedCount = selectedItems.length;
+
+  const isEmpty = (group: MoveFilterGroup, value: string) =>
+    (filterCounts[group][value] ?? 0) === 0;
 
   return (
-    <SheetFooter ref={footerRef} className="flex flex-row">
-      <SheetFooterButton
-        variant="input"
-        disabled={!canReset}
-        onClick={() => {
-          onReset();
-          footerRef.current
-            ?.querySelector<HTMLButtonElement>('[data-filter-done]')
-            ?.focus();
-        }}
-        className="cursor-pointer px-6"
-      >
-        초기화
-      </SheetFooterButton>
-      <SheetClose
+    <Sheet>
+      <SheetTrigger
         render={
-          <SheetFooterButton
-            data-filter-done
-            className="flex-1 cursor-pointer"
-          />
+          <Button
+            data-filter-trigger
+            aria-label={
+              selectedCount > 0
+                ? `${FILTER_TITLE}, ${selectedCount}개 선택됨`
+                : FILTER_TITLE
+            }
+            size="lg"
+            className="shrink-0 cursor-pointer bg-input/50 text-foreground transition-none hover:bg-input/80 aria-expanded:bg-input/80 dark:bg-input/70 dark:hover:bg-input dark:aria-expanded:bg-input"
+          >
+            <ListFilterIcon
+              aria-hidden
+              className="size-4.25"
+              data-icon="inline-start"
+            />
+            <span aria-hidden className="hidden lg:inline">
+              {FILTER_TITLE}
+            </span>
+          </Button>
         }
       >
-        {resultLabel}
-      </SheetClose>
-    </SheetFooter>
+        {/* {selectedCount > 0 && (
+          <span
+            aria-hidden
+            data-icon="inline-end"
+            className={cn(
+              // 고른 값 수는 두 자리를 넘지 않아 20px 원 안에 들어간다
+              'flex size-5 shrink-0 items-center justify-center rounded-full bg-selected text-[11px] leading-none font-medium tabular-nums text-selected-foreground',
+              'absolute -top-1 -right-1 lg:static',
+            )}
+          >
+            {selectedCount}
+          </span>
+        )} */}
+      </SheetTrigger>
+      <SheetContent
+        side={isMobile ? 'bottom' : 'right'}
+        // 바텀시트는 640px(max-w-160)에서 멈추고 가운데에 둔다 (넓은 폰 가로·작은 태블릿에서 타일이 커지지 않게)
+        className={cn(
+          'gap-0',
+          isMobile &&
+            'data-[side=bottom]:mx-auto data-[side=bottom]:h-[85dvh] data-[side=bottom]:max-w-160',
+        )}
+      >
+        <SheetHeader>
+          <SheetTitle>{FILTER_TITLE}</SheetTitle>
+        </SheetHeader>
+        <FilterSheetBody className="flex flex-col py-1">
+          <Accordion
+            multiple
+            value={openGroups}
+            onValueChange={(value: MoveFilterGroup[]) => setOpenGroups(value)}
+          >
+            {MOVE_FILTER_GROUPS.map((group, index) => (
+              <Fragment key={group}>
+                {index > 0 && (
+                  <div className="my-2.5 h-px shrink-0 bg-border" />
+                )}
+                <AccordionItem value={group}>
+                  <AccordionTrigger className="group -mx-3 min-h-12 rounded-sm px-3 py-2.5 text-base font-semibold text-foreground">
+                    <span className="flex min-w-0 flex-col">
+                      <span className=" group-hover:underline group-hover:underline-offset-2">
+                        {filter[group].length > 0
+                          ? `${GROUP_TITLE[group]} (${filter[group].length})`
+                          : GROUP_TITLE[group]}
+                      </span>
+                      {/* 닫혀 있을 때만: 고른 값 이름 (열리면 체크로 보인다) */}
+                      {!openGroups.includes(group) &&
+                        filter[group].length > 0 && (
+                          <span className="truncate text-sm font-normal text-foreground/70">
+                            {selectedItems
+                              .filter((item) => item.group === group)
+                              .map((item) => item.label)
+                              .join(', ')}
+                          </span>
+                        )}
+                    </span>
+                  </AccordionTrigger>
+                  {/* 펼침 애니메이션의 overflow-hidden이 줄 hover 배경을 자르지 않게 폭을 넓힌다 */}
+                  <AccordionPanel className="-mx-3 px-3">
+                    {OPTION_STYLE === 'checkbox' ? (
+                      <div
+                        role="group"
+                        aria-label={GROUP_TITLE[group]}
+                        className="grid grid-cols-1 pb-1"
+                      >
+                        {options[group].map((option) => (
+                          <FilterSheetCheckboxItem
+                            key={option.value}
+                            checked={filter[group].includes(option.value)}
+                            onCheckedChange={() =>
+                              toggleFilter(group, option.value)
+                            }
+                          >
+                            <OptionContent
+                              option={option}
+                              empty={isEmpty(group, option.value)}
+                            />
+                          </FilterSheetCheckboxItem>
+                        ))}
+                      </div>
+                    ) : OPTION_STYLE === 'tile' &&
+                      options[group].some(
+                        (option) => option.type || option.damageClass,
+                      ) ? (
+                      <FilterTileGrid
+                        aria-label={GROUP_TITLE[group]}
+                        className="pt-1 pb-3"
+                      >
+                        {options[group].map((option) => (
+                          <FilterTile
+                            key={option.value}
+                            pressed={filter[group].includes(option.value)}
+                            onPressedChange={() =>
+                              toggleFilter(group, option.value)
+                            }
+                            label={option.label}
+                            icon={<OptionIcon option={option} />}
+                            empty={isEmpty(group, option.value)}
+                          />
+                        ))}
+                      </FilterTileGrid>
+                    ) : (
+                      <FilterChipList
+                        aria-label={GROUP_TITLE[group]}
+                        className="pt-1 pb-3"
+                      >
+                        {options[group].map((option) => (
+                          <FilterChip
+                            key={option.value}
+                            pressed={filter[group].includes(option.value)}
+                            onPressedChange={() =>
+                              toggleFilter(group, option.value)
+                            }
+                            label={option.label}
+                            icon={
+                              option.type || option.damageClass ? (
+                                <OptionIcon
+                                  option={option}
+                                  className="size-6 rounded-full"
+                                />
+                              ) : undefined
+                            }
+                            empty={isEmpty(group, option.value)}
+                          />
+                        ))}
+                      </FilterChipList>
+                    )}
+                  </AccordionPanel>
+                </AccordionItem>
+              </Fragment>
+            ))}
+          </Accordion>
+        </FilterSheetBody>
+        <FilterSheetResetFooter
+          canReset={isFilterActive}
+          onReset={resetFilters}
+          resultLabel={resultLabel}
+        />
+      </SheetContent>
+    </Sheet>
   );
 }
