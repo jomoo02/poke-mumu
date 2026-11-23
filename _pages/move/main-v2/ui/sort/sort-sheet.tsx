@@ -5,12 +5,12 @@ import { cn } from '@/_shared/lib/cn';
 import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 import { Button } from '@/_shared/ui/button';
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/_shared/ui/sheet';
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/_shared/ui/drawer';
 
 import { SORT_OPTIONS, getOrderOptions } from '../../model/sort';
 import {
@@ -87,7 +87,7 @@ function SheetSection<V extends string>({
 }
 
 /**
- * 모바일 정렬 시트: [정렬 기준] 이름 / 위력 ✓ / 명중 / PP, [방향] 높은 순 ✓ / 낮은 순
+ * 모바일 정렬 드로어 (아래에서 올라오고 끌어 내려 닫는다. 필터 드로어와 같은 폭·머리글): [정렬 기준] 이름 / 위력 ✓ / 명중 / PP, [방향] 높은 순 ✓ / 낮은 순
  * 기준이 위: 기준을 고르면 그 기준의 첫 방향으로 정해지고, 방향은 필요할 때만 아래에서 바꾼다.
  * 고르면 바로 닫는다 (지금 정렬은 트리거 '위력 높은 순'으로 보인다)
  */
@@ -110,14 +110,16 @@ export default function SortSheet({
   );
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger
+    <Drawer open={open} onOpenChange={setOpen} showSwipeHandle>
+      <DrawerTrigger
         render={<SortTrigger sortState={sortState} className="md:hidden" />}
       />
-      <SheetContent side="bottom" className="max-h-[85dvh] gap-0">
-        <SheetHeader>
-          <SheetTitle>{SORT_TITLE}</SheetTitle>
-        </SheetHeader>
+      <DrawerContent className="max-w-160 sm:mx-auto">
+        <DrawerHeader className="px-6 pt-2 pb-4 group-data-[swipe-axis=y]/drawer-popup:text-left">
+          <DrawerTitle className="text-xl font-bold">
+            {SORT_TITLE}
+          </DrawerTitle>
+        </DrawerHeader>
         <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar px-6 pb-6 flex flex-col">
           <SheetSection
             title={SORT_KEY_TITLE}
@@ -139,7 +141,7 @@ export default function SortSheet({
             }}
           />
         </div>
-      </SheetContent>
-    </Sheet>
+      </DrawerContent>
+    </Drawer>
   );
 }

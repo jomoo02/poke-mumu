@@ -5,7 +5,7 @@ import { useId, useRef, type ComponentProps, type ReactNode } from 'react';
 import { cn } from '@/_shared/lib/cn';
 import { Checkbox } from '@/_shared/ui/checkbox';
 import { Label } from '@/_shared/ui/label';
-import { SheetClose, SheetFooter, SheetFooterButton } from '@/_shared/ui/sheet';
+import { SheetFooter, SheetFooterButton } from '@/_shared/ui/sheet';
 
 // 목록 스크롤 영역 (머리글·아래 버튼은 고정)
 export function FilterSheetBody({
@@ -69,6 +69,8 @@ interface FilterSheetResetFooterProps {
   onReset: () => void;
   // 닫기 버튼 문구 ('120개 보기'). 고르는 즉시 반영되므로 이 버튼은 닫기만 한다
   resultLabel: string;
+  // 닫기 (시트·드로어 어느 쪽이든 쓰는 쪽이 open을 내린다)
+  onDone: () => void;
 }
 
 // 시트 아래: [초기화][N개 보기]. 초기화하면 버튼이 막히므로 포커스를 '보기'로 옮긴다
@@ -76,6 +78,7 @@ export function FilterSheetResetFooter({
   canReset,
   onReset,
   resultLabel,
+  onDone,
 }: FilterSheetResetFooterProps) {
   const footerRef = useRef<HTMLDivElement>(null);
 
@@ -94,16 +97,13 @@ export function FilterSheetResetFooter({
       >
         초기화
       </SheetFooterButton>
-      <SheetClose
-        render={
-          <SheetFooterButton
-            data-filter-done
-            className="flex-1 cursor-pointer"
-          />
-        }
+      <SheetFooterButton
+        data-filter-done
+        onClick={onDone}
+        className="flex-1 cursor-pointer"
       >
         {resultLabel}
-      </SheetClose>
+      </SheetFooterButton>
     </SheetFooter>
   );
 }
