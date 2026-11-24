@@ -83,7 +83,11 @@ export function FilterSheetResetFooter({
   const footerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <SheetFooter ref={footerRef} className="flex flex-row">
+    // 모바일 드로어는 바닥에 붙으므로 아래 여백에 홈 표시줄 영역을 더한다 (데스크탑은 0)
+    <SheetFooter
+      ref={footerRef}
+      className="flex flex-row pb-[calc(1.5rem+env(safe-area-inset-bottom))]"
+    >
       <SheetFooterButton
         variant="input"
         disabled={!canReset}

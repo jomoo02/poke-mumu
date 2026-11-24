@@ -114,13 +114,14 @@ export default function SortSheet({
       <DrawerTrigger
         render={<SortTrigger sortState={sortState} className="md:hidden" />}
       />
-      <DrawerContent className="max-w-160 sm:mx-auto">
+      <DrawerContent className="max-w-160 rounded-t-3xl rounded-b-none [--drawer-inset:0px] sm:mx-auto">
         <DrawerHeader className="px-6 pt-2 pb-4 group-data-[swipe-axis=y]/drawer-popup:text-left">
           <DrawerTitle className="text-xl font-bold">
             {SORT_TITLE}
           </DrawerTitle>
         </DrawerHeader>
-        <div className="min-h-0 flex-1 overflow-y-auto no-scrollbar px-6 pb-6 flex flex-col">
+        {/* 바닥에 붙으므로 아래 여백에 홈 표시줄 영역을 더한다 */}
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto no-scrollbar px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
           <SheetSection
             title={SORT_KEY_TITLE}
             options={keyOptions}

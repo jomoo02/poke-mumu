@@ -104,9 +104,9 @@ export default function FilterSheet({
       size="lg"
       className="shrink-0 cursor-pointer bg-input/50 text-foreground transition-none hover:bg-input/80 aria-expanded:bg-input/80 dark:bg-input/70 dark:hover:bg-input dark:aria-expanded:bg-input"
     >
-      <ListFilterIcon
+      <SlidersHorizontalIcon
         aria-hidden
-        className="size-4.25"
+        className="size-4.25 text-foreground/70"
         data-icon="inline-start"
       />
       <span aria-hidden>{FILTER_TITLE}</span>
@@ -232,7 +232,8 @@ export default function FilterSheet({
     />
   );
 
-  // md 미만: 아래에서 올라오는 드로어 (끌어 내려 닫기). 높이 85dvh, 640px(max-w-160)에서 멈추고 sm 이상은 가운데에 둔다
+  // md 미만: 아래에서 올라오는 드로어 (끌어 내려 닫기). 바텀시트처럼 좌우·바닥에 붙이고 위 모서리만 둥글게 (띄움 0).
+  // 높이 85dvh, 640px(max-w-160)에서 멈추고 sm 이상은 가운데에 둔다
   if (isMobile) {
     return (
       <Drawer open={open} onOpenChange={setOpen} showSwipeHandle>
@@ -245,18 +246,21 @@ export default function FilterSheet({
                   ? `${FILTER_TITLE}, ${selectedCount}개 선택됨`
                   : FILTER_TITLE
               }
-              size="icon-lg"
-              className="shrink-0 cursor-pointer bg-input/50 text-foreground transition-none hover:bg-input/80 aria-expanded:bg-input/80 dark:bg-input/70 dark:hover:bg-input dark:aria-expanded:bg-input"
+              // variant={''}
+              // className="shrink-0 cursor-pointer"
+              size={'icon-lg'}
+              className="shrink-0 size-11 cursor-pointer bg-input/50 text-foreground transition-none hover:bg-input/80 aria-expanded:bg-input/80 dark:bg-input/70 dark:hover:bg-input dark:aria-expanded:bg-input"
             >
-              <ListFilterIcon
+              <SlidersHorizontalIcon
                 aria-hidden
-                className="size-4.25"
+                className="size-4.25 text-foreground/70"
                 data-icon="inline-start"
               />
+              {/* <span aria-hidden>{FILTER_TITLE}</span> */}
             </Button>
           }
         />
-        <DrawerContent className="max-w-160 sm:mx-auto [--drawer-content-height:85dvh]">
+        <DrawerContent className="max-w-160 rounded-t-3xl rounded-b-none [--drawer-content-height:85dvh] [--drawer-inset:0px] sm:mx-auto">
           <DrawerHeader className="px-6 pt-2 pb-4 group-data-[swipe-axis=y]/drawer-popup:text-left">
             <DrawerTitle className="text-xl font-bold">
               {FILTER_TITLE}

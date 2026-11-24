@@ -48,8 +48,9 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
 
   return (
     // p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게
-    // 칩이 없으면 md 미만에선 줄을 숨긴다 (정렬 줄만 남게). 지운 뒤 포커스를 옮겨야 해서 컴포넌트는 남겨 둔다
-    <div className="-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto p-1 no-scrollbar max-md:empty:hidden lg:flex-wrap lg:overflow-visible">
+    // lg 미만은 자기 줄 (basis-full), lg 이상은 개수 옆 남는 폭 (basis-0 flex-1).
+    // 칩이 없으면 숨긴다 (지운 뒤 포커스를 옮겨야 해서 컴포넌트는 남겨 둔다)
+    <div className="-m-1 flex min-w-0 basis-full items-center gap-2 overflow-x-auto p-1 no-scrollbar empty:hidden lg:flex-1 lg:basis-0 lg:flex-wrap lg:overflow-visible">
       {selectedItems.map(({ group, value, label }, index) => (
         <Button
           key={`${group}-${value}`}
