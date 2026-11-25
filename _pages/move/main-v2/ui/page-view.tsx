@@ -40,7 +40,7 @@ export default function PageView({ moves }: PageViewProps) {
       <div className="flex flex-col gap-y-2">
         <section
           ref={sectionRef}
-          // 툴바 → 콘텐츠(카드·표) sm 미만 16px, sm 이상 24px
+          // 툴바 → 콘텐츠(카드·표) 16px
           className="flex flex-col w-full scroll-mt-(--header-height) gap-y-4"
         >
           {/* 검색 + 필터, 고른 칩, 결과 수 + 정렬 (정렬은 lg 미만만) */}

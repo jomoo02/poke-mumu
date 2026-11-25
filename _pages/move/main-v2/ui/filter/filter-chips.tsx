@@ -58,7 +58,7 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
 
   return (
     // 줄 자리·보이기는 Toolbar가 정한다 (lg 미만 칩 줄 · lg 이상 개수 옆)
-    // gap-3: 칩 영역의 -m-1(포커스 링 여유)을 빼면 [⟳]와 첫 칩 사이가 칩 사이와 같은 8px
+    // gap-2: 칩 영역은 -m-1 p-1(포커스 링 여유)이라 칩 위치가 그대로여서 [⟳]와 첫 칩 사이도 칩 사이와 같은 8px
     <div className="flex min-w-0 flex-1 items-center gap-2 lg:items-start">
       {/* 칩이 0개가 되면 이 줄이 숨으므로 포커스는 필터 트리거로 (칩을 모두 지울 때와 같다) */}
       <Button
