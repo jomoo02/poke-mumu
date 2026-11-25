@@ -2,11 +2,12 @@
 
 import { useCallback, useRef } from 'react';
 
+import { cn } from '@/_shared/lib/cn';
+
 import { useFilterParam } from '../../model/filter';
 import type { MoveFilterCounts } from '../../model/move-results';
+import { Filter, FilterChips } from '../filter';
 import SearchBar from '../search-bar';
-import FilterChips from './filter-chips';
-import FilterSheet from './filter-sheet';
 
 interface ToolbarProps {
   // 지금 결과 수 ('기술 94개' · 필터 시트의 'N개 보기')
@@ -22,11 +23,12 @@ const COUNT_LABEL = '기술';
 /**
  * 검색 + 통합 필터 툴바
  *   lg 미만  [🔍 검색 ……………………………][⚙]
- *            기술 94개 ··················· [이름순 ⌄]
- *            [불꽃 ✕][물 ✕] →                         ← 고른 값이 있을 때만, 가로 스크롤
+ *            [불꽃 ✕][물 ✕] →                         ← 고른 값이 있을 때만, 가로 스크롤 (필터 바로 아래)
+ *            기술 94개 ··················· [이름순 ⌄]   ← 목록 바로 위
  *   lg 이상  [🔍 검색 (최대 1/2) ·············· ][⚙ 필터]
  *            기술 94개 │ [불꽃 ✕][물 ✕]                ← 개수가 칩 줄의 머리. 칩은 줄바꿈 (정렬은 표 머리글)
- * 둘째 줄 하나를 줄바꿈되는(flex-wrap) 묶음으로 두고 폭별로 칩 자리를 바꾼다: 칩·정렬을 한 번만 그리기 위해.
+ * 칩은 자리가 달라 두 군데에 그리고 폭으로 하나만 보인다 (CSS order는 쓰지 않는다: 화면·읽는 순서를 맞추려고).
+ * 칩이 없어도 숨기기만 한다: 마지막 칩을 지운 뒤 포커스를 필터 트리거로 옮기는 FilterChips가 남아 있어야 해서
  * 개수 변화는 목록 아래 'N개 중 a–b'가 스크린리더에 알린다 (두 번 읽지 않게 여기는 알리지 않는다)
  */
 export default function Toolbar({
@@ -48,24 +50,33 @@ export default function Toolbar({
       <div className="flex min-w-0 items-center gap-2">
         <SearchBar className="h-11 min-w-0 flex-1 lg:max-w-1/2" />
         <div className="flex shrink-0 lg:ml-auto">
-          <FilterSheet resultLabel={resultLabel} filterCounts={filterCounts} />
+          <Filter resultLabel={resultLabel} filterCounts={filterCounts} />
         </div>
       </div>
-      {/* 개수 + (lg 미만) 정렬, 칩은 lg 미만은 다음 줄 · lg 이상은 개수 옆 */}
-      <div className="flex min-h-9 min-w-0 flex-wrap items-center gap-x-2 gap-y-3">
-        <p className="shrink-0 text-md font-semibold whitespace-nowrap tabular-nums">
-          <span className="font-normal text-foreground/70">{COUNT_LABEL}</span>{' '}
-          {resultCount.toLocaleString('ko-KR')}개
+      {/* lg 미만: 고른 칩 줄 (필터 바로 아래) */}
+      <div className={cn('min-w-0 lg:hidden', !hasChips && 'hidden')}>
+        <FilterChips getFocusRoot={getFocusRoot} />
+      </div>
+      {/* 개수 + 정렬(lg 미만) · 개수 │ 칩(lg 이상) */}
+      <div className="flex min-h-9 min-w-0 items-center gap-2 lg:items-start">
+        <p className="flex h-9 shrink-0 items-center text-md font-semibold whitespace-nowrap tabular-nums">
+          <span className="font-normal text-foreground/70">{COUNT_LABEL}</span>
+          &nbsp;{resultCount.toLocaleString('ko-KR')}개
         </p>
-        {hasChips && (
-          // 개수 │ 칩 구분선 (lg 이상, 칩이 있을 때만)
+        {/* lg 이상: 개수 │ 고른 칩 (줄바꿈) */}
+        <div
+          className={cn(
+            'hidden min-w-0 flex-1 items-start gap-2 lg:flex',
+            !hasChips && 'lg:hidden',
+          )}
+        >
           <span
             aria-hidden
-            className="mx-1 hidden h-4 w-px shrink-0 bg-border lg:block"
+            className="mx-1 mt-2.5 h-4 w-px shrink-0 bg-border"
           />
-        )}
+          <FilterChips getFocusRoot={getFocusRoot} />
+        </div>
         <div className="ml-auto flex shrink-0 lg:hidden">{sort}</div>
-        <FilterChips getFocusRoot={getFocusRoot} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import { cn } from '@/_shared/lib/cn';
 import { DamageClassIcon } from '@/_entities/damage-class';
 import { TypeIcon } from '@/_entities/type';
 
-import type { MoveFilterGroup, MoveFilterOption } from '../../model/filter';
+import type { MoveFilterGroup, MoveFilterOption } from '../../../model/filter';
 
 // 그룹 이름 (시트 섹션 제목)
 export const GROUP_TITLE: Record<MoveFilterGroup, string> = {

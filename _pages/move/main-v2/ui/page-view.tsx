@@ -16,7 +16,7 @@ import MoveTable from './move-table';
 import ResultCount from './result-count';
 import ResultEmpty from './result-empty';
 import Sort from './sort';
-import { Toolbar } from './toolbar-kit';
+import { Toolbar } from './toolbar';
 
 interface PageViewProps {
   moves: ListMove[];

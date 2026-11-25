@@ -91,7 +91,7 @@ function SheetSection<V extends string>({
  * 기준이 위: 기준을 고르면 그 기준의 첫 방향으로 정해지고, 방향은 필요할 때만 아래에서 바꾼다.
  * 고르면 바로 닫는다 (지금 정렬은 트리거 '위력 높은 순'으로 보인다)
  */
-export default function SortSheet({
+export default function SortDrawer({
   sortState,
   onSelectKey,
   onSelectOrder,
