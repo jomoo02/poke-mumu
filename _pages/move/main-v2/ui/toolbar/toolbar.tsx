@@ -29,7 +29,7 @@ const COUNT_LABEL = '기술';
  *            기술 94개 │ [불꽃 ✕][물 ✕]                ← 개수가 칩 줄의 머리. 칩은 줄바꿈 (정렬은 표 머리글)
  * 칩은 자리가 달라 두 군데에 그리고 폭으로 하나만 보인다 (CSS order는 쓰지 않는다: 화면·읽는 순서를 맞추려고).
  * 칩이 없어도 숨기기만 한다: 마지막 칩을 지운 뒤 포커스를 필터 트리거로 옮기는 FilterChips가 남아 있어야 해서
- * 개수 변화는 목록 아래 'N개 중 a–b'가 스크린리더에 알린다 (두 번 읽지 않게 여기는 알리지 않는다)
+ * 결과 수는 여기에만 둔다 (목록 아래엔 없다). 바뀌면 스크린리더가 읽는다 (aria-live, 0개가 되어도 남아 있어 '기술 0개'도 읽힌다)
  */
 export default function Toolbar({
   resultCount,
@@ -59,7 +59,10 @@ export default function Toolbar({
       </div>
       {/* 개수 + 정렬(lg 미만) · 개수 │ 칩(lg 이상) */}
       <div className="flex min-h-9 min-w-0 items-center gap-2 lg:items-start">
-        <p className="flex h-9 shrink-0 items-center text-md font-semibold whitespace-nowrap tabular-nums">
+        <p
+          aria-live="polite"
+          className="flex h-9 shrink-0 items-center text-md font-semibold whitespace-nowrap tabular-nums"
+        >
           <span className="font-normal text-foreground/70">{COUNT_LABEL}</span>
           &nbsp;{resultCount.toLocaleString('ko-KR')}개
         </p>
