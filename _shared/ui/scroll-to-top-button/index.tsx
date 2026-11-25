@@ -37,10 +37,13 @@ export default function ScrollToTopButton({
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // 숨김(투명)일 땐 inert: Tab 순서·스크린리더에서 뺀다. 누른 뒤 숨으면 포커스가 문서 처음으로 돌아가 다음 Tab이 맨 위부터 시작한다
   return (
     <Button
       variant={'ghost'}
       size={'icon-lg'}
+      aria-label="맨 위로"
+      inert={!visible}
       onClick={handleClick}
       className={cn(
         'hidden sm:flex fixed cursor-pointer flex-col bottom-4.75 right-4.75 transition-all duration-300 items-center justify-center ',
@@ -52,7 +55,7 @@ export default function ScrollToTopButton({
         className,
       )}
     >
-      <ArrowUpIcon className="size-5 text-white" />
+      <ArrowUpIcon aria-hidden className="size-5 text-white" />
     </Button>
   );
 }
