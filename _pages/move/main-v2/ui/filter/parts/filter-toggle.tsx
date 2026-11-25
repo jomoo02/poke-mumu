@@ -4,9 +4,9 @@ import { CheckIcon } from 'lucide-react';
 import { cn } from '@/_shared/lib/cn';
 
 /**
- * 필터 선택지 (체크박스 줄 대신 누르는 모양). 여러 개를 고를 수 있어 버튼마다 aria-pressed로 켜고 끈다.
+ * 필터 선택지 (누르는 모양). 여러 개를 고를 수 있어 버튼마다 aria-pressed로 켜고 끈다.
  *   아이콘 있는 그룹 (타입·분류)   → 타일: 한 줄에 4개, [아이콘 / 이름] 세로
- *   아이콘 없는 그룹 (세대·모습)   → 칩: 줄바꿈되는 [이름] (아이콘 칩 [아이콘 이름]도 된다)
+ *   아이콘 없는 그룹 (세대·모습)   → 칩: 한 줄에 3개, [이름]
  * 타일: 테두리 없음. 마우스를 올리면 옅은 배경, 고르면 배경(accent) + 아이콘 오른쪽 위에 ✓ 배지(선택 색).
  * 칩: 고르면 선택 색(--primary) 채움 + 반전 글자.
  * empty: 고르면 나올 결과가 없으면 내용을 흐리게 (고를 수는 있다)
@@ -92,32 +92,26 @@ export function FilterTile({
   );
 }
 
-// 칩 묶음: 줄바꿈
+// 칩 묶음: 한 줄에 3개
 export function FilterChipList({ className, ...props }: ComponentProps<'div'>) {
   return (
     <div
       role="group"
-      className={cn('grid grid-cols-3 gap-2 ', className)}
+      className={cn('grid grid-cols-3 gap-2', className)}
       {...props}
     />
   );
 }
 
-interface FilterChipProps extends FilterToggleProps {
-  // 24px 아이콘 (없으면 글자만)
-  icon?: ReactNode;
-}
-
-// [아이콘 이름] 칩. 높이 40. 아이콘이 있으면 왼쪽 여백을 줄여 아이콘이 칩 모서리 곡선 안에 앉게 한다
+// [이름] 칩. 높이 40
 export function FilterChip({
   pressed,
   onPressedChange,
   label,
-  icon,
   empty = false,
   className,
   ...props
-}: FilterChipProps) {
+}: FilterToggleProps) {
   return (
     <button
       type="button"
@@ -127,15 +121,11 @@ export function FilterChip({
         BASE,
         CHIP_PRESSED,
         'inline-flex h-10 items-center rounded-full px-4 text-sm',
-        icon && 'pl-2',
         className,
       )}
       {...props}
     >
-      <span className={cn('flex items-center gap-2', empty && 'opacity-50')}>
-        {icon}
-        {label}
-      </span>
+      <span className={cn(empty && 'opacity-50')}>{label}</span>
     </button>
   );
 }

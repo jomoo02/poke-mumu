@@ -17,17 +17,13 @@ import {
   type MoveFilterGroup,
 } from '../../../model/filter';
 import type { MoveFilterCounts } from '../../../model/move-results';
-import FilterCheckboxItem from './filter-checkbox-item';
-import { GROUP_TITLE, OptionContent, OptionIcon } from './filter-option';
+import { GROUP_TITLE, OptionIcon } from './filter-option';
 import {
   FilterChip,
   FilterChipList,
   FilterTile,
   FilterTileGrid,
 } from './filter-toggle';
-
-// 선택지 모양. 'tile': 한 줄 4개 타일 (지금, 아이콘 없는 그룹은 칩), 'chip': 아이콘 칩, 'checkbox': 이전 체크박스 줄 (둘은 비교용으로 남겨 둔다)
-const OPTION_STYLE = 'tile' as 'chip' | 'tile' | 'checkbox';
 
 interface FilterBodyProps {
   // 고르면 나올 기술 수 (0이면 흐리게)
@@ -83,7 +79,7 @@ function revealInScrollArea(area: HTMLElement, target: HTMLElement) {
 /**
  * 드로어·시트 공통 내용: 그룹마다 열고 닫는 섹션 (여럿 동시에 열 수 있다).
  * 제목엔 그 그룹에서 고른 수 '타입 (3)', 닫힌 섹션은 제목 아래에 고른 값 이름 ('불꽃, 물').
- * 선택지: 아이콘이 있는 그룹은 한 줄 4개 타일 [아이콘 / 이름], 없는 그룹은 칩 [이름] (filter-toggle).
+ * 선택지: 아이콘이 있는 그룹(타입·분류)은 한 줄 4개 타일 [아이콘 / 이름], 없는 그룹(도감의 세대·모습 등)은 칩 [이름] (filter-toggle).
  * 고르면 아이콘에 ✓ 배지, 고르면 나올 기술이 없으면 흐리게. 고르는 즉시 반영된다.
  * 섹션을 열면 펼침이 끝난 뒤 그 섹션이 보이게 스크롤한다 (아래 섹션이 화면 밖으로 펼쳐져 열린 줄 모르는 것을 막는다). 닫을 땐 그대로
  */
@@ -191,33 +187,11 @@ export default function FilterBody({
                   )}
                 </span>
               </AccordionTrigger>
-              {/* 펼침 애니메이션의 overflow-hidden이 줄 hover 배경을 자르지 않게 폭을 넓힌다 */}
+              {/* 펼침 애니메이션의 overflow-hidden이 타일·칩의 포커스 링을 자르지 않게 폭을 넓힌다 */}
               <AccordionPanel className="-mx-3 px-3">
-                {OPTION_STYLE === 'checkbox' ? (
-                  <div
-                    role="group"
-                    aria-label={GROUP_TITLE[group]}
-                    className="grid grid-cols-1 pb-1"
-                  >
-                    {options[group].map((option) => (
-                      <FilterCheckboxItem
-                        key={option.value}
-                        checked={filter[group].includes(option.value)}
-                        onCheckedChange={() =>
-                          toggleFilter(group, option.value)
-                        }
-                      >
-                        <OptionContent
-                          option={option}
-                          empty={isEmpty(group, option.value)}
-                        />
-                      </FilterCheckboxItem>
-                    ))}
-                  </div>
-                ) : OPTION_STYLE === 'tile' &&
-                  options[group].some(
-                    (option) => option.type || option.damageClass,
-                  ) ? (
+                {options[group].some(
+                  (option) => option.type || option.damageClass,
+                ) ? (
                   <FilterTileGrid
                     aria-label={GROUP_TITLE[group]}
                     className="pt-1 pb-3"
@@ -248,14 +222,6 @@ export default function FilterBody({
                           toggleFilter(group, option.value)
                         }
                         label={option.label}
-                        icon={
-                          option.type || option.damageClass ? (
-                            <OptionIcon
-                              option={option}
-                              className="size-6 rounded-full"
-                            />
-                          ) : undefined
-                        }
                         empty={isEmpty(group, option.value)}
                       />
                     ))}

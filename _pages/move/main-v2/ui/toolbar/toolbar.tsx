@@ -47,7 +47,7 @@ export default function Toolbar({
   return (
     <div ref={rootRef} className="flex min-w-0 flex-col gap-3">
       {/* 검색 + 필터. lg 이상은 검색 최대 1/2, 필터는 오른쪽 끝 */}
-      <div className="flex min-w-0 items-center gap-2 lg:gap-x-3.5">
+      <div className="flex min-w-0 items-center gap-2">
         <SearchBar className="h-11 min-w-0 flex-1 lg:max-w-1/2" />
         <div className="flex shrink-0 lg:ml-auto">
           <Filter resultLabel={resultLabel} filterCounts={filterCounts} />
