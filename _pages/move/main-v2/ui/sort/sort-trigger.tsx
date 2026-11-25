@@ -21,7 +21,7 @@ export default function SortTrigger({
     <Button
       variant="ghost"
       className={cn(
-        '-mr-1 h-10 cursor-pointer rounded-lg px-1',
+        '-mr-1 h-9 cursor-pointer rounded-lg px-1',
         // 'cursor-pointer',
         'hover:bg-transparent aria-expanded:bg-transparent dark:hover:bg-transparent',
         '[@media(hover:hover)]:hover:opacity-70 active:opacity-70 aria-expanded:opacity-70',

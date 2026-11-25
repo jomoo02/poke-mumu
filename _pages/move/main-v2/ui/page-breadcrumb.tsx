@@ -14,9 +14,7 @@ export default function MoveBreadcrumb() {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbPage className="text-base font-semibold">
-            {PAGE_TITLE}
-          </BreadcrumbPage>
+          <BreadcrumbPage className="text-base">{PAGE_TITLE}</BreadcrumbPage>
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>

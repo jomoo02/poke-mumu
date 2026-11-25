@@ -47,7 +47,7 @@ export default function Toolbar({
   return (
     <div ref={rootRef} className="flex min-w-0 flex-col gap-3">
       {/* 검색 + 필터. lg 이상은 검색 최대 1/2, 필터는 오른쪽 끝 */}
-      <div className="flex min-w-0 items-center gap-2">
+      <div className="flex min-w-0 items-center gap-2 lg:gap-x-3.5">
         <SearchBar className="h-11 min-w-0 flex-1 lg:max-w-1/2" />
         <div className="flex shrink-0 lg:ml-auto">
           <Filter resultLabel={resultLabel} filterCounts={filterCounts} />
@@ -58,25 +58,23 @@ export default function Toolbar({
         <FilterChips getFocusRoot={getFocusRoot} />
       </div>
       {/* 개수 + 정렬(lg 미만) · 개수 │ 칩(lg 이상) */}
-      <div className="flex min-h-9 min-w-0 items-center gap-2 lg:items-start">
+      <div className="flex min-h-8.5 min-w-0 items-center gap-2 lg:items-center">
         <p
           aria-live="polite"
-          className="flex h-9 shrink-0 items-center text-md font-semibold whitespace-nowrap tabular-nums"
+          className="flex h-8.5 shrink-0 items-center text-md font-semibold whitespace-nowrap tabular-nums"
         >
-          <span className="font-normal text-foreground/70">{COUNT_LABEL}</span>
-          &nbsp;{resultCount.toLocaleString('ko-KR')}개
+          <span className="text-sm font-medium">
+            {`${COUNT_LABEL} ${resultCount.toLocaleString('ko-KR')}개`}
+          </span>
         </p>
         {/* lg 이상: 개수 │ 고른 칩 (줄바꿈) */}
         <div
           className={cn(
-            'hidden min-w-0 flex-1 items-start gap-2 lg:flex',
+            'hidden min-w-0 flex-1 items-center h-full gap-2 lg:flex',
             !hasChips && 'lg:hidden',
           )}
         >
-          <span
-            aria-hidden
-            className="mx-1 mt-2.5 h-4 w-px shrink-0 bg-border"
-          />
+          <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-border" />
           <FilterChips getFocusRoot={getFocusRoot} />
         </div>
         <div className="ml-auto flex shrink-0 lg:hidden">{sort}</div>
