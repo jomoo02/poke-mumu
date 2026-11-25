@@ -11,7 +11,7 @@ export default function AppHeader() {
     <header
       className={cn(
         // 불투명 배경 (흐림 효과 없음): 아래로 지나가는 목록·표 머리글이 비치지 않게
-        'sticky top-0 z-50 w-full bg-background',
+        'sticky top-0 z-50 w-full bg-background border-b',
       )}
     >
       <div className="flex h-(--header-height) gap-1 items-center justify-between w-full px-2 sm:px-4 md:px-6">
