@@ -34,7 +34,7 @@ interface SheetSectionProps<V extends string> {
 }
 
 /**
- * 시트의 한 섹션: 제목 + 한 줄에 하나씩, 고른 줄은 오른쪽 체크 (드롭다운 라디오 항목과 같은 모양)
+ * 드로어의 한 섹션: 제목 + 한 줄에 하나씩, 고른 줄은 오른쪽 체크 (드롭다운 라디오 항목과 같은 모양)
  */
 function SheetSection<V extends string>({
   title,

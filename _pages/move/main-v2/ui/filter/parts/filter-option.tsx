@@ -3,7 +3,7 @@ import { TypeIcon } from '@/_entities/type';
 
 import type { MoveFilterGroup, MoveFilterOption } from '../../../model/filter';
 
-// 그룹 이름 (시트 섹션 제목)
+// 그룹 이름 (드로어·시트 섹션 제목)
 export const GROUP_TITLE: Record<MoveFilterGroup, string> = {
   type: '타입',
   damageClass: '분류',

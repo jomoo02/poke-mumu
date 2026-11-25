@@ -8,6 +8,10 @@ interface FilterTriggerButtonProps extends ComponentProps<typeof Button> {
   selectedCount: number;
 }
 
+/**
+ * 필터 트리거: [⚙] (md 미만, 44×44) · [⚙ 필터] (md 이상). 크기는 size="lg"가 정하고 md 미만만 덮는다.
+ * 고른 개수는 접근 이름으로만 ('필터, 2개 선택됨'). props는 Drawer·SheetTrigger가 render로 넘기는 것(onClick·ref·aria-*)까지 받는다
+ */
 export default function FilterTriggerButton({
   selectedCount,
   className,
