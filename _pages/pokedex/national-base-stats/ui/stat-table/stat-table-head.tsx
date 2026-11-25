@@ -94,7 +94,7 @@ function WideHeadCell({ column, sortState, onSort }: WideHeadCellProps) {
           'group -mx-2.5 h-9 gap-1.75 rounded-lg px-2.5',
           // 지금 기준: 이름까지 primary 글자색 (선택된 상태 = primary, 카드의 정렬 칸과 같은 색)
           order &&
-            'font-semibold text-primary-text hover:text-primary-text aria-expanded:text-primary-text',
+            'font-semibold text-primary hover:text-primary aria-expanded:text-primary',
         )}
       >
         {column.header}
@@ -118,7 +118,7 @@ function SortTriangles({ order }: { order: PokeSort['order'] | null }) {
       direction === 'asc'
         ? 'border-b-[5px] border-b-current'
         : 'border-t-[5px] border-t-current',
-      order === direction ? 'text-primary-text' : 'text-foreground/25',
+      order === direction ? 'text-primary' : 'text-foreground/25',
     );
 
   return (

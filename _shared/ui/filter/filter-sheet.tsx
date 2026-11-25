@@ -61,7 +61,7 @@ export function FilterSheet({
             {count > 0 && (
               <span
                 aria-hidden
-                className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-selected px-1 text-xs font-semibold text-selected-foreground"
+                className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-xs font-semibold text-primary-foreground"
               >
                 {count}
               </span>

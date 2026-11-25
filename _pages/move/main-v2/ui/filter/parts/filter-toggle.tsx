@@ -8,7 +8,7 @@ import { cn } from '@/_shared/lib/cn';
  *   아이콘 있는 그룹 (타입·분류)   → 타일: 한 줄에 4개, [아이콘 / 이름] 세로
  *   아이콘 없는 그룹 (세대·모습)   → 칩: 줄바꿈되는 [이름] (아이콘 칩 [아이콘 이름]도 된다)
  * 타일: 테두리 없음. 마우스를 올리면 옅은 배경, 고르면 배경(accent) + 아이콘 오른쪽 위에 ✓ 배지(선택 색).
- * 칩: 고르면 선택 색(--selected) 채움 + 반전 글자.
+ * 칩: 고르면 선택 색(--primary) 채움 + 반전 글자.
  * empty: 고르면 나올 결과가 없으면 내용을 흐리게 (고를 수는 있다)
  */
 const BASE =
@@ -18,7 +18,7 @@ const BASE =
 
 // 칩만: 고르면 채운다
 const CHIP_PRESSED =
-  'aria-pressed:bg-selected aria-pressed:text-selected-foreground [@media(hover:hover)]:aria-pressed:hover:bg-selected/90';
+  'aria-pressed:bg-primary aria-pressed:text-primary-foreground [@media(hover:hover)]:aria-pressed:hover:bg-primary/90';
 
 interface FilterToggleProps extends Omit<
   ComponentProps<'button'>,
@@ -80,7 +80,7 @@ export function FilterTile({
           {pressed && (
             <span
               aria-hidden
-              className="absolute -top-1.5 -right-1.5 flex size-4 items-center justify-center rounded-full bg-selected text-selected-foreground ring-2 ring-accent"
+              className="absolute -top-1.5 -right-1.5 flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground ring-2 ring-accent"
             >
               <CheckIcon className="size-2.5" strokeWidth={3.5} />
             </span>

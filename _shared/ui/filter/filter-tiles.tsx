@@ -67,7 +67,7 @@ export function FilterTiles({ group, place, className }: FilterTilesProps) {
             {isSelected && (
               <span
                 aria-hidden
-                className="absolute top-1 left-[calc(50%+0.375rem)] flex size-4 items-center justify-center rounded-full bg-selected text-selected-foreground ring-2 ring-popover"
+                className="absolute top-1 left-[calc(50%+0.375rem)] flex size-4 items-center justify-center rounded-full bg-primary text-primary-foreground ring-2 ring-popover"
               >
                 <CheckIcon className="size-2.5" strokeWidth={4} />
               </span>

@@ -29,18 +29,18 @@ interface StatCardProps {
 // Tailwind가 클래스를 찾을 수 있게 능력치마다 문자열을 그대로 적는다
 const SORTED_CELL_CLASS: Record<StatKey, string> = {
   total:
-    'group-data-[sort=total]/cards:font-semibold group-data-[sort=total]/cards:text-primary-text group-data-[sort=total]/cards:*:text-primary-text',
-  hp: 'group-data-[sort=hp]/cards:font-semibold group-data-[sort=hp]/cards:text-primary-text group-data-[sort=hp]/cards:*:text-primary-text',
+    'group-data-[sort=total]/cards:font-semibold group-data-[sort=total]/cards:text-primary group-data-[sort=total]/cards:*:text-primary',
+  hp: 'group-data-[sort=hp]/cards:font-semibold group-data-[sort=hp]/cards:text-primary group-data-[sort=hp]/cards:*:text-primary',
   attack:
-    'group-data-[sort=attack]/cards:font-semibold group-data-[sort=attack]/cards:text-primary-text group-data-[sort=attack]/cards:*:text-primary-text',
+    'group-data-[sort=attack]/cards:font-semibold group-data-[sort=attack]/cards:text-primary group-data-[sort=attack]/cards:*:text-primary',
   defense:
-    'group-data-[sort=defense]/cards:font-semibold group-data-[sort=defense]/cards:text-primary-text group-data-[sort=defense]/cards:*:text-primary-text',
+    'group-data-[sort=defense]/cards:font-semibold group-data-[sort=defense]/cards:text-primary group-data-[sort=defense]/cards:*:text-primary',
   specialAttack:
-    'group-data-[sort=specialAttack]/cards:font-semibold group-data-[sort=specialAttack]/cards:text-primary-text group-data-[sort=specialAttack]/cards:*:text-primary-text',
+    'group-data-[sort=specialAttack]/cards:font-semibold group-data-[sort=specialAttack]/cards:text-primary group-data-[sort=specialAttack]/cards:*:text-primary',
   specialDefense:
-    'group-data-[sort=specialDefense]/cards:font-semibold group-data-[sort=specialDefense]/cards:text-primary-text group-data-[sort=specialDefense]/cards:*:text-primary-text',
+    'group-data-[sort=specialDefense]/cards:font-semibold group-data-[sort=specialDefense]/cards:text-primary group-data-[sort=specialDefense]/cards:*:text-primary',
   speed:
-    'group-data-[sort=speed]/cards:font-semibold group-data-[sort=speed]/cards:text-primary-text group-data-[sort=speed]/cards:*:text-primary-text',
+    'group-data-[sort=speed]/cards:font-semibold group-data-[sort=speed]/cards:text-primary group-data-[sort=speed]/cards:*:text-primary',
 };
 
 /*
@@ -70,7 +70,7 @@ export default function StatCard({ poke, language }: StatCardProps) {
             className={cn(
               'shrink-0 text-sm font-medium text-foreground/70 tabular-nums',
               // 도감번호순일 때 primary 글자색 (정렬 중인 능력치 칸과 같은 표시)
-              'group-data-[sort=dexNumber]/cards:text-primary-text',
+              'group-data-[sort=dexNumber]/cards:text-primary',
             )}
           >
             {String(poke.dexNumber).padStart(4, '0')}
@@ -91,7 +91,7 @@ export default function StatCard({ poke, language }: StatCardProps) {
               className={cn(
                 'block truncate text-md font-medium',
                 // 이름순일 때 primary 글자색
-                'group-data-[sort=name]/cards:text-primary-text',
+                'group-data-[sort=name]/cards:text-primary',
               )}
             >
               {getBaseName(poke, language)}

@@ -47,7 +47,7 @@ function NavLink({ href, children }: NavLinkProps) {
       href={href}
       className={cn(
         'font-medium px-4 h-9 inline-flex items-center rounded-2xl border border-transparent',
-        'hover:text-primary-text hover:font-semibold',
+        'hover:text-primary hover:font-semibold',
         'active:bg-accent outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 transition-all duration-200',
       )}
     >

@@ -180,10 +180,10 @@ function DropdownMenuCheckboxItem({
         <span
           aria-hidden
           data-slot="dropdown-menu-checkbox-item-indicator"
-          className="pointer-events-none flex size-5 shrink-0 items-center justify-center rounded-sm border border-input bg-input group-data-checked/checkbox-item:border-selected group-data-checked/checkbox-item:bg-selected"
+          className="pointer-events-none flex size-5 shrink-0 items-center justify-center rounded-sm border border-input bg-input group-data-checked/checkbox-item:border-primary group-data-checked/checkbox-item:bg-primary"
         >
           <MenuPrimitive.CheckboxItemIndicator className="flex">
-            <CheckIcon className="size-4.5 stroke-selected-foreground" />
+            <CheckIcon className="size-4.5 stroke-primary-foreground" />
           </MenuPrimitive.CheckboxItemIndicator>
         </span>
       ) : (

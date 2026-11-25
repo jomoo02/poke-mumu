@@ -31,7 +31,7 @@ export default function ResultEmpty() {
           clearKeyword();
           document.getElementById(SEARCH_INPUT_ID)?.focus();
         }}
-        className="font-semibold hover:dark:bg-transparent hover:opacity-70 hover:text-primary-text text-primary-text hover:bg-transparent cursor-pointer"
+        className="font-semibold hover:dark:bg-transparent hover:opacity-70 hover:text-primary text-primary hover:bg-transparent cursor-pointer"
       >
         초기화
       </Button>

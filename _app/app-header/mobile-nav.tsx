@@ -78,7 +78,7 @@ export default function MobileNav() {
                   className={cn(
                     'flex h-12 items-center justify-between rounded-xl px-3 text-lg font-medium',
                     'active:bg-accent outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50',
-                    isActive && 'font-bold text-primary-text',
+                    isActive && 'font-bold text-primary',
                   )}
                 >
                   {item.label}
