@@ -3,8 +3,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { XIcon } from 'lucide-react';
 
+import { cn } from '@/_shared/lib/cn';
 import { Button } from '@/_shared/ui/button';
 
+import { useScrollEdges } from '../../lib/use-scroll-edges';
 import { useFilterParam } from '../../model/filter';
 import { focusVisibleFilterTrigger } from './focus-filter-trigger';
 
@@ -15,13 +17,16 @@ interface FilterChipsProps {
 
 /**
  * 고른 값 칩: [불꽃 ✕][물 ✕] (모두 지우기는 시트의 초기화). 순서는 그룹 순서 → 고른 순서.
- * lg 미만은 한 줄 가로 스크롤, lg 이상은 줄바꿈. 줄 배치는 Toolbar가 잡는다.
+ * lg 미만은 한 줄 가로 스크롤 (넘친 쪽 끝 24px을 흐려 더 있음을 알린다), lg 이상은 줄바꿈. 줄 배치는 Toolbar가 잡는다.
  * 칩을 지우면 그 자리의 다음 칩(없으면 앞 칩)으로, 모두 지우면 필터 트리거로 포커스를 옮긴다
  */
 export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
   const { selectedItems, toggleFilter } = useFilterParam();
 
   const chipRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const edges = useScrollEdges(scrollRef);
 
   // 지운 칩의 자리. 다음 렌더(칩이 하나 줄어든 뒤)에 포커스를 옮긴다
   const [focusIndex, setFocusIndex] = useState<number | null>(null);
@@ -49,7 +54,17 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
   return (
     // p-1 -m-1: 포커스 링이 스크롤 영역에 잘리지 않게
     // 줄 자리·보이기는 Toolbar가 정한다 (lg 미만 칩 줄 · lg 이상 개수 옆)
-    <div className="-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto p-1 no-scrollbar lg:flex-wrap lg:overflow-visible">
+    // 넘친 쪽 끝을 마스크로 흐린다: data-fade-start/end에 따라 왼쪽·오른쪽 흐림 길이 0 ↔ 24px로 (lg 이상은 줄바꿈이라 넘치지 않는다)
+    <div
+      ref={scrollRef}
+      data-fade-start={edges.start || undefined}
+      data-fade-end={edges.end || undefined}
+      className={cn(
+        '-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto p-1 no-scrollbar lg:flex-wrap lg:overflow-visible',
+        '[--fade-end:0px] [--fade-start:0px] data-fade-end:[--fade-end:24px] data-fade-start:[--fade-start:24px]',
+        'mask-[linear-gradient(to_right,transparent,#000_var(--fade-start),#000_calc(100%-var(--fade-end)),transparent)]',
+      )}
+    >
       {selectedItems.map(({ group, value, label }, index) => (
         <Button
           key={`${group}-${value}`}
