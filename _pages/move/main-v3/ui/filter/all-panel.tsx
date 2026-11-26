@@ -72,7 +72,7 @@ function AllDrawer({ resultLabel, filterCounts, sort }: AllPanelProps) {
   );
 }
 
-// md 이상: 가운데 다이얼로그 (폭 672, 높이는 화면 85%까지, 안에서 스크롤)
+// md 이상: 가운데 다이얼로그 (폭 512, 타일 5열, 높이는 화면 85%까지, 안에서 스크롤)
 function AllDialog({ resultLabel, filterCounts, sort }: AllPanelProps) {
   const [open, setOpen] = useState(false);
   const { selectedItems, resetFilters, isFilterActive } = useFilterParam();
@@ -89,7 +89,7 @@ function AllDialog({ resultLabel, filterCounts, sort }: AllPanelProps) {
           />
         }
       />
-      <DialogContent className="flex max-h-[85dvh] flex-col gap-0 p-0 sm:max-w-2xl">
+      <DialogContent className="flex max-h-[85dvh] flex-col gap-0 p-0 sm:max-w-lg">
         <DialogHeader className="px-6 pt-6 pb-2">
           <DialogTitle className="text-xl font-bold">
             {ALL_PANEL_TITLE}
@@ -98,8 +98,7 @@ function AllDialog({ resultLabel, filterCounts, sort }: AllPanelProps) {
         <AllPanelBody
           filterCounts={filterCounts}
           sort={sort}
-          tileGridClassName="grid-cols-6"
-          sortGridClassName="grid-cols-3"
+          tileGridClassName="grid-cols-5"
         />
         <FilterFooter
           canReset={isFilterActive}

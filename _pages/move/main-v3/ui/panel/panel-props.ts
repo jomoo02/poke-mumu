@@ -1,8 +1,8 @@
 // 모바일 드로어 공통 모양: 바텀시트처럼 좌우·바닥에 붙이고 위 모서리만 둥글게, 640px에서 멈추고 sm 이상은 가운데
 export const DRAWER_CONTENT_CLASS_NAME =
   'max-w-160 rounded-t-3xl rounded-b-none [--drawer-inset:0px] sm:mx-auto';
-export const DRAWER_HEADER_CLASS_NAME =
-  'px-6 pt-2 pb-4 group-data-[swipe-axis=y]/drawer-popup:text-left';
+// 제목은 가운데 (위 손잡이와 맞춘다. 세로 드로어의 기본 정렬)
+export const DRAWER_HEADER_CLASS_NAME = 'px-6 pt-2 pb-4';
 
 // 화면 구간: md 미만은 드로어, md 이상은 다이얼로그·팝오버. 트리거는 CSS로 하나만 보인다
 export const MOBILE_QUERY = '(max-width: 767px)';

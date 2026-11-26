@@ -13,10 +13,8 @@ import type { FilterProps } from './filter-props';
 
 interface AllPanelBodyProps extends Pick<FilterProps, 'filterCounts'> {
   sort: SortProps;
-  // 타일 줄 수 (드로어 4 · 다이얼로그 6)
+  // 타일 줄 수 (드로어 4 · 다이얼로그 5)
   tileGridClassName?: string;
-  // 정렬 기준·방향 라디오 열 수 (드로어 2 · 다이얼로그 3)
-  sortGridClassName?: string;
   className?: string;
 }
 
@@ -51,7 +49,6 @@ export default function AllPanelBody({
   filterCounts,
   sort,
   tileGridClassName,
-  sortGridClassName,
   className,
 }: AllPanelBodyProps) {
   const { filter } = useFilterParam();
@@ -82,7 +79,7 @@ export default function AllPanelBody({
         <h3 id={sortTitleId} className={SECTION_TITLE_CLASS_NAME}>
           {SORT_TITLE}
         </h3>
-        <SortOptions {...sort} gridClassName={sortGridClassName} />
+        <SortOptions {...sort} />
       </section>
     </div>
   );

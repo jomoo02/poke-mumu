@@ -57,7 +57,7 @@ export default function PageView({ moves }: PageViewProps) {
             {totalCount === 0 ? (
               <ResultEmpty />
             ) : (
-              <MoveList moves={pageMoves} />
+              <MoveList moves={pageMoves} sortKey={sortState.sort} />
             )}
           </div>
           <div className="hidden lg:block">

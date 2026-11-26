@@ -17,7 +17,7 @@ interface FilterGroupOptionsProps {
   group: MoveFilterGroup;
   // 고르면 나올 기술 수 (0이면 흐리게)
   filterCounts: MoveFilterCounts;
-  // 타일 줄 수 (드로어 4 · 팝오버 5 · 다이얼로그 6)
+  // 타일 줄 수 (드로어 4 · 팝오버·다이얼로그 5)
   tileGridClassName?: string;
   className?: string;
 }
