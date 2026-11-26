@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+import { cn } from '@/_shared/lib/cn';
 import { useCloseOutsideMedia } from '@/_shared/lib/use-close-outside-media';
 import {
   Drawer,
@@ -10,12 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from '@/_shared/ui/drawer';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTitle,
-  PopoverTrigger,
-} from '@/_shared/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/_shared/ui/popover';
 
 import { useFilterParam, type MoveFilterGroup } from '../../model/filter';
 import FilterFooter from './parts/filter-footer';
@@ -87,10 +83,21 @@ function GroupDrawer({ group, resultLabel, filterCounts }: GroupPanelProps) {
   );
 }
 
-// md 이상: 버튼 아래 팝오버 (그 그룹만, 바깥을 누르거나 Esc로 닫는다)
+/**
+ * 팝오버 폭: 타일 하나 84px 기준 (타일 × n + 간격 10 × (n-1) + 안쪽 여백 16 × 2)
+ *   타입 5열 = 420 + 40 + 32 = 492px (w-123)
+ *   분류 3열 = 252 + 20 + 32 = 304px (w-76)
+ */
+const POPOVER_LAYOUT: Record<MoveFilterGroup, { width: string; grid: string }> =
+  {
+    type: { width: 'w-123', grid: 'grid-cols-5' },
+    damageClass: { width: 'w-76', grid: 'grid-cols-3' },
+  };
+
+// md 이상: 버튼 아래 팝오버 (그 그룹 선택지만, 제목·초기화 없음. 바깥을 누르거나 Esc로 닫는다)
 function GroupPopover({ group, filterCounts }: GroupPanelProps) {
   const [open, setOpen] = useState(false);
-  const { filter, resetFilterGroup } = useFilterParam();
+  const { filter } = useFilterParam();
   const count = filter[group].length;
   const { label, ariaLabel } = GroupButtonLabel(group, count);
 
@@ -109,24 +116,14 @@ function GroupPopover({ group, filterCounts }: GroupPanelProps) {
           </BarButton>
         }
       />
-      <PopoverContent sideOffset={8} className="w-96 gap-3">
-        <div className="flex items-center justify-between">
-          <PopoverTitle className="font-semibold">
-            {GROUP_TITLE[group]}
-          </PopoverTitle>
-          <button
-            type="button"
-            disabled={count === 0}
-            onClick={() => resetFilterGroup(group)}
-            className="cursor-pointer text-sm text-foreground/70 underline-offset-2 hover:underline disabled:cursor-not-allowed disabled:opacity-50 disabled:no-underline"
-          >
-            초기화
-          </button>
-        </div>
+      <PopoverContent
+        aria-label={GROUP_TITLE[group]}
+        className={cn(POPOVER_LAYOUT[group].width, 'p-3')}
+      >
         <FilterGroupOptions
           group={group}
           filterCounts={filterCounts}
-          tileGridClassName="grid-cols-5"
+          tileGridClassName={POPOVER_LAYOUT[group].grid}
         />
       </PopoverContent>
     </Popover>
