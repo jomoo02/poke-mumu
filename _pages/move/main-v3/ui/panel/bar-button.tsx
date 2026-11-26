@@ -22,11 +22,12 @@ export default function BarButton({
   return (
     <Button
       variant="outline"
-      size="sm"
+      size={'sm'}
       className={cn(
         'shrink-0 cursor-pointer rounded-full dark:bg-card',
         active &&
           'border-primary bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground aria-expanded:bg-primary/90 aria-expanded:text-primary-foreground dark:bg-primary dark:hover:bg-primary/90',
+        // 'rounded-lg gap-2',
         className,
       )}
       {...props}

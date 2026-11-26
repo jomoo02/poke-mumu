@@ -17,7 +17,7 @@ interface FilterChipsProps {
 }
 
 // 칩과 같은 모양 (테두리 · 다크 배경)
-const CHIP_CLASS_NAME = 'shrink-0 cursor-pointer dark:bg-card';
+const CHIP_CLASS_NAME = 'shrink-0 cursor-pointer text-xs font-medium';
 
 /**
  * 고른 값 칩: [불꽃 ✕][물 ✕] ··· [⟳]. 순서는 그룹 순서 → 고른 순서.
@@ -67,7 +67,7 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
         data-fade-start={edges.start || undefined}
         data-fade-end={edges.end || undefined}
         className={cn(
-          '-m-1 flex min-w-0 flex-1 items-center gap-2 overflow-x-auto p-1 no-scrollbar lg:flex-wrap lg:overflow-visible',
+          '-m-1 flex min-w-0 items-center gap-1.5 overflow-x-auto p-1 no-scrollbar lg:flex-wrap lg:overflow-visible',
           SCROLL_FADE_CLASS_NAME,
         )}
       >
@@ -77,8 +77,8 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
             ref={(element) => {
               chipRefs.current[index] = element;
             }}
-            size="xs"
-            variant="outline"
+            size="xxs"
+            variant="secondary"
             aria-label={`${label} 필터 지우기`}
             onClick={() => {
               toggleFilter(group, value);
@@ -90,23 +90,27 @@ export default function FilterChips({ getFocusRoot }: FilterChipsProps) {
             <XIcon
               data-icon="inline-end"
               aria-hidden
-              className="size-3.5 text-foreground/70"
+              className="size-3 text-foreground/70"
             />
           </Button>
         ))}
       </div>
       {/* 칩이 0개가 되면 이 줄이 숨으므로 포커스는 필터 트리거로 (칩을 모두 지울 때와 같다) */}
       <Button
-        size="icon-xs"
-        variant="outline"
+        size="xxs"
+        variant="ghost"
         aria-label="필터 모두 지우기"
         onClick={() => {
           resetFilters();
           setFocusIndex(0);
         }}
-        className={CHIP_CLASS_NAME}
+        className={cn(
+          CHIP_CLASS_NAME,
+          'underline underline-offset-2 hover:bg-transparent dark:hover:bg-transparent',
+        )}
       >
-        <RotateCwIcon aria-hidden className="size-3.5 text-foreground/70" />
+        모두 지우기
+        {/* <RotateCwIcon aria-hidden className="size-3.5 text-foreground/70" /> */}
       </Button>
     </div>
   );

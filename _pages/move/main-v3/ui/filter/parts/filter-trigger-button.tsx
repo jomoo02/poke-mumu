@@ -24,14 +24,15 @@ export default function FilterTriggerButton({
     <Button
       data-filter-trigger
       variant="outline"
-      size="sm"
+      size={'icon-sm'}
       aria-label={
         selectedCount > 0
           ? `${ALL_PANEL_TITLE}, ${selectedCount}개 선택됨`
           : ALL_PANEL_TITLE
       }
       className={cn(
-        'shrink-0 cursor-pointer rounded-full dark:bg-card max-md:w-9 max-md:px-0',
+        // 'shrink-0 cursor-pointer rounded-xl dark:bg-card max-md:w-9 max-md:px-0',
+        'size-9',
         className,
       )}
       {...props}
@@ -40,9 +41,9 @@ export default function FilterTriggerButton({
         aria-hidden
         className="size-4 text-foreground/70"
       />
-      <span aria-hidden className="hidden md:inline">
+      {/* <span aria-hidden className="hidden md:inline">
         필터
-      </span>
+      </span> */}
     </Button>
   );
 }
