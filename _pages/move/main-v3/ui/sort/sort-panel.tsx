@@ -55,7 +55,7 @@ function SortDrawer(props: SortProps) {
           <DrawerTitle className="text-xl font-bold">{SORT_TITLE}</DrawerTitle>
         </DrawerHeader>
         {/* 바닥에 붙으므로 아래 여백에 홈 표시줄 영역을 더한다 */}
-        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto no-scrollbar px-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+        <div className="flex min-h-0 flex-1 flex-col overflow-y-auto no-scrollbar px-3 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
           <SortOptions {...props} />
         </div>
       </DrawerContent>
@@ -79,7 +79,7 @@ function SortPopover(props: SortProps) {
           </BarButton>
         }
       />
-      <PopoverContent align="end" sideOffset={8} className="w-64 gap-1">
+      <PopoverContent align="end" sideOffset={8} className="w-64 gap-1 p-3">
         <PopoverTitle className="sr-only">{SORT_TITLE}</PopoverTitle>
         <SortOptions {...props} />
       </PopoverContent>
@@ -88,7 +88,7 @@ function SortPopover(props: SortProps) {
 }
 
 /**
- * 정렬 버튼 [이름순 ⌄]: 버튼 줄 맨 끝. md 미만은 드로어, md 이상은 팝오버 (트리거는 CSS로 하나만 보인다).
+ * 정렬 버튼 [이름순 ⌄]: 툴바의 개수 옆. md 미만은 드로어, md 이상은 팝오버 (트리거는 CSS로 하나만 보인다).
  * 고르는 즉시 반영되고 닫지 않는다 (기준과 방향을 이어서 고를 수 있게). lg 이상은 표 머리글로도 정렬한다
  */
 export default function SortPanel(props: SortProps) {

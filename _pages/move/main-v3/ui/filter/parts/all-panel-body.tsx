@@ -6,13 +6,11 @@ import { cn } from '@/_shared/lib/cn';
 
 import { MOVE_FILTER_GROUPS, useFilterParam } from '../../../model/filter';
 import type { MoveFilterGroup } from '../../../model/filter';
-import { SortOptions, SORT_TITLE, type SortProps } from '../../sort';
 import { GROUP_TITLE } from './filter-option';
 import FilterGroupOptions from './filter-group-options';
 import type { FilterProps } from './filter-props';
 
 interface AllPanelBodyProps extends Pick<FilterProps, 'filterCounts'> {
-  sort: SortProps;
   // 타일 줄 수 (드로어 4 · 다이얼로그 5)
   tileGridClassName?: string;
   className?: string;
@@ -42,17 +40,15 @@ function GroupSection({
 }
 
 /**
- * 전체 패널 내용 (드로어·다이얼로그 공통, 스크롤 영역): 필터 그룹을 모두 펼쳐 둔다 (아코디언 없음) → 맨 아래 정렬.
- * 고르는 즉시 반영되고, 정렬을 골라도 닫지 않는다 (아래 [N개 보기]가 닫는다)
+ * 전체 패널 내용 (드로어·다이얼로그 공통, 스크롤 영역): 필터 그룹을 모두 펼쳐 둔다 (아코디언 없음).
+ * 정렬은 여기 두지 않는다 (결과를 줄이지 않아 성격이 달라서. 툴바의 개수 옆 정렬 버튼). 고르는 즉시 반영되고 아래 [N개 보기]가 닫는다
  */
 export default function AllPanelBody({
   filterCounts,
-  sort,
   tileGridClassName,
   className,
 }: AllPanelBodyProps) {
   const { filter } = useFilterParam();
-  const sortTitleId = useId();
 
   return (
     <div
@@ -74,13 +70,6 @@ export default function AllPanelBody({
           </GroupSection>
         </Fragment>
       ))}
-      <div className="my-3 h-px shrink-0 bg-border" />
-      <section aria-labelledby={sortTitleId} className="flex flex-col">
-        <h3 id={sortTitleId} className={SECTION_TITLE_CLASS_NAME}>
-          {SORT_TITLE}
-        </h3>
-        <SortOptions {...sort} />
-      </section>
     </div>
   );
 }

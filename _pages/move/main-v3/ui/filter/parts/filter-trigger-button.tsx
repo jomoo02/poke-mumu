@@ -11,8 +11,8 @@ interface FilterTriggerButtonProps extends ComponentProps<typeof Button> {
 }
 
 /**
- * 전체 패널(필터 + 정렬) 트리거: [⚙] (md 미만, 36×36) · [⚙ 필터] (md 이상). 버튼 줄의 다른 버튼과 같은 높이·테두리.
- * 고른 개수는 접근 이름으로만 ('필터·정렬, 2개 선택됨').
+ * 전체 패널(필터 그룹 전부) 트리거: [⚙] (36×36). 버튼 줄의 다른 버튼과 같은 높이·테두리.
+ * 고른 개수는 접근 이름으로만 ('필터, 2개 선택됨').
  * data-filter-trigger: 칩을 모두 지운 뒤·빈 결과의 초기화 뒤 포커스를 돌려줄 대상 (focusVisibleFilterTrigger가 보이는 쪽을 고른다)
  */
 export default function FilterTriggerButton({
